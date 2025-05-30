@@ -1,19 +1,33 @@
-echo ".env
-*.pyc
+# Environment variables
+.env
+.env.local
+.env.*
+!.env.example  # Keep example files
+
+# Python/Django
+*.py[cod]
 __pycache__/
 *.sqlite3
 *.pyo
 *.pyd
-.DS_Store
-.env/
-venv/
-.env/
 *.log
 *.pot
-*.py[co]
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# IDE & Editor
+.DS_Store
+.idea/
+.vscode/
 *.sw[op]
 *.bak
 *.orig
+
+# Build/Packaging
 *.egg-info/
 .installed.cfg
 *.egg
@@ -21,10 +35,25 @@ venv/
 *.spec
 dist/
 build/
+pip-wheel-metadata/
+
+# Testing/coverage
 htmlcov/
 .coverage
-*.mo
+.pytest_cache/
+
+# Database
 *.db
-media/
-staticfiles/
-" > .gitignore
+*.sqlite
+db.sqlite3
+
+# Django-specific
+/media/
+/staticfiles/
+migrations/*.py
+!migrations/__init__.py
+
+# Windows-specific
+Thumbs.db
+ehthumbs.db
+Desktop.ini

@@ -1,0 +1,30 @@
+echo ".env
+*.pyc
+__pycache__/
+*.sqlite3
+*.pyo
+*.pyd
+.DS_Store
+.env/
+venv/
+.env/
+*.log
+*.pot
+*.py[co]
+*.sw[op]
+*.bak
+*.orig
+*.egg-info/
+.installed.cfg
+*.egg
+*.manifest
+*.spec
+dist/
+build/
+htmlcov/
+.coverage
+*.mo
+*.db
+media/
+staticfiles/
+" > .gitignore

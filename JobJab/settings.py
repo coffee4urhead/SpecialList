@@ -38,6 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'JobJab.core.apps.CoreConfig',
+    "JobJab.services",
+    "JobJab.booking",
+    "JobJab.reviews",
+    "JobJab.subscriptions",
 ]
 
 MIDDLEWARE = [

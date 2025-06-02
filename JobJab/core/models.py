@@ -54,7 +54,7 @@ class CustomUser(AbstractUser):
     phone_number = models.CharField(max_length=15, blank=True, null=True)
     profession = models.CharField(max_length=100, blank=True)
     is_verified = models.BooleanField(default=False)
-    verified_at = models.DateTimeField()
+    verified_at = models.DateTimeField(blank=True, null=True)
     timezone = models.CharField (
         max_length=50,
         choices=TIMEZONE_CHOICES,

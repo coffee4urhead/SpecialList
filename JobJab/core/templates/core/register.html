@@ -2,15 +2,34 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    {% load compress static %}
+    {% compress css %}
+        <link rel="stylesheet" type="text/x-scss" href="{% static 'core/register-form.scss' %}">
+    {% endcompress %}
     <title>Register User</title>
 </head>
 <body>
-    <h2>Register</h2>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_ul }}
-        <button type="submit">Register</button>
-    </form>
-    <p>Already have an account? <a href="{% url 'login' %}">Log in</a></p>
+    <header id="head-cont">
+        <h1 class="web-title">Special<span class="web-title-handle">List</span></h1>
+    </header>
+    <main id="main-cont">
+        <div id="form-cont">
+            <form id="main-form" method="POST">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="form-field">
+                        {{ field.label_tag }}
+                        {{ field }}
+                        {% if field.errors %}
+                            <div class="error">{{ field.errors }}</div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                <button type="submit">Register</button>
+            </form>
+            <p>Already have an account? <a href="{% url 'login' %}">Log in</a></p>
+        </div>
+    </main>
+    <img id="image-vector" src="{% static 'images/register-vector.png' %}" alt="Logo">
 </body>
 </html>

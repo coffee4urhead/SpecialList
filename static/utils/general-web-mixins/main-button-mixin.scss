@@ -1,0 +1,12 @@
+@import "../web_colors.scss";
+
+@mixin main-button($arg-width: 30px, $arg-height: 30px, $arg-bg-color: $secondary-web-color, $txt-color: $main-web-color) {
+  width: $arg-width;
+  height: $arg-height;
+  background-color: $arg-bg-color;
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1.2em;
+  font-style: normal;
+  color: $txt-color;
+}

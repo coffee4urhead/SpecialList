@@ -10,7 +10,7 @@ header#head-sect {
   align-items: center;
   border-bottom: 3px solid black;
 
-  h1#web-title {
+  h1.web-title {
       @include web-title-special($pref-font-size: 2.5em, $pref-font-st: normal)
   }
   span {

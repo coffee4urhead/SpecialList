@@ -5,6 +5,7 @@
     {% load compress static %}
     {% compress css %}
         <link rel="stylesheet" type="text/x-scss" href="{% static 'core/homepage/home-header-style.scss' %}">
+        <link rel="stylesheet" type="text/x-scss" href="{% static 'core/homepage/first-caption-comp-styles.scss' %}">
     {% endcompress %}
 <style>
     * {
@@ -30,5 +31,6 @@ body {
 </head>
 <body>
     {% include 'template-components/header-comp.html' %}
+    {% include "template-components/first-caption-comp.html" %}
 </body>
 </html>

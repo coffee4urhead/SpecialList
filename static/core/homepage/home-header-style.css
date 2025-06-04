@@ -6,7 +6,7 @@ header#head-sect {
   align-items: center;
   border-bottom: 3px solid black;
 }
-header#head-sect h1#web-title {
+header#head-sect h1.web-title {
   font-family: "Euclid Circular A", sans-serif;
   font-weight: 400;
   font-size: 2.5em;

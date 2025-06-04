@@ -1,0 +1,70 @@
+@import "../../utils/web_colors.scss";
+@import "../../utils/general-web-mixins/main-web-utls.scss";
+@import "../../utils/general-web-mixins/main-button-mixin.scss";
+
+div#first-caption-comp {
+  width: 35vw;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding: 30px;
+
+  div.text-wrapper {
+    h1#web-title {
+        @include web-title-special($pref-font-size: 3.5em, $pref-font-st: normal);
+        border-bottom: 3px solid black;
+    }
+    span {
+      color: $additional_web_color;
+    }
+    p {
+      color: black;
+      padding: 20px;
+    }
+  }
+
+  div.buttons-cont-cap-first {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 30px;
+
+    button.filled-web-btn {
+       @include main-button($arg-width: 120px, $arg-height: 50px, $arg-bg-color: $additional_web_color, $txt-color: $main-web-color);
+       border-radius: 8px;
+       border: 3px solid $main-web-color;
+
+       &:hover {
+         color: black;
+         background-color: $main-web-color;
+         border: 3px solid $additional_web_color;
+         transition: background-color 0.2s linear;
+       }
+     }
+     button.emp-web-btn {
+       @include main-button($arg-width: 120px, $arg-height: 50px, $arg-bg-color: $main-web-color, $txt-color: black);
+       border: none;
+     }
+  }
+
+  div#stats-cont {
+    border-top: 3px solid black;
+
+    ul#stats-list {
+      padding: 20px;
+      list-style-type: none;
+      display: flex;
+      flex-direction: row;
+      gap: 120px;
+
+      li.lst-cap-comp {
+        h4 {
+          color: $eccentric-color;
+        }
+        p {
+          color: black;
+        }
+      }
+    }
+  }
+}

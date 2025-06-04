@@ -1,0 +1,65 @@
+@import "../../utils/web_colors.scss";
+@import "../../utils/general-web-mixins/main-web-utls.scss";
+@import "../../utils/general-web-mixins/main-button-mixin.scss";
+
+header#head-sect {
+  height: 6rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  border-bottom: 3px solid black;
+
+  h1#web-title {
+      @include web-title-special($pref-font-size: 2.5em, $pref-font-st: normal)
+  }
+  span {
+    color: $secondary-web-color;
+  }
+   div#head-buttons-cont {
+     display: flex;
+     justify-content: center;
+     gap: 30px;
+     align-items: center;
+
+     button.filled-web-btn {
+       @include main-button($arg-width: 120px, $arg-height: 50px, $arg-bg-color: $additional_web_color, $txt-color: $main-web-color);
+       border-radius: 8px;
+       border: 3px solid $main-web-color;
+
+       &:hover {
+         color: black;
+         background-color: $main-web-color;
+         border: 3px solid $additional_web_color;
+         transition: background-color 0.2s linear;
+       }
+     }
+     button.emp-web-btn {
+       @include main-button($arg-width: 120px, $arg-height: 50px, $arg-bg-color: $main-web-color, $txt-color: black);
+       border-radius: 8px;
+       border: 3px solid $additional_web_color;
+
+       &:hover {
+         color: white;
+         background-color: $additional_web_color;
+         border: 3px solid $main-web-color;
+         transition: background-color 0.2s linear;
+       }
+     }
+   }
+  ul.links-holder {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5rem;
+
+     li {
+       a.link-web {
+         color: black;
+         font-size: 1.4em;
+         text-decoration: none;
+       }
+     }
+  }
+}

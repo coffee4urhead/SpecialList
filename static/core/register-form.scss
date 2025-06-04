@@ -1,6 +1,7 @@
 @import "../utils/web_colors.scss";
 @import "../utils/_fonts.scss";
 @import "../utils/general-web-mixins/main-button-mixin.scss";
+@import "../utils/general-web-mixins/main-web-utls.scss";
 
 * {
   margin: 0;
@@ -25,12 +26,7 @@ header#head-cont {
   text-align: left;
 
   h1.web-title {
-    font-family: "Euclid Circular A", sans-serif;
-    font-weight: 400;
-    font-size: 2.5em;
-    font-style: normal;
-    margin-left: 20px;
-    padding: 13px;
+    @include web-title-special($pref-font-size: 2.5em, $pref-font-st: normal);
 
     span.web-title-handle {
       color: $secondary-web-color;

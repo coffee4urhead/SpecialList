@@ -1,0 +1,15 @@
+@mixin web-title-special($pref-font-size: 2.5em, $pref-font-st: normal) {
+   font-family: "Euclid Circular A", sans-serif;
+    font-weight: 400;
+    font-size: $pref-font-size;
+    font-style: $pref-font-st;
+    margin-left: 20px;
+    padding: 13px;
+}
+
+@mixin def-web-text($pref-font-size: 1em, $pref-font-st: normal) {
+  font-family: "Euclid Circular A", sans-serif;
+    font-weight: 400;
+    font-size: $pref-font-size;
+    font-style: $pref-font-st;
+}

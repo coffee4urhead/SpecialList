@@ -6,6 +6,7 @@
     {% compress css %}
         <link rel="stylesheet" type="text/x-scss" href="{% static 'core/homepage/home-header-style.scss' %}">
         <link rel="stylesheet" type="text/x-scss" href="{% static 'core/homepage/first-caption-comp-styles.scss' %}">
+        <link rel="stylesheet" type="text/x-scss" href="{% static 'core/homepage/home-main-controll.scss' %}">
     {% endcompress %}
 <style>
     * {
@@ -30,6 +31,15 @@ body {
     <title>SpecialList</title>
 </head>
 <body>
+    {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+            <button onclick="this.parentElement.remove()">X</button>
+        </div>
+        {% endfor %}
+    {% endif %}
+
     {% include 'template-components/header-comp.html' %}
     {% include "template-components/first-caption-comp.html" %}
 </body>

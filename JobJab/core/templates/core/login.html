@@ -6,7 +6,7 @@
     {% compress css %}
         <link rel="stylesheet" type="text/x-scss" href="{% static 'core/register-form.scss' %}">
     {% endcompress %}
-    <title>Register User</title>
+    <title>Login</title>
 </head>
 <body>
     <header id="head-cont">
@@ -14,7 +14,7 @@
     </header>
     <main id="main-cont">
         <div id="form-cont">
-            <form id="main-form" method="POST">
+            <form id="main-form" method="POST" action="{% url 'login' %}">
                 {% csrf_token %}
                 {% for field in form %}
                     <div class="form-field">
@@ -27,7 +27,7 @@
                 {% endfor %}
                 <button type="submit">Log In</button>
             </form>
-            <p>Dont have an account? <a href="{% url 'register' %}">Register</a></p>
+            <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
         </div>
     </main>
     <img id="image-vector" src="{% static 'images/register-vector.png' %}" alt="Logo">

@@ -7,8 +7,15 @@
         <li><a class="link-web" href='#'>Chats</a></li>
     </ul>
 
-    <div id='head-buttons-cont'>
-        <button class="filled-web-btn">Sign In</button>
+    {% if user.is_authenticated %}
+        <div id="head-buttons-cont">
+            <p style="color: black">Welcome, {{ user.username }}!</p>
+            <button class="emp-web-btn"><a style="color: black; text-decoration: none" href={% url 'logout' %}>Logout</a></button>
+        </div>
+     {% else %}
+        <div id='head-buttons-cont'>
+            <button class="filled-web-btn"><a style='text-decoration: none;' href={% url 'register' %}>Sign In</a></button>
         <button class="emp-web-btn">Get Started</button>
     </div>
+    {% endif %}
 </header>

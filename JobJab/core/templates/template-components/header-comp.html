@@ -1,11 +1,13 @@
 <header id="head-sect">
     <h1 class="web-title">Special<span>List</span></h1>
-    <ul class="links-holder">
+    <nav>
+        <ul class="links-holder">
         <li><a class="link-web" href={% url 'home' %}>Home</a></li>
         <li><a class="link-web" href='#'>About</a></li>
         <li><a class="link-web" href='#'>Explore Services</a></li>
         <li><a class="link-web" href='#'>Chats</a></li>
     </ul>
+    </nav>
 
     {% if user.is_authenticated %}
         <div id="head-buttons-cont">

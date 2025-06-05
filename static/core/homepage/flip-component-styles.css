@@ -1,0 +1,45 @@
+.flip-component {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  background-color: transparent;
+  top: 70rem;
+}
+.flip-component__content {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+@media (max-width: 768px) {
+  .flip-component__content {
+    flex-direction: column;
+    padding: 1rem;
+  }
+}
+.flip-component--reversed .flip-component__content {
+  flex-direction: row-reverse;
+}
+.flip-component__text {
+  flex: 1;
+  min-width: 0;
+  padding: 2rem;
+  max-width: 50%;
+}
+.flip-component__media {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+}
+.flip-component__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/*# sourceMappingURL=flip-component-styles.css.map */

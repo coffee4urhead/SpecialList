@@ -7,6 +7,7 @@
         <link rel="stylesheet" type="text/x-scss" href="{% static 'core/homepage/home-header-style.scss' %}">
         <link rel="stylesheet" type="text/x-scss" href="{% static 'core/homepage/first-caption-comp-styles.scss' %}">
         <link rel="stylesheet" type="text/x-scss" href="{% static 'core/homepage/home-main-controll.scss' %}">
+        <link rel="stylesheet" type="text/x-scss" href="{% static 'core/homepage/flip-component-styles.scss' %}">
     {% endcompress %}
 <style>
     * {
@@ -27,6 +28,14 @@ body {
         color: white;
       }
 }
+
+main#main-web-container {
+  width: 100%;
+    height: 100vh;
+  background-image: url("{% static 'images/home-vector.png' %}");
+    background-size: cover;
+background-repeat: no-repeat;
+}
 </style>
     <title>SpecialList</title>
 </head>
@@ -42,5 +51,9 @@ body {
 
     {% include 'template-components/header-comp.html' %}
     {% include "template-components/first-caption-comp.html" %}
+    <main id="main-web-container">
+        {% load flip_tags %}
+        {% flip_component image='images/flip-component-image.png' heading="Connect with Professionals or Promote Your Services — All in One Place" text="Experience a seamless platform designed for both individuals and businesses. Whether you're offering services or seeking skilled professionals, SpecialList enables efficient and trustworthy interactions." flip=True%}
+    </main>
 </body>
 </html>

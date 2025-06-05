@@ -2,9 +2,13 @@
 @import "../../utils/general-web-mixins/main-web-utls.scss";
 @import "../../utils/general-web-mixins/main-button-mixin.scss";
 
-div#first-caption-comp {
-  width: 35vw;
+article#first-caption-comp {
+  width: 50vw;
+  height: 60vh;
   display: flex;
+  position: absolute;
+  top: 20rem;
+  left: 3rem;
   flex-direction: column;
   gap: 30px;
   padding: 30px;
@@ -12,7 +16,6 @@ div#first-caption-comp {
   div.text-wrapper {
     h1#web-title {
         @include web-title-special($pref-font-size: 3.5em, $pref-font-st: normal);
-        border-bottom: 3px solid black;
     }
     span {
       color: $additional_web_color;
@@ -20,6 +23,7 @@ div#first-caption-comp {
     p {
       color: black;
       padding: 20px;
+      font-size: 1.3em;
     }
   }
 
@@ -47,7 +51,7 @@ div#first-caption-comp {
      }
   }
 
-  div#stats-cont {
+  section#stats-cont {
     border-top: 3px solid black;
 
     ul#stats-list {
@@ -63,6 +67,7 @@ div#first-caption-comp {
         }
         p {
           color: black;
+          font-size: 1.2em;
         }
       }
     }

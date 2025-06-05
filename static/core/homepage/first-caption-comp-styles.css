@@ -1,33 +1,37 @@
-div#first-caption-comp {
-  width: 35vw;
+article#first-caption-comp {
+  width: 50vw;
+  height: 60vh;
   display: flex;
+  position: absolute;
+  top: 20rem;
+  left: 3rem;
   flex-direction: column;
   gap: 30px;
   padding: 30px;
 }
-div#first-caption-comp div.text-wrapper h1#web-title {
+article#first-caption-comp div.text-wrapper h1#web-title {
   font-family: "Euclid Circular A", sans-serif;
   font-weight: 400;
   font-size: 3.5em;
   font-style: normal;
   margin-left: 20px;
   padding: 13px;
-  border-bottom: 3px solid black;
 }
-div#first-caption-comp div.text-wrapper span {
+article#first-caption-comp div.text-wrapper span {
   color: #008DAA;
 }
-div#first-caption-comp div.text-wrapper p {
+article#first-caption-comp div.text-wrapper p {
   color: black;
   padding: 20px;
+  font-size: 1.3em;
 }
-div#first-caption-comp div.buttons-cont-cap-first {
+article#first-caption-comp div.buttons-cont-cap-first {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
   gap: 30px;
 }
-div#first-caption-comp div.buttons-cont-cap-first button.filled-web-btn {
+article#first-caption-comp div.buttons-cont-cap-first button.filled-web-btn {
   width: 120px;
   height: 50px;
   background-color: #008DAA;
@@ -39,13 +43,13 @@ div#first-caption-comp div.buttons-cont-cap-first button.filled-web-btn {
   border-radius: 8px;
   border: 3px solid white;
 }
-div#first-caption-comp div.buttons-cont-cap-first button.filled-web-btn:hover {
+article#first-caption-comp div.buttons-cont-cap-first button.filled-web-btn:hover {
   color: black;
   background-color: white;
   border: 3px solid #008DAA;
   transition: background-color 0.2s linear;
 }
-div#first-caption-comp div.buttons-cont-cap-first button.emp-web-btn {
+article#first-caption-comp div.buttons-cont-cap-first button.emp-web-btn {
   width: 120px;
   height: 50px;
   background-color: white;
@@ -56,21 +60,22 @@ div#first-caption-comp div.buttons-cont-cap-first button.emp-web-btn {
   color: black;
   border: none;
 }
-div#first-caption-comp div#stats-cont {
+article#first-caption-comp section#stats-cont {
   border-top: 3px solid black;
 }
-div#first-caption-comp div#stats-cont ul#stats-list {
+article#first-caption-comp section#stats-cont ul#stats-list {
   padding: 20px;
   list-style-type: none;
   display: flex;
   flex-direction: row;
   gap: 120px;
 }
-div#first-caption-comp div#stats-cont ul#stats-list li.lst-cap-comp h4 {
+article#first-caption-comp section#stats-cont ul#stats-list li.lst-cap-comp h4 {
   color: #32AE88;
 }
-div#first-caption-comp div#stats-cont ul#stats-list li.lst-cap-comp p {
+article#first-caption-comp section#stats-cont ul#stats-list li.lst-cap-comp p {
   color: black;
+  font-size: 1.2em;
 }
 
 /*# sourceMappingURL=first-caption-comp-styles.css.map */

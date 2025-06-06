@@ -6,12 +6,22 @@ article#first-caption-comp {
   width: 50vw;
   height: 60vh;
   display: flex;
-  position: absolute;
-  top: 20rem;
-  left: 3rem;
   flex-direction: column;
   gap: 30px;
   padding: 30px;
+
+  @keyframes floatBlob {
+    0% { transform: translateX(0px); }
+    50% { transform: translateX(-10px); }
+    100% { transform: translateX(0px); }
+  }
+
+  .blob-clip-bg {
+  position: absolute;
+  z-index: -1;
+  opacity: 1;
+  animation: floatBlob 8s ease-in-out infinite;
+}
 
   div.text-wrapper {
     h1#web-title {

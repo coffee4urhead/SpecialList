@@ -2,50 +2,45 @@
 @import "../../utils/general-web-mixins/main-web-utls.scss";
 @import "../../utils/general-web-mixins/main-button-mixin.scss";
 
-.flip-component {
-  width: 100%;
-  height: 100vh;
-  position: relative;
-  background-color: transparent;
-  top: 70rem;
-
-  &__content {
+article.flip-component {
+  section.flip-content {
     display: flex;
-    gap: 2rem;
+    flex-direction: row;
+    justify-content: center;
     align-items: center;
-    height: 100%;
+    gap: 10rem;
     width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
 
-    @media (max-width: 768px) {
-      flex-direction: column;
-      padding: 1rem;
+    div.flip-text {
+      h2.heading-text-sec-caption {
+        color: white;
+        @include web-title-special($pref-font-size: 2.5em, $pref-font-st: normal);
+        opacity: 0.7;
+      }
+      p {
+        text-align: start;
+        opacity: 0.7;
+        line-height: 30px;
+        padding: 30px;
+      }
+      width: 30%;
+    }
+
+    div.flip-media {
+      width: 30%;
+      height: auto;
+
+      img {
+        object-fit: contain;
+        width: 100%;
+        display: inline-block;
+      }
     }
   }
+}
 
-  &--reversed &__content {
+article.flip-component.flip--reversed {
+  section.flip-content {
     flex-direction: row-reverse;
-  }
-
-  &__text {
-    flex: 1;
-    min-width: 0;
-    padding: 2rem;
-    max-width: 50%;
-  }
-
-  &__media {
-    flex: 1;
-    min-width: 0;
-    height: 100%;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
   }
 }

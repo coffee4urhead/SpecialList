@@ -1,45 +1,42 @@
-.flip-component {
-  width: 100%;
-  height: 100vh;
-  position: relative;
-  background-color: transparent;
-  top: 70rem;
-}
-.flip-component__content {
+article.flip-component section.flip-content {
   display: flex;
-  gap: 2rem;
+  flex-direction: row;
+  justify-content: center;
   align-items: center;
-  height: 100%;
+  gap: 10rem;
   width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
 }
-@media (max-width: 768px) {
-  .flip-component__content {
-    flex-direction: column;
-    padding: 1rem;
-  }
+article.flip-component section.flip-content div.flip-text {
+  width: 30%;
 }
-.flip-component--reversed .flip-component__content {
+article.flip-component section.flip-content div.flip-text h2.heading-text-sec-caption {
+  color: white;
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 2.5em;
+  font-style: normal;
+  margin-left: 20px;
+  padding: 13px;
+  opacity: 0.7;
+}
+article.flip-component section.flip-content div.flip-text p {
+  text-align: start;
+  opacity: 0.7;
+  line-height: 30px;
+  padding: 30px;
+}
+article.flip-component section.flip-content div.flip-media {
+  width: 30%;
+  height: auto;
+}
+article.flip-component section.flip-content div.flip-media img {
+  object-fit: contain;
+  width: 100%;
+  display: inline-block;
+}
+
+article.flip-component.flip--reversed section.flip-content {
   flex-direction: row-reverse;
-}
-.flip-component__text {
-  flex: 1;
-  min-width: 0;
-  padding: 2rem;
-  max-width: 50%;
-}
-.flip-component__media {
-  flex: 1;
-  min-width: 0;
-  height: 100%;
-}
-.flip-component__media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
 }
 
 /*# sourceMappingURL=flip-component-styles.css.map */

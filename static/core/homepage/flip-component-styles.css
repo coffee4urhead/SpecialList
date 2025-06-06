@@ -1,3 +1,6 @@
+article.flip-component {
+  margin-top: 100px;
+}
 article.flip-component section.flip-content {
   display: flex;
   flex-direction: row;

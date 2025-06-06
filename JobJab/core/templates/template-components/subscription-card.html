@@ -1,0 +1,17 @@
+<section class="card">
+    <div class="main-info">
+        <h3>{% if title %} {{ title }} {% endif %}</h3>
+        <p>{% if subtitle_pricing %} {{ subtitle_pricing }} {% endif %}</p>
+    </div>
+    <div class="subscription-stats">
+        <h4>{% if subscription_caption %} {{ subscription_caption }} {% endif %}</h4>
+        <ul>
+            {% if list_of_features %}
+                {% for feature in list_of_features %}
+                    <li> {{ feature }} </li>
+                {% endfor %}
+            {% endif %}
+        </ul>
+    </div>
+    <button class="filled-web-btn">Subscribe</button>
+</section>

@@ -3,6 +3,8 @@
 @import "../../utils/general-web-mixins/main-button-mixin.scss";
 
 article.flip-component {
+  margin-top: 100px;
+
   section.flip-content {
     display: flex;
     flex-direction: row;

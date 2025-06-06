@@ -85,11 +85,21 @@ article#first-caption-comp section#stats-cont ul#stats-list {
   gap: 120px;
 }
 article#first-caption-comp section#stats-cont ul#stats-list li.lst-cap-comp h4 {
-  color: #32AE88;
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1.2em;
+  font-style: italic;
+  margin-left: 20px;
+  padding: 13px;
+  padding: 0;
+  color: black;
+  font-weight: bold;
+  font-size: 1.3em;
 }
 article#first-caption-comp section#stats-cont ul#stats-list li.lst-cap-comp p {
   color: black;
-  font-size: 1.2em;
+  font-weight: bold;
+  font-size: 1.3em;
 }
 
 /*# sourceMappingURL=first-caption-comp-styles.css.map */

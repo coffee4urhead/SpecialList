@@ -1,0 +1,87 @@
+@import "../../utils/web_colors.scss";
+@import "../../utils/general-web-mixins/main-web-utls.scss";
+@import "../../utils/general-web-mixins/main-button-mixin.scss";
+
+section.card {
+  height: 40rem;
+  background-color: #072C3C;
+  padding: 1em;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 30px;
+  align-items: center;
+
+  &:hover {
+    transform: translateY(-15px);
+    transition: transform 0.3s linear;
+  }
+
+  div.main-info {
+    margin-top: 10px;
+    height: 16rem;
+    background-color: $additional_web_color;
+    border-radius: 8px;
+    padding: 30px;
+    text-align: start;
+
+    h3 {
+      @include web-title-special($pref-font-size: 2.5em, $pref-font-st: normal);
+      color: $main-web-color;
+    }
+    p {
+      color: $eccentric-color;
+      font-weight: bold;
+      font-size: 1.4em;
+    }
+  }
+
+  div.subscription-stats {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    @include def-web-text($pref-font-size: 1.3em, $pref-font-st: italic);
+    padding: 0.6em;
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+
+      li {
+        position: relative;
+        padding-left: 30px;
+        margin-top: 20px;
+
+        &::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 16px;
+            height: 16px;
+            background-image: url("/static/images/tick-symbol.png");
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+      }
+    }
+  }
+
+  button.filled-web-btn {
+      @include main-button($arg-width: 120px, $arg-height: 50px, $arg-bg-color: $secondary-web-color, $txt-color: $main-web-color);
+      border-radius: 8px;
+      padding: 5px;
+      font-size: 1.3em;
+
+      &:hover {
+        font-weight: bold;
+         color: black;
+         background-color: $main-web-color;
+         border: 3px solid $additional_web_color;
+         transition: background-color 0.2s linear;
+       }
+    }
+}

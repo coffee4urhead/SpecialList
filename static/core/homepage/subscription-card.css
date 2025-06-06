@@ -1,0 +1,91 @@
+section.card {
+  height: 40rem;
+  background-color: #072C3C;
+  padding: 1em;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 30px;
+  align-items: center;
+}
+section.card:hover {
+  transform: translateY(-15px);
+  transition: transform 0.3s linear;
+}
+section.card div.main-info {
+  margin-top: 10px;
+  height: 16rem;
+  background-color: #008DAA;
+  border-radius: 8px;
+  padding: 30px;
+  text-align: start;
+}
+section.card div.main-info h3 {
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 2.5em;
+  font-style: normal;
+  margin-left: 20px;
+  padding: 13px;
+  color: white;
+}
+section.card div.main-info p {
+  color: #32AE88;
+  font-weight: bold;
+  font-size: 1.4em;
+}
+section.card div.subscription-stats {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1.3em;
+  font-style: italic;
+  padding: 0.6em;
+}
+section.card div.subscription-stats ul {
+  list-style: none;
+  padding-left: 0;
+}
+section.card div.subscription-stats ul li {
+  position: relative;
+  padding-left: 30px;
+  margin-top: 20px;
+}
+section.card div.subscription-stats ul li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 16px;
+  height: 16px;
+  background-image: url("/static/images/tick-symbol.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+section.card button.filled-web-btn {
+  width: 120px;
+  height: 50px;
+  background-color: #06BAC5;
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1.2em;
+  font-style: normal;
+  color: white;
+  border-radius: 8px;
+  padding: 5px;
+  font-size: 1.3em;
+}
+section.card button.filled-web-btn:hover {
+  font-weight: bold;
+  color: black;
+  background-color: white;
+  border: 3px solid #008DAA;
+  transition: background-color 0.2s linear;
+}
+
+/*# sourceMappingURL=subscription-card.css.map */

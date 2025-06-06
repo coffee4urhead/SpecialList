@@ -73,11 +73,16 @@ article#first-caption-comp {
 
       li.lst-cap-comp {
         h4 {
-          color: $eccentric-color;
+          @include web-title-special($pref-font-size: 1.2em, $pref-font-st: italic);
+          padding: 0;
+          color: black;
+          font-weight: bold;
+          font-size: 1.3em;
         }
         p {
           color: black;
-          font-size: 1.2em;
+          font-weight: bold;
+          font-size: 1.3em;
         }
       }
     }

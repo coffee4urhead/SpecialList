@@ -1,0 +1,42 @@
+{% if reviews_from_user_to_the_website %}
+    {% for review in reviews_from_user_to_the_website %}
+    <section class="review-card">
+        <div class="user-rev-info">
+
+            {% if review.reviewer.profile_picture %}
+                <img src="{{ review.reviewer.profile_picture.url }}"
+                     alt="{{ review.reviewer.get_full_name|default:review.reviewer.username }}">
+            {% else %}
+                {% load static %}
+                <img src="{% static '/images/avatar-default-photo.png' %}"
+                     alt="{{ review.reviewer.get_full_name|default:review.reviewer.username }}">
+            {% endif %}
+
+            <div class="rev-info-side">
+                <div class="star-rating">
+                    {% for i in "12345" %}
+                        <i class="fas fa-star{% if forloop.counter > review.rating %} text-muted{% endif %}"></i>
+                    {% endfor %}
+                </div>
+                <p>
+                    {% if review.reviewer %}
+                        {{ review.reviewer.get_full_name|default:review.reviewer.username }}
+                    {% else %}
+                        [Deleted User]
+                    {% endif %}
+                </p>
+
+                <p>Posted on: {{ review.created_at|date:"F j, Y" }}</p>
+            </div>
+        </div>
+        <div class="review-main-cont">
+            <p>{{ review.comment }}</p>
+        </div>
+    </section>
+{% endfor %}
+{% else %}
+    <div class="alert alert-error">
+        No reviews found for this user.
+        Debug: User={{ user.username }}, Review count={{ user.given_reviews.count }}
+    </div>
+{% endif %}

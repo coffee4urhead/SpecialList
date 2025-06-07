@@ -1,7 +1,5 @@
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
-from django.contrib.auth.views import LogoutView
 from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
 
 from JobJab.core.forms import CleanUserCreationForm, CleanLoginForm
 from django.contrib import messages

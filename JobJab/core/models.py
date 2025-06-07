@@ -50,7 +50,7 @@ class CustomUser(AbstractUser):
     user_type = models.CharField(choices=UserChoices)
     email = models.EmailField(unique=True)
     bio = models.TextField(blank=True)
-    profile_picture = models.ImageField(upload_to='profile_pics/', blank=True)
+    profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, default='profile_pics/avatar-default-photo.png')
     phone_number = models.CharField(max_length=15, blank=True, null=True)
     profession = models.CharField(max_length=100, blank=True)
     is_verified = models.BooleanField(default=False)

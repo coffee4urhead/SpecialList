@@ -63,5 +63,10 @@ main#main-web-container {
             {% card_component title=' 3. Business Plan — “Elite”' subtitle_pricing='price: 79.99$/month' subscription_caption='Includes all Professional features, plus: ' list_of_features="Unlimited listings, Featured badge and homepage spotlight, Early access to new features, Become eligible for gold partner"|to_list %}
         </article>
     </main>
+
+    <article id="website-testimonials">
+        {% load review_tag %}
+        {% show_reviews limit=4 %}
+    </article>
 </body>
 </html>

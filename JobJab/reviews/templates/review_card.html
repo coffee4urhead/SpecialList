@@ -1,5 +1,4 @@
-{% if reviews_from_user_to_the_website %}
-    {% for review in reviews_from_user_to_the_website %}
+{% if review %}
     <section class="review-card">
         <div class="user-rev-info">
 
@@ -33,7 +32,6 @@
             <p>{{ review.comment }}</p>
         </div>
     </section>
-{% endfor %}
 {% else %}
     <div class="alert alert-error">
         No reviews found for this user.

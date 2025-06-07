@@ -65,8 +65,32 @@ main#main-web-container {
     </main>
 
     <article id="website-testimonials">
-        {% load review_tag %}
-        {% show_reviews limit=5 %}
+    <h1>Reviews from our clients</h1>
+        {% with reviews=reviews_from_user_to_the_website %}
+            {% if reviews %}
+                <div class="reviews-flex-wrapper">
+                    <div class="reviews-row">
+                        {% for review in reviews|slice:":2" %}
+                            {% include "review_card.html" with review=review %}
+                        {% endfor %}
+                    </div>
+
+                    <div class="center-image">
+                        <img src="{% static 'images/home-webpage-photo1.png' %}" alt="Center Image">
+                    </div>
+
+                    <div class="reviews-row-bottom">
+                        {% for review in reviews|slice:"2:" %}
+                            {% include "review_card.html" with review=review %}
+                        {% endfor %}
+                    </div>
+                </div>
+            {% else %}
+                <div class="alert alert-error">
+                    No reviews found for this user.
+                </div>
+            {% endif %}
+        {% endwith %}
     </article>
 </body>
 </html>

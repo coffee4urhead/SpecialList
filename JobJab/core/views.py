@@ -4,6 +4,8 @@ from django.shortcuts import render, redirect
 from JobJab.core.forms import CleanUserCreationForm, CleanLoginForm
 from django.contrib import messages
 
+from JobJab.reviews.models import Review, ReviewType
+
 
 def register(request):
     if request.method == 'POST':
@@ -43,4 +45,10 @@ def logout(request):
     return redirect('home')
 
 def home(request):
-    return render(request, 'core/home.html')
+    reviews = Review.objects.filter(
+        review_type=ReviewType.WEBSITE.value
+    ).select_related('reviewer').order_by('-created_at')[:4]
+
+    return render(request, 'core/home.html', {
+        'reviews_from_user_to_the_website': reviews
+    })

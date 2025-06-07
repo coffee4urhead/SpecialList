@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .alert {
   position: fixed;
   top: 20px;
@@ -69,6 +70,98 @@ article#cards-container {
   gap: 170px;
   margin-top: 10rem;
   padding: 30px;
+}
+
+article#website-testimonials {
+  margin-top: 20rem;
+}
+article#website-testimonials h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 2.5em;
+  font-style: bolder;
+  margin-left: 20px;
+  padding: 13px;
+}
+article#website-testimonials div.reviews-flex-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+article#website-testimonials div.reviews-flex-wrapper div.reviews-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 50rem;
+}
+article#website-testimonials div.reviews-flex-wrapper div.reviews-row-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 30rem;
+}
+article#website-testimonials section.review-card {
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  background-color: #072C3C;
+  width: 20rem;
+  height: 20rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+article#website-testimonials section.review-card div.review-main-cont {
+  padding: 10px;
+}
+article#website-testimonials section.review-card div.review-main-cont p {
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1.5em;
+  font-style: normal;
+}
+article#website-testimonials section.review-card .user-rev-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+article#website-testimonials section.review-card .user-rev-info p {
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1em;
+  font-style: normal;
+}
+article#website-testimonials section.review-card .user-rev-info img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+article#website-testimonials section.review-card .star-rating {
+  display: inline-flex;
+  gap: 0.25rem;
+}
+article#website-testimonials section.review-card .star-rating .fa-star, article#website-testimonials section.review-card .star-rating .text-muted {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  display: inline-block;
+}
+article#website-testimonials section.review-card .star-rating .fa-star::before, article#website-testimonials section.review-card .star-rating .text-muted::before {
+  content: "★";
+  position: absolute;
+  font-size: 20px;
+}
+article#website-testimonials section.review-card .star-rating .fa-star::before {
+  color: gold;
+}
+article#website-testimonials section.review-card .star-rating .text-muted::before {
+  color: grey;
 }
 
 /*# sourceMappingURL=home-main-controll.css.map */

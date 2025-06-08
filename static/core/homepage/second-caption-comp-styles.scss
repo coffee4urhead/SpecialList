@@ -3,13 +3,17 @@
 @import "../../utils/general-web-mixins/main-button-mixin.scss";
 
 article#second-caption-comp-container {
-  height: 20rem;
-  margin-top: 10rem;
+  width: 80%;
+  margin: 10rem auto;
+  height: auto;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   gap: 30px;
+  background-color: lightblue;
+  border-radius: 8px;
+  padding: 30px;
 
   section.image-section {
     height: 100%;
@@ -19,21 +23,23 @@ article#second-caption-comp-container {
     justify-content: center;
     gap: 30px;
     align-items: center;
+    padding: 30px;
 
     div.caption-info {
-      width: 30%;
+      width: 40%;
       display: flex;
       gap: 20px;
       flex-direction: column;
-      justify-content: space-evenly;
       align-items: flex-start;
 
       h1 {
-        @include web-title-special($pref-font-size: 1.5em, $pref-font-st: normal);
+        @include web-title-special($pref-font-size: 1.5em, $pref-font-st: italic);
+        border-left: 5px solid $eccentric-color;
         color: white;
       }
       p {
-        font-size: 1rem;
+        @include def-web-text($pref-font-size: 1.3em, $pref-font-st: normal);
+        line-height: 35px;
       }
 
       button.filled-web-btn {
@@ -52,7 +58,8 @@ article#second-caption-comp-container {
   }
 
   div.text-container {
-    height: 100%;
+    height: auto;
+    width: 30%;
     padding: 30px;
     display: flex;
     flex-direction: column;
@@ -63,19 +70,21 @@ article#second-caption-comp-container {
     gap: 20px;
 
     h4 {
-      @include web-title-special($pref-font-size: 1.3em, $pref-font-st: normal);
+      @include web-title-special($pref-font-size: 1.7em, $pref-font-st: normal);
     }
     ul {
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 30px;
       align-items: stretch;
       list-style-type: none;
 
       li {
-        border-bottom: 2px solid black;
+        border-bottom: 4px solid $eccentric-color;
+
         a {
-          @include def-web-text($pref-font-size: 1em, $pref-font-st: normal);
+          @include def-web-text($pref-font-size: 1.4em, $pref-font-st: normal);
+          padding: 20px;
           color: black;
           text-decoration: none;
         }

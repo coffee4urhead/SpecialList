@@ -1,4 +1,6 @@
 from django.contrib.auth.models import AbstractUser
+from django.core.validators import FileExtensionValidator
+
 from JobJab.settings import AUTH_USER_MODEL
 from django.db import models
 import pytz
@@ -50,7 +52,7 @@ class CustomUser(AbstractUser):
     user_type = models.CharField(choices=UserChoices)
     email = models.EmailField(unique=True)
     bio = models.TextField(blank=True)
-    profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, default='profile_pics/avatar-default-photo.png')
+    profile_picture = models.ImageField(upload_to='profile_pics/', validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png', 'webp'])], blank=True, default='profile_pics/avatar-default-photo.png')
     phone_number = models.CharField(max_length=15, blank=True, null=True)
     profession = models.CharField(max_length=100, blank=True)
     is_verified = models.BooleanField(default=False)

@@ -9,6 +9,8 @@
         <link rel="stylesheet" type="text/x-scss" href="{% static 'core/homepage/home-main-controll.scss' %}">
         <link rel="stylesheet" type="text/x-scss" href="{% static 'core/homepage/flip-component-styles.scss' %}">
         <link rel="stylesheet" type="text/x-scss" href="{% static 'core/homepage/subscription-card.scss' %}">
+        <link rel="stylesheet" type="text/x-scss" href="{% static 'core/homepage/testimonials-styles.scss' %}">
+        <link rel="stylesheet" type="text/x-scss" href="{% static 'core/homepage/partners-carousel.scss' %}">
     {% endcompress %}
 <style>
     * {
@@ -92,5 +94,18 @@ main#main-web-container {
             {% endif %}
         {% endwith %}
     </article>
+
+    <article id="gold-part-carousel">
+        <div id="section-text-holder">
+            <h1>Our Gold Partners</h1>
+            <p>Our top of the line teams offering high-grade products and services</p>
+        </div>
+
+        <div id="carousels-holder">
+            {% load show_gold_partners %}
+            {% show_gold_partners %}
+        </div>
+    </article>
+
 </body>
 </html>

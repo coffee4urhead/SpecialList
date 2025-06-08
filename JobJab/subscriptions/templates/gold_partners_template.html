@@ -1,0 +1,30 @@
+<div class="carousel-wrapper">
+    <div class="carousel-track">
+        {% for partner in gold_partners %}
+            <section class="logo-cont">
+                {% if partner.user.profile_picture %}
+                    <img src="{{ partner.user.profile_picture.url }}"
+                         alt="{{ partner.user.get_full_name|default:partner.user.username }}">
+                {% else %}
+                    {% load static %}
+                    <img src="{% static '/images/avatar-default-photo.png' %}"
+                         alt="{{ partner.user.get_full_name|default:partner.user.username }}">
+                {% endif %}
+            </section>
+        {% endfor %}
+
+        {# Clone once for seamless looping #}
+        {% for partner in gold_partners %}
+            <section class="logo-cont">
+                {% if partner.user.profile_picture %}
+                    <img src="{{ partner.user.profile_picture.url }}"
+                         alt="{{ partner.user.get_full_name|default:partner.user.username }}">
+                {% else %}
+                    {% load static %}
+                    <img src="{% static '/images/avatar-default-photo.png' %}"
+                         alt="{{ partner.user.get_full_name|default:partner.user.username }}">
+                {% endif %}
+            </section>
+        {% endfor %}
+    </div>
+</div>

@@ -5,10 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a6602c8c-3836-4310-91e0-bc55f682d51c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/JobJab/core/management/commands/create_test_gold_partners.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JobJab/subscriptions/templates/gold_partners_template.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JobJab/subscriptions/templatetags/show_gold_partners.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/core/homepage/partners-carousel.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/core/homepage/testimonials-styles.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/core/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/core/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JobJab/core/templates/core/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/core/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/core/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/reviews/templates/review_card.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/reviews/templates/review_card.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/subscriptions/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/subscriptions/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/core/homepage/home-main-controll.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/home-main-controll.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/core/homepage/home-main-controll.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/home-main-controll.css.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/core/homepage/home-main-controll.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/home-main-controll.scss" afterDir="false" />
@@ -121,7 +127,8 @@
       <workItem from="1749142948125" duration="10387000" />
       <workItem from="1749225642837" duration="11550000" />
       <workItem from="1749291141329" duration="5838000" />
-      <workItem from="1749302459932" duration="5724000" />
+      <workItem from="1749302459932" duration="5908000" />
+      <workItem from="1749385887234" duration="5801000" />
     </task>
     <servers />
   </component>

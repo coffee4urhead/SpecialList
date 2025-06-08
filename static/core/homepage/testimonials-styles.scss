@@ -1,0 +1,95 @@
+@import "../../utils/web_colors.scss";
+@import "../../utils/general-web-mixins/main-web-utls.scss";
+@import "../../utils/general-web-mixins/main-button-mixin.scss";
+
+article#website-testimonials {
+  margin-top: 20rem;
+
+    h1 {
+        text-align: center;
+        margin-bottom: 2rem;
+        @include web-title-special($pref-font-size: 2.5em, $pref-font-st: bolder);
+    }
+
+    div.reviews-flex-wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      div.reviews-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        gap: 50rem;
+      }
+
+      div.reviews-row-bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        gap: 30rem;
+      }
+    }
+
+    section.review-card {
+        border-radius: 8px;
+        padding: 1.5rem;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        background-color: $testimonials-bg-color;
+        width: 25rem;
+        height: 20rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+
+      div.review-main-cont {
+        padding: 10px;
+          p {
+               @include def-web-text($pref-font-size: 1.5em, $pref-font-st: normal);
+          }
+      }
+        .user-rev-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+             p {
+               @include def-web-text($pref-font-size: 1em, $pref-font-st: normal);
+             }
+            img {
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                object-fit: cover;
+            }
+        }
+
+        .star-rating {
+            display: inline-flex;
+            gap: 0.25rem;
+
+            .fa-star, .text-muted {
+                width: 20px;
+                height: 20px;
+                position: relative;
+                display: inline-block;
+
+                &::before {
+                    content: "★";
+                    position: absolute;
+                    font-size: 20px;
+                }
+            }
+
+            .fa-star::before {
+                color: gold;
+            }
+
+            .text-muted::before {
+                color: grey;
+            }
+        }
+    }
+}

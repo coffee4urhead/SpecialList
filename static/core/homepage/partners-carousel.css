@@ -1,0 +1,48 @@
+section.logo-cont {
+  width: 30rem;
+  height: 20rem;
+  background-color: #FDFBFB;
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+section.logo-cont img {
+  object-fit: contain;
+  width: 20rem;
+  height: auto;
+}
+
+.carousel-wrapper {
+  width: 100%;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 30px;
+  animation: scroll-infinite 40s linear infinite;
+  width: fit-content;
+  padding: 30px;
+}
+
+.carousel-track {
+  animation-play-state: running;
+}
+
+.carousel-wrapper:hover .carousel-track {
+  animation-play-state: paused;
+}
+
+@keyframes scroll-infinite {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/*# sourceMappingURL=partners-carousel.css.map */

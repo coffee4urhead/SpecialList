@@ -1,0 +1,85 @@
+@import "../../utils/web_colors.scss";
+@import "../../utils/general-web-mixins/main-web-utls.scss";
+@import "../../utils/general-web-mixins/main-button-mixin.scss";
+
+article#second-caption-comp-container {
+  height: 20rem;
+  margin-top: 10rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+
+  section.image-section {
+    height: 100%;
+    background-color: $complementary-color;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 30px;
+    align-items: center;
+
+    div.caption-info {
+      width: 30%;
+      display: flex;
+      gap: 20px;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: flex-start;
+
+      h1 {
+        @include web-title-special($pref-font-size: 1.5em, $pref-font-st: normal);
+        color: white;
+      }
+      p {
+        font-size: 1rem;
+      }
+
+      button.filled-web-btn {
+       @include main-button($arg-width: 120px, $arg-height: 50px, $arg-bg-color: $additional_web_color, $txt-color: $main-web-color);
+       border-radius: 8px;
+        color: black;
+       border: 3px solid $main-web-color;
+
+       &:hover {
+         background-color: $main-web-color;
+         border: 3px solid $additional_web_color;
+         transition: background-color 0.2s linear;
+       }
+     }
+    }
+  }
+
+  div.text-container {
+    height: 100%;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid black;
+    border-radius: 8px;
+    gap: 20px;
+
+    h4 {
+      @include web-title-special($pref-font-size: 1.3em, $pref-font-st: normal);
+    }
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: stretch;
+      list-style-type: none;
+
+      li {
+        border-bottom: 2px solid black;
+        a {
+          @include def-web-text($pref-font-size: 1em, $pref-font-st: normal);
+          color: black;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}

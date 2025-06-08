@@ -11,6 +11,7 @@
         <link rel="stylesheet" type="text/x-scss" href="{% static 'core/homepage/subscription-card.scss' %}">
         <link rel="stylesheet" type="text/x-scss" href="{% static 'core/homepage/testimonials-styles.scss' %}">
         <link rel="stylesheet" type="text/x-scss" href="{% static 'core/homepage/partners-carousel.scss' %}">
+        <link rel="stylesheet" type="text/x-scss" href="{% static 'core/homepage/second-caption-comp-styles.scss' %}">
     {% endcompress %}
 <style>
     * {
@@ -107,5 +108,6 @@ main#main-web-container {
         </div>
     </article>
 
+    {% include 'template-components/second-caption-comp.html' %}
 </body>
 </html>

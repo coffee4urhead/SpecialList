@@ -53,20 +53,20 @@ article#first-caption-comp div.buttons-cont-cap-first button.filled-web-btn {
   font-weight: 400;
   font-size: 1.2em;
   font-style: normal;
-  color: white;
+  color: #ece1e1;
   border-radius: 8px;
-  border: 3px solid white;
+  border: 3px solid #ece1e1;
 }
 article#first-caption-comp div.buttons-cont-cap-first button.filled-web-btn:hover {
   color: black;
-  background-color: white;
+  background-color: #ece1e1;
   border: 3px solid #008DAA;
   transition: background-color 0.2s linear;
 }
 article#first-caption-comp div.buttons-cont-cap-first button.emp-web-btn {
   width: 120px;
   height: 50px;
-  background-color: white;
+  background-color: #ece1e1;
   font-family: "Euclid Circular A", sans-serif;
   font-weight: 400;
   font-size: 1.2em;

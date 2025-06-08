@@ -28,7 +28,7 @@ section.card div.main-info h3 {
   font-style: normal;
   margin-left: 20px;
   padding: 13px;
-  color: white;
+  color: #ece1e1;
 }
 section.card div.main-info p {
   color: #32AE88;
@@ -75,7 +75,7 @@ section.card button.filled-web-btn {
   font-weight: 400;
   font-size: 1.2em;
   font-style: normal;
-  color: white;
+  color: #ece1e1;
   border-radius: 8px;
   padding: 5px;
   font-size: 1.3em;
@@ -83,7 +83,7 @@ section.card button.filled-web-btn {
 section.card button.filled-web-btn:hover {
   font-weight: bold;
   color: black;
-  background-color: white;
+  background-color: #ece1e1;
   border: 3px solid #008DAA;
   transition: background-color 0.2s linear;
 }

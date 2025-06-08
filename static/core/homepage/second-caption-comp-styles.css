@@ -1,0 +1,95 @@
+article#second-caption-comp-container {
+  height: 20rem;
+  margin-top: 10rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+article#second-caption-comp-container section.image-section {
+  height: 100%;
+  background-color: #072C3C;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 30px;
+  align-items: center;
+}
+article#second-caption-comp-container section.image-section div.caption-info {
+  width: 30%;
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-start;
+}
+article#second-caption-comp-container section.image-section div.caption-info h1 {
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1.5em;
+  font-style: normal;
+  margin-left: 20px;
+  padding: 13px;
+  color: white;
+}
+article#second-caption-comp-container section.image-section div.caption-info p {
+  font-size: 1rem;
+}
+article#second-caption-comp-container section.image-section div.caption-info button.filled-web-btn {
+  width: 120px;
+  height: 50px;
+  background-color: #008DAA;
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1.2em;
+  font-style: normal;
+  color: #ece1e1;
+  border-radius: 8px;
+  color: black;
+  border: 3px solid #ece1e1;
+}
+article#second-caption-comp-container section.image-section div.caption-info button.filled-web-btn:hover {
+  background-color: #ece1e1;
+  border: 3px solid #008DAA;
+  transition: background-color 0.2s linear;
+}
+article#second-caption-comp-container div.text-container {
+  height: 100%;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid black;
+  border-radius: 8px;
+  gap: 20px;
+}
+article#second-caption-comp-container div.text-container h4 {
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1.3em;
+  font-style: normal;
+  margin-left: 20px;
+  padding: 13px;
+}
+article#second-caption-comp-container div.text-container ul {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: stretch;
+  list-style-type: none;
+}
+article#second-caption-comp-container div.text-container ul li {
+  border-bottom: 2px solid black;
+}
+article#second-caption-comp-container div.text-container ul li a {
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1em;
+  font-style: normal;
+  color: black;
+  text-decoration: none;
+}
+
+/*# sourceMappingURL=second-caption-comp-styles.css.map */

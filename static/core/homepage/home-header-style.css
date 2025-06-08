@@ -31,20 +31,20 @@ header#head-sect div#head-buttons-cont button.filled-web-btn {
   font-weight: 400;
   font-size: 1.2em;
   font-style: normal;
-  color: white;
+  color: #ece1e1;
   border-radius: 8px;
-  border: 3px solid white;
+  border: 3px solid #ece1e1;
 }
 header#head-sect div#head-buttons-cont button.filled-web-btn:hover {
   color: black;
-  background-color: white;
+  background-color: #ece1e1;
   border: 3px solid #008DAA;
   transition: background-color 0.2s linear;
 }
 header#head-sect div#head-buttons-cont button.emp-web-btn {
   width: 120px;
   height: 50px;
-  background-color: white;
+  background-color: #ece1e1;
   font-family: "Euclid Circular A", sans-serif;
   font-weight: 400;
   font-size: 1.2em;
@@ -56,7 +56,7 @@ header#head-sect div#head-buttons-cont button.emp-web-btn {
 header#head-sect div#head-buttons-cont button.emp-web-btn:hover {
   color: white;
   background-color: #008DAA;
-  border: 3px solid white;
+  border: 3px solid #ece1e1;
   transition: background-color 0.2s linear;
 }
 header#head-sect ul.links-holder {

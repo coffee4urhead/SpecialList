@@ -13,7 +13,6 @@ article.flip-component section.flip-content div.flip-text {
   width: 30%;
 }
 article.flip-component section.flip-content div.flip-text h2.heading-text-sec-caption {
-  color: white;
   font-family: "Euclid Circular A", sans-serif;
   font-weight: 400;
   font-size: 2.5em;
@@ -25,7 +24,6 @@ article.flip-component section.flip-content div.flip-text p {
   font-size: 1.5rem;
   text-align: start;
   line-height: 40px;
-  opacity: 0.7;
   padding: 30px;
 }
 article.flip-component section.flip-content div.flip-media {

@@ -1,0 +1,77 @@
+section#faq-cont {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10rem;
+}
+section#faq-cont h1 {
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 2.5em;
+  font-style: bold;
+  margin-left: 20px;
+  padding: 13px;
+  border-bottom: 3px solid #32AE88;
+  padding: 1rem;
+  margin-bottom: 1em;
+}
+section#faq-cont ol {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  gap: 20px;
+  list-style-type: none;
+}
+section#faq-cont ol li {
+  width: 100%;
+  height: auto;
+  background-color: #06BAC5;
+  padding: 2rem;
+  border-radius: 20px;
+}
+section#faq-cont ol li details > summary {
+  list-style: none;
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 2.5em;
+  font-style: normal;
+  margin-left: 20px;
+  padding: 13px;
+  color: white;
+  font-weight: bold;
+  font-size: 2rem;
+  cursor: pointer;
+  position: relative;
+  padding-right: 3rem;
+}
+section#faq-cont ol li details > summary::-webkit-details-marker {
+  display: none;
+}
+section#faq-cont ol li details > summary::after {
+  content: "+";
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2.5rem;
+  color: white;
+  transition: all 0.3s ease;
+}
+section#faq-cont ol li details[open] > summary::after {
+  content: "-";
+}
+section#faq-cont ol li details p {
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 2em;
+  font-style: normal;
+  padding: 30px;
+  font-weight: 400;
+}
+
+/*# sourceMappingURL=faq-component-styles.css.map */

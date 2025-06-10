@@ -52,3 +52,6 @@ def home(request):
     return render(request, 'core/home.html', {
         'reviews_from_user_to_the_website': reviews
     })
+
+def about(request):
+    return render(request, 'core/about-page/about.html')

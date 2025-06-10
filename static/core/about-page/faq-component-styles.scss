@@ -1,0 +1,77 @@
+@import "../../utils/web_colors.scss";
+@import "../../utils/general-web-mixins/main-web-utls.scss";
+@import "../../utils/general-web-mixins/main-button-mixin.scss";
+
+section#faq-cont {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10rem;
+
+    & h1 {
+        @include web-title-special($pref-font-size: 2.5em, $pref-font-st: bold);
+        border-bottom: 3px solid $eccentric-color;
+        padding: 1rem;
+        margin-bottom: 1em;
+    }
+
+    & ol {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+        gap: 20px;
+        list-style-type: none;
+
+        & li {
+            width: 100%;
+            height: auto;
+            background-color: $secondary-web-color;
+            padding: 2rem;
+            border-radius: 20px;
+
+            & details {
+
+                &>summary {
+                    list-style: none;
+                    @include web-title-special($pref-font-size: 2.5em, $pref-font-st: normal);
+                    color: white;
+                    font-weight: bold;
+                    font-size: 2rem;
+                    cursor: pointer;
+                    position: relative;
+                    padding-right: 3rem;
+
+                    &::-webkit-details-marker {
+                        display: none;
+                    }
+
+                    &::after {
+                        content: "+";
+                        position: absolute;
+                        right: 1rem;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        font-size: 2.5rem;
+                        color: white;
+                        transition: all 0.3s ease;
+                    }
+                }
+
+                &[open]>summary::after {
+                    content: "-";
+                }
+
+                & p {
+                    @include def-web-text($pref-font-size: 2em, $pref-font-st: normal);
+                    padding: 30px;
+                    font-weight: 400;
+                }
+            }
+        }
+    }
+}

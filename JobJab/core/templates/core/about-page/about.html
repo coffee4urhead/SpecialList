@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load compress static %}
+    {% compress css %}
+    <link rel="stylesheet" type="text/x-scss" href="{% static 'core/homepage/flip-component-styles.scss' %}">
+    <link rel="stylesheet" type="text/x-scss" href="{% static 'core/homepage/footer-styles.scss' %}">
+    <link rel="stylesheet" type="text/x-scss" href="{% static 'core/homepage/home-header-style.scss' %}">
+        <link rel="stylesheet" type="text/x-scss" href="{% static 'core/about-page/faq-component-styles.scss' %}">
+        <link rel="stylesheet" type="text/x-scss" href="{% static 'core/about-page/about-main-handler.scss' %}">
+    {% endcompress %}
+    <title>About Us</title>
+    <style>
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+    background-color: white;
+    p, a {
+        font-family: "Euclid Circular A", sans-serif;
+        font-weight: 500;
+        font-size: 1em;
+        font-style: normal;
+        color: white;
+      }
+}
+</style>
+</head>
+<body>
+    {% include 'template-components/header-comp.html' %}
+
+    <main id="about-main-cont">
+        {% load flip_tags %}
+        {% flip_component image='images/about-flip-image.png' heading="We are more than a team" text="At SpecialList, we collaborate with skilled professionals from around the world to create a personalized, trusted experience for every user — whether you're offering a service or seeking one." flip=True%}
+        {% include 'template-components/FAQs-component.html' %}
+    </main>
+    {% include 'template-components/footer.html' %}
+</body>
+</html>

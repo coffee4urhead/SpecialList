@@ -1,8 +1,8 @@
 <article class="flip-component {% if flip %}flip--reversed{% endif %}">
   <section class="flip-content">
     <div class="flip-text">
-      {% if heading %}<h2 class="heading-text-sec-caption">{{ heading }}</h2>{% endif %}
-      {% if text %}<p>{{ text }}</p>{% endif %}
+      {% if heading %}<h2 style="color: {{ text_color }}" class="heading-text-sec-caption">{{ heading }}</h2>{% endif %}
+      {% if text %}<p style="color: {{ text_color }}; opacity: {{ opacity }}">{{ text }}</p>{% endif %}
     </div>
     {% if image_url %}
     <div class="flip-media">

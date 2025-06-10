@@ -55,3 +55,6 @@ def home(request):
 
 def about(request):
     return render(request, 'core/about-page/about.html')
+
+def privacy_policy(request):
+    return render(request, 'template-components/description-component.html')

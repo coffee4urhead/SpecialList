@@ -15,6 +15,10 @@ section#faq-cont {
         border-bottom: 3px solid $eccentric-color;
         padding: 1rem;
         margin-bottom: 1em;
+
+        span {
+            color: $additional_web_color;
+        }
     }
 
     & ol {

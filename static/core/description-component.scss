@@ -1,0 +1,73 @@
+@import "../utils/web_colors.scss";
+@import "../utils/general-web-mixins/main-web-utls.scss";
+@import "../utils/general-web-mixins/main-button-mixin.scss";
+
+header#description-comp-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  background-color: $secondary-web-color;
+  color: $main-web-color;
+  padding: 1rem;
+  text-align: center;
+
+  h1#web-title {
+    @include web-title-special($pref-font-size: 2.5em, $pref-font-st: normal);
+
+    span {
+      color: $additional_web_color;
+    }
+  }
+}
+
+main#main-privacy-and-policy-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5rem;
+
+  ol#main-content-holder {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    gap: 5rem;
+
+    li {
+
+      &::marker {
+      color: $additional_web_color;
+      font-size: 2.4em;
+      font-weight: bold;
+    }
+
+      h2 {
+        @include web-title-special($pref-font-size: 2.5em, $pref-font-st: normal);
+      }
+      p {
+        @include def-web-text($pref-font-size: 1.5em, $pref-font-st: normal);
+        padding: 30px;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+footer {
+  background-color: $secondary-web-color;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+
+  p {
+    @include def-web-text($pref-font-size: 1.3em, $pref-font-st: normal);
+  }
+}

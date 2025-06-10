@@ -17,6 +17,9 @@ section#faq-cont h1 {
   padding: 1rem;
   margin-bottom: 1em;
 }
+section#faq-cont h1 span {
+  color: #008DAA;
+}
 section#faq-cont ol {
   width: 100%;
   display: flex;

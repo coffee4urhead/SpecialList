@@ -35,9 +35,13 @@ article#first-caption-comp div.text-wrapper span {
   color: #008DAA;
 }
 article#first-caption-comp div.text-wrapper p {
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1.5em;
+  font-style: normal;
   color: black;
+  font-weight: 500;
   padding: 20px;
-  font-size: 1.3em;
 }
 article#first-caption-comp div.buttons-cont-cap-first {
   display: flex;

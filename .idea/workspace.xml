@@ -5,20 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a6602c8c-3836-4310-91e0-bc55f682d51c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/JobJab/core/templates/core/about-page/about.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JobJab/core/templates/template-components/FAQs-component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/core/about-page/about-main-handler.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/core/about-page/faq-component-styles.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JobJab/core/templates/template-components/description-component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/core/description-component.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/core/templates/core/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/core/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/core/templates/template-components/flip-component.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/template-components/flip-component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/core/templates/template-components/header-comp.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/template-components/header-comp.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/core/templatetags/flip_tags.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templatetags/flip_tags.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/core/templates/template-components/FAQs-component.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/template-components/FAQs-component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/core/templates/template-components/footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/template-components/footer.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JobJab/core/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JobJab/core/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/homepage/flip-component-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/flip-component-styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/homepage/flip-component-styles.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/flip-component-styles.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/homepage/flip-component-styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/flip-component-styles.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/core/about-page/faq-component-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/about-page/faq-component-styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/core/about-page/faq-component-styles.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/about-page/faq-component-styles.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/core/about-page/faq-component-styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/about-page/faq-component-styles.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/core/homepage/first-caption-comp-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/first-caption-comp-styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/core/homepage/first-caption-comp-styles.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/first-caption-comp-styles.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/core/homepage/first-caption-comp-styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/first-caption-comp-styles.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -129,7 +128,7 @@
       <workItem from="1749291141329" duration="5838000" />
       <workItem from="1749302459932" duration="5908000" />
       <workItem from="1749385887234" duration="11550000" />
-      <workItem from="1749557761080" duration="2819000" />
+      <workItem from="1749557761080" duration="6881000" />
     </task>
     <servers />
   </component>

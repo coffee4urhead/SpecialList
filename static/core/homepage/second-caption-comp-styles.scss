@@ -3,92 +3,137 @@
 @import "../../utils/general-web-mixins/main-button-mixin.scss";
 
 article#second-caption-comp-container {
-  width: 80%;
-  margin: 10rem auto;
-  height: auto;
+  width: 90%;
+  margin: 5rem auto;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 30px;
+  flex-direction: column;
+  gap: 2rem;
   background-color: lightblue;
   border-radius: 8px;
-  padding: 30px;
+  padding: 1.5rem;
 
   section.image-section {
-    height: 100%;
-    background-color: $complementary-color;
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 30px;
-    align-items: center;
-    padding: 30px;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 1rem;
+    background-color: $complementary-color;
+
+    img {
+      width: 100%;
+      height: auto;
+      max-width: 500px;
+      margin: 0 auto;
+    }
 
     div.caption-info {
-      width: 40%;
-      display: flex;
-      gap: 20px;
-      flex-direction: column;
-      align-items: flex-start;
-
       h1 {
-        @include web-title-special($pref-font-size: 1.5em, $pref-font-st: italic);
+        @include web-title-special($pref-font-size: clamp(1.3em, 5vw, 1.8em), $pref-font-st: italic);
         border-left: 5px solid $eccentric-color;
         color: white;
+        padding-left: 0.5rem;
+        margin-bottom: 1rem;
       }
+
       p {
-        @include def-web-text($pref-font-size: 1.3em, $pref-font-st: normal);
-        line-height: 35px;
+        @include def-web-text($pref-font-size: clamp(1em, 3vw, 1.3em), $pref-font-st: normal);
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
       }
 
       button.filled-web-btn {
-       @include main-button($arg-width: 120px, $arg-height: 50px, $arg-bg-color: $additional_web_color, $txt-color: $main-web-color);
-       border-radius: 8px;
-        color: black;
-       border: 3px solid $main-web-color;
-
-       &:hover {
-         background-color: $main-web-color;
-         border: 3px solid $additional_web_color;
-         transition: background-color 0.2s linear;
-       }
-     }
+        @include main-button(
+          $arg-width: clamp(100px, 30vw, 150px),
+          $arg-height: 50px,
+          $arg-bg-color: $additional_web_color,
+          $txt-color: $main-web-color
+        );
+        border-radius: 8px;
+        border: 3px solid $main-web-color;
+      }
     }
   }
 
   div.text-container {
-    height: auto;
-    width: 30%;
-    padding: 30px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    padding: 1.5rem;
     border: 2px solid black;
     border-radius: 8px;
-    gap: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 
     h4 {
-      @include web-title-special($pref-font-size: 1.7em, $pref-font-st: normal);
+      @include web-title-special($pref-font-size: clamp(1.3em, 4vw, 1.7em), $pref-font-st: normal);
     }
+
     ul {
       display: flex;
       flex-direction: column;
-      gap: 30px;
-      align-items: stretch;
+      gap: 1rem;
       list-style-type: none;
+      padding: 0;
 
       li {
         border-bottom: 4px solid $eccentric-color;
+        padding-bottom: 0.5rem;
 
         a {
-          @include def-web-text($pref-font-size: 1.4em, $pref-font-st: normal);
-          padding: 20px;
+          @include def-web-text($pref-font-size: clamp(1.1em, 3vw, 1.4em), $pref-font-st: normal);
+          padding: 0.5rem 0;
           color: black;
           text-decoration: none;
+          display: block;
         }
       }
+    }
+  }
+
+  // Tablet Breakpoint (≥600px)
+  @media (min-width: 600px) {
+    article#second-caption-comp-container {
+      flex-direction: column;
+    }
+
+    section.image-section {
+      width: 100%;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+
+      div.caption-info {
+        width: 100%;
+      }
+
+      img {
+        width: 45%;
+        max-width: none;
+      }
+    }
+
+    div.text-container {
+      width: 100%;
+      padding: 2rem;
+      justify-content: center;
+    }
+  }
+
+  // Desktop Breakpoint (≥900px)
+  @media (min-width: 900px) {
+    width: 80%;
+    flex-direction: row;
+    padding: 2rem;
+    gap: 3rem;
+
+    section.image-section {
+      flex-direction: row;
+      width: 70%;
+      padding: 2rem;
+    }
+
+    div.text-container {
+      width: 30%;
+      padding: 2rem;
+      justify-content: center;
     }
   }
 }

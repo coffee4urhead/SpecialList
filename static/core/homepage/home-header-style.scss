@@ -3,63 +3,106 @@
 @import "../../utils/general-web-mixins/main-button-mixin.scss";
 
 header#head-sect {
-  height: 6rem;
+  width: 100%;
+  min-height: 6rem;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   border-bottom: 3px solid black;
+  flex-wrap: wrap;
+  padding: 0.5rem 1rem;
+  gap: 1rem;
 
   h1.web-title {
-      @include web-title-special($pref-font-size: 2.5em, $pref-font-st: normal)
+    @include web-title-special($pref-font-size: 2.5em, $pref-font-st: normal);
+    margin: 0;
+    flex-shrink: 0;
   }
+
   span {
     color: $secondary-web-color;
   }
-   div#head-buttons-cont {
-     display: flex;
-     justify-content: center;
-     gap: 30px;
-     align-items: center;
 
-     button.filled-web-btn {
-       @include main-button($arg-width: 120px, $arg-height: 50px, $arg-bg-color: $additional_web_color, $txt-color: $main-web-color);
-       border-radius: 8px;
-       border: 3px solid $main-web-color;
-
-       &:hover {
-         color: black;
-         background-color: $main-web-color;
-         border: 3px solid $additional_web_color;
-         transition: background-color 0.2s linear;
-       }
-     }
-     button.emp-web-btn {
-       @include main-button($arg-width: 120px, $arg-height: 50px, $arg-bg-color: $main-web-color, $txt-color: black);
-       border-radius: 8px;
-       border: 3px solid $additional_web_color;
-
-       &:hover {
-         color: white;
-         background-color: $additional_web_color;
-         border: 3px solid $main-web-color;
-         transition: background-color 0.2s linear;
-       }
-     }
-   }
-  ul.links-holder {
-    list-style-type: none;
+  div#head-buttons-cont {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
+    gap: 1rem;
     align-items: center;
-    gap: 5rem;
+    margin-left: auto;
 
-     li {
-       a.link-web {
-         color: black;
-         font-size: 1.4em;
-         text-decoration: none;
-       }
-     }
+    button.filled-web-btn, button.emp-web-btn {
+      @include main-button($arg-width: 120px, $arg-height: 50px, $arg-bg-color: $additional_web_color, $txt-color: $main-web-color);
+      border-radius: 8px;
+      border: 3px solid $main-web-color;
+      flex-shrink: 0;
+
+      &:hover {
+        color: black;
+        background-color: $main-web-color;
+        border: 3px solid $additional_web_color;
+        transition: background-color 0.2s linear;
+      }
+    }
+
+    button.emp-web-btn {
+      @include main-button($arg-width: 120px, $arg-height: 50px, $arg-bg-color: $main-web-color, $txt-color: black);
+      border: 3px solid $additional_web_color;
+
+      &:hover {
+        color: white;
+        background-color: $additional_web_color;
+        border: 3px solid $main-web-color;
+      }
+    }
+  }
+
+  nav {
+    width: 100%;
+    margin: 0.5rem 0;
+
+    ul.links-holder {
+      list-style-type: none;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0;
+      margin: 0;
+
+      li {
+        flex-shrink: 0;
+
+        a.link-web {
+          color: black;
+          font-size: clamp(1.1em, 3vw, 1.4em);
+          text-decoration: none;
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+
+  // Responsive adjustments
+  @media (min-width: 768px) {
+    flex-wrap: nowrap;
+    padding: 0 2rem;
+
+    nav {
+      width: auto;
+      order: initial;
+      margin: 0 1rem;
+
+      ul.links-holder {
+        gap: 2rem;
+        justify-content: flex-start;
+      }
+    }
+
+    div#head-buttons-cont {
+      gap: 1.5rem;
+    }
   }
 }

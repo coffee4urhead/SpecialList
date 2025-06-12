@@ -3,11 +3,12 @@
 @import "../../utils/general-web-mixins/main-button-mixin.scss";
 
 article.flip-component {
-  margin-top: 5rem;
+  margin-top: 10rem;
 
   section.flip-content {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     gap: 10rem;
@@ -42,5 +43,6 @@ article.flip-component {
 article.flip-component.flip--reversed {
   section.flip-content {
     flex-direction: row-reverse;
+    flex-wrap: wrap;
   }
 }

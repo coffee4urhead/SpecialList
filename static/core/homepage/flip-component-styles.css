@@ -1,9 +1,10 @@
 article.flip-component {
-  margin-top: 5rem;
+  margin-top: 10rem;
 }
 article.flip-component section.flip-content {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   gap: 10rem;
@@ -38,6 +39,7 @@ article.flip-component section.flip-content div.flip-media img {
 
 article.flip-component.flip--reversed section.flip-content {
   flex-direction: row-reverse;
+  flex-wrap: wrap;
 }
 
 /*# sourceMappingURL=flip-component-styles.css.map */

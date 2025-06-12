@@ -1,10 +1,14 @@
 header#head-sect {
-  height: 6rem;
+  width: 100%;
+  min-height: 6rem;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   border-bottom: 3px solid black;
+  flex-wrap: wrap;
+  padding: 0.5rem 1rem;
+  gap: 1rem;
 }
 header#head-sect h1.web-title {
   font-family: "Euclid Circular A", sans-serif;
@@ -13,17 +17,21 @@ header#head-sect h1.web-title {
   font-style: normal;
   margin-left: 20px;
   padding: 13px;
+  margin: 0;
+  flex-shrink: 0;
 }
 header#head-sect span {
   color: #06BAC5;
 }
 header#head-sect div#head-buttons-cont {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  gap: 30px;
+  gap: 1rem;
   align-items: center;
+  margin-left: auto;
 }
-header#head-sect div#head-buttons-cont button.filled-web-btn {
+header#head-sect div#head-buttons-cont button.filled-web-btn, header#head-sect div#head-buttons-cont button.emp-web-btn {
   width: 120px;
   height: 50px;
   background-color: #008DAA;
@@ -34,8 +42,9 @@ header#head-sect div#head-buttons-cont button.filled-web-btn {
   color: #ece1e1;
   border-radius: 8px;
   border: 3px solid #ece1e1;
+  flex-shrink: 0;
 }
-header#head-sect div#head-buttons-cont button.filled-web-btn:hover {
+header#head-sect div#head-buttons-cont button.filled-web-btn:hover, header#head-sect div#head-buttons-cont button.emp-web-btn:hover {
   color: black;
   background-color: #ece1e1;
   border: 3px solid #008DAA;
@@ -50,26 +59,53 @@ header#head-sect div#head-buttons-cont button.emp-web-btn {
   font-size: 1.2em;
   font-style: normal;
   color: black;
-  border-radius: 8px;
   border: 3px solid #008DAA;
 }
 header#head-sect div#head-buttons-cont button.emp-web-btn:hover {
   color: white;
   background-color: #008DAA;
   border: 3px solid #ece1e1;
-  transition: background-color 0.2s linear;
 }
-header#head-sect ul.links-holder {
+header#head-sect nav {
+  width: 100%;
+  margin: 0.5rem 0;
+}
+header#head-sect nav ul.links-holder {
   list-style-type: none;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 5rem;
+  gap: 0.75rem;
+  padding: 0;
+  margin: 0;
 }
-header#head-sect ul.links-holder li a.link-web {
+header#head-sect nav ul.links-holder li {
+  flex-shrink: 0;
+}
+header#head-sect nav ul.links-holder li a.link-web {
   color: black;
-  font-size: 1.4em;
+  font-size: clamp(1.1em, 3vw, 1.4em);
   text-decoration: none;
+  white-space: nowrap;
+}
+@media (min-width: 768px) {
+  header#head-sect {
+    flex-wrap: nowrap;
+    padding: 0 2rem;
+  }
+  header#head-sect nav {
+    width: auto;
+    order: initial;
+    margin: 0 1rem;
+  }
+  header#head-sect nav ul.links-holder {
+    gap: 2rem;
+    justify-content: flex-start;
+  }
+  header#head-sect div#head-buttons-cont {
+    gap: 1.5rem;
+  }
 }
 
 /*# sourceMappingURL=home-header-style.css.map */

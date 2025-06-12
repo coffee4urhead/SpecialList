@@ -70,6 +70,11 @@ article#cards-container {
   margin-top: 10rem;
   padding: 30px;
 }
+@media screen and (max-width: 1100px) {
+  article#cards-container article#cards-container {
+    flex-wrap: wrap-reverse;
+  }
+}
 
 article#gold-part-carousel {
   margin-top: 20rem;

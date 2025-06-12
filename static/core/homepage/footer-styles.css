@@ -1,8 +1,9 @@
 footer#foot-section {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+  padding: 30px;
   background-color: #072C3C;
 }
 footer#foot-section h1#foot-title {
@@ -20,6 +21,7 @@ footer#foot-section span {
 footer#foot-section div.foot-invoices {
   display: flex;
   flex-direction: column;
+  padding: 30px;
   gap: 30px;
 }
 footer#foot-section div.foot-invoices h2 {
@@ -38,8 +40,20 @@ footer#foot-section div.foot-invoices hgroup.links-section {
   gap: 30px;
 }
 footer#foot-section div.foot-invoices hgroup.links-section h3 a {
-  padding: 30px;
+  display: block;
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1.6em;
+  font-style: normal;
   text-decoration: none;
+}
+
+@media (min-width: 900px) {
+  footer#foot-section {
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+  }
 }
 
 /*# sourceMappingURL=footer-styles.css.map */

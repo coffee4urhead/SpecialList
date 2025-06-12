@@ -3,85 +3,126 @@
 @import "../../utils/general-web-mixins/main-button-mixin.scss";
 
 section.card {
-  height: auto;
-  background-color: #072C3C;
-  padding: 1em;
   border-radius: 8px;
+  padding: 2rem;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  background-color: white;
+  width: 100%;
+  max-width: 450px;
+  min-height: 450px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 30px;
-  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
+  transition: transform 0.3s ease;
 
   &:hover {
-    transform: translateY(-15px);
-    transition: transform 0.3s linear;
+    transform: translateY(-10px)
   }
 
-  div.main-info {
-    margin-top: 10px;
-    height: 16rem;
-    background-color: $additional_web_color;
-    border-radius: 8px;
-    padding: 30px;
-    text-align: start;
-
+  .main-info {
     h3 {
-      @include web-title-special($pref-font-size: 2.5em, $pref-font-st: normal);
-      color: $main-web-color;
+      @include web-title-special($pref-font-size: clamp(1.6em, 1.8em, 2.2em), $pref-font-st: bold);
+      margin-bottom: 1rem;
     }
+
     p {
-      color: $eccentric-color;
-      font-weight: bold;
-      font-size: 1.4em;
+      @include def-web-text($pref-font-size: clamp(1.4em, 1.6em, 2em), $pref-font-st: normal);
+      color: #666;
+      margin-bottom: 2rem;
     }
   }
 
-  div.subscription-stats {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    @include def-web-text($pref-font-size: 1.3em, $pref-font-st: italic);
-    padding: 0.6em;
+  .subscription-stats {
+    flex-grow: 1;
+
+    h4 {
+      @include web-title-special($pref-font-size: 1.5em, $pref-font-st: normal);
+      margin-bottom: 1.5rem;
+    }
 
     ul {
-      list-style: none;
+      list-style-type: none;
       padding-left: 0;
 
       li {
+        @include def-web-text($pref-font-size: 1.1em, $pref-font-st: normal);
+        margin-bottom: 1rem;
         position: relative;
-        padding-left: 30px;
-        margin-top: 20px;
+        padding-left: 1.5rem;
 
         &::before {
-            content: "";
-            position: absolute;
-            left: 0;
-            top: 8px;
-            width: 16px;
-            height: 16px;
-            background-image: url("/static/images/tick-symbol.png");
-            background-size: contain;
-            background-repeat: no-repeat;
+          content: "•";
+          color: $additional_web_color;
+          position: absolute;
+          left: 0;
         }
       }
     }
   }
 
   button.filled-web-btn {
-      @include main-button($arg-width: 120px, $arg-height: 50px, $arg-bg-color: $secondary-web-color, $txt-color: $main-web-color);
-      border-radius: 8px;
-      padding: 5px;
-      font-size: 1.3em;
+    @include main-button($arg-width: 100%, $arg-height: 50px, $arg-bg-color: $additional_web_color, $txt-color: white);
+    border-radius: 8px;
+    margin-top: 2rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
 
-      &:hover {
-        font-weight: bold;
-         color: black;
-         background-color: $main-web-color;
-         border: 3px solid $additional_web_color;
-         transition: background-color 0.2s linear;
-       }
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     }
+  }
+}
+
+article#cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  gap: 30px;
+  margin-top: 5rem;
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
+
+  @media (max-width: 1000px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+    padding: 20px 10px;
+
+    section.card {
+      margin: 0;
+      width: 80%;
+      height: auto;
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  section.card {
+    padding: 1.5rem;
+    min-height: auto;
+
+    .main-info {
+      h3 {
+        font-size: 1.5em !important;
+      }
+
+      p {
+        font-size: 1.2em !important;
+      }
+    }
+
+    .subscription-stats {
+      h4 {
+        font-size: 1.3em !important;
+      }
+
+      ul li {
+        font-size: 1em !important;
+      }
+    }
+  }
 }

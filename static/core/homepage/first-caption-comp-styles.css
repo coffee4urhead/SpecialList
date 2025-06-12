@@ -1,10 +1,13 @@
 article#first-caption-comp {
-  width: 50vw;
-  height: 60vh;
+  width: 100%;
+  max-width: 1200px;
+  height: auto;
+  min-height: 60vh;
   display: flex;
   flex-direction: column;
   gap: 30px;
   padding: 30px;
+  overflow: hidden;
 }
 @keyframes floatBlob {
   0% {
@@ -22,6 +25,14 @@ article#first-caption-comp .blob-clip-bg {
   z-index: -1;
   opacity: 1;
   animation: floatBlob 8s ease-in-out infinite;
+  width: 100%;
+  height: 100%;
+}
+article#first-caption-comp .blob-clip-bg svg {
+  width: 100%;
+  height: 100%;
+  max-width: 900px;
+  max-height: 600px;
 }
 article#first-caption-comp div.text-wrapper h1#web-title {
   font-family: "Euclid Circular A", sans-serif;
@@ -104,6 +115,23 @@ article#first-caption-comp section#stats-cont ul#stats-list li.lst-cap-comp p {
   color: black;
   font-weight: bold;
   font-size: 1.3em;
+}
+
+@media (max-width: 768px) {
+  article#first-caption-comp {
+    padding: 20px;
+  }
+  article#first-caption-comp div.text-wrapper h1#web-title {
+    font-size: 2.5em !important;
+  }
+  article#first-caption-comp div.text-wrapper p {
+    font-size: 1.2em !important;
+    padding: 10px !important;
+  }
+  article#first-caption-comp section#stats-cont ul#stats-list {
+    flex-direction: column;
+    gap: 30px;
+  }
 }
 
 /*# sourceMappingURL=first-caption-comp-styles.css.map */

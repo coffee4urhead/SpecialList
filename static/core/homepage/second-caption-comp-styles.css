@@ -117,16 +117,34 @@ article#second-caption-comp-container div.text-container ul li a {
   article#second-caption-comp-container {
     width: 80%;
     flex-direction: row;
+    flex-wrap: wrap;
     padding: 2rem;
+    align-items: stretch;
     gap: 3rem;
   }
   article#second-caption-comp-container section.image-section {
     flex-direction: row;
-    width: 70%;
+    width: 65%;
     padding: 2rem;
+  }
+  article#second-caption-comp-container section.image-section div.caption-info {
+    flex-wrap: wrap;
   }
   article#second-caption-comp-container div.text-container {
     width: 30%;
+    padding: 2rem;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 1300px) {
+  article#second-caption-comp-container section.image-section {
+    flex-direction: row;
+    width: 100%;
+    padding: 2rem;
+  }
+  article#second-caption-comp-container div.text-container {
+    width: 100%;
     padding: 2rem;
     justify-content: center;
   }

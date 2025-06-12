@@ -121,13 +121,19 @@ article#second-caption-comp-container {
   @media (min-width: 900px) {
     width: 80%;
     flex-direction: row;
+    flex-wrap: wrap;
     padding: 2rem;
+    align-items: stretch;
     gap: 3rem;
 
     section.image-section {
       flex-direction: row;
-      width: 70%;
+      width: 65%;
       padding: 2rem;
+
+      div.caption-info {
+        flex-wrap: wrap;
+      }
     }
 
     div.text-container {
@@ -137,3 +143,19 @@ article#second-caption-comp-container {
     }
   }
 }
+
+ @media (max-width: 1300px) {
+    article#second-caption-comp-container {
+
+      section.image-section {
+        flex-direction: row;
+        width: 100%;
+        padding: 2rem;
+      }
+      div.text-container {
+        width: 100%;
+        padding: 2rem;
+        justify-content: center;
+      }
+    }
+ }

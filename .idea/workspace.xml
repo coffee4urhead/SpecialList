@@ -6,19 +6,34 @@
   <component name="ChangeListManager">
     <list default="true" id="a6602c8c-3836-4310-91e0-bc55f682d51c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/core/templates/core/about-page/about.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/core/about-page/about.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/core/templates/core/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/core/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/core/templates/template-components/first-caption-comp.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/template-components/first-caption-comp.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/core/templates/template-components/footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/template-components/footer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/core/homepage/first-caption-comp-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/first-caption-comp-styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/core/homepage/first-caption-comp-styles.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/first-caption-comp-styles.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/core/homepage/first-caption-comp-styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/first-caption-comp-styles.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/core/homepage/flip-component-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/flip-component-styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/core/homepage/flip-component-styles.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/flip-component-styles.css.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/core/homepage/flip-component-styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/flip-component-styles.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/core/homepage/footer-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/footer-styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/core/homepage/footer-styles.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/footer-styles.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/core/homepage/footer-styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/footer-styles.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/core/homepage/home-header-style.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/home-header-style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/core/homepage/home-header-style.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/home-header-style.css.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/core/homepage/home-header-style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/home-header-style.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/core/homepage/home-main-controll.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/home-main-controll.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/core/homepage/home-main-controll.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/home-main-controll.css.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/core/homepage/home-main-controll.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/home-main-controll.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/core/homepage/partners-carousel.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/partners-carousel.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/core/homepage/partners-carousel.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/partners-carousel.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/core/homepage/partners-carousel.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/partners-carousel.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/core/homepage/second-caption-comp-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/second-caption-comp-styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/core/homepage/second-caption-comp-styles.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/second-caption-comp-styles.css.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/core/homepage/second-caption-comp-styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/second-caption-comp-styles.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/core/homepage/subscription-card.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/subscription-card.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/core/homepage/subscription-card.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/subscription-card.css.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/core/homepage/subscription-card.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/subscription-card.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/core/homepage/testimonials-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/testimonials-styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/core/homepage/testimonials-styles.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/testimonials-styles.css.map" afterDir="false" />
@@ -134,7 +149,9 @@
       <workItem from="1749302459932" duration="5908000" />
       <workItem from="1749385887234" duration="11550000" />
       <workItem from="1749557761080" duration="7039000" />
-      <workItem from="1749727856654" duration="3610000" />
+      <workItem from="1749727856654" duration="4055000" />
+      <workItem from="1749736544458" duration="4030000" />
+      <workItem from="1749756221826" duration="5060000" />
     </task>
     <servers />
   </component>

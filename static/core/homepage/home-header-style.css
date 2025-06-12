@@ -1,13 +1,11 @@
 header#head-sect {
   width: 100%;
-  min-height: 6rem;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
   border-bottom: 3px solid black;
-  flex-wrap: wrap;
-  padding: 0.5rem 1rem;
+  padding: 1rem;
   gap: 1rem;
 }
 header#head-sect h1.web-title {
@@ -29,9 +27,10 @@ header#head-sect div#head-buttons-cont {
   justify-content: center;
   gap: 1rem;
   align-items: center;
-  margin-left: auto;
+  flex-shrink: 0;
 }
-header#head-sect div#head-buttons-cont button.filled-web-btn, header#head-sect div#head-buttons-cont button.emp-web-btn {
+header#head-sect div#head-buttons-cont button.filled-web-btn,
+header#head-sect div#head-buttons-cont button.emp-web-btn {
   width: 120px;
   height: 50px;
   background-color: #008DAA;
@@ -44,7 +43,8 @@ header#head-sect div#head-buttons-cont button.filled-web-btn, header#head-sect d
   border: 3px solid #ece1e1;
   flex-shrink: 0;
 }
-header#head-sect div#head-buttons-cont button.filled-web-btn:hover, header#head-sect div#head-buttons-cont button.emp-web-btn:hover {
+header#head-sect div#head-buttons-cont button.filled-web-btn:hover,
+header#head-sect div#head-buttons-cont button.emp-web-btn:hover {
   color: black;
   background-color: #ece1e1;
   border: 3px solid #008DAA;
@@ -66,45 +66,48 @@ header#head-sect div#head-buttons-cont button.emp-web-btn:hover {
   background-color: #008DAA;
   border: 3px solid #ece1e1;
 }
-header#head-sect nav {
-  width: 100%;
-  margin: 0.5rem 0;
-}
 header#head-sect nav ul.links-holder {
-  list-style-type: none;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 0.75rem;
+  list-style-type: none;
   padding: 0;
   margin: 0;
+  gap: 1rem;
 }
 header#head-sect nav ul.links-holder li {
   flex-shrink: 0;
 }
 header#head-sect nav ul.links-holder li a.link-web {
   color: black;
-  font-size: clamp(1.1em, 3vw, 1.4em);
+  font-size: clamp(1.1em, 3vw, 1.6em);
   text-decoration: none;
   white-space: nowrap;
 }
-@media (min-width: 768px) {
+
+@media (max-width: 900px) {
   header#head-sect {
-    flex-wrap: nowrap;
-    padding: 0 2rem;
-  }
-  header#head-sect nav {
-    width: auto;
-    order: initial;
-    margin: 0 1rem;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
   }
   header#head-sect nav ul.links-holder {
-    gap: 2rem;
-    justify-content: flex-start;
+    flex-direction: column;
+    gap: 100px;
   }
-  header#head-sect div#head-buttons-cont {
-    gap: 1.5rem;
+}
+@media (min-width: 900px) {
+  header#head-sect {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  header#head-sect nav ul.links-holder {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 100px;
   }
 }
 

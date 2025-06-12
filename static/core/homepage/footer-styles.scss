@@ -4,9 +4,10 @@
 
 footer#foot-section {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+  padding: 30px;
   background-color: $testimonials-bg-color;
 
   h1#foot-title {
@@ -20,6 +21,7 @@ footer#foot-section {
   div.foot-invoices {
     display: flex;
     flex-direction: column;
+    padding: 30px;
     gap: 30px;
 
     h2 {
@@ -35,10 +37,19 @@ footer#foot-section {
 
       h3 {
         a {
-          padding: 30px;
+          display: block;
+          @include def-web-text($pref-font-size: clamp(1.4em, 1.6em, 2em), $pref-font-st: normal);
           text-decoration: none;
         }
       }
     }
+  }
+}
+
+@media (min-width: 900px) {
+  footer#foot-section {
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
   }
 }

@@ -54,22 +54,6 @@
   to { opacity: 0; }
 }
 
-article#cards-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 170px;
-  margin-top: 10rem;
-  padding: 30px;
-  
-  @media screen and (max-width: 1100px) {
-    article#cards-container {
-      flex-wrap: wrap-reverse;
-    }
-  }
-}
-
 article#gold-part-carousel {
   margin-top: 20rem;
 
@@ -77,13 +61,13 @@ article#gold-part-carousel {
     margin-top: 50px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
+    justify-content: center;
+    align-items: center;
     gap: 100px;
   }
   div#section-text-holder {
     padding: 30px;
-
+    text-align: center;
     h1 {
       @include web-title-special($pref-font-size: 3.5em, $pref-font-st: normal);
     }

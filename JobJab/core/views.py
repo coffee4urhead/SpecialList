@@ -1,5 +1,6 @@
-from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
-from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout, get_user_model
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect, get_object_or_404
 
 from JobJab.core.forms import CleanUserCreationForm, CleanLoginForm
 from django.contrib import messages
@@ -58,3 +59,21 @@ def about(request):
 
 def privacy_policy(request):
     return render(request, 'template-components/description-component.html')
+
+@login_required
+def account_view(request, username):
+    user_model = get_user_model()
+    viewed_account = get_object_or_404(user_model, username=username)
+
+    # Check if the viewer is the account owner
+    is_owner = (request.user == viewed_account)
+
+    context = {
+        'viewed_account': viewed_account,
+        'is_owner': is_owner,
+    }
+
+    if is_owner:
+        return render(request, 'core/accounts/my_account.html', context)
+    else:
+        return render(request, 'core/accounts/public_profile.html', context)

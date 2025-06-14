@@ -3,12 +3,16 @@
         <div class="user-rev-info">
 
             {% if review.reviewer.profile_picture %}
-                <img src="{{ review.reviewer.profile_picture.url }}"
+                <a href="{% url 'account_view' review.reviewer.username %}">
+                    <img src="{{ review.reviewer.profile_picture.url }}"
                      alt="{{ review.reviewer.get_full_name|default:review.reviewer.username }}">
+                </a>
             {% else %}
                 {% load static %}
-                <img src="{% static '/images/avatar-default-photo.png' %}"
+                <a href="{% url 'account_view' review.reviewer.username %}">
+                    <img src="{% static '/images/avatar-default-photo.png' %}"
                      alt="{{ review.reviewer.get_full_name|default:review.reviewer.username }}">
+                </a>
             {% endif %}
 
             <div class="rev-info-side">

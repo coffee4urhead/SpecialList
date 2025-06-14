@@ -8,6 +8,12 @@ header#head-sect {
   padding: 1rem;
   gap: 1rem;
 }
+header#head-sect img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
 header#head-sect h1.web-title {
   font-family: "Euclid Circular A", sans-serif;
   font-weight: 400;

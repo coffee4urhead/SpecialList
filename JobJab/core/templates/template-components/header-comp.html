@@ -12,7 +12,19 @@
     {% if user.is_authenticated %}
         <div id="head-buttons-cont">
             <p style="color: black">Welcome, {{ user.username }}!</p>
-            <button class="emp-web-btn"><a style="color: black; text-decoration: none" href={% url 'logout' %}>Logout</a></button>
+            {% if user.profile_picture %}
+                <a href="{% url 'account_view' user.username %}">
+                    <img src="{{ user.profile_picture.url }}"
+                     alt="{{ user.get_full_name|default:user.username }}">
+                </a>
+            {% else %}
+                {% load static %}
+                <a href="{% url 'account_view' user.username %}">
+                    <img src="{% static '/images/avatar-default-photo.png' %}"
+                     alt="{{ user.get_full_name|default:user.username }}">
+                </a>
+            {% endif %}
+        <button class="emp-web-btn"><a style="color: black; text-decoration: none" href={% url 'logout' %}>Logout</a></button>
         </div>
      {% else %}
         <div id='head-buttons-cont'>

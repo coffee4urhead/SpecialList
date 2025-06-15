@@ -2,6 +2,8 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import get_user_model, forms
 from django import forms
 
+from JobJab.core.models import TIMEZONE_CHOICES
+
 User = get_user_model()
 
 
@@ -30,3 +32,23 @@ class CleanLoginForm(AuthenticationForm):
 
     class Meta:
         fields = ['username', 'password']
+
+class ProfileEditForm(forms.ModelForm):
+    class Meta:
+        model = get_user_model()
+        fields = [
+            'first_name',
+            'last_name',
+            'email',
+            'bio',
+            'profile_picture',
+            'backcover_profile',
+            'phone_number',
+            'profession',
+            'personal_number',
+            'timezone'
+        ]
+        widgets = {
+            'timezone': forms.Select(choices=TIMEZONE_CHOICES),
+            'bio': forms.Textarea(attrs={'rows': 4}),
+        }

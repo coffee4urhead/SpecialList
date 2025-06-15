@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate, login as auth_login, logout as aut
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 
-from JobJab.core.forms import CleanUserCreationForm, CleanLoginForm
+from JobJab.core.forms import CleanUserCreationForm, CleanLoginForm, ProfileEditForm
 from django.contrib import messages
 
 from JobJab.core.models import CustomUser
@@ -76,15 +76,14 @@ def followers_following_view(request, username):
 @login_required
 def account_view(request, username):
     viewed_account = get_object_or_404(CustomUser, username=username)
-
     is_owner = (request.user == viewed_account)
+
+    form = ProfileEditForm(instance=request.user) if is_owner else None
 
     context = {
         'viewed_account': viewed_account,
         'is_owner': is_owner,
+        'form': form,
     }
 
-    if is_owner:
-        return render(request, 'core/accounts/my_account.html', context)
-    else:
-        return render(request, 'core/accounts/public_profile.html', context)
+    return render(request, 'core/accounts/my_account.html' if is_owner else 'core/accounts/public_profile.html', context)

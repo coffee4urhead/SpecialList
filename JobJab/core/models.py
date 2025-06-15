@@ -90,6 +90,7 @@ class CustomUser(AbstractUser):
     profile_picture = models.ImageField(upload_to='profile_pics/', validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png', 'webp'])], blank=True, default='profile_pics/avatar-default-photo.png')
     phone_number = models.CharField(max_length=15, blank=True, null=True)
     profession = models.CharField(max_length=100, blank=True)
+    personal_number = models.CharField(max_length=100, blank=True, null=True)
     is_verified = models.BooleanField(default=False)
     verified_at = models.DateTimeField(blank=True, null=True)
     timezone = models.CharField (

@@ -17,7 +17,17 @@
     <div class="profile-column-right">
         <section id="side-info">
             <p>{{ user.bio|default:"some bio description" }}</p>
-            <button class="filled-web-btn">Edit profile</button>
+
+            {% if is_owner %}
+                <button id="edit-profile-btn" class="filled-web-btn">Edit profile</button>
+
+                <div id="edit-profile-form-container" style="display: none; margin-top: 20px;">
+                    {% include 'core/accounts/profile_template.html' %}
+                </div>
+            {% else %}
+                <button class="filled-web-btn follow">Follow Account</button>
+            {% endif %}
+
 
             <div class="expand-info">
                 <p class="connections-link" data-username="{{ user.username }}">

@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Public profile page</title>
-</head>
-<body>
-
-</body>
-</html>
+<div id="edit-profile-form-container" style="display: none; margin-top: 20px;">
+    <form method="POST" enctype="multipart/form-data" action="{% url 'edit_profile' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="filled-web-btn">Save Changes</button>
+        <button type="button" id="cancel-edit" class="filled-web-btn">Cancel</button>
+    </form>
+</div>

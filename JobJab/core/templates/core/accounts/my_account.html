@@ -8,6 +8,7 @@
         <link rel="stylesheet" type="text/x-scss" href="{% static 'core/homepage/home-header-style.scss' %}">
         <link rel="stylesheet" type="text/x-scss" href="{% static 'core/profile-view-styles/profile_main_info_tab.scss' %}">
         <link rel="stylesheet" type="text/x-scss" href="{% static 'core/profile-view-styles/followers-overlay-styles.scss' %}">
+        <link rel="stylesheet" type="text/x-scss" href="{% static 'core/profile-view-styles/profile-side-info-tab.scss' %}">
     {% endcompress %}
 
 <style>
@@ -48,10 +49,11 @@
     {% include 'template-components/header-comp.html' %}
 
     <main id="main-profile-contents">
-        {% include 'template-components/profile-main-info-tab.html' %}
+        {% include 'template-components/profile-main-info-tab.html' with is_owner=True %}
+        {% include 'template-components/profile-side-info-tab.html' with is_owner=True %}
     </main>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('.connections-link').addEventListener('click', function() {
         const username = this.getAttribute('data-username');
         fetch(`/user/${username}/connections/`)
@@ -61,6 +63,21 @@
                 setupModal();
             });
     });
+
+    const followBtn = document.querySelector('button.filled-web-btn.follow');
+    if (followBtn) {
+        followBtn.addEventListener('click', function() {
+            if (this.classList.contains('follow')) {
+                this.innerText = 'Unfollow';
+                this.classList.remove('follow');
+                this.classList.add('unfollow');
+            } else {
+                this.innerText = 'Follow Account';
+                this.classList.remove('unfollow');
+                this.classList.add('follow');
+            }
+        });
+    }
 
     function setupModal() {
         const overlay = document.querySelector('.modal-overlay');
@@ -82,6 +99,25 @@
                 const tabId = this.getAttribute('data-tab') + '-tab';
                 document.getElementById(tabId).classList.add('active');
             });
+        });
+    }
+});
+document.addEventListener('DOMContentLoaded', function () {
+    const editBtn = document.getElementById('edit-profile-btn');
+    const formContainer = document.getElementById('edit-profile-form-container');
+    const cancelBtn = document.getElementById('cancel-edit');
+
+    if (editBtn && formContainer) {
+        editBtn.addEventListener('click', function () {
+            formContainer.style.display = 'block';
+            editBtn.style.display = 'none';  // Hide the button while editing
+        });
+    }
+
+    if (cancelBtn && formContainer) {
+        cancelBtn.addEventListener('click', function () {
+            formContainer.style.display = 'none';
+            editBtn.style.display = 'inline-block';
         });
     }
 });

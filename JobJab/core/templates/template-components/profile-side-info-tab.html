@@ -1,0 +1,24 @@
+<article id="profile-side-info-tab-cont">
+    <section id="socials-container">
+        <div id="social-info-holder">
+            <div class="button-links">
+                {% if is_owner %}
+                    <button class="filled-web-btn"><a href="#">Certificates</a></button>
+                    <button class="filled-web-btn"><a href="#">Payments</a></button>
+                {% else %}
+                    <button class="filled-web-btn"><a href="#">Certificates</a></button>
+                {% endif %}
+            </div>
+
+            <p>You can also find me at: Social links icons (To be implemented)</p>
+            <p>Personal phone number: {{ user.phone_number }}</p>
+            <p>Email: {{ user.email }}</p>
+            <button id="outline-btn">Message</button>
+        </div>
+
+        <div class="img-geo-cont">
+            {% load static %}
+            <img src="{% static 'images/footer-image.png'%}"/>
+        </div>
+    </section>
+</article>

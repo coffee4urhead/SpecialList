@@ -1,0 +1,63 @@
+@import "../../utils/web_colors.scss";
+@import "../../utils/general-web-mixins/main-web-utls.scss";
+@import "../../utils/general-web-mixins/main-button-mixin.scss";
+
+article#profile-side-info-tab-cont {
+  margin-top: 20px;
+
+  section#socials-container {
+    padding: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid black;
+    border-radius: 8px;
+    gap: 1rem;
+
+    div#social-info-holder {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 30px;
+
+      button#outline-btn {
+        border: 2px solid $secondary-web-color;
+        border-radius: 40px;
+        color: $secondary-web-color;
+        background-color: white;
+        padding: 20px;
+        @include  def-web-text($pref-font-size: 1em, $pref-font-st: italic);
+        text-align: center;
+      }
+    }
+  }
+
+  div.button-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+
+    button.filled-web-btn {
+      padding: 20px;
+      text-align: center;
+      @include main-button($arg-width: 80%, $arg-height: 45px, $arg-bg-color: $additional_web_color, $txt-color: $main-web-color);
+      border-radius: 8px;
+      font-size: 1.1em;
+      font-weight: 500;
+      border: 2px solid $main-web-color;
+
+      a {
+        text-decoration: none;
+        color: white;
+        display: block;
+      }
+
+      &:hover {
+        transform: translateY(-2px);
+        transition: transform 0.2s linear;
+      }
+    }
+  }
+}

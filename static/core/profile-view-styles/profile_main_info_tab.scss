@@ -10,7 +10,7 @@ article#profile-info-section {
   gap: 30px;
 
   .profile-column-left {
-    width: 30%;
+    width: 50%;
     position: relative;
 
     #profile-pics-holder {
@@ -56,7 +56,7 @@ article#profile-info-section {
   }
 
   .profile-column-right {
-    width: 30%;
+    width: 50%;
 
     #side-info {
       display: flex;

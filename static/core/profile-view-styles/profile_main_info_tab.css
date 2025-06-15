@@ -6,7 +6,7 @@ article#profile-info-section {
   gap: 30px;
 }
 article#profile-info-section .profile-column-left {
-  width: 30%;
+  width: 50%;
   position: relative;
 }
 article#profile-info-section .profile-column-left #profile-pics-holder {
@@ -53,7 +53,7 @@ article#profile-info-section .profile-column-left #profile-pics-holder #profile-
   color: #06BAC5;
 }
 article#profile-info-section .profile-column-right {
-  width: 30%;
+  width: 50%;
 }
 article#profile-info-section .profile-column-right #side-info {
   display: flex;

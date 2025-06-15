@@ -1,0 +1,64 @@
+article#profile-side-info-tab-cont {
+  margin-top: 20px;
+}
+article#profile-side-info-tab-cont section#socials-container {
+  padding: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid black;
+  border-radius: 8px;
+  gap: 1rem;
+}
+article#profile-side-info-tab-cont section#socials-container div#social-info-holder {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 30px;
+}
+article#profile-side-info-tab-cont section#socials-container div#social-info-holder button#outline-btn {
+  border: 2px solid #06BAC5;
+  border-radius: 40px;
+  color: #06BAC5;
+  background-color: white;
+  padding: 20px;
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1em;
+  font-style: italic;
+  text-align: center;
+}
+article#profile-side-info-tab-cont div.button-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+article#profile-side-info-tab-cont div.button-links button.filled-web-btn {
+  padding: 20px;
+  text-align: center;
+  width: 80%;
+  height: 45px;
+  background-color: #008DAA;
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1.2em;
+  font-style: normal;
+  color: #ece1e1;
+  border-radius: 8px;
+  font-size: 1.1em;
+  font-weight: 500;
+  border: 2px solid #ece1e1;
+}
+article#profile-side-info-tab-cont div.button-links button.filled-web-btn a {
+  text-decoration: none;
+  color: white;
+  display: block;
+}
+article#profile-side-info-tab-cont div.button-links button.filled-web-btn:hover {
+  transform: translateY(-2px);
+  transition: transform 0.2s linear;
+}
+
+/*# sourceMappingURL=profile-side-info-tab.css.map */

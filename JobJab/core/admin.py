@@ -19,6 +19,7 @@ class CustomUserAdmin(UserAdmin):
 
     fieldsets = (
         (None, {'fields': ('username', 'password')}),
+        ('Account View Info', {'fields': ('bio', 'first_name', 'last_name', 'backcover_profile')}),
         ('Personal info', {'fields': ('email', 'user_type', 'profile_picture')}),
         ('Permissions', {
             'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions'),

@@ -5,7 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a6602c8c-3836-4310-91e0-bc55f682d51c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/JobJab/core/management/commands/populate_follows.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JobJab/core/templates/template-components/follow_modal_content.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JobJab/core/templates/template-components/profile-main-info-tab.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/core/profile-view-styles/followers-overlay-styles.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/core/profile-view-styles/profile_main_info_tab.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/core/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/core/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/core/templates/core/accounts/my_account.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/core/accounts/my_account.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/core/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/core/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,8 +28,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -120,7 +130,8 @@
       <workItem from="1749727856654" duration="4055000" />
       <workItem from="1749736544458" duration="4030000" />
       <workItem from="1749756221826" duration="5552000" />
-      <workItem from="1749894276626" duration="4910000" />
+      <workItem from="1749894276626" duration="5702000" />
+      <workItem from="1749992966617" duration="6818000" />
     </task>
     <servers />
   </component>

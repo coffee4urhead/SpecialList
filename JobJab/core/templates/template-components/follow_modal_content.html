@@ -1,0 +1,55 @@
+{% load static %}
+
+<div class="modal-container">
+    <div class="modal-header">
+        <h3>Followers</h3>
+        <button class="close-modal">&times;</button>
+    </div>
+
+    <div class="modal-tabs">
+        <button class="tab-button active" data-tab="followers">Followers ({{ followers|length }})</button>
+        <button class="tab-button" data-tab="following">Following ({{ following|length }})</button>
+    </div>
+
+    <div class="tab-content active" id="followers-tab">
+        {% for follower in followers %}
+        <div class="user-card">
+            <a href="{% url 'account_view' follower.username %}">
+                {% if follower.profile_picture %}
+                    <img src="{{ follower.profile_picture.url }}" alt="{{ follower.username }}">
+                {% else %}
+                    <img src="{% static 'images/avatar-default-photo.png' %}" alt="{{ follower.username }}">
+                {% endif %}
+                <div class="user-info">
+                    <strong>{{ follower.get_full_name|default:follower.username }}</strong>
+                    <span>@{{ follower.username }}</span>
+                    <small>Joined {{ follower.date_joined|date:"M Y" }}</small>
+                </div>
+            </a>
+        </div>
+        {% empty %}
+            <p class="empty-message">No followers yet</p>
+        {% endfor %}
+    </div>
+
+    <div class="tab-content" id="following-tab">
+        {% for followed in following %}
+        <div class="user-card">
+            <a href="{% url 'account_view' followed.username %}">
+                {% if followed.profile_picture %}
+                    <img src="{{ followed.profile_picture.url }}" alt="{{ followed.username }}">
+                {% else %}
+                    <img src="{% static 'images/avatar-default-photo.png' %}" alt="{{ followed.username }}">
+                {% endif %}
+                <div class="user-info">
+                    <strong>{{ followed.get_full_name|default:followed.username }}</strong>
+                    <span>@{{ followed.username }}</span>
+                    <small>Joined {{ followed.date_joined|date:"M Y" }}</small>
+                </div>
+            </a>
+        </div>
+        {% empty %}
+            <p class="empty-message">Not following anyone yet</p>
+        {% endfor %}
+    </div>
+</div>

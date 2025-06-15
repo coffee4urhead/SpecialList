@@ -1,10 +1,11 @@
-from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout, get_user_model
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 
 from JobJab.core.forms import CleanUserCreationForm, CleanLoginForm
 from django.contrib import messages
 
+from JobJab.core.models import CustomUser
 from JobJab.reviews.models import Review, ReviewType
 
 
@@ -60,12 +61,22 @@ def about(request):
 def privacy_policy(request):
     return render(request, 'template-components/description-component.html')
 
+
+def followers_following_view(request, username):
+    user = get_object_or_404(CustomUser, username=username)
+
+    context = {
+        'profile_user': user,
+        'followers': user.followers.all(),
+        'following': user.following.all(),
+    }
+
+    return render(request, 'template-components/follow_modal_content.html', context)
+
 @login_required
 def account_view(request, username):
-    user_model = get_user_model()
-    viewed_account = get_object_or_404(user_model, username=username)
+    viewed_account = get_object_or_404(CustomUser, username=username)
 
-    # Check if the viewer is the account owner
     is_owner = (request.user == viewed_account)
 
     context = {

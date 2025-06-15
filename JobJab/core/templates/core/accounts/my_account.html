@@ -2,9 +2,89 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Personal account holder page</title>
+
+    {% load compress static %}
+    {% compress css %}
+        <link rel="stylesheet" type="text/x-scss" href="{% static 'core/homepage/home-header-style.scss' %}">
+        <link rel="stylesheet" type="text/x-scss" href="{% static 'core/profile-view-styles/profile_main_info_tab.scss' %}">
+        <link rel="stylesheet" type="text/x-scss" href="{% static 'core/profile-view-styles/followers-overlay-styles.scss' %}">
+    {% endcompress %}
+
+<style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      background-color: white;
+
+      p, a {
+        font-family: "Euclid Circular A", sans-serif;
+        font-weight: 500;
+        font-size: 1em;
+        font-style: normal;
+        color: black;
+      }
+    }
+
+    main#main-profile-contents {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        gap: 30px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+</style>
+
+    <title>{{ user.get_username }} ({{ user.get_full_name }})</title>
 </head>
 <body>
+    {% include 'template-components/header-comp.html' %}
 
+    <main id="main-profile-contents">
+        {% include 'template-components/profile-main-info-tab.html' %}
+    </main>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    document.querySelector('.connections-link').addEventListener('click', function() {
+        const username = this.getAttribute('data-username');
+        fetch(`/user/${username}/connections/`)
+            .then(response => response.text())
+            .then(html => {
+                document.body.insertAdjacentHTML('beforeend', `<div class="modal-overlay">${html}</div>`);
+                setupModal();
+            });
+    });
+
+    function setupModal() {
+        const overlay = document.querySelector('.modal-overlay');
+
+        overlay.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal-overlay') || e.target.classList.contains('close-modal')) {
+                overlay.remove();
+            }
+        });
+
+        const tabButtons = document.querySelectorAll('.tab-button');
+        tabButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                document.querySelectorAll('.tab-button, .tab-content').forEach(el => {
+                    el.classList.remove('active');
+                });
+
+                this.classList.add('active');
+                const tabId = this.getAttribute('data-tab') + '-tab';
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+    }
+});
+</script>
 </body>
 </html>

@@ -1,0 +1,45 @@
+<article id="profile-info-section">
+    <div class="profile-column-left">
+        <section id="profile-pics-holder">
+            {% if user.backcover_profile %}
+                <img id='profile-background' src="{{ user.backcover_profile.url }}" alt="{{ user.get_full_name|default:user.username }}"/>
+            {% endif %}
+            {% if user.profile_picture %}
+                <img id='profile-image' src="{{ user.profile_picture.url }}" alt="{{ user.get_full_name|default:user.username }}">
+            {% endif %}
+            <div id="profile-namings">
+                <h3>{{ user.get_full_name }}</h3>
+                <p>@{{ user.get_username }}</p>
+            </div>
+        </section>
+    </div>
+
+    <div class="profile-column-right">
+        <section id="side-info">
+            <p>{{ user.bio|default:"some bio description" }}</p>
+            <button class="filled-web-btn">Edit profile</button>
+
+            <div class="expand-info">
+                <p class="connections-link" data-username="{{ user.username }}">
+                    <span class="followers-count">{{ user.get_user_followers }}</span> Followers and
+                    <span class="following-count">{{ user.get_user_following }}</span> Following
+                </p>
+
+                <p>Preferred work period: 5:00PM-7:00PM</p>
+
+                <p>Been part of these organisations</p>
+                <div class="organization-logos">
+                    {% for membership in user.userorganization_set.all %}
+                        {% if membership.organization.logo %}
+                            <img src="{{ membership.organization.logo.url }}"
+                                alt="{{ membership.organization.name }}"
+                                title="{{ membership.organization.name }} ({{ membership.position|default:'Member' }})">
+                        {% endif %}
+                    {% empty %}
+                        <p>No organizations listed yet</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    </div>
+</article>

@@ -13,5 +13,5 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('privacyPolicy/', views.privacy_policy, name='privacy_policy'),
     path('user/<str:username>/', views.account_view, name='account_view'),
-
+    path('user/<str:username>/connections/', views.followers_following_view, name='user_connections'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

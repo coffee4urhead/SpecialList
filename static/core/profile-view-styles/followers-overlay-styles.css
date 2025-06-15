@@ -1,0 +1,113 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+.modal-overlay .modal-container {
+  background: white;
+  border-radius: 12px;
+  width: 500px;
+  max-height: 80vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.modal-overlay .modal-container .modal-header {
+  padding: 15px 20px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.modal-overlay .modal-container .modal-header h3 {
+  margin: 0;
+  font-size: 1.3em;
+}
+.modal-overlay .modal-container .modal-header .close-modal {
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+.modal-overlay .modal-container .modal-tabs {
+  display: flex;
+  border-bottom: 1px solid #eee;
+}
+.modal-overlay .modal-container .modal-tabs .tab-button {
+  flex: 1;
+  padding: 15px;
+  background: none;
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1em;
+  font-style: normal;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+}
+.modal-overlay .modal-container .modal-tabs .tab-button.active {
+  border-bottom-color: #ece1e1;
+  font-weight: bold;
+}
+.modal-overlay .modal-container .tab-content {
+  padding: 15px;
+  overflow-y: auto;
+  display: none;
+}
+.modal-overlay .modal-container .tab-content.active {
+  display: block;
+}
+.modal-overlay .modal-container .tab-content .user-card {
+  padding: 10px 0;
+  border-bottom: 1px solid #f5f5f5;
+}
+.modal-overlay .modal-container .tab-content .user-card a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+.modal-overlay .modal-container .tab-content .user-card a img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 15px;
+}
+.modal-overlay .modal-container .tab-content .user-card a .user-info {
+  display: flex;
+  flex-direction: column;
+}
+.modal-overlay .modal-container .tab-content .user-card a .user-info strong {
+  font-size: 1.1em;
+}
+.modal-overlay .modal-container .tab-content .user-card a .user-info span {
+  color: #666;
+  font-size: 0.9em;
+}
+.modal-overlay .modal-container .tab-content .user-card a .user-info small {
+  color: #999;
+  font-size: 0.8em;
+  margin-top: 3px;
+}
+.modal-overlay .modal-container .tab-content .empty-message {
+  text-align: center;
+  color: #999;
+  padding: 20px 0;
+}
+
+.connections-link {
+  cursor: pointer;
+}
+.connections-link:hover {
+  text-decoration: underline;
+}
+
+/*# sourceMappingURL=followers-overlay-styles.css.map */

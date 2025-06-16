@@ -1,5 +1,7 @@
 <form id="profile-edit-form" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
+
+    <!-- User Profile Fields -->
     <div class="form-group">
         <label for="id_first_name">First Name</label>
         {{ form.first_name }}
@@ -40,6 +42,16 @@
         <label for="id_timezone">Timezone</label>
         {{ form.timezone }}
     </div>
+
+    <!-- Organization Formset -->
+    <h4>Organizations</h4>
+    {{ organization_formset.management_form }}
+    {% for org_form in organization_formset %}
+        <div class="organization-entry">
+            {{ org_form.as_p }}
+        </div>
+    {% endfor %}
+
     <div class="form-buttons">
         <button type="submit" class="filled-web-btn">Save Changes</button>
         <button type="button" id="cancel-edit" class="emp-web-btn">Cancel</button>

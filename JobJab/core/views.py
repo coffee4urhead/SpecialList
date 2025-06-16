@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate, login as auth_login, logout as aut
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 
-from JobJab.core.forms import CleanUserCreationForm, CleanLoginForm, ProfileEditForm
+from JobJab.core.forms import CleanUserCreationForm, CleanLoginForm, ProfileEditForm, UserOrganizationFormSet
 from django.contrib import messages
 
 from JobJab.core.models import CustomUser
@@ -78,12 +78,35 @@ def account_view(request, username):
     viewed_account = get_object_or_404(CustomUser, username=username)
     is_owner = (request.user == viewed_account)
 
-    form = ProfileEditForm(instance=request.user) if is_owner else None
+    if is_owner:
+        if request.method == 'POST':
+            form = ProfileEditForm(request.POST, request.FILES, instance=request.user)
+            formset = UserOrganizationFormSet(request.POST, instance=request.user)
+
+            if form.is_valid() and formset.is_valid():
+                form.save()
+                formset.save()
+                messages.success(request, 'Your profile has been updated.')
+                return redirect('account_view', username=request.user.username)
+            else:
+                messages.error(request, 'Please correct the errors below.')
+        else:
+            form = ProfileEditForm(instance=request.user)
+            formset = UserOrganizationFormSet(instance=request.user)
+    else:
+        form = None
+        formset = None
 
     context = {
         'viewed_account': viewed_account,
         'is_owner': is_owner,
         'form': form,
+        'organization_formset': formset,
     }
 
-    return render(request, 'core/accounts/my_account.html' if is_owner else 'core/accounts/public_profile.html', context)
+    return render(
+        request,
+        'core/accounts/my_account.html' if is_owner else 'core/accounts/public_profile.html',
+        context
+    )
+

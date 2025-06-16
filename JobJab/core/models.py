@@ -10,7 +10,7 @@ TIMEZONE_CHOICES = [(tz, tz) for tz in pytz.all_timezones]
 
 class Organization(models.Model):
     name = models.CharField(max_length=100)
-    logo = models.ImageField(upload_to='organization_logos/', blank=True, null=True)
+    logo = models.ImageField(upload_to='organization_logos/', default='static/images/default-org.jpg', validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png', 'webp'])], blank=True, null=True)
     website = models.URLField(blank=True, null=True)
 
     def __str__(self):
@@ -69,7 +69,6 @@ class Availability(models.Model):
 
     def __str__(self):
         return f"{self.provider} - {self.status} on {self.date} from {self.start_time} to {self.end_time}"
-
 
 class CustomUser(AbstractUser):
     user_type = models.CharField(choices=UserChoices)

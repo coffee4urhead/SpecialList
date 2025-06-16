@@ -1,0 +1,69 @@
+form#profile-edit-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 30px;
+  padding: 30px;
+}
+form#profile-edit-form div.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+form#profile-edit-form div.form-group img#profile-background {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+form#profile-edit-form div.form-group img#profile-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid white;
+}
+form#profile-edit-form div.form-group input[type=text], form#profile-edit-form div.form-group input[type=email] {
+  height: 30px;
+  padding: 5px;
+  width: auto;
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1em;
+  font-style: normal;
+  text-align: center;
+}
+form#profile-edit-form div.form-group label {
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1em;
+  font-style: normal;
+}
+form#profile-edit-form div.form-buttons {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+}
+form#profile-edit-form div.form-buttons button {
+  font-weight: 700;
+}
+form#profile-edit-form div.form-buttons button#cancel-edit {
+  width: 120px;
+  height: 45px;
+  background-color: red;
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1.2em;
+  font-style: normal;
+  color: #ece1e1;
+  border-radius: 8px;
+  font-size: 1.1em;
+  border: 2px solid #ece1e1;
+}
+form#profile-edit-form div.form-buttons button#cancel-edit:hover {
+  transform: translateY(-2px);
+  transition: transform 0.2s linear;
+}
+
+/*# sourceMappingURL=change-info-form.css.map */

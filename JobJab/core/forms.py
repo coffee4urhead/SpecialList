@@ -1,8 +1,9 @@
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import get_user_model, forms
 from django import forms
+from django.forms import ClearableFileInput, inlineformset_factory
 
-from JobJab.core.models import TIMEZONE_CHOICES
+from JobJab.core.models import TIMEZONE_CHOICES, UserOrganization, CustomUser
 
 User = get_user_model()
 
@@ -33,6 +34,9 @@ class CleanLoginForm(AuthenticationForm):
     class Meta:
         fields = ['username', 'password']
 
+class CustomImageInput(ClearableFileInput):
+    template_name = 'widgets/custom_clearable_file_input.html'
+
 class ProfileEditForm(forms.ModelForm):
     class Meta:
         model = get_user_model()
@@ -51,4 +55,23 @@ class ProfileEditForm(forms.ModelForm):
         widgets = {
             'timezone': forms.Select(choices=TIMEZONE_CHOICES),
             'bio': forms.Textarea(attrs={'rows': 4}),
+            'profile_picture': CustomImageInput(attrs={'class': 'form-control-file'}),
+            'backcover_profile': CustomImageInput(attrs={'class': 'form-control-file'}),
         }
+
+class UserOrganizationForm(forms.ModelForm):
+    class Meta:
+        model = UserOrganization
+        fields = ['organization', 'position', 'start_date', 'end_date', 'is_current']
+        widgets = {
+            'start_date': forms.DateInput(attrs={'type': 'date'}),
+            'end_date': forms.DateInput(attrs={'type': 'date'}),
+        }
+
+UserOrganizationFormSet = inlineformset_factory(
+    parent_model=CustomUser,
+    model=UserOrganization,
+    form=UserOrganizationForm,
+    extra=1,
+    can_delete=True
+)

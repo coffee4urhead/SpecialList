@@ -1,0 +1,67 @@
+@import "../../utils/web_colors.scss";
+@import "../../utils/general-web-mixins/main-web-utls.scss";
+@import "../../utils/general-web-mixins/main-button-mixin.scss";
+
+form#profile-edit-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 30px;
+  padding: 30px;
+
+  div.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex-wrap: wrap;
+
+    img#profile-background {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 12px;
+      }
+
+      img#profile-image {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid white;
+      }
+
+    input[type='text'], input[type='email'] {
+      height: 30px;
+      padding: 5px;
+      width: auto;
+      @include  def-web-text($pref-font-size: 1em, $pref-font-st: normal);
+      text-align: center;
+    }
+
+    label {
+      @include  def-web-text($pref-font-size: 1em, $pref-font-st: normal);
+    }
+  }
+
+  div.form-buttons {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+
+    button {
+      font-weight: 700;
+    }
+
+    button#cancel-edit {
+      @include main-button($arg-width: 120px, $arg-height: 45px, $arg-bg-color: red, $txt-color: $main-web-color);
+        border-radius: 8px;
+        font-size: 1.1em;
+        border: 2px solid $main-web-color;
+
+        &:hover {
+          transform: translateY(-2px);
+          transition: transform 0.2s linear;
+        }
+    }
+  }
+}

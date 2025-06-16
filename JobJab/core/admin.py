@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from JobJab.subscriptions.models import Subscription
-from JobJab.core.models import CustomUser
+from JobJab.core.models import CustomUser, Organization
+
 
 class SubscriptionInline(admin.StackedInline):
     model = Subscription
@@ -36,3 +37,8 @@ class CustomUserAdmin(UserAdmin):
     inlines = [SubscriptionInline]
 
 admin.site.register(CustomUser, CustomUserAdmin)
+
+@admin.register(Organization)
+class OrganizationAdmin(admin.ModelAdmin):
+    list_display = ('name', 'website')
+    search_fields = ('name',)

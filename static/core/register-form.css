@@ -105,7 +105,7 @@ main#main-cont div#form-cont form div.form-field label {
   font-style: normal;
   align-self: flex-start;
   margin-bottom: 10px;
-  color: #ece1e1;
+  color: #ffffff;
   width: 100%;
   text-align: left;
 }
@@ -121,7 +121,7 @@ main#main-cont div#form-cont form div.form-field input, main#main-cont div#form-
   margin: 0 auto;
 }
 main#main-cont div#form-cont form div.form-field input:focus, main#main-cont div#form-cont form div.form-field select:focus {
-  outline: 4px solid #ece1e1;
+  outline: 4px solid #ffffff;
   border-color: transparent;
 }
 main#main-cont div#form-cont form button[type=submit] {
@@ -132,7 +132,7 @@ main#main-cont div#form-cont form button[type=submit] {
   font-weight: 400;
   font-size: 1.2em;
   font-style: normal;
-  color: #ece1e1;
+  color: #ffffff;
   margin-top: 20px;
 }
 

@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 from django.contrib.auth import get_user_model
-from JobJab.reviews.models import Review, ReviewType
+from JobJab.reviews.models import ReviewType, WebsiteReview
 from datetime import datetime, timedelta
 import random
 
@@ -34,9 +34,8 @@ class Command(BaseCommand):
         ]
 
         for i, user in enumerate(test_users):
-            Review.objects.create(
+            WebsiteReview.objects.create(
                 reviewer=user,
-                review_type=ReviewType.WEBSITE.value,
                 rating=random.randint(3, 5),
                 main_caption=f"Review {i+1}",
                 comment=review_texts[i],

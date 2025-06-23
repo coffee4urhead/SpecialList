@@ -10,61 +10,92 @@ class ReviewType(models.TextChoices):
     SERVICE = 'service', 'Specific Service Review'
     WEBSITE = 'website', 'Website/Platform Review'
 
-class Review(models.Model):
-    reviewer = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name='given_reviews')
-    review_type = models.CharField(
-        max_length=10,
-        choices=ReviewType,
-        default=ReviewType.WEBSITE
-    )
-    service = models.ForeignKey(ServiceListing, on_delete=models.CASCADE, related_name='reviews', null=True, blank=True)
-    provider = models.ForeignKey(
-        AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-        related_name='provider_reviews',
-        null=True,
-        blank=True,
-        limit_choices_to={'user_type': UserChoices.Provider}
-    )
-    likes = models.IntegerField(default=0)
-    dislikes = models.IntegerField(default=0)
+class BaseReview(models.Model):
+    reviewer = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
     rating = models.SmallIntegerField(choices=[(i, i) for i in range(1, 6)])
     main_caption = models.CharField(max_length=100)
     comment = models.TextField()
     created_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now_add=True)
+    likes = models.IntegerField(default=0)
+    dislikes = models.IntegerField(default=0)
 
-    #Adding a constraint or logic to prevent multiple reviews by the same reviewer on the same service/booking would improve data quality.
+    class Meta:
+        abstract = True
+
+
+class WebsiteReview(BaseReview):
+    """Review for the entire platform"""
 
     def clean(self):
-        super().clean()
+        if not self.reviewer:
+            raise ValidationError("Website reviews must have a reviewer")
 
-        if self.review_type == ReviewType.PROVIDER and not self.provider:
-            raise ValidationError("Provider reviews must have a provider specified")
+    def __str__(self):
+        return f"Website review by {self.reviewer.username}"
 
-        if self.review_type == ReviewType.SERVICE and not self.service:
-            raise ValidationError("Service reviews must have a service specified")
 
-        if self.review_type == ReviewType.WEBSITE and (self.provider or self.service):
-            raise ValidationError("Website reviews shouldn't have provider or service specified")
+class UserReview(BaseReview):
+    """Review for a specific user account"""
+    reviewee = models.ForeignKey(
+        AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='user_reviews'
+    )
+
+    def clean(self):
+        if not self.reviewer:
+            raise ValidationError("User reviews must have a reviewer")
+        if not self.reviewee:
+            raise ValidationError("User reviews must have a reviewee")
+        if self.reviewer == self.reviewee:
+            raise ValidationError("Cannot review yourself")
+
+    def __str__(self):
+        return f"User review for {self.reviewee.username} by {self.reviewer.username}"
+
+
+class ProviderReview(BaseReview):
+    """Review for a service provider"""
+    provider = models.ForeignKey(
+        AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='provider_reviews',
+        limit_choices_to={'user_type': UserChoices.Provider}
+    )
+    service = models.ForeignKey(
+        ServiceListing,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='service_reviews'
+    )
+
+    def clean(self):
+        if not self.reviewer:
+            raise ValidationError("Provider reviews must have a reviewer")
+        if not self.provider:
+            raise ValidationError("Provider reviews must have a provider")
+        if self.reviewer == self.provider:
+            raise ValidationError("Cannot review yourself")
+        if self.service and self.service.provider != self.provider:
+            raise ValidationError("Service must belong to the provider being reviewed")
+
+    def __str__(self):
+        if self.service:
+            return f"Service review for {self.service.title} by {self.reviewer.username}"
+        return f"Provider review for {self.provider.username} by {self.reviewer.username}"
 
     class Meta:
         constraints = [
-            # Ensure only one relationship is set based on review_type
-            models.CheckConstraint(
-                check=(
-                        models.Q(review_type=ReviewType.PROVIDER, provider__isnull=False, service__isnull=True) |
-                        models.Q(review_type=ReviewType.SERVICE, service__isnull=False, provider__isnull=True) |
-                        models.Q(review_type=ReviewType.WEBSITE, provider__isnull=True, service__isnull=True)
-                ),
-                name='consistent_review_type'
+            models.UniqueConstraint(
+                fields=['reviewer', 'provider', 'service'],
+                name='unique_provider_service_review',
+                condition=models.Q(service__isnull=False)
+            ),
+            models.UniqueConstraint(
+                fields=['reviewer', 'provider'],
+                name='unique_provider_review',
+                condition=models.Q(service__isnull=True)
             )
         ]
-
-    def __str__(self):
-        if self.review_type == ReviewType.PROVIDER:
-            return f"Provider review for {self.provider.username} by {self.reviewer.username}"
-        elif self.review_type == ReviewType.SERVICE:
-            return f"Service review for {self.service.title} by {self.reviewer.username}"
-        else:
-            return f"Website review by {self.reviewer.username}"

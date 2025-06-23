@@ -1,8 +1,33 @@
-<div id="edit-profile-form-container" style="display: none; margin-top: 20px;">
-    <form method="POST" enctype="multipart/form-data" action="{% url 'edit_profile' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="filled-web-btn">Save Changes</button>
-        <button type="button" id="cancel-edit" class="filled-web-btn">Cancel</button>
-    </form>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      background-color: white;
+
+      p, a {
+        font-family: "Euclid Circular A", sans-serif;
+        font-weight: 500;
+        font-size: 1em;
+        font-style: normal;
+        color: black;
+      }
+    }
+</style>
+
+    <title>{{ user.get_username }} ({{ user.get_full_name }})</title>
+</head>
+<body>
+    <h1>Hello some user account</h1>
+</body>
+</html>

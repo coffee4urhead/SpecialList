@@ -53,7 +53,7 @@
   cursor: pointer;
 }
 .modal-overlay .modal-container .modal-tabs .tab-button.active {
-  border-bottom-color: #ece1e1;
+  border-bottom-color: #ffffff;
   font-weight: bold;
 }
 .modal-overlay .modal-container .tab-content {

@@ -21,4 +21,10 @@
             <img src="{% static 'images/footer-image.png'%}"/>
         </div>
     </section>
+    <section id="reviews-section">
+    <h2>User Reviews</h2>
+    <div id="reviews-scroll-container">
+      {% include 'user-review.html' with given_reviews=given_reviews %}
+    </div>
+  </section>
 </article>

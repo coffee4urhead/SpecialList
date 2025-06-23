@@ -6,7 +6,7 @@ from JobJab.core.forms import CleanUserCreationForm, CleanLoginForm, ProfileEdit
 from django.contrib import messages
 
 from JobJab.core.models import CustomUser
-from JobJab.reviews.models import Review, ReviewType
+from JobJab.reviews.models import WebsiteReview, UserReview
 
 
 def register(request):
@@ -47,9 +47,7 @@ def logout(request):
     return redirect('home')
 
 def home(request):
-    reviews = Review.objects.filter(
-        review_type=ReviewType.WEBSITE.value
-    ).select_related('reviewer').order_by('-created_at')[:4]
+    reviews = WebsiteReview.objects.all().order_by('-created_at')[:4]
 
     return render(request, 'core/home.html', {
         'reviews_from_user_to_the_website': reviews
@@ -76,6 +74,7 @@ def followers_following_view(request, username):
 @login_required
 def account_view(request, username):
     viewed_account = get_object_or_404(CustomUser, username=username)
+    reviews_given = UserReview.objects.filter(reviewee=viewed_account)
     is_owner = (request.user == viewed_account)
 
     if is_owner:
@@ -102,6 +101,7 @@ def account_view(request, username):
         'is_owner': is_owner,
         'form': form,
         'organization_formset': formset,
+        'reviews_given': reviews_given,
     }
 
     return render(

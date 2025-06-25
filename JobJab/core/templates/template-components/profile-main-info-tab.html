@@ -1,24 +1,24 @@
 <article id="profile-info-section">
     <div class="profile-column-left">
         <section id="profile-pics-holder">
-            {% if user.backcover_profile %}
-                <img id='profile-background' src="{{ user.backcover_profile.url }}" alt="{{ user.get_full_name|default:user.username }}"/>
+            {% if viewed_account.backcover_profile %}
+                <img id='profile-background' src="{{ viewed_account.backcover_profile.url }}" alt="{{ viewed_account.get_full_name|default:viewed_account.username }}"/>
             {% endif %}
             {% if user.profile_picture %}
-                <img id='profile-image' src="{{ user.profile_picture.url }}" alt="{{ user.get_full_name|default:user.username }}">
+                <img id='profile-image' src="{{ viewed_account.profile_picture.url }}" alt="{{ viewed_account.get_full_name|default:viewed_account.username }}">
             {% endif %}
             <div id="profile-namings">
-                <h3>{{ user.get_full_name }}</h3>
-                <p>@{{ user.get_username }}</p>
+                <h3>{{ viewed_account.get_full_name }}</h3>
+                <p>@{{ viewed_account.get_username }}</p>
             </div>
         </section>
     </div>
 
     <div class="profile-column-right">
         <section id="side-info">
-            <p>{{ user.bio|default:"some bio description" }}</p>
+            <p>{{ viewed_account.bio|default:"some bio description" }}</p>
 
-            {% if is_owner %}
+            {% if viewed_account == request.user %}
                 <button id="edit-profile-btn" class="filled-web-btn">Edit profile</button>
 
                 <div id="edit-profile-form-container" style="display: none; margin-top: 20px;">
@@ -26,22 +26,21 @@
                 </div>
             {% else %}
                 <button class="filled-web-btn follow">Follow Account</button>
-                <button class="emp-web-btn">Leave Review</button>
+                <button class="emp-web-btn" id="review-btn" data-username="{{ viewed_account.username }}">Leave Review</button>
             {% endif %}
 
 
             <div class="expand-info">
-                <p class="connections-link" data-username="{{ user.username }}">
-                    <span class="followers-count">{{ user.get_user_followers }}</span> Followers and
-                    <span class="following-count">{{ user.get_user_following }}</span> Following
+                <p class="connections-link" data-username="{{ viewed_account.username }}">
+                    <span class="followers-count">{{ viewed_account.get_user_followers }}</span> Followers and
+                    <span class="following-count">{{ viewed_account.get_user_following }}</span> Following
                 </p>
-
                 <!-- TO BE IMPLEMENTED -->
                 <p>Preferred work period: 5:00PM-7:00PM</p>
 
                 <p>Been part of these organisations</p>
                 <div class="organization-logos">
-                    {% for membership in user.userorganization_set.all %}
+                    {% for membership in viewed_account.userorganization_set.all %}
                         {% if membership.organization.logo %}
                             <img src="{{ membership.organization.logo.url }}"
                                 alt="{{ membership.organization.name }}"

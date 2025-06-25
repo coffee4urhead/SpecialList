@@ -78,6 +78,19 @@ article#profile-info-section {
         }
       }
 
+      button.emp-web-btn {
+        @include main-button($arg-width: 80%, $arg-height: 45px, $arg-bg-color: $main-web-color, $txt-color: $main-web-color);
+        border-radius: 8px;
+        color: $eccentric-color;
+        font-size: 1.1em;
+        font-weight: 500;
+        border: 2px solid $eccentric-color;
+
+        &:hover {
+          transform: translateY(-2px);
+          transition: transform 0.2s linear;
+        }
+      }
       .expand-info {
         display: flex;
         flex-direction: column;

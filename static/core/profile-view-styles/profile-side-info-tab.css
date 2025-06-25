@@ -17,6 +17,14 @@ article#profile-side-info-tab-cont section#socials-container {
   border-radius: 8px;
   gap: 1rem;
 }
+article#profile-side-info-tab-cont section#socials-container div.container h1 {
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 2em;
+  font-style: normal;
+  margin-left: 20px;
+  padding: 13px;
+}
 article#profile-side-info-tab-cont section#socials-container div.img-geo-cont {
   width: 100%;
   height: auto;
@@ -32,12 +40,12 @@ article#profile-side-info-tab-cont section#socials-container div#social-info-hol
   border-radius: 40px;
   color: #06BAC5;
   background-color: white;
+  font-weight: 500;
   padding: 20px;
   font-family: "Euclid Circular A", sans-serif;
   font-weight: 400;
   font-size: 1em;
   font-style: italic;
-  text-align: center;
 }
 article#profile-side-info-tab-cont div.button-links {
   display: flex;
@@ -58,12 +66,12 @@ article#profile-side-info-tab-cont div.button-links button.filled-web-btn {
   color: #ffffff;
   border-radius: 8px;
   font-size: 1.1em;
-  font-weight: 500;
   border: 2px solid #ffffff;
 }
 article#profile-side-info-tab-cont div.button-links button.filled-web-btn a {
   text-decoration: none;
   color: white;
+  font-weight: 500;
   display: block;
 }
 article#profile-side-info-tab-cont div.button-links button.filled-web-btn:hover {
@@ -71,13 +79,13 @@ article#profile-side-info-tab-cont div.button-links button.filled-web-btn:hover 
   transition: transform 0.2s linear;
 }
 article#profile-side-info-tab-cont section#reviews-section h2 {
-  text-align: center;
   font-family: "Euclid Circular A", sans-serif;
   font-weight: 400;
-  font-size: 1.5em;
+  font-size: 1.8em;
   font-style: normal;
   margin-left: 20px;
   padding: 13px;
+  font-weight: bold;
 }
 
 /*# sourceMappingURL=profile-side-info-tab.css.map */

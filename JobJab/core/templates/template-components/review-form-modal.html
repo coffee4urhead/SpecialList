@@ -1,0 +1,51 @@
+<div class="modal-container">
+    <div class="modal-header">
+        <h3>Leave Review for @{{ reviewee.username }}</h3>
+        <button class="close-modal">&times;</button>
+    </div>
+
+    <form id="review-form" method="post">
+        {% csrf_token %}
+
+        <!-- Read-only reviewee display -->
+        <div class="form-group">
+            <label>Review For:</label>
+            {{ form.reviewee_display }}
+        </div>
+
+        <!-- Rating with stars -->
+        <div class="form-group">
+            <label>Rating:</label>
+            <div class="star-rating">
+                {% for i in "54321" %}
+                <input type="radio" id="star{{ i }}" name="rating" value="{{ i }}"
+                       {% if form.rating.value == i %}checked{% endif %}>
+                <label for="star{{ i }}">★</label>
+                {% endfor %}
+            </div>
+            {% if form.rating.errors %}
+                <div class="error">{{ form.rating.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Main caption (title) -->
+        <div class="form-group">
+            <label>{{ form.main_caption.label }}</label>
+            {{ form.main_caption }}
+            {% if form.main_caption.errors %}
+                <div class="error">{{ form.main_caption.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Comment (content) -->
+        <div class="form-group">
+            <label>{{ form.comment.label }}</label>
+            {{ form.comment }}
+            {% if form.comment.errors %}
+                <div class="error">{{ form.comment.errors }}</div>
+            {% endif %}
+        </div>
+
+        <button type="submit" class="filled-web-btn">Submit Review</button>
+    </form>
+</div>

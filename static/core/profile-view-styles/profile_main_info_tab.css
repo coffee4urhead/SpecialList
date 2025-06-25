@@ -80,6 +80,25 @@ article#profile-info-section .profile-column-right #side-info button.filled-web-
   transform: translateY(-2px);
   transition: transform 0.2s linear;
 }
+article#profile-info-section .profile-column-right #side-info button.emp-web-btn {
+  width: 80%;
+  height: 45px;
+  background-color: #ffffff;
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1.2em;
+  font-style: normal;
+  color: #ffffff;
+  border-radius: 8px;
+  color: #32AE88;
+  font-size: 1.1em;
+  font-weight: 500;
+  border: 2px solid #32AE88;
+}
+article#profile-info-section .profile-column-right #side-info button.emp-web-btn:hover {
+  transform: translateY(-2px);
+  transition: transform 0.2s linear;
+}
 article#profile-info-section .profile-column-right #side-info .expand-info {
   display: flex;
   flex-direction: column;

@@ -24,7 +24,6 @@ class Command(BaseCommand):
             test_users.append(user)
             self.stdout.write(self.style.SUCCESS(f'Created user: {user.username}'))
 
-        # Create test reviews
         review_texts = [
             "Great platform, found exactly what I needed!",
             "Easy to use and very intuitive interface",

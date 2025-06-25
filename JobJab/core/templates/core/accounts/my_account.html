@@ -12,7 +12,8 @@
         <link rel="stylesheet" type="text/x-scss" href="{% static 'core/profile-view-styles/followers-overlay-styles.scss' %}">
         <link rel="stylesheet" type="text/x-scss" href="{% static 'core/profile-view-styles/profile-side-info-tab.scss' %}">
         <link rel="stylesheet" type="text/x-scss" href="{% static 'core/profile-view-styles/change-info-form.scss' %}">
-                <link rel="stylesheet" type="text/x-scss" href="{% static 'core/profile-view-styles/user-profile-reviews-style.scss' %}">
+        <link rel="stylesheet" type="text/x-scss" href="{% static 'core/profile-view-styles/user-profile-reviews-style.scss' %}">
+        <link rel="stylesheet" type="text/x-scss" href="{% static 'core/profile-view-styles/leave-review-form-styles.scss' %}">
     {% endcompress %}
 
 <style>
@@ -57,6 +58,8 @@
         {% include 'template-components/profile-side-info-tab.html' with is_owner=True %}
     </main>
 
+
+    <script src="{% static 'js-scripts/profile-scripts/leave-review-script.js' %}"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
             integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
             crossorigin=""></script>

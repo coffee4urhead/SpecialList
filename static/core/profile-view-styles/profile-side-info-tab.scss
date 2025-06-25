@@ -21,7 +21,11 @@ article#profile-side-info-tab-cont {
     border-radius: 8px;
     gap: 1rem;
 
-
+    div.container {
+      h1 {
+         @include  web-title-special($pref-font-size: 2em, $pref-font-st: normal);
+      }
+    }
     div.img-geo-cont {
       width: 100%;
       height: auto;
@@ -38,9 +42,9 @@ article#profile-side-info-tab-cont {
         border-radius: 40px;
         color: $secondary-web-color;
         background-color: white;
+        font-weight: 500;
         padding: 20px;
         @include  def-web-text($pref-font-size: 1em, $pref-font-st: italic);
-        text-align: center;
       }
     }
   }
@@ -57,12 +61,12 @@ article#profile-side-info-tab-cont {
       @include main-button($arg-width: 80%, $arg-height: 45px, $arg-bg-color: $additional_web_color, $txt-color: $main-web-color);
       border-radius: 8px;
       font-size: 1.1em;
-      font-weight: 500;
       border: 2px solid $main-web-color;
 
       a {
         text-decoration: none;
         color: white;
+        font-weight: 500;
         display: block;
       }
 
@@ -75,8 +79,8 @@ article#profile-side-info-tab-cont {
 
   section#reviews-section {
     h2 {
-      text-align: center;
-      @include  web-title-special($pref-font-size: 1.5em, $pref-font-st: normal);
+      @include  web-title-special($pref-font-size: 1.8em, $pref-font-st: normal);
+      font-weight: bold;
     }
   }
 }

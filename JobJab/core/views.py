@@ -5,11 +5,13 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_http_methods
 
 from JobJab.core.forms import CleanUserCreationForm, CleanLoginForm, ProfileEditForm, UserOrganizationFormSet
 from django.contrib import messages
 
 from JobJab.core.models import CustomUser, UserLocation
+from JobJab.reviews.forms import UserReviewForm
 from JobJab.reviews.models import WebsiteReview, UserReview
 
 
@@ -76,6 +78,25 @@ def followers_following_view(request, username):
     return render(request, 'template-components/follow_modal_content.html', context)
 
 
+@login_required
+@require_http_methods(["GET", "POST"])
+def leave_user_review(request, username):
+    reviewee = get_object_or_404(CustomUser, username=username)
+
+    if request.method == "POST":
+        form = UserReviewForm(request.POST, reviewee=reviewee, reviewer=request.user)
+
+        if form.is_valid():
+            review = form.save()
+            return JsonResponse({'status': 'success'})
+        else:
+            return JsonResponse({'status': 'error', 'errors': form.errors}, status=400)
+
+    else:  # GET
+        form = UserReviewForm(initial={'reviewee_display': str(reviewee)}, reviewee=reviewee, reviewer=request.user)
+
+        return render(request, 'template-components/review-form-modal.html', {'form': form, 'reviewee': reviewee})
+
 @csrf_exempt
 @login_required
 def update_geolocation(request):
@@ -122,15 +143,11 @@ def account_view(request, username):
 
     context = {
         'viewed_account': viewed_account,
-        'is_owner': is_owner,
         'form': form,
         'organization_formset': formset,
         'reviews_given': reviews_given,
     }
 
-    return render(
-        request,
-        'core/accounts/my_account.html' if is_owner else 'core/accounts/public_profile.html',
-        context
-    )
+    print(context)
+    return render(request,'core/accounts/my_account.html', context)
 

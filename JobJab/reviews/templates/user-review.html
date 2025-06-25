@@ -3,6 +3,7 @@
     {% if reviews_given %}
       {% for user_review in reviews_given %}
         <section class="review-card">
+          <div class="rev-info-side">
           {% if user_review.reviewer.profile_picture %}
             <a href="{% url 'account_view' user_review.reviewer.username %}">
               <img src="{{ user_review.reviewer.profile_picture.url }}"
@@ -16,7 +17,6 @@
             </a>
           {% endif %}
 
-          <div class="rev-info-side">
             <div class="star-rating">
               {% for i in "12345" %}
                 <i class="fas fa-star{% if forloop.counter > user_review.rating %} text-muted{% endif %}"></i>

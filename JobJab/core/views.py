@@ -1,11 +1,15 @@
+import json
+
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
+from django.views.decorators.csrf import csrf_exempt
 
 from JobJab.core.forms import CleanUserCreationForm, CleanLoginForm, ProfileEditForm, UserOrganizationFormSet
 from django.contrib import messages
 
-from JobJab.core.models import CustomUser
+from JobJab.core.models import CustomUser, UserLocation
 from JobJab.reviews.models import WebsiteReview, UserReview
 
 
@@ -70,6 +74,26 @@ def followers_following_view(request, username):
     }
 
     return render(request, 'template-components/follow_modal_content.html', context)
+
+
+@csrf_exempt
+@login_required
+def update_geolocation(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            lat = data.get('latitude')
+            lng = data.get('longitude')
+
+            UserLocation.objects.update_or_create(
+                user=request.user,
+                defaults={'latitude': lat, 'longitude': lng}
+            )
+
+            return JsonResponse({'status': 'success'})
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)}, status=400)
+    return JsonResponse({'status': 'error'}, status=405)
 
 @login_required
 def account_view(request, username):

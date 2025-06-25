@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from JobJab.subscriptions.models import Subscription
-from JobJab.core.models import CustomUser, Organization
+from JobJab.core.models import CustomUser, Organization, UserLocation
 
 
 class SubscriptionInline(admin.StackedInline):
@@ -9,6 +9,10 @@ class SubscriptionInline(admin.StackedInline):
     fields = ('stripe_customer_id', 'subscription_plan_type')
     can_delete = False
     extra = 0
+
+@admin.register(UserLocation)
+class UserLocationAdmin(admin.ModelAdmin):
+    list_display = ('user', 'latitude', 'longitude', 'last_updated')
 
 class CustomUserAdmin(UserAdmin):
     list_display = ('username', 'email', 'user_type', 'is_staff', 'get_subscription_plan')

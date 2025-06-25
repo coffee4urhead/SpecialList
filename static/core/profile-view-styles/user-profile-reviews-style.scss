@@ -26,21 +26,27 @@ section#reviews-for-user {
   &::-webkit-scrollbar {
     display: none;
   }
+}
 
-  section.review-card {
-    flex: 0 0 auto;
+section.review-card {
+  flex: 0 0 auto;
     width: 30rem;
-    height: auto;
+    height: 20rem;
     scroll-snap-align: start;
+    border-radius: 8px;
+  padding: 1.8rem;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border: 2px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
 
       &:hover {
         transform: scale(1.02);
         transition: transform 0.2s ease;
       }
-  }
-}
 
-section.review-card {
     h1 {
         text-align: center;
         margin-bottom: 2rem;
@@ -52,24 +58,14 @@ section.review-card {
       height: 50px;
       border-radius: 50%;
       object-fit: cover;
+    display: inline-block;
     }
-
-  border-radius: 8px;
-  padding: 1.8rem;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  border: 2px solid black;
-  width: 30rem;
-  height: 20rem;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
 
   div.review-main-cont {
     padding: 20px;
 
     p {
-      @include def-web-text($pref-font-size: clamp(1.5em, 2em, 2.5em), $pref-font-st: normal);
+      @include def-web-text($pref-font-size: clamp(1.3em,1.5em, 1.7em), $pref-font-st: normal);
     }
   }
 
@@ -88,6 +84,7 @@ section.review-card {
   .star-rating {
     display: inline-flex;
     gap: 0.25rem;
+    padding: 20px;
 
     .fa-star, .text-muted {
       width: 20px;

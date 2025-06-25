@@ -14,4 +14,5 @@ urlpatterns = [
     path('privacyPolicy/', views.privacy_policy, name='privacy_policy'),
     path('user/<str:username>/', views.account_view, name='account_view'),
     path('user/<str:username>/connections/', views.followers_following_view, name='user_connections'),
+    path('updateGeolocation/', views.update_geolocation, name='update_geolocation'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

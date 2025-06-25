@@ -22,28 +22,24 @@ section#reviews-for-user div#reviews-scroll-container {
 section#reviews-for-user::-webkit-scrollbar {
   display: none;
 }
-section#reviews-for-user section.review-card {
-  flex: 0 0 auto;
-  width: 30rem;
-  height: auto;
-  scroll-snap-align: start;
-}
-section#reviews-for-user section.review-card:hover {
-  transform: scale(1.02);
-  transition: transform 0.2s ease;
-}
 
 section.review-card {
+  flex: 0 0 auto;
+  width: 30rem;
+  height: 20rem;
+  scroll-snap-align: start;
   border-radius: 8px;
   padding: 1.8rem;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border: 2px solid black;
-  width: 30rem;
-  height: 20rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
+}
+section.review-card:hover {
+  transform: scale(1.02);
+  transition: transform 0.2s ease;
 }
 section.review-card h1 {
   text-align: center;
@@ -60,6 +56,7 @@ section.review-card img {
   height: 50px;
   border-radius: 50%;
   object-fit: cover;
+  display: inline-block;
 }
 section.review-card div.review-main-cont {
   padding: 20px;
@@ -67,7 +64,7 @@ section.review-card div.review-main-cont {
 section.review-card div.review-main-cont p {
   font-family: "Euclid Circular A", sans-serif;
   font-weight: 400;
-  font-size: 2em;
+  font-size: 1.5em;
   font-style: normal;
 }
 section.review-card .user-rev-info {
@@ -86,6 +83,7 @@ section.review-card .user-rev-info p {
 section.review-card .star-rating {
   display: inline-flex;
   gap: 0.25rem;
+  padding: 20px;
 }
 section.review-card .star-rating .fa-star, section.review-card .star-rating .text-muted {
   width: 20px;

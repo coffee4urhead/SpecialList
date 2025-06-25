@@ -5,35 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a6602c8c-3836-4310-91e0-bc55f682d51c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/JobJab/reviews/management/commands/create_test_account_reviews.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JobJab/reviews/templates/user-review.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/core/profile-view-styles/user-profile-reviews-style.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/js-scripts/profile-scripts/display_location.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/js-scripts/profile-scripts/get_location.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/core/management/commands/create_test_reviews.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/management/commands/create_test_reviews.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/core/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/core/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JobJab/core/templates/core/accounts/my_account.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/core/accounts/my_account.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/core/templates/core/accounts/profile_template.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/core/accounts/profile_template.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/core/templates/core/accounts/public_profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/core/accounts/public_profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/core/templates/template-components/profile-main-info-tab.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/template-components/profile-main-info-tab.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JobJab/core/templates/template-components/profile-side-info-tab.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/template-components/profile-side-info-tab.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/core/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JobJab/core/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/reviews/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/reviews/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/reviews/templatetags/review_tag.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/description-component.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/description-component.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/homepage/first-caption-comp-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/first-caption-comp-styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/homepage/home-header-style.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/home-header-style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/homepage/second-caption-comp-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/second-caption-comp-styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/change-info-form.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/change-info-form.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/change-info-form.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/change-info-form.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/change-info-form.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/change-info-form.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/followers-overlay-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/followers-overlay-styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/reviews/templates/user-review.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/reviews/templates/user-review.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/profile-side-info-tab.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/profile-side-info-tab.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/profile-side-info-tab.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/profile-side-info-tab.css.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/profile-side-info-tab.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/profile-side-info-tab.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/profile_main_info_tab.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/profile_main_info_tab.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/profile_main_info_tab.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/profile_main_info_tab.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/profile_main_info_tab.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/profile_main_info_tab.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/register-form.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/register-form.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/utils/web_colors.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/utils/web_colors.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/user-profile-reviews-style.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/user-profile-reviews-style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/user-profile-reviews-style.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/user-profile-reviews-style.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/user-profile-reviews-style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/user-profile-reviews-style.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,6 +35,7 @@
       <list>
         <option value="HTML File" />
         <option value="Python Script" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -62,36 +50,36 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "Django Server.JobJab.executor": "Debug",
-    "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/dark1/Desktop/Python/JobJab",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "watcher.settings",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;Django Server.JobJab.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/dark1/Desktop/Python/JobJab&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;watcher.settings&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "postgresql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\dark1\Desktop\Python\JobJab\static\js-scripts\profile-scripts" />
+      <recent name="C:\Users\dark1\Desktop\Python\JobJab\JobJab\core\templates\core\accounts\js-scripts" />
       <recent name="C:\Users\dark1\Desktop\Python\JobJab\JobJab\core\templates" />
       <recent name="C:\Users\dark1\Desktop\Python\JobJab\media\profile_pics" />
       <recent name="C:\Users\dark1\Desktop\Python\JobJab\static\images" />
-      <recent name="C:\Users\dark1\Desktop\Python\JobJab\JobJab\core" />
-      <recent name="C:\Users\dark1\Desktop\Python\JobJab\static" />
     </key>
   </component>
   <component name="RunManager">
@@ -155,7 +143,8 @@
       <workItem from="1749992966617" duration="11877000" />
       <workItem from="1750079584003" duration="5471000" />
       <workItem from="1750247999810" duration="28000" />
-      <workItem from="1750679339426" duration="8588000" />
+      <workItem from="1750679339426" duration="8723000" />
+      <workItem from="1750844880109" duration="4860000" />
     </task>
     <servers />
   </component>

@@ -17,6 +17,10 @@ article#profile-side-info-tab-cont section#socials-container {
   border-radius: 8px;
   gap: 1rem;
 }
+article#profile-side-info-tab-cont section#socials-container div.img-geo-cont {
+  width: 100%;
+  height: auto;
+}
 article#profile-side-info-tab-cont section#socials-container div#social-info-holder {
   display: flex;
   flex-direction: column;
@@ -65,6 +69,15 @@ article#profile-side-info-tab-cont div.button-links button.filled-web-btn a {
 article#profile-side-info-tab-cont div.button-links button.filled-web-btn:hover {
   transform: translateY(-2px);
   transition: transform 0.2s linear;
+}
+article#profile-side-info-tab-cont section#reviews-section h2 {
+  text-align: center;
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1.5em;
+  font-style: normal;
+  margin-left: 20px;
+  padding: 13px;
 }
 
 /*# sourceMappingURL=profile-side-info-tab.css.map */

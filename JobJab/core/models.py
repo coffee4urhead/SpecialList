@@ -98,8 +98,6 @@ class CustomUser(AbstractUser):
         default='UTC',
         help_text='User timezone, e.g., America/New_York'
     )
-    latitude = models.FloatField(blank=True, null=True)
-    longitude = models.FloatField(blank=True, null=True)
 
     def get_user_followers(self):
         return self.followers.all().count()
@@ -110,3 +108,11 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return f"{ self.username } - {self.first_name} {self.last_name}"
 
+class UserLocation(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    latitude = models.DecimalField(max_digits=9, decimal_places=6)
+    longitude = models.DecimalField(max_digits=9, decimal_places=6)
+    last_updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.user.username}'s location"

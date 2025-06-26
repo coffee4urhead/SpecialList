@@ -2,7 +2,7 @@
     <section id="socials-container">
         <div id="social-info-holder">
             <div class="button-links">
-                {% if is_owner %}
+                {% if viewed_account == request.user %}
                     <button class="filled-web-btn"><a href="#">Certificates</a></button>
                     <button class="filled-web-btn"><a href="#">Payments</a></button>
                 {% else %}

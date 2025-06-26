@@ -2,6 +2,7 @@ import json
 
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ValidationError
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
@@ -84,18 +85,40 @@ def leave_user_review(request, username):
     reviewee = get_object_or_404(CustomUser, username=username)
 
     if request.method == "POST":
-        form = UserReviewForm(request.POST, reviewee=reviewee, reviewer=request.user)
+        # Create mutable copy of POST data
+        post_data = request.POST.copy()
+        if 'reviewer_id' not in post_data:
+            post_data['reviewer_id'] = request.user.id
+
+        form = UserReviewForm(post_data, reviewee=reviewee, reviewer=request.user)
 
         if form.is_valid():
-            review = form.save()
-            return JsonResponse({'status': 'success'})
-        else:
-            return JsonResponse({'status': 'error', 'errors': form.errors}, status=400)
+            try:
+                review = form.save()
+                return JsonResponse({'status': 'success'})
+            except ValidationError as e:
+                return JsonResponse({
+                    'status': 'error',
+                    'errors': {'__all__': list(e.messages)}
+                }, status=400)
+        return JsonResponse({
+            'status': 'error',
+            'errors': form.errors
+        }, status=400)
 
-    else:  # GET
-        form = UserReviewForm(initial={'reviewee_display': str(reviewee)}, reviewee=reviewee, reviewer=request.user)
-
-        return render(request, 'template-components/review-form-modal.html', {'form': form, 'reviewee': reviewee})
+    # GET request
+    form = UserReviewForm(
+        initial={
+            'reviewee_display': str(reviewee),
+            'reviewer_id': request.user.id
+        },
+        reviewee=reviewee,
+        reviewer=request.user
+    )
+    return render(request, 'template-components/review-form-modal.html', {
+        'form': form,
+        'reviewee': reviewee
+    })
 
 @csrf_exempt
 @login_required

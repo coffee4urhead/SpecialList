@@ -11,7 +11,7 @@ class ReviewType(models.TextChoices):
     WEBSITE = 'website', 'Website/Platform Review'
 
 class BaseReview(models.Model):
-    reviewer = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
+    reviewer = models.ForeignKey(AUTH_USER_MODEL, blank=True, null=True, on_delete=models.CASCADE)
     rating = models.SmallIntegerField(choices=[(i, i) for i in range(1, 6)])
     main_caption = models.CharField(max_length=100)
     comment = models.TextField()
@@ -22,6 +22,10 @@ class BaseReview(models.Model):
 
     class Meta:
         abstract = True
+
+    def clean(self):
+        if not hasattr(self, 'reviewer') or not self.reviewer:
+            raise ValidationError("Reviews must have a reviewer")
 
 
 class WebsiteReview(BaseReview):
@@ -43,16 +47,33 @@ class UserReview(BaseReview):
         related_name='user_reviews'
     )
 
+    def __init__(self, *args, **kwargs):
+        self._reviewer = kwargs.pop('reviewer', None)
+        super().__init__(*args, **kwargs)
+
     def clean(self):
-        if not self.reviewer:
-            raise ValidationError("User reviews must have a reviewer")
+        super().clean()
+
+        # Ensure reviewer is set either through _reviewer or reviewer field
+        if not hasattr(self, 'reviewer') or not self.reviewer:
+            if self._reviewer:
+                self.reviewer = self._reviewer
+            else:
+                raise ValidationError("User reviews must have a reviewer inside the model check")
+
         if not self.reviewee:
             raise ValidationError("User reviews must have a reviewee")
+
         if self.reviewer == self.reviewee:
             raise ValidationError("Cannot review yourself")
 
-    def __str__(self):
-        return f"User review for {self.reviewee.username} by {self.reviewer.username}"
+    def save(self, *args, **kwargs):
+        # Set reviewer from init if not already set
+        if self._reviewer and not self.reviewer_id:
+            self.reviewer = self._reviewer
+
+        self.full_clean()  # This will call the clean() method
+        super().save(*args, **kwargs)
 
 
 class ProviderReview(BaseReview):

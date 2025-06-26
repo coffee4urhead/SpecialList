@@ -26,7 +26,8 @@
                 </div>
             {% else %}
                 <button class="filled-web-btn follow">Follow Account</button>
-                <button class="emp-web-btn" id="review-btn" data-username="{{ viewed_account.username }}">Leave Review</button>
+                <button class="emp-web-btn" id="review-btn" data-username="{{ viewed_account.username }}"
+                    data-reviewer-id="{{ request.user.id  }}">Leave Review</button>
             {% endif %}
 
 

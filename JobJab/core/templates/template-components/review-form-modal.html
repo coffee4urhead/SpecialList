@@ -6,6 +6,7 @@
 
     <form id="review-form" method="post">
         {% csrf_token %}
+            <input type="hidden" name="reviewer" value="{{ request.user.id }}">
 
         <!-- Read-only reviewee display -->
         <div class="form-group">

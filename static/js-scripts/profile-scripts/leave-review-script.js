@@ -3,7 +3,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const leaveReviewBtn = document.getElementById('review-btn');
     if (leaveReviewBtn) {
         leaveReviewBtn.addEventListener('click', function() {
-            const username = document.querySelector('button#review-btn').getAttribute('data-username');
+            const username = this.getAttribute('data-username');
+            const reviewerId = this.getAttribute('data-reviewer-id');
 
             fetch(`/user/${username}/leaveReview/`)
                 .then(response => {
@@ -16,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             ${html}
                         </div>
                     `);
-                    setupReviewModal(username);
+                    setupReviewModal(username, reviewerId);
                 })
                 .catch(error => {
                     console.error('Error loading review form:', error);
@@ -25,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    function setupReviewModal(username) {
+    function setupReviewModal(username, reviewerId) {
         const overlay = document.querySelector('.modal-overlay');
         const form = document.getElementById('review-form');
 
@@ -43,12 +44,14 @@ document.addEventListener('DOMContentLoaded', function() {
         if (form) {
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
-                console.log("CSRF Token:", form.querySelector('[name=csrfmiddlewaretoken]').value);
 
+                console.log(form)
+                const formData = new FormData(form);
+                   formData.append('reviewer_id', reviewerId);
 
                 fetch(`/user/${username}/leaveReview/`, {
                     method: 'POST',
-                    body: new FormData(form),
+                    body: formData,
                     headers: {
                         'X-CSRFToken': form.querySelector('[name=csrfmiddlewaretoken]').value,
                         'X-Requested-With': 'XMLHttpRequest'
@@ -62,12 +65,20 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (data.status === 'success') {
                         overlay.remove();
                         alert('Review submitted successfully!');
-                        // Optional: Refresh or update UI
                         window.location.reload();
                     } else {
                         console.error('Form errors:', data.errors);
-                        // You could display these errors in the form
-                        alert('Please fix the form errors.');
+                        // Display errors in the form
+                        Object.entries(data.errors).forEach(([field, errors]) => {
+                            const errorElement = document.createElement('div');
+                            errorElement.className = 'error';
+                            errorElement.textContent = errors.join(', ');
+
+                            const fieldElement = form.querySelector(`[name="${field}"]`);
+                            if (fieldElement) {
+                                fieldElement.parentNode.appendChild(errorElement);
+                            }
+                        });
                     }
                 })
                 .catch(error => {

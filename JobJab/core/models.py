@@ -1,12 +1,11 @@
 from django.contrib.auth.models import AbstractUser
-from django.core.validators import FileExtensionValidator
+from django.core.validators import FileExtensionValidator, MinLengthValidator
 
-from JobJab.settings import AUTH_USER_MODEL
 from django.db import models
+from JobJab.settings import AUTH_USER_MODEL
 import pytz
 
 TIMEZONE_CHOICES = [(tz, tz) for tz in pytz.all_timezones]
-
 
 class Organization(models.Model):
     name = models.CharField(max_length=100)
@@ -35,13 +34,45 @@ class UserChoices(models.TextChoices):
     Provider = "Provider" "Provider"
 
 class Certificate(models.Model):
-    user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='certificates')
-    image = models.ImageField(upload_to='certificates/')
-    title = models.CharField(max_length=100, blank=True)
+    user = models.ForeignKey(
+        AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='certificates'
+    )
+    title = models.CharField(
+        max_length=100,
+        blank=True,
+        null=True,
+        help_text="Title of the certificate (e.g., 'Python Developer Certification')",
+        validators=[MinLengthValidator(10, message="Certificate title is too short")],
+    )
+    certificate_file = models.FileField(
+        upload_to='certificates/%Y/%m/%d/',
+        validators=[FileExtensionValidator(allowed_extensions=['pdf'], message="Certificate file should be a PDF")],
+        help_text="Upload PDF certificate file",
+        blank=True,
+        null=True,
+    )
     uploaded_at = models.DateTimeField(auto_now_add=True)
+    is_verified = models.BooleanField(
+        default=False,
+        help_text="Mark if the certificate has been verified by admin"
+    )
+
+    class Meta:
+        verbose_name = "Certificate"
+        verbose_name_plural = "Certificates"
+        ordering = ['-uploaded_at']
 
     def __str__(self):
         return f"{self.user.username} - {self.title or 'Certificate'}"
+
+    @property
+    def filename(self):
+        return self.certificate_file.name.split('/')[-1]
+
+    def get_absolute_url(self):
+        return self.certificate_file.url
 
 class AvailabilityType(models.TextChoices):
     AVAILABLE = 'available', 'Available'

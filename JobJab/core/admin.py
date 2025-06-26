@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from JobJab.subscriptions.models import Subscription
-from JobJab.core.models import CustomUser, Organization, UserLocation
+from JobJab.core.models import CustomUser, Organization, UserLocation, Certificate
 
 
 class SubscriptionInline(admin.StackedInline):
@@ -46,3 +46,8 @@ admin.site.register(CustomUser, CustomUserAdmin)
 class OrganizationAdmin(admin.ModelAdmin):
     list_display = ('name', 'website')
     search_fields = ('name',)
+
+@admin.register(Certificate)
+class CertificateAdmin(admin.ModelAdmin):
+    list_display = ('user', 'title', 'certificate_file', 'uploaded_at', 'is_verified')
+    search_fields = ('user__username',)

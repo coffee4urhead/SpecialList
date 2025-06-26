@@ -10,7 +10,7 @@
 
         <!-- Read-only reviewee display -->
         <div class="form-group">
-            <label>Review For:</label>
+            <label for="{{ form.reviewee_display.id_for_label }}">Review For:</label>
             {{ form.reviewee_display }}
         </div>
 
@@ -31,7 +31,7 @@
 
         <!-- Main caption (title) -->
         <div class="form-group">
-            <label>{{ form.main_caption.label }}</label>
+            <label for{{ form.main_caption.id_for_label }}>{{ form.main_caption.label }}</label>
             {{ form.main_caption }}
             {% if form.main_caption.errors %}
                 <div class="error">{{ form.main_caption.errors }}</div>
@@ -40,7 +40,7 @@
 
         <!-- Comment (content) -->
         <div class="form-group">
-            <label>{{ form.comment.label }}</label>
+            <label for="{{ form.comment.id_for_label }}">{{ form.comment.label }}</label>
             {{ form.comment }}
             {% if form.comment.errors %}
                 <div class="error">{{ form.comment.errors }}</div>

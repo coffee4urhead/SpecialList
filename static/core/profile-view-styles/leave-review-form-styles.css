@@ -13,20 +13,16 @@
 .modal-overlay .modal-container {
   background: white;
   border-radius: 12px;
-  width: 500px;
+  width: 35rem;
   height: auto;
-  max-height: 80vh;
-  overflow: hidden;
   display: flex;
+  padding: 30px;
   flex-direction: column;
 }
 
-/* Add to your existing styles */
 .star-rating {
   display: flex;
   gap: 20px;
-  direction: rtl;
-  unicode-bidi: bidi-override;
 }
 
 .star-rating input {
@@ -35,7 +31,7 @@
 
 .star-rating label {
   color: #ddd;
-  font-size: 24px;
+  font-size: 30px;
   padding: 0 2px;
   cursor: pointer;
   transition: color 0.2s;
@@ -47,25 +43,18 @@
   color: gold;
 }
 
-.modal-container {
-  background: white;
-  border-radius: 12px;
-  padding: 20px;
-  width: 90%;
-  max-width: 500px;
-  max-height: 80vh;
-  overflow-y: auto;
-}
-
 .modal-header {
   display: flex;
-  justify-content: space-between;
+  gap: 10px;
   align-items: center;
-  margin-bottom: 20px;
 }
-
 .modal-header h3 {
-  margin: 0;
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1.6em;
+  font-style: normal;
+  margin-left: 20px;
+  padding: 13px;
 }
 
 .close-modal {
@@ -81,6 +70,10 @@
 
 .form-group label {
   display: block;
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1.5em;
+  font-style: normal;
   margin-bottom: 5px;
   font-weight: 500;
 }
@@ -89,8 +82,16 @@
 .form-group textarea {
   width: 100%;
   padding: 8px;
-  border: 1px solid #ddd;
+  border: 1px solid #06BAC5;
   border-radius: 4px;
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1em;
+  font-style: normal;
+}
+.form-group input[type=text]:focus-visible,
+.form-group textarea:focus-visible {
+  border: 1px solid #32AE88;
 }
 
 .form-group textarea {
@@ -104,6 +105,28 @@
 
 .checkbox input {
   margin-right: 8px;
+}
+
+form#review-form button.filled-web-btn {
+  padding: 0 20px;
+  text-align: center;
+  width: 80%;
+  height: 45px;
+  background-color: #008DAA;
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1.2em;
+  font-style: normal;
+  color: #ffffff;
+  border-radius: 8px;
+  font-size: 1.1em;
+  font-weight: 700;
+  line-height: 45px;
+  border: 2px solid #ffffff;
+}
+form#review-form button.filled-web-btn:hover {
+  transform: translateY(-2px);
+  transition: transform 0.2s linear;
 }
 
 /*# sourceMappingURL=leave-review-form-styles.css.map */

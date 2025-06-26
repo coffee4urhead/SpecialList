@@ -1,9 +1,10 @@
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import get_user_model, forms
 from django import forms
+from django.core.exceptions import ValidationError
 from django.forms import ClearableFileInput, inlineformset_factory
 
-from JobJab.core.models import TIMEZONE_CHOICES, UserOrganization, CustomUser
+from JobJab.core.models import TIMEZONE_CHOICES, UserOrganization, CustomUser, Certificate
 
 User = get_user_model()
 
@@ -75,3 +76,27 @@ UserOrganizationFormSet = inlineformset_factory(
     extra=1,
     can_delete=True
 )
+
+class CertificateForm(forms.ModelForm):
+    class Meta:
+        model = Certificate
+        fields = ['title', 'certificate_file']
+        widgets = {
+            'title': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'e.g., Python Developer Certification'
+            }),
+            'certificate_file': forms.FileInput(attrs={
+                'class': 'form-control',
+                'accept': '.pdf'
+            })
+        }
+        help_texts = {
+            'certificate_file': 'Only PDF files are accepted'
+        }
+
+    def clean_title(self):
+        title = self.cleaned_data.get('title')
+        if title and len(title) < 10:
+            raise ValidationError("Certificate title must be at least 10 characters long")
+        return title

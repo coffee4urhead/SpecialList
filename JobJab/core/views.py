@@ -5,13 +5,15 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
+from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 
-from JobJab.core.forms import CleanUserCreationForm, CleanLoginForm, ProfileEditForm, UserOrganizationFormSet
+from JobJab.core.forms import CleanUserCreationForm, CleanLoginForm, ProfileEditForm, UserOrganizationFormSet, \
+    CertificateForm
 from django.contrib import messages
 
-from JobJab.core.models import CustomUser, UserLocation
+from JobJab.core.models import CustomUser, UserLocation, Certificate
 from JobJab.reviews.forms import UserReviewForm
 from JobJab.reviews.models import WebsiteReview, UserReview
 
@@ -173,4 +175,33 @@ def account_view(request, username):
 
     print(context)
     return render(request,'core/accounts/my_account.html', context)
+
+@login_required
+@xframe_options_exempt
+def user_certificates(request, username):
+    user = get_object_or_404(CustomUser, username=username)
+
+    if request.method == 'POST':
+        form = CertificateForm(request.POST, request.FILES)
+        if form.is_valid():
+            certificate = form.save(commit=False)
+            certificate.user = request.user
+            certificate.save()
+            return redirect('user_certificates', username=username)
+    else:
+        form = CertificateForm()
+
+    certificates = Certificate.objects.filter(user=user)
+    return render(request, 'core/accounts/account-tabs/account_certificates.html', {
+        'user': user,
+        'certificates': certificates,
+        'form': form
+    })
+
+@login_required
+def delete_certificate(request, pk):
+    certificate = get_object_or_404(Certificate, pk=pk)
+    if request.user == certificate.user:
+        certificate.delete()
+    return redirect('user_certificates', username=request.user.username)
 

@@ -16,4 +16,6 @@ urlpatterns = [
     path('user/<str:username>/connections/', views.followers_following_view, name='user_connections'),
     path('user/<str:username>/leaveReview/', views.leave_user_review, name='leave_review'),
     path('updateGeolocation/', views.update_geolocation, name='update_geolocation'),
+    path('user/<str:username>/certificates/', views.user_certificates, name='user_certificates'),
+    path('certificates/delete/<int:pk>/', views.delete_certificate, name='delete_certificate'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

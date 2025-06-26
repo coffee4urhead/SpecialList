@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load compress static %}
+    {% compress css %}
+        <link rel="stylesheet" type="text/x-scss" href="{% static 'core/homepage/home-header-style.scss' %}">
+        <link rel="stylesheet" type="text/x-scss" href="{% static 'core/profile-view-styles/profile-tabs-views/account-certificates.scss' %}">
+        <link rel="stylesheet" type="text/x-scss" href="{% static 'core/homepage/footer-styles.scss' %}">
+    {% endcompress %}
+
+<style>
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+    overflow-x: hidden;
+    background-color: white;
+
+    p, a {
+        font-family: "Euclid Circular A", sans-serif;
+        font-weight: 500;
+        font-size: 1em;
+        font-style: normal;
+        color: black;
+      }
+}
+
+</style>
+    <title>{{ user.username }} Certificates page</title>
+</head>
+<body>
+    {% include 'template-components/header-comp.html' %}
+
+    <h1>{{ user.full_name }} Certificates Page!</h1>
+
+    <main id="certificates-container">
+        <article id="certificates">
+            <div class="certificates-list">
+        {% for certificate in certificates %}
+        <div class="certificate-item">
+            <h4>{{ certificate.title }}</h4>
+            <p>Uploaded: {{ certificate.uploaded_at|date:"F j, Y" }}</p>
+            <p>Status: {% if certificate.is_verified %}Verified{% else %}Pending verification{% endif %}</p>
+            <div class="pdf-preview-container mb-3">
+                <iframe
+                        src="{{ certificate.certificate_file.url }}#toolbar=0&view=FitH"
+                        width="100%"
+                        height="500px"
+                        style="border: 1px solid #ddd;"
+                        allowfullscreen>
+                        Your browser doesn't support PDF previews.
+                        <a href="{{ certificate.certificate_file.url }}">Download instead</a>
+                    </iframe>
+            {% if request.user == user %}
+            <form method="post" action="{% url 'delete_certificate' certificate.id %}" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+            {% endif %}
+        </div>
+        {% empty %}
+        <p>No certificates uploaded yet.</p>
+        {% endfor %}
+    </div>
+            </div>
+        </article>
+        <article id="certificate-display">
+               {% if request.user == user %}
+                    <div class="upload-certificate">
+                        <h3>Upload New Certificate</h3>
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <div class="form-group">
+                            <label for="{{ form.title.id_for_label }}">Certificate Title:</label>
+                            {{ form.title }}
+                        </div>
+
+                        <div class="form-group">
+                            <label for="{{ form.certificate_file.id_for_label }}">Certificate File:</label>
+                            {{ form.certificate_file }}
+                        </div>
+
+                        <button type="submit" class="filled-web-btn">Upload Certificate</button>
+                    </form>
+                    </div>
+                {% endif %}
+        </article>
+    </main>
+    {% include 'template-components/footer.html' %}
+</body>
+</html>

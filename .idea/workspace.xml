@@ -5,17 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a6602c8c-3836-4310-91e0-bc55f682d51c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/static/js-scripts/profile-scripts/certificate-options-handler.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JobJab/core/templates/core/accounts/account-tabs/certificates-display.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/core/profile-view-styles/profile-tabs-views/certificates-display-styles.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/js-scripts/profile-scripts/certificate-change-script.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/core/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/core/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JobJab/core/templates/core/accounts/account-tabs/account_certificates.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/core/accounts/account-tabs/account_certificates.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/core/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/profile-tabs-views/account-certificates.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/profile-tabs-views/account-certificates.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/profile-tabs-views/account-certificates.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/profile-tabs-views/account-certificates.css.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/profile-tabs-views/account-certificates.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/profile-tabs-views/account-certificates.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/utils/general-web-mixins/main-button-mixin.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/utils/general-web-mixins/main-button-mixin.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -144,7 +141,8 @@
       <workItem from="1750926194270" duration="5761000" />
       <workItem from="1750961653673" duration="6033000" />
       <workItem from="1751278583808" duration="3315000" />
-      <workItem from="1751282391442" duration="4721000" />
+      <workItem from="1751282391442" duration="5253000" />
+      <workItem from="1751299589998" duration="1251000" />
     </task>
     <servers />
   </component>

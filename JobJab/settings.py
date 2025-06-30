@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     "JobJab.booking",
     "JobJab.reviews",
     "JobJab.subscriptions",
-    'compressor'
+    'compressor',
+    'pdf2image',
 ]
 
 MIDDLEWARE = [

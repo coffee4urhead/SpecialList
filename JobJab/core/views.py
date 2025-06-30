@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.decorators.clickjacking import xframe_options_exempt
+from django.views.decorators.clickjacking import xframe_options_exempt, xframe_options_sameorigin
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 
@@ -177,7 +177,7 @@ def account_view(request, username):
     return render(request,'core/accounts/my_account.html', context)
 
 @login_required
-@xframe_options_exempt
+@xframe_options_sameorigin
 def user_certificates(request, username):
     user = get_object_or_404(CustomUser, username=username)
 

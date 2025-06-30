@@ -1,15 +1,23 @@
+import os
+
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import FileExtensionValidator, MinLengthValidator
 
 from django.db import models
+from pdf2image import convert_from_path
+
+from JobJab import settings
 from JobJab.settings import AUTH_USER_MODEL
 import pytz
 
 TIMEZONE_CHOICES = [(tz, tz) for tz in pytz.all_timezones]
 
+
 class Organization(models.Model):
     name = models.CharField(max_length=100)
-    logo = models.ImageField(upload_to='organization_logos/', default='static/images/default-org.jpg', validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png', 'webp'])], blank=True, null=True)
+    logo = models.ImageField(upload_to='organization_logos/', default='static/images/default-org.jpg',
+                             validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png', 'webp'])],
+                             blank=True, null=True)
     website = models.URLField(blank=True, null=True)
 
     def __str__(self):
@@ -33,6 +41,7 @@ class UserChoices(models.TextChoices):
     Seeker = "Seeker" "Seeker"
     Provider = "Provider" "Provider"
 
+
 class Certificate(models.Model):
     user = models.ForeignKey(
         AUTH_USER_MODEL,
@@ -53,11 +62,43 @@ class Certificate(models.Model):
         blank=True,
         null=True,
     )
+    preview_image = models.ImageField(
+        upload_to='certificate_previews/',
+        blank=True,
+        null=True
+    )
     uploaded_at = models.DateTimeField(auto_now_add=True)
     is_verified = models.BooleanField(
         default=False,
         help_text="Mark if the certificate has been verified by admin"
     )
+
+    def generate_preview(self):
+        if self.certificate_file and not self.preview_image:
+            poppler_local_path = r'D:\Poppler\poppler-24.08.0\Library\bin'
+
+            images = convert_from_path(
+                self.certificate_file.path,
+                poppler_path=poppler_local_path,
+                first_page=1,
+                last_page=1
+            )
+
+            if images:
+                img_path = os.path.join(settings.MEDIA_ROOT, 'certificate_previews', f'preview_{self.id}.jpg')
+                os.makedirs(os.path.dirname(img_path), exist_ok=True)
+
+                if images[0].mode != 'RGB':
+                    images[0] = images[0].convert('RGB')
+                images[0].save(img_path, 'JPEG', quality=85)
+
+                self.preview_image.name = os.path.join('certificate_previews', f'preview_{self.id}.jpg')
+                self.save()
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        if self.certificate_file and not self.preview_image:
+            self.generate_preview()
 
     class Meta:
         verbose_name = "Certificate"
@@ -74,9 +115,11 @@ class Certificate(models.Model):
     def get_absolute_url(self):
         return self.certificate_file.url
 
+
 class AvailabilityType(models.TextChoices):
     AVAILABLE = 'available', 'Available'
     UNAVAILABLE = 'unavailable', 'Unavailable'
+
 
 class Availability(models.Model):
     provider = models.ForeignKey(
@@ -101,6 +144,7 @@ class Availability(models.Model):
     def __str__(self):
         return f"{self.provider} - {self.status} on {self.date} from {self.start_time} to {self.end_time}"
 
+
 class CustomUser(AbstractUser):
     user_type = models.CharField(choices=UserChoices)
     email = models.EmailField(unique=True)
@@ -116,14 +160,18 @@ class CustomUser(AbstractUser):
         through='UserOrganization'
     )
 
-    backcover_profile = models.ImageField(upload_to='profiles/', validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png', 'webp'])], blank=True, default='profiles/default-backcover.jpg')
-    profile_picture = models.ImageField(upload_to='profile_pics/', validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png', 'webp'])], blank=True, default='profile_pics/avatar-default-photo.png')
+    backcover_profile = models.ImageField(upload_to='profiles/', validators=[
+        FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png', 'webp'])], blank=True,
+                                          default='profiles/default-backcover.jpg')
+    profile_picture = models.ImageField(upload_to='profile_pics/', validators=[
+        FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png', 'webp'])], blank=True,
+                                        default='profile_pics/avatar-default-photo.png')
     phone_number = models.CharField(max_length=15, blank=True, null=True)
     profession = models.CharField(max_length=100, blank=True)
     personal_number = models.CharField(max_length=100, blank=True, null=True)
     is_verified = models.BooleanField(default=False)
     verified_at = models.DateTimeField(blank=True, null=True)
-    timezone = models.CharField (
+    timezone = models.CharField(
         max_length=50,
         choices=TIMEZONE_CHOICES,
         default='UTC',
@@ -137,7 +185,8 @@ class CustomUser(AbstractUser):
         return self.following.all().count()
 
     def __str__(self):
-        return f"{ self.username } - {self.first_name} {self.last_name}"
+        return f"{self.username} - {self.first_name} {self.last_name}"
+
 
 class UserLocation(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)

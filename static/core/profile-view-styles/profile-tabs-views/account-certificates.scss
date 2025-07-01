@@ -18,6 +18,7 @@ main#certificates-container {
   article#certificates {
     width: 40%;
     background-color: $secondary-web-color;
+    border-radius: 8px;
 
     div.certificates-list {
       width: 100%;
@@ -39,6 +40,12 @@ main#certificates-container {
 
         p {
           @include def-web-text($pref-font-size: 1.5em, $pref-font-st: normal);
+        }
+
+        img#verify-logo {
+          width: 20px;
+          height: auto;
+          display: inline-block;
         }
 
         &:hover {

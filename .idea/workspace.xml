@@ -5,14 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a6602c8c-3836-4310-91e0-bc55f682d51c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/JobJab/core/templates/core/accounts/account-tabs/certificates-display.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/core/profile-view-styles/profile-tabs-views/certificates-display-styles.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/js-scripts/profile-scripts/certificate-change-script.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/core/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JobJab/core/templates/core/accounts/account-tabs/account_certificates.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/core/accounts/account-tabs/account_certificates.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/profile-tabs-views/account-certificates.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/profile-tabs-views/account-certificates.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/profile-tabs-views/account-certificates.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/profile-tabs-views/account-certificates.css.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/profile-tabs-views/account-certificates.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/profile-tabs-views/account-certificates.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/profile-tabs-views/certificates-display-styles.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/profile-tabs-views/certificates-display-styles.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/profile-tabs-views/certificates-display-styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/profile-tabs-views/certificates-display-styles.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js-scripts/profile-scripts/certificate-change-script.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js-scripts/profile-scripts/certificate-change-script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js-scripts/profile-scripts/certificate-options-handler.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js-scripts/profile-scripts/certificate-options-handler.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -142,7 +144,8 @@
       <workItem from="1750961653673" duration="6033000" />
       <workItem from="1751278583808" duration="3315000" />
       <workItem from="1751282391442" duration="5253000" />
-      <workItem from="1751299589998" duration="1251000" />
+      <workItem from="1751299589998" duration="1498000" />
+      <workItem from="1751362509987" duration="1673000" />
     </task>
     <servers />
   </component>

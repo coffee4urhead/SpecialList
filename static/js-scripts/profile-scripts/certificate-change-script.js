@@ -2,6 +2,7 @@ const uploaded_certificates = document.querySelectorAll('div.certificate-item');
 
 uploaded_certificates.forEach((certificate) => {
     certificate.addEventListener('click', (e) => {
+        certificate.style.backgroundColor = '#1d98a1';
         const previewUrl = certificate.dataset.previewUrl;
         const title = certificate.dataset.certificateTitle;
         const currentCertificatePreview = document.querySelector('img#certificate-file-preview');

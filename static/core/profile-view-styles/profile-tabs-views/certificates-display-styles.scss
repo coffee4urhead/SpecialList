@@ -131,7 +131,6 @@ div#certificate-options {
         padding-bottom: 5px;
       }
 
-      // Delete Certificate Specific Styles
       &.delete-cert {
         form {
           div#bottom-cont-holder {
@@ -175,7 +174,6 @@ div#certificate-options {
         }
       }
 
-      // Edit Certificate Styles
       &.edit-cert {
         .content {
           button {
@@ -191,7 +189,6 @@ div#certificate-options {
         }
       }
 
-      // Upload Another Styles
       &.upload-another {
         .content {
           button {
@@ -214,7 +211,6 @@ div#certificate-options {
   }
 }
 
-// Upload Modal Styles
 .upload-certificate-modal {
   position: fixed;
   top: 0;

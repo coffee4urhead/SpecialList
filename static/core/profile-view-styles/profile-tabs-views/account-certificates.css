@@ -19,6 +19,7 @@ main#certificates-container {
 main#certificates-container article#certificates {
   width: 40%;
   background-color: #06BAC5;
+  border-radius: 8px;
 }
 main#certificates-container article#certificates div.certificates-list {
   width: 100%;
@@ -47,6 +48,11 @@ main#certificates-container article#certificates div.certificates-list div.certi
   font-weight: 400;
   font-size: 1.5em;
   font-style: normal;
+}
+main#certificates-container article#certificates div.certificates-list div.certificate-item img#verify-logo {
+  width: 20px;
+  height: auto;
+  display: inline-block;
 }
 main#certificates-container article#certificates div.certificates-list div.certificate-item:hover {
   background-color: rgba(0, 141, 170, 0.65);

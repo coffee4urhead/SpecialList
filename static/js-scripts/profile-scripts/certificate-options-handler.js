@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Handle option clicks
     const options = document.querySelectorAll('#certificate-options .options > div');
     options.forEach(option => {
         const title = option.querySelector('h2');
@@ -8,7 +7,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 e.stopPropagation();
                 option.classList.toggle('expanded');
 
-                // Close other expanded options
                 options.forEach(otherOption => {
                     if (otherOption !== option) {
                         otherOption.classList.remove('expanded');
@@ -18,7 +16,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Handle upload modal
     const uploadTrigger = document.querySelector('#show-upload-form');
     const uploadModal = document.querySelector('.upload-certificate-modal');
     const closeBtn = document.querySelector('.close-btn');
@@ -34,13 +31,11 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Close modal when clicking outside
     window.addEventListener('click', (e) => {
         if (uploadModal && e.target === uploadModal) {
             uploadModal.classList.remove('active');
         }
 
-        // Close options menu when clicking outside
         if (!e.target.closest('#certificate-options')) {
             const optionsMenu = document.querySelector('#certificate-options .options');
             if (optionsMenu) {
@@ -49,7 +44,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Show options menu on gear hover
     const gearIcon = document.querySelector('#certificate-options');
     if (gearIcon) {
         gearIcon.addEventListener('mouseenter', () => {

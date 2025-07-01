@@ -45,10 +45,13 @@
     <article id="certificates">
         <div class="certificates-list">
             {% for certificate in certificates %}
-                <div class="certificate-item" data-certificate-title="{{ certificate.title }}" data-preview-url="{% if certificate.preview_image %}{{ certificate.preview_image.url }}{% endif %}">
+                <div class="certificate-item" data-certificate-title="{{ certificate.title }}" data-preview-url="
+                        {% if certificate.preview_image %}{{ certificate.preview_image.url }}{% endif %}">
                     <h4>{{ certificate.title }}</h4>
                     <p>Uploaded: {{ certificate.uploaded_at|date:"F j, Y" }}</p>
-                    <p>Status: {% if certificate.is_verified %}Verified{% else %}Pending verification{% endif %}</p>
+                    <p>{% if certificate.is_verified %}Verified
+                        <img id="verify-logo" src="{% static 'images/verify.png' %}" alt="verify logo"/>{% else %}
+                        Pending verification{% endif %}</p>
                 </div>
             {% empty %}
                 <p>No certificates uploaded yet.</p>

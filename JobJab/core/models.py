@@ -1,5 +1,6 @@
 import os
 
+from PIL import Image
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import FileExtensionValidator, MinLengthValidator
 
@@ -79,18 +80,25 @@ class Certificate(models.Model):
 
             images = convert_from_path(
                 self.certificate_file.path,
-                poppler_path=poppler_local_path,
-                first_page=1,
-                last_page=1
+                poppler_path=poppler_local_path
             )
 
             if images:
+                rgb_images = [img.convert('RGB') for img in images]
+
+                total_height = sum(img.height for img in rgb_images)
+                max_width = max(img.width for img in rgb_images)
+
+                combined_image = Image.new('RGB', (max_width, total_height), (255, 255, 255))
+
+                y_offset = 0
+                for img in rgb_images:
+                    combined_image.paste(img, (0, y_offset))
+                    y_offset += img.height
+
                 img_path = os.path.join(settings.MEDIA_ROOT, 'certificate_previews', f'preview_{self.id}.jpg')
                 os.makedirs(os.path.dirname(img_path), exist_ok=True)
-
-                if images[0].mode != 'RGB':
-                    images[0] = images[0].convert('RGB')
-                images[0].save(img_path, 'JPEG', quality=85)
+                combined_image.save(img_path, 'JPEG', quality=85)
 
                 self.preview_image.name = os.path.join('certificate_previews', f'preview_{self.id}.jpg')
                 self.save()

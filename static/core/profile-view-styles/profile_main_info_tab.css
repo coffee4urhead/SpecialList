@@ -2,13 +2,18 @@ article#profile-info-section {
   margin-top: 40px;
   display: flex;
   flex-direction: column;
-  width: 30%;
+  width: 70%;
   gap: 30px;
 }
 article#profile-info-section .profile-column-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   position: relative;
 }
 article#profile-info-section .profile-column-left #profile-pics-holder {
+  width: 100%;
   position: sticky;
   top: 20px;
   display: flex;
@@ -35,7 +40,7 @@ article#profile-info-section .profile-column-left #profile-pics-holder #profile-
 article#profile-info-section .profile-column-left #profile-pics-holder #profile-namings h3 {
   font-family: "Euclid Circular A", sans-serif;
   font-weight: 400;
-  font-size: 1.8em;
+  font-size: 2.3em;
   font-style: normal;
   margin-left: 20px;
   padding: 13px;
@@ -45,7 +50,7 @@ article#profile-info-section .profile-column-left #profile-pics-holder #profile-
 article#profile-info-section .profile-column-left #profile-pics-holder #profile-namings p {
   font-family: "Euclid Circular A", sans-serif;
   font-weight: 400;
-  font-size: 1.2em;
+  font-size: 1.5em;
   font-style: normal;
   font-weight: 300;
   color: #06BAC5;
@@ -53,17 +58,19 @@ article#profile-info-section .profile-column-left #profile-pics-holder #profile-
 article#profile-info-section .profile-column-right #side-info {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 25px;
 }
 article#profile-info-section .profile-column-right #side-info p {
   font-family: "Euclid Circular A", sans-serif;
   font-weight: 400;
-  font-size: 1.1em;
+  font-size: 1.5em;
   font-style: normal;
   line-height: 1.6;
 }
 article#profile-info-section .profile-column-right #side-info button.filled-web-btn {
-  width: 80%;
+  width: 50%;
   height: 45px;
   background-color: #008DAA;
   font-family: "Euclid Circular A", sans-serif;
@@ -72,7 +79,7 @@ article#profile-info-section .profile-column-right #side-info button.filled-web-
   font-style: normal;
   color: #ffffff;
   border-radius: 8px;
-  font-size: 1.1em;
+  font-size: 1.5em;
   font-weight: 500;
   border: 2px solid #ffffff;
 }
@@ -115,6 +122,19 @@ article#profile-info-section .profile-column-right #side-info .expand-info .orga
   border-radius: 50%;
   object-fit: cover;
   border: 1px solid #eee;
+}
+
+@media (min-width: 900px) {
+  article#profile-info-section {
+    height: 100%;
+  }
+  article#profile-info-section .profile-column-right #side-info {
+    justify-content: flex-start;
+    align-items: stretch;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+  }
 }
 
 /*# sourceMappingURL=profile_main_info_tab.css.map */

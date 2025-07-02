@@ -1,15 +1,26 @@
+main#main-profile-contents {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 0 auto;
+  padding: 0 20px;
+  gap: 60px;
+}
+
 article#profile-side-info-tab-cont {
   margin-top: 20px;
   display: flex;
   flex-direction: column;
   gap: 3rem;
   justify-content: space-evenly;
-  width: 60%;
+  width: 90%;
 }
 article#profile-side-info-tab-cont section#socials-container {
   padding: 30px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column-reverse;
   flex-grow: 0;
   justify-content: center;
   align-items: center;
@@ -18,24 +29,77 @@ article#profile-side-info-tab-cont section#socials-container {
   gap: 1rem;
 }
 article#profile-side-info-tab-cont section#socials-container div.container h1 {
+  text-align: center;
   font-family: "Euclid Circular A", sans-serif;
   font-weight: 400;
-  font-size: 2em;
+  font-size: 2.3em;
   font-style: normal;
   margin-left: 20px;
   padding: 13px;
+  padding: 30px;
 }
 article#profile-side-info-tab-cont section#socials-container div.img-geo-cont {
   width: 100%;
   height: auto;
 }
-article#profile-side-info-tab-cont section#socials-container div#social-info-holder {
+article#profile-side-info-tab-cont section#socials-container div.img-geo-cont div#map {
+  height: 300px;
+  width: 100%;
+  z-index: 100;
+}
+article#profile-side-info-tab-cont section#socials-container div.img-geo-cont div#map div.leaflet-control-attribution a[href~="leaflet.js"] {
+  display: none;
+}
+article#profile-side-info-tab-cont section#socials-container div.img-geo-cont div#map div.profile-popup {
+  width: 6rem;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+article#profile-side-info-tab-cont section#socials-container div.img-geo-cont div#map div.profile-popup button.filled-web-btn {
+  text-align: center;
+  width: 80%;
+  height: 2rem;
+  background-color: #008DAA;
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1.2em;
+  font-style: normal;
+  color: #ffffff;
+  padding: 0;
+  margin: 0;
+  border-radius: 8px;
+  font-size: 1.3em;
+  border: 2px solid #ffffff;
+}
+article#profile-side-info-tab-cont section#socials-container div.img-geo-cont div#map div.profile-popup button.filled-web-btn a {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  display: block;
+  padding: 0 20px;
+  line-height: 45px;
+}
+article#profile-side-info-tab-cont section#socials-container div.img-geo-cont div#map div.profile-popup button.filled-web-btn:hover {
+  transform: translateY(-2px);
+  transition: transform 0.2s linear;
+}
+article#profile-side-info-tab-cont div#social-info-holder {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 30px;
 }
-article#profile-side-info-tab-cont section#socials-container div#social-info-holder button#outline-btn {
+article#profile-side-info-tab-cont div#social-info-holder p {
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1.5em;
+  font-style: italic;
+}
+article#profile-side-info-tab-cont div#social-info-holder button#outline-btn {
   border: 2px solid #06BAC5;
   border-radius: 40px;
   color: #06BAC5;
@@ -44,16 +108,17 @@ article#profile-side-info-tab-cont section#socials-container div#social-info-hol
   padding: 20px;
   font-family: "Euclid Circular A", sans-serif;
   font-weight: 400;
-  font-size: 1em;
+  font-size: 1.5em;
   font-style: italic;
 }
-article#profile-side-info-tab-cont div.button-links {
+
+div.button-links {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 30px;
 }
-article#profile-side-info-tab-cont div.button-links button.filled-web-btn {
+div.button-links button.filled-web-btn {
   text-align: center;
   width: 80%;
   height: 45px;
@@ -69,7 +134,7 @@ article#profile-side-info-tab-cont div.button-links button.filled-web-btn {
   font-size: 1.3em;
   border: 2px solid #ffffff;
 }
-article#profile-side-info-tab-cont div.button-links button.filled-web-btn a {
+div.button-links button.filled-web-btn a {
   text-decoration: none;
   color: white;
   font-weight: 500;
@@ -77,11 +142,12 @@ article#profile-side-info-tab-cont div.button-links button.filled-web-btn a {
   padding: 0 20px;
   line-height: 45px;
 }
-article#profile-side-info-tab-cont div.button-links button.filled-web-btn:hover {
+div.button-links button.filled-web-btn:hover {
   transform: translateY(-2px);
   transition: transform 0.2s linear;
 }
-article#profile-side-info-tab-cont section#reviews-section h2 {
+
+section#reviews-section h2 {
   font-family: "Euclid Circular A", sans-serif;
   font-weight: 400;
   font-size: 1.8em;
@@ -89,6 +155,17 @@ article#profile-side-info-tab-cont section#reviews-section h2 {
   margin-left: 20px;
   padding: 13px;
   font-weight: bold;
+}
+
+@media (min-width: 900px) {
+  main#main-profile-contents {
+    flex-direction: row;
+    align-items: stretch;
+    align-content: flex-start;
+  }
+  main#main-profile-contents article#profile-side-info-tab-cont {
+    width: 60%;
+  }
 }
 
 /*# sourceMappingURL=profile-side-info-tab.css.map */

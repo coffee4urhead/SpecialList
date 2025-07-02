@@ -59,7 +59,7 @@ form#profile-edit-form {
       padding: 10px;
       border: 1px solid #ddd;
       border-radius: 6px;
-      @include def-web-text($pref-font-size: 0.95em);
+      @include def-web-text($pref-font-size: 1em);
       width: 100%;
       box-sizing: border-box;
 

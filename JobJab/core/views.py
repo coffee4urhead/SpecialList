@@ -227,17 +227,17 @@ def update_geolocation(request, username):
 
 
 @csrf_exempt
-@login_required
 def user_location_with_connections(request, username):
-    if request.user.username != username:
-        return JsonResponse({
-            'status': 'error',
-            'message': 'You can only access your own data'
-        }, status=403)
-
     try:
-        # Get or create user location
-        if request.method == 'POST':
+        target_user = CustomUser.objects.get(username=username)
+
+        if request.method == 'POST' and request.user.is_authenticated:
+            if request.user.username != username:
+                return JsonResponse({
+                    'status': 'error',
+                    'message': 'You can only update your own location'
+                }, status=403)
+
             data = json.loads(request.body)
             lat = data.get('latitude')
             lng = data.get('longitude')
@@ -249,10 +249,8 @@ def user_location_with_connections(request, username):
         else:
             user_location = UserLocation.objects.get(user__username=username)
 
-        # Get connections data
-        user = CustomUser.objects.get(username=username)
-        followers = user.followers.all()
-        following = user.following.all()
+        followers = target_user.followers.all()
+        following = target_user.following.all()
 
         followers_locations = UserLocation.objects.filter(user__in=followers)
         following_locations = UserLocation.objects.filter(user__in=following)
@@ -262,21 +260,24 @@ def user_location_with_connections(request, username):
             'user_location': {
                 'latitude': user_location.latitude,
                 'longitude': user_location.longitude,
-                'username': username
+                'username': username,
+                'profile_picture': target_user.profile_picture.url if target_user.profile_picture else None
             },
             'connections': {
                 'followers': [
                     {
                         'username': loc.user.username,
                         'latitude': loc.latitude,
-                        'longitude': loc.longitude
+                        'longitude': loc.longitude,
+                        'profile_picture': loc.user.profile_picture.url if loc.user.profile_picture else None
                     } for loc in followers_locations
                 ],
                 'following': [
                     {
                         'username': loc.user.username,
                         'latitude': loc.latitude,
-                        'longitude': loc.longitude
+                        'longitude': loc.longitude,
+                        'profile_picture': loc.user.profile_picture.url if loc.user.profile_picture else None
                     } for loc in following_locations
                 ]
             }
@@ -285,8 +286,13 @@ def user_location_with_connections(request, username):
     except UserLocation.DoesNotExist:
         return JsonResponse({
             'status': 'error',
-            'message': 'Location not found (please POST first)',
+            'message': 'Location not found',
             'requires_location': True
+        }, status=404)
+    except CustomUser.DoesNotExist:
+        return JsonResponse({
+            'status': 'error',
+            'message': 'User not found'
         }, status=404)
     except Exception as e:
         return JsonResponse({

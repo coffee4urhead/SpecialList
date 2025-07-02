@@ -6,13 +6,18 @@ article#profile-info-section {
   margin-top: 40px;
   display: flex;
   flex-direction: column;
-  width: 30%;
+  width: 70%;
   gap: 30px;
 
   .profile-column-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     position: relative;
 
     #profile-pics-holder {
+      width: 100%;
       position: sticky;
       top: 20px;
       display: flex;
@@ -39,13 +44,13 @@ article#profile-info-section {
         padding: 0 20px;
 
         h3 {
-          @include web-title-special($pref-font-size: 1.8em, $pref-font-st: normal);
+          @include web-title-special($pref-font-size: clamp(2em, 2.3em, 3em), $pref-font-st: normal);
           margin-left: 0;
           padding: 0;
         }
 
         p {
-          @include def-web-text($pref-font-size: 1.2em, $pref-font-st: normal);
+          @include def-web-text($pref-font-size: clamp(1em, 1.5em, 2em), $pref-font-st: normal);
           font-weight: 300;
           color: $secondary-web-color;
         }
@@ -58,17 +63,19 @@ article#profile-info-section {
     #side-info {
       display: flex;
       flex-direction: column;
+      justify-content: center;
+      align-items: center;
       gap: 25px;
 
       p {
-        @include def-web-text($pref-font-size: 1.1em, $pref-font-st: normal);
+        @include def-web-text($pref-font-size: clamp(1em, 1.5em, 2em), $pref-font-st: normal);
         line-height: 1.6;
       }
 
       button.filled-web-btn {
-        @include main-button($arg-width: 80%, $arg-height: 45px, $arg-bg-color: $additional_web_color, $txt-color: $main-web-color);
+        @include main-button($arg-width: 50%, $arg-height: 45px, $arg-bg-color: $additional_web_color, $txt-color: $main-web-color);
         border-radius: 8px;
-        font-size: 1.1em;
+        font-size: 1.5em;
         font-weight: 500;
         border: 2px solid $main-web-color;
 
@@ -91,6 +98,7 @@ article#profile-info-section {
           transition: transform 0.2s linear;
         }
       }
+
       .expand-info {
         display: flex;
         flex-direction: column;
@@ -109,6 +117,22 @@ article#profile-info-section {
             border: 1px solid #eee;
           }
         }
+      }
+    }
+  }
+}
+
+@media (min-width: 900px) {
+  article#profile-info-section {
+    height: 100%;
+
+    .profile-column-right {
+      #side-info {
+        justify-content: flex-start;
+        align-items: stretch;
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
       }
     }
   }

@@ -37,7 +37,7 @@
     <title>{{ user.username }} Certificates page</title>
 </head>
 <body>
-{% include 'template-components/header-comp.html' %}
+{% include 'template-components/header-comp.html' with user=request.user %}
 
 <h1>{{ user.full_name }} Certificates Page!</h1>
 

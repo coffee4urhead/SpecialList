@@ -54,8 +54,8 @@
     {% include 'template-components/header-comp.html' %}
 
     <main id="main-profile-contents">
-        {% include 'template-components/profile-main-info-tab.html' with is_owner=True %}
-        {% include 'template-components/profile-side-info-tab.html' with is_owner=True  %}
+        {% include 'template-components/profile-main-info-tab.html' %}
+        {% include 'template-components/profile-side-info-tab.html' %}
     </main>
 
 
@@ -64,7 +64,6 @@
             integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
             crossorigin=""></script>
     <script src="{% static 'js-scripts/profile-scripts/get_location.js' %}"></script>
-    <script src="{% static 'js-scripts/profile-scripts/display_location.js' %}"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('.connections-link').addEventListener('click', function() {
@@ -123,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (editBtn && formContainer) {
         editBtn.addEventListener('click', function () {
             formContainer.style.display = 'block';
-            editBtn.style.display = 'none';  // Hide the button while editing
+            editBtn.style.display = 'none';
         });
     }
 

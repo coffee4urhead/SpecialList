@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.decorators.clickjacking import xframe_options_exempt, xframe_options_sameorigin
+from django.views.decorators.clickjacking import xframe_options_sameorigin
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 
@@ -31,6 +31,7 @@ def register(request):
 
     return render(request, 'core/register.html', {'form': form})
 
+
 def login(request):
     if request.method == 'POST':
         form = CleanLoginForm(request, data=request.POST)
@@ -50,10 +51,12 @@ def login(request):
 
     return render(request, 'core/login.html', {'form': form})
 
+
 def logout(request):
     auth_logout(request)
     messages.success(request, "You have been logged out successfully.")
     return redirect('home')
+
 
 def home(request):
     reviews = WebsiteReview.objects.all().order_by('-created_at')[:4]
@@ -62,20 +65,48 @@ def home(request):
         'reviews_from_user_to_the_website': reviews
     })
 
+
 def about(request):
     return render(request, 'core/about-page/about.html')
+
 
 def privacy_policy(request):
     return render(request, 'template-components/description-component.html')
 
-
 def followers_following_view(request, username):
     user = get_object_or_404(CustomUser, username=username)
 
+    followers = user.followers.all()
+    following = user.following.all()
+
+    followers_locations = UserLocation.objects.filter(user__in=followers)
+    following_locations = UserLocation.objects.filter(user__in=following)
+
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        data = {
+            'followers': [
+                {
+                    'username': loc.user.username,
+                    'latitude': float(loc.latitude),
+                    'longitude': float(loc.longitude),
+                } for loc in followers_locations
+            ],
+            'following': [
+                {
+                    'username': loc.user.username,
+                    'latitude': float(loc.latitude),
+                    'longitude': float(loc.longitude),
+                } for loc in following_locations
+            ]
+        }
+        return JsonResponse(data)
+
     context = {
         'profile_user': user,
-        'followers': user.followers.all(),
-        'following': user.following.all(),
+        'followers': followers,
+        'followers_locations': followers_locations,
+        'following': following,
+        'following_locations': following_locations,
     }
 
     return render(request, 'template-components/follow_modal_content.html', context)
@@ -122,24 +153,146 @@ def leave_user_review(request, username):
         'reviewee': reviewee
     })
 
+
 @csrf_exempt
 @login_required
-def update_geolocation(request):
-    if request.method == 'POST':
+def update_geolocation(request, username):
+    if request.user.username != username:
+        return JsonResponse({
+            'status': 'error',
+            'message': 'You can only access your own location'
+        }, status=403)
+
+    if request.method == 'GET':
+        try:
+            user_location = UserLocation.objects.get(user__username=username)
+            return JsonResponse({
+                'status': 'success',
+                'exists': True,
+                'latitude': user_location.latitude,
+                'longitude': user_location.longitude,
+                'username': username
+            })
+        except UserLocation.DoesNotExist:
+            return JsonResponse({
+                'status': 'success',
+                'exists': False,
+                'message': 'Location not found',
+                'username': username
+            })
+
+    elif request.method == 'POST':
         try:
             data = json.loads(request.body)
             lat = data.get('latitude')
             lng = data.get('longitude')
 
-            UserLocation.objects.update_or_create(
+            if not all(isinstance(coord, (int, float)) for coord in [lat, lng]):
+                return JsonResponse({
+                    'status': 'error',
+                    'message': 'Invalid coordinates format'
+                }, status=400)
+
+            user_location, created = UserLocation.objects.update_or_create(
+                user=request.user,
+                defaults={
+                    'latitude': lat,
+                    'longitude': lng
+                }
+            )
+
+            return JsonResponse({
+                'status': 'success',
+                'action': 'created' if created else 'updated',
+                'latitude': user_location.latitude,
+                'longitude': user_location.longitude,
+                'username': username
+            })
+
+        except json.JSONDecodeError:
+            return JsonResponse({
+                'status': 'error',
+                'message': 'Invalid JSON data'
+            }, status=400)
+        except Exception as e:
+            return JsonResponse({
+                'status': 'error',
+                'message': str(e)
+            }, status=500)
+
+    return JsonResponse({
+        'status': 'error',
+        'message': 'Method not allowed'
+    }, status=405)
+
+
+@csrf_exempt
+@login_required
+def user_location_with_connections(request, username):
+    if request.user.username != username:
+        return JsonResponse({
+            'status': 'error',
+            'message': 'You can only access your own data'
+        }, status=403)
+
+    try:
+        # Get or create user location
+        if request.method == 'POST':
+            data = json.loads(request.body)
+            lat = data.get('latitude')
+            lng = data.get('longitude')
+
+            user_location, created = UserLocation.objects.update_or_create(
                 user=request.user,
                 defaults={'latitude': lat, 'longitude': lng}
             )
+        else:
+            user_location = UserLocation.objects.get(user__username=username)
 
-            return JsonResponse({'status': 'success'})
-        except Exception as e:
-            return JsonResponse({'status': 'error', 'message': str(e)}, status=400)
-    return JsonResponse({'status': 'error'}, status=405)
+        # Get connections data
+        user = CustomUser.objects.get(username=username)
+        followers = user.followers.all()
+        following = user.following.all()
+
+        followers_locations = UserLocation.objects.filter(user__in=followers)
+        following_locations = UserLocation.objects.filter(user__in=following)
+
+        return JsonResponse({
+            'status': 'success',
+            'user_location': {
+                'latitude': user_location.latitude,
+                'longitude': user_location.longitude,
+                'username': username
+            },
+            'connections': {
+                'followers': [
+                    {
+                        'username': loc.user.username,
+                        'latitude': loc.latitude,
+                        'longitude': loc.longitude
+                    } for loc in followers_locations
+                ],
+                'following': [
+                    {
+                        'username': loc.user.username,
+                        'latitude': loc.latitude,
+                        'longitude': loc.longitude
+                    } for loc in following_locations
+                ]
+            }
+        })
+
+    except UserLocation.DoesNotExist:
+        return JsonResponse({
+            'status': 'error',
+            'message': 'Location not found (please POST first)',
+            'requires_location': True
+        }, status=404)
+    except Exception as e:
+        return JsonResponse({
+            'status': 'error',
+            'message': str(e)
+        }, status=500)
 
 @login_required
 def account_view(request, username):
@@ -174,7 +327,8 @@ def account_view(request, username):
     }
 
     print(context)
-    return render(request,'core/accounts/my_account.html', context)
+    return render(request, 'core/accounts/my_account.html', context)
+
 
 @login_required
 @xframe_options_sameorigin
@@ -198,10 +352,10 @@ def user_certificates(request, username):
         'form': form
     })
 
+
 @login_required
 def delete_certificate(request, pk):
     certificate = get_object_or_404(Certificate, pk=pk)
     if request.user == certificate.user:
         certificate.delete()
     return redirect('user_certificates', username=request.user.username)
-

@@ -1,16 +1,61 @@
 <div class="pdf-preview-container mb-3">
-    {% if services.first %}
-        {% if services.first.service_photo %}
-            <img src="{{ services.first.service_photo.url }}"
-                 alt="{{ services.first.title }}"
-                 id="service-file-preview">
-            <h2><a>{{ services.first.title }}</a></h2>
+    {% for service in services %}
+        {% if service %}
+            <div class="service-mini-cont">
+                <div class="user-rev-info">
+
+                    {% if service.provider.profile_picture %}
+                        <a href="{% url 'account_view' service.provider.username %}">
+                            <img src="{{ service.provider.profile_picture.url }}"
+                                 alt="{{ service.provider.get_full_name|default:service.provider.username }}">
+                        </a>
+                    {% else %}
+                        {% load static %}
+                        <a href="{% url 'account_view' service.provider.username %}">
+                            <img src="{% static '/images/avatar-default-photo.png' %}"
+                                 alt="{{ service.provider.get_full_name|default:service.provider.username }}">
+                        </a>
+                    {% endif %}
+
+                    <div class="rev-info-side">
+                        <div class="star-rating">
+                            {% for i in "12345" %}
+                                <!-- To be implemented -->
+                                <i class="fas fa-star{% if forloop.counter > 1 %} text-muted{% endif %}"></i>
+                            {% endfor %}
+                        </div>
+                        <p>
+                            {% if service.provider %}
+                                {{ service.provider.get_full_name|default:service.provider.username }}
+                            {% else %}
+                                [Deleted User]
+                            {% endif %}
+                        </p>
+
+                        <p>Posted on: {{ service.created_at|date:"F j, Y" }}</p>
+                    </div>
+                </div>
+
+                {% if service.service_photo %}
+                    <div class="service-image-cont">
+                        <img src="{{ service.service_photo.url }}"
+                             alt="{{ service.title }}"
+                             id="service-file-preview">
+                    </div>
+                    <div class="text-service-info">
+                        <h2><a>{{ service.title }}</a></h2>
+                        <p>Description: {{ service.description }}</p>
+                        <p>Service price: {{ service.price }}</p>
+                        <p>Required time for the offering: {{ service.duration_minutes }}</p>
+                    </div>
+                {% else %}
+                    <p>Preview not available</p>
+                {% endif %}
+            </div>
         {% else %}
-            <p>Preview not available</p>
+            <p>No services to display</p>
         {% endif %}
-    {% else %}
-        <p>No services to display</p>
-    {% endif %}
+    {% endfor %}
 </div>
 
 {% if request.user == user %}
@@ -40,7 +85,7 @@
             <div class="create-another">
                 <h2>Create Another</h2>
                 <div class="content">
-                    <button id="show-create-form">Create New Service</button>
+                    <button id="show-upload-form">Create New Service</button>
                 </div>
             </div>
         </div>

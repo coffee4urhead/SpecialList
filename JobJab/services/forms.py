@@ -19,9 +19,3 @@ class ServiceListingForm(forms.ModelForm):
             'price': 'Price for the service',
             'is_active': 'Is active?',
         }
-
-    def clean(self):
-        data = super().clean()
-
-        if not data['provider']:
-            raise forms.ValidationError('This field is required')

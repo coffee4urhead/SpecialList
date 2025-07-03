@@ -1,0 +1,76 @@
+@import "../utils/web_colors.scss";
+@import "../utils/general-web-mixins/main-web-utls.scss";
+@import "../utils/general-web-mixins/main-button-mixin.scss";
+
+div.service-mini-cont {
+  margin: 20px 0;
+  width: 50%;
+  padding: 30px;
+  border-radius: 8px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  background-color: #F5F5F5;
+
+  .user-rev-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+
+    p {
+      @include def-web-text($pref-font-size: 1em, $pref-font-st: normal);
+      color: black;
+    }
+
+    img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+  }
+
+  .star-rating {
+    display: inline-flex;
+    gap: 0.25rem;
+
+    .fa-star, .text-muted {
+      width: 20px;
+      height: 20px;
+      position: relative;
+      display: inline-block;
+
+      &::before {
+        content: "★";
+        position: absolute;
+        font-size: 20px;
+      }
+    }
+
+    .fa-star::before {
+      color: gold;
+    }
+
+    .text-muted::before {
+      color: grey;
+    }
+  }
+
+  div.service-image-cont {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+  }
+
+  div.text-service-info {
+    p {
+      @include def-web-text($pref-font-size: 1.5em, $pref-font-st: normal);
+      color: black;
+    }
+  }
+}

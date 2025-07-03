@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect, get_object_or_404
 from JobJab.services.forms import ServiceListingForm
 from JobJab.services.models import ServiceListing
 
@@ -12,9 +13,16 @@ def explore_services(request):
             service = form.save(commit=False)
             service.provider = request.user
             service.save()
-            return redirect('service_list')
+            return redirect('explore_services')
     else:
         form = ServiceListingForm()
         services = ServiceListing.objects.all()
 
         return render(request, 'explore_services.html', {'form': form, 'services': services})
+
+@login_required
+def delete_service(request, pk):
+    service = get_object_or_404(ServiceListing, pk=pk)
+    if request.user == service.provider:
+        service.delete()
+    return redirect('explore_services')

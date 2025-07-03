@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load compress static %}
+    {% compress css %}
+        <link rel="stylesheet" type="text/x-scss" href="{% static 'core/homepage/home-header-style.scss' %}">
+        <link rel="stylesheet" type="text/x-scss" href="{% static 'services/explore_services.scss' %}">
+        <link rel="stylesheet" type="text/x-scss" href="{% static 'core/homepage/footer-styles.scss' %}">
+    {% endcompress %}
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background-color: white;
+
+            p, a {
+                font-family: "Euclid Circular A", sans-serif;
+                font-weight: 500;
+                font-size: 1em;
+                font-style: normal;
+                color: white;
+            }
+        }
+    </style>
+    <title>Explore All SpecialList Services</title>
+</head>
+<body>
+{% include 'template-components/header-comp.html' with user=request.user %}
+
+<main id="services-container">
+    {% include 'services-display.html' with services=services %}
+</main>
+
+{% include 'template-components/footer.html' %}
+<script src="{% static 'js-scripts/services-scripts/services-options-handler.js' %}"></script>
+</body>
+</html>

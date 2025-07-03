@@ -103,9 +103,10 @@ function getCurrentPosition() {
     });
 }
 
-function createProfilePopup(user) {
+function createProfilePopup(user, relations) {
     return `
         <div class="profile-popup">
+            <p>${relations}</p>
             <button class="view-profile filled-web-btn" data-username="${user.username}">
                 Message
             </button>
@@ -154,7 +155,7 @@ function displayAllLocations(userLocation, connections) {
     L.marker([userLocation.latitude, userLocation.longitude], {
         icon: userIcon
     })
-        .bindPopup(createProfilePopup(userLocation))
+        .bindPopup(createProfilePopup(userLocation, 'Your location'))
         .on('popupopen', (e) => {
             const popupContent = e.popup.getElement();
             if (popupContent) {
@@ -178,7 +179,7 @@ function displayAllLocations(userLocation, connections) {
 
                 L.marker([user.latitude, user.longitude], {
                     icon: icon
-                }).bindPopup(createProfilePopup(user))
+                }).bindPopup(createProfilePopup(user, relationshipType))
                     .on('popupopen', (e) => {
                         const popupContent = e.popup.getElement();
                         if (popupContent) {

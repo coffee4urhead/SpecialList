@@ -1,0 +1,93 @@
+<div class="pdf-preview-container mb-3">
+    {% if services.first %}
+        {% if services.first.service_photo %}
+            <img src="{{ services.first.service_photo.url }}"
+                 alt="{{ services.first.title }}"
+                 id="service-file-preview">
+            <h2><a>{{ services.first.title }}</a></h2>
+        {% else %}
+            <p>Preview not available</p>
+        {% endif %}
+    {% else %}
+        <p>No services to display</p>
+    {% endif %}
+</div>
+
+{% if request.user == user %}
+    <div id="service-options">
+        <div class="options">
+            <div class="delete-service">
+                <h2>Delete Service</h2>
+                {% if request.user == user and services.first %}
+                    <form method="post" action="{% url 'delete_service' services.first.id %}">
+                        {% csrf_token %}
+                        <div id="bottom-cont-holder">
+                            <h2><a>{{ services.first.title }}</a></h2>
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </div>
+                    </form>
+                {% endif %}
+            </div>
+
+            <div class="edit-service">
+                <h2>Edit Service</h2>
+                <div class="content">
+                    <p>Edit service details and information</p>
+                    <button class="edit-btn">Edit</button>
+                </div>
+            </div>
+
+            <div class="create-another">
+                <h2>Create Another</h2>
+                <div class="content">
+                    <button id="show-create-form">Create New Service</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+{% if request.user == user %}
+    <div class="upload-service-modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h3>Create New Service</h3>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="{{ form.title.id_for_label }}">Service Title:</label>
+                    {{ form.title }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.description.id_for_label }}">Description:</label>
+                    {{ form.description }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.service_photo.id_for_label }}">Service Image:</label>
+                    {{ form.service_photo }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.category.id_for_label }}">Category:</label>
+                    {{ form.category }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.price.id_for_label }}">Price:</label>
+                    {{ form.price }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.duration_minutes.id_for_label }}">Duration (minutes):</label>
+                    {{ form.duration_minutes }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.location.id_for_label }}">Location:</label>
+                    {{ form.location }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.is_active.id_for_label }}">Active:</label>
+                    {{ form.is_active }}
+                </div>
+                <button type="submit" class="filled-web-btn">Create Service</button>
+            </form>
+        </div>
+    </div>
+{% endif %}

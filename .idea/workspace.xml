@@ -5,21 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a6602c8c-3836-4310-91e0-bc55f682d51c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/core/templates/core/accounts/my_account.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/core/accounts/my_account.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/core/templates/template-components/profile-side-info-tab.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/template-components/profile-side-info-tab.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/core/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/change-info-form.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/change-info-form.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/change-info-form.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/change-info-form.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/profile-side-info-tab.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/profile-side-info-tab.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/profile-side-info-tab.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/profile-side-info-tab.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/profile-side-info-tab.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/profile-side-info-tab.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/profile_main_info_tab.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/profile_main_info_tab.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/profile_main_info_tab.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/profile_main_info_tab.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/profile_main_info_tab.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/profile_main_info_tab.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/register-form.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/register-form.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js-scripts/profile-scripts/get_location.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js-scripts/profile-scripts/get_location.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/utils/_fonts.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/utils/_fonts.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JobJab/services/templates/services-display.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/services/templates/explore_services.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/templates/explore_services.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/services/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/services/explore_services.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/explore_services.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/services/explore_services.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/explore_services.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/services/explore_services.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/explore_services.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,8 +24,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
-        <option value="HTML File" />
         <option value="JavaScript File" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -151,7 +142,11 @@
       <workItem from="1751282391442" duration="5253000" />
       <workItem from="1751299589998" duration="1498000" />
       <workItem from="1751362509987" duration="5800000" />
-      <workItem from="1751442913358" duration="12511000" />
+      <workItem from="1751442913358" duration="12590000" />
+      <workItem from="1751533637989" duration="4024000" />
+      <workItem from="1751539841794" duration="1248000" />
+      <workItem from="1751544268737" duration="1412000" />
+      <workItem from="1751560468329" duration="4668000" />
     </task>
     <servers />
   </component>

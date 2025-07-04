@@ -4,17 +4,13 @@
         <button class="close-modal">&times;</button>
     </div>
 
-    <form id="review-form" method="post">
+    <form id="review-form" method="POST">
         {% csrf_token %}
-            <input type="hidden" name="reviewer" value="{{ request.user.id }}">
-
-        <!-- Read-only reviewee display -->
         <div class="form-group">
             <label for="{{ form.reviewee_display.id_for_label }}">Review For:</label>
             {{ form.reviewee_display }}
         </div>
 
-        <!-- Rating with stars -->
         <div class="form-group">
             <label>Rating:</label>
             <div class="star-rating">
@@ -29,7 +25,6 @@
             {% endif %}
         </div>
 
-        <!-- Main caption (title) -->
         <div class="form-group">
             <label for{{ form.main_caption.id_for_label }}>{{ form.main_caption.label }}</label>
             {{ form.main_caption }}
@@ -38,7 +33,6 @@
             {% endif %}
         </div>
 
-        <!-- Comment (content) -->
         <div class="form-group">
             <label for="{{ form.comment.id_for_label }}">{{ form.comment.label }}</label>
             {{ form.comment }}

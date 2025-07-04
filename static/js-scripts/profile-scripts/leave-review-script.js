@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             ${html}
                         </div>
                     `);
-                    setupReviewModal(username, reviewerId);
+                    setupReviewModal(username);
                 })
                 .catch(error => {
                     console.error('Error loading review form:', error);
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    function setupReviewModal(username, reviewerId) {
+    function setupReviewModal(username) {
         const overlay = document.querySelector('.modal-overlay');
         const form = document.getElementById('review-form');
 
@@ -40,14 +40,14 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // Form submission
         if (form) {
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
 
-                console.log(form)
+                // Clear previous errors
+                document.querySelectorAll('.error').forEach(el => el.remove());
+
                 const formData = new FormData(form);
-                   formData.append('reviewer_id', reviewerId);
 
                 fetch(`/user/${username}/leaveReview/`, {
                     method: 'POST',
@@ -58,21 +58,25 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 })
                 .then(response => {
-                    if (!response.ok) throw new Error('Network response was not ok');
+                    const contentType = response.headers.get('content-type');
+                    if (!contentType || !contentType.includes('application/json')) {
+                        return response.text().then(text => {
+                            throw new Error('Server returned non-JSON response');
+                        });
+                    }
                     return response.json();
                 })
                 .then(data => {
                     if (data.status === 'success') {
                         overlay.remove();
-                        alert('Review submitted successfully!');
                         window.location.reload();
-                    } else {
-                        console.error('Form errors:', data.errors);
-                        // Display errors in the form
+                    } else if (data.errors) {
                         Object.entries(data.errors).forEach(([field, errors]) => {
                             const errorElement = document.createElement('div');
                             errorElement.className = 'error';
-                            errorElement.textContent = errors.join(', ');
+                            errorElement.textContent = Array.isArray(errors)
+                                ? errors.map(e => e.message || e).join(', ')
+                                : errors;
 
                             const fieldElement = form.querySelector(`[name="${field}"]`);
                             if (fieldElement) {
@@ -83,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 })
                 .catch(error => {
                     console.error('Error submitting review:', error);
-                    alert('Error submitting review. Please try again.');
+                    alert('Error submitting review. Please check the form and try again.');
                 });
             });
         }
@@ -101,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     stars.forEach(star => star.style.color = '#ddd');
 
                     let current = e.target;
-                    while(current) {
+                    while (current) {
                         if (current.tagName === 'LABEL') {
                             current.style.color = 'gold';
                         }

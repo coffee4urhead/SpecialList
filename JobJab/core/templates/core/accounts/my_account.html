@@ -2,128 +2,133 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
           integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
           crossorigin=""/>
     {% load compress static %}
     {% compress css %}
         <link rel="stylesheet" type="text/x-scss" href="{% static 'core/homepage/home-header-style.scss' %}">
-        <link rel="stylesheet" type="text/x-scss" href="{% static 'core/profile-view-styles/profile_main_info_tab.scss' %}">
-        <link rel="stylesheet" type="text/x-scss" href="{% static 'core/profile-view-styles/followers-overlay-styles.scss' %}">
-        <link rel="stylesheet" type="text/x-scss" href="{% static 'core/profile-view-styles/profile-side-info-tab.scss' %}">
+        <link rel="stylesheet" type="text/x-scss"
+              href="{% static 'core/profile-view-styles/profile_main_info_tab.scss' %}">
+        <link rel="stylesheet" type="text/x-scss"
+              href="{% static 'core/profile-view-styles/followers-overlay-styles.scss' %}">
+        <link rel="stylesheet" type="text/x-scss"
+              href="{% static 'core/profile-view-styles/profile-side-info-tab.scss' %}">
         <link rel="stylesheet" type="text/x-scss" href="{% static 'core/profile-view-styles/change-info-form.scss' %}">
-        <link rel="stylesheet" type="text/x-scss" href="{% static 'core/profile-view-styles/user-profile-reviews-style.scss' %}">
-        <link rel="stylesheet" type="text/x-scss" href="{% static 'core/profile-view-styles/leave-review-form-styles.scss' %}">
+        <link rel="stylesheet" type="text/x-scss"
+              href="{% static 'core/profile-view-styles/user-profile-reviews-style.scss' %}">
+        <link rel="stylesheet" type="text/x-scss"
+              href="{% static 'core/profile-view-styles/leave-review-form-styles.scss' %}">
     {% endcompress %}
 
-<style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-      margin: 0;
-      padding: 0;
-      overflow-x: hidden;
-      background-color: white;
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background-color: white;
 
-      p, a {
-        font-family: "Euclid Circular A", sans-serif;
-        font-weight: 500;
-        font-size: 1em;
-        font-style: normal;
-        color: black;
-      }
-    }
-</style>
+            p, a {
+                font-family: "Euclid Circular A", sans-serif;
+                font-weight: 500;
+                font-size: 1em;
+                font-style: normal;
+                color: black;
+            }
+        }
+    </style>
 
     <title>{{ user.get_username }} ({{ user.get_full_name }})</title>
 </head>
 <body>
-    {% include 'template-components/header-comp.html' %}
+{% include 'template-components/header-comp.html' %}
 
-    <main id="main-profile-contents">
-        {% include 'template-components/profile-main-info-tab.html' %}
-        {% include 'template-components/profile-side-info-tab.html' %}
-    </main>
+<main id="main-profile-contents">
+    {% include 'template-components/profile-main-info-tab.html' %}
+    {% include 'template-components/profile-side-info-tab.html' %}
+</main>
 
 
-    <script src="{% static 'js-scripts/profile-scripts/leave-review-script.js' %}"></script>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-            crossorigin=""></script>
-    <script src="{% static 'js-scripts/profile-scripts/get_location.js' %}"></script>
+<script src="{% static 'js-scripts/profile-scripts/leave-review-script.js' %}"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
+<script src="{% static 'js-scripts/profile-scripts/get_location.js' %}"></script>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    document.querySelector('.connections-link').addEventListener('click', function() {
-        const username = this.getAttribute('data-username');
-        fetch(`/user/${username}/connections/`)
-            .then(response => response.text())
-            .then(html => {
-                document.body.insertAdjacentHTML('beforeend', `<div class="modal-overlay">${html}</div>`);
-                setupModal();
-            });
-    });
-
-    const followBtn = document.querySelector('button.filled-web-btn.follow');
-    if (followBtn) {
-        followBtn.addEventListener('click', function() {
-            if (this.classList.contains('follow')) {
-                this.innerText = 'Unfollow';
-                this.classList.remove('follow');
-                this.classList.add('unfollow');
-            } else {
-                this.innerText = 'Follow Account';
-                this.classList.remove('unfollow');
-                this.classList.add('follow');
-            }
-        });
-    }
-
-    function setupModal() {
-        const overlay = document.querySelector('.modal-overlay');
-
-        overlay.addEventListener('click', function(e) {
-            if (e.target.classList.contains('modal-overlay') || e.target.classList.contains('close-modal')) {
-                overlay.remove();
-            }
-        });
-
-        const tabButtons = document.querySelectorAll('.tab-button');
-        tabButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                document.querySelectorAll('.tab-button, .tab-content').forEach(el => {
-                    el.classList.remove('active');
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelector('.connections-link').addEventListener('click', function () {
+            const username = this.getAttribute('data-username');
+            fetch(`/user/${username}/connections/`)
+                .then(response => response.text())
+                .then(html => {
+                    document.body.insertAdjacentHTML('beforeend', `<div class="modal-overlay">${html}</div>`);
+                    setupModal();
                 });
+        });
 
-                this.classList.add('active');
-                const tabId = this.getAttribute('data-tab') + '-tab';
-                document.getElementById(tabId).classList.add('active');
+        const followBtn = document.querySelector('button.filled-web-btn.follow');
+        if (followBtn) {
+            followBtn.addEventListener('click', function () {
+                if (this.classList.contains('follow')) {
+                    this.innerText = 'Unfollow';
+                    this.classList.remove('follow');
+                    this.classList.add('unfollow');
+                } else {
+                    this.innerText = 'Follow Account';
+                    this.classList.remove('unfollow');
+                    this.classList.add('follow');
+                }
             });
-        });
-    }
-});
-document.addEventListener('DOMContentLoaded', function () {
-    const editBtn = document.getElementById('edit-profile-btn');
-    const formContainer = document.getElementById('edit-profile-form-container');
-    const cancelBtn = document.getElementById('cancel-edit');
+        }
 
-    if (editBtn && formContainer) {
-        editBtn.addEventListener('click', function () {
-            formContainer.style.display = 'block';
-            editBtn.style.display = 'none';
-        });
-    }
+        function setupModal() {
+            const overlay = document.querySelector('.modal-overlay');
 
-    if (cancelBtn && formContainer) {
-        cancelBtn.addEventListener('click', function () {
-            formContainer.style.display = 'none';
-            editBtn.style.display = 'inline-block';
-        });
-    }
-});
+            overlay.addEventListener('click', function (e) {
+                if (e.target.classList.contains('modal-overlay') || e.target.classList.contains('close-modal')) {
+                    overlay.remove();
+                }
+            });
+
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    document.querySelectorAll('.tab-button, .tab-content').forEach(el => {
+                        el.classList.remove('active');
+                    });
+
+                    this.classList.add('active');
+                    const tabId = this.getAttribute('data-tab') + '-tab';
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+        }
+    });
+    document.addEventListener('DOMContentLoaded', function () {
+        const editBtn = document.getElementById('edit-profile-btn');
+        const formContainer = document.getElementById('edit-profile-form-container');
+        const cancelBtn = document.getElementById('cancel-edit');
+
+        if (editBtn && formContainer) {
+            editBtn.addEventListener('click', function () {
+                formContainer.style.display = 'block';
+                editBtn.style.display = 'none';
+            });
+        }
+
+        if (cancelBtn && formContainer) {
+            cancelBtn.addEventListener('click', function () {
+                formContainer.style.display = 'none';
+                editBtn.style.display = 'inline-block';
+            });
+        }
+    });
 </script>
 </body>
 </html>

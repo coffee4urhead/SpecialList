@@ -2,7 +2,6 @@ from django import forms
 from django.core.exceptions import ValidationError
 
 from .models import UserReview
-from ..core.models import CustomUser
 
 
 class UserReviewForm(forms.ModelForm):
@@ -10,7 +9,6 @@ class UserReviewForm(forms.ModelForm):
         required=False,
         widget=forms.TextInput(attrs={'readonly': 'readonly'})
     )
-    reviewer_id = forms.IntegerField(widget=forms.HiddenInput())
 
     class Meta:
         model = UserReview
@@ -28,30 +26,22 @@ class UserReviewForm(forms.ModelForm):
 
         if self.reviewee:
             self.fields['reviewee_display'].initial = str(self.reviewee)
-        if self.reviewer:
-            self.fields['reviewer_id'].initial = self.reviewer.id
 
     def clean(self):
         cleaned_data = super().clean()
-
-        # Get reviewer from form data
-        reviewer_id = cleaned_data.get('reviewer_id')
-        if not reviewer_id:
-            raise ValidationError("Reviewer is required")
-
-        try:
-            self.reviewer = CustomUser.objects.get(id=reviewer_id)
-        except (CustomUser.DoesNotExist, ValueError):
-            raise ValidationError("Invalid reviewer specified")
-
+        if not self.reviewer:
+            raise ValidationError("Reviews must have a reviewer")
+        if not self.reviewee:
+            raise ValidationError("Reviews must have a reviewee")
+        if self.reviewer == self.reviewee:
+            raise ValidationError("Cannot review yourself")
         return cleaned_data
 
     def save(self, commit=True):
         instance = super().save(commit=False)
+        instance.reviewer = self.reviewer
         instance.reviewee = self.reviewee
-        instance._reviewer = self.reviewer
 
         if commit:
             instance.save()
-
         return instance

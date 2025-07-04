@@ -23,68 +23,79 @@ section#reviews-for-user {
   }
 
   scrollbar-width: none;
+
   &::-webkit-scrollbar {
     display: none;
   }
 }
 
 section.review-card {
-  flex: 0 0 auto;
-    width: 30rem;
-    height: 20rem;
-    scroll-snap-align: start;
-    border-radius: 8px;
-  padding: 1.8rem;
+  border-radius: 8px;
+  padding: 1.5rem;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  border: 2px solid black;
+  width: 25rem;
+  max-width: 90vw;
+  min-height: 18rem;
+  max-height: 22rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: center;
+  justify-content: space-between;
 
-      &:hover {
-        transform: scale(1.02);
-        transition: transform 0.2s ease;
-      }
-
-    h1 {
-        text-align: center;
-        margin-bottom: 2rem;
-        @include web-title-special($pref-font-size: clamp(1.5em, 3.5em, 5em), $pref-font-st: bolder);
-    }
-
-  img {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      object-fit: cover;
-    display: inline-block;
-    }
-
-  div.review-main-cont {
-    padding: 20px;
-
-    p {
-      @include def-web-text($pref-font-size: clamp(1.3em,1.5em, 1.7em), $pref-font-st: normal);
-    }
+  &:hover {
+    transform: scale(1.02);
+    transition: transform 0.2s ease;
   }
 
   .user-rev-info {
     display: flex;
     align-items: center;
     gap: 1rem;
-    padding: 30px;
     margin-bottom: 1rem;
+
+    img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
 
     p {
       @include def-web-text($pref-font-size: 1em, $pref-font-st: normal);
     }
   }
 
+  .review-main-cont {
+    flex-grow: 1;
+    width: 100%;
+    max-height: 9rem;
+    overflow-y: auto;
+    padding-right: 0.5rem; // room for scrollbar if needed
+
+    p {
+      @include def-web-text($pref-font-size: clamp(1.2em, 1.5em, 2em), $pref-font-st: normal);
+      line-height: 1.4em;
+      word-break: break-word;
+    }
+
+    // Optional: custom scrollbar for overflow
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(0, 0, 0, 0.2);
+      border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+  }
+
   .star-rating {
     display: inline-flex;
     gap: 0.25rem;
-    padding: 20px;
 
     .fa-star, .text-muted {
       width: 20px;

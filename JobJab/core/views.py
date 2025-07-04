@@ -73,6 +73,7 @@ def about(request):
 def privacy_policy(request):
     return render(request, 'template-components/description-component.html')
 
+
 def followers_following_view(request, username):
     user = get_object_or_404(CustomUser, username=username)
 
@@ -113,41 +114,41 @@ def followers_following_view(request, username):
 
 
 @login_required
-@require_http_methods(["GET", "POST"])
 def leave_user_review(request, username):
     reviewee = get_object_or_404(CustomUser, username=username)
 
     if request.method == "POST":
-        # Create mutable copy of POST data
-        post_data = request.POST.copy()
-        if 'reviewer_id' not in post_data:
-            post_data['reviewer_id'] = request.user.id
-
-        form = UserReviewForm(post_data, reviewee=reviewee, reviewer=request.user)
+        form = UserReviewForm(
+            request.POST,
+            reviewee=reviewee,
+            reviewer=request.user
+        )
 
         if form.is_valid():
             try:
                 review = form.save()
-                return JsonResponse({'status': 'success'})
+                return JsonResponse({
+                    'status': 'success',
+                    'message': 'Review submitted successfully'
+                })
             except ValidationError as e:
                 return JsonResponse({
                     'status': 'error',
                     'errors': {'__all__': list(e.messages)}
                 }, status=400)
-        return JsonResponse({
-            'status': 'error',
-            'errors': form.errors
-        }, status=400)
+            except Exception as e:
+                return JsonResponse({
+                    'status': 'error',
+                    'errors': {'__all__': [str(e)]}
+                }, status=500)
+        else:
+            return JsonResponse({
+                'status': 'error',
+                'errors': form.errors.get_json_data()
+            }, status=400)
 
-    # GET request
-    form = UserReviewForm(
-        initial={
-            'reviewee_display': str(reviewee),
-            'reviewer_id': request.user.id
-        },
-        reviewee=reviewee,
-        reviewer=request.user
-    )
+    # GET request handling
+    form = UserReviewForm(reviewee=reviewee, reviewer=request.user)
     return render(request, 'template-components/review-form-modal.html', {
         'form': form,
         'reviewee': reviewee
@@ -299,6 +300,7 @@ def user_location_with_connections(request, username):
             'status': 'error',
             'message': str(e)
         }, status=500)
+
 
 @login_required
 def account_view(request, username):

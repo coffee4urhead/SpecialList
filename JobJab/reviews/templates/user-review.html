@@ -1,47 +1,50 @@
 <section id="reviews-for-user">
-  <div id="reviews-scroll-container">
-    {% if reviews_given %}
-      {% for user_review in reviews_given %}
-        <section class="review-card">
-          <div class="rev-info-side">
-          {% if user_review.reviewer.profile_picture %}
-            <a href="{% url 'account_view' user_review.reviewer.username %}">
-              <img src="{{ user_review.reviewer.profile_picture.url }}"
-              alt="{{ user_review.reviewer.get_full_name|default:user_review.reviewer.username }}">
-            </a>
-          {% else %}
-            {% load static %}
-            <a href="{% url 'account_view' user_review.reviewer.username %}">
-              <img src="{% static '/images/avatar-default-photo.png' %}"
-              alt="{{ user_review.reviewer.get_full_name|default:user_review.reviewer.username }}">
-            </a>
-          {% endif %}
+    <div id="reviews-scroll-container">
+        {% if reviews_given %}
+            {% for user_review in reviews_given %}
+                <section class="review-card">
+                    <div class="user-rev-info">
+                        {% if user_review.reviewer.profile_picture %}
+                            <a href="{% url 'account_view' user_review.reviewer.username %}">
+                                <img src="{{ user_review.reviewer.profile_picture.url }}"
+                                     alt="{{ user_review.reviewer.get_full_name|default:user_review.reviewer.username }}">
+                            </a>
+                        {% else %}
+                            {% load static %}
+                            <a href="{% url 'account_view' user_review.reviewer.username %}">
+                                <img src="{% static '/images/avatar-default-photo.png' %}"
+                                     alt="{{ user_review.reviewer.get_full_name|default:user_review.reviewer.username }}">
+                            </a>
+                        {% endif %}
 
-            <div class="star-rating">
-              {% for i in "12345" %}
-                <i class="fas fa-star{% if forloop.counter > user_review.rating %} text-muted{% endif %}"></i>
-              {% endfor %}
+                        <div class="rev-info-side">
+                            <div class="star-rating">
+                                {% for i in "12345" %}
+                                    <i class="fas fa-star{% if forloop.counter > user_review.rating %} text-muted{% endif %}"></i>
+                                {% endfor %}
+                            </div>
+                            <p>
+                                {% if user_review.reviewer %}
+                                    {{ user_review.reviewer.get_full_name|default:user_review.reviewer.username }}
+                                {% else %}
+                                    [Deleted User]
+                                {% endif %}
+                            </p>
+                            <p>Posted on: {{ user_review.created_at|date:"F j, Y" }}</p>
+                        </div>
+                    </div>
+
+                    <div class="review-main-cont">
+                        <p>{{ user_review.comment }}</p>
+                    </div>
+                </section>
+
+            {% endfor %}
+        {% else %}
+            <div class="alert alert-error">
+                No reviews found for this user.
+                Debug: User={{ user_reviewed.username }}, Review count={{ reviews_given.count }}
             </div>
-            <p>
-              {% if user_review.reviewer %}
-                {{ user_review.reviewer.get_full_name|default:user_review.reviewer.username }}
-              {% else %}
-                [Deleted User]
-              {% endif %}
-            </p>
-            <p>Posted on: {{ user_review.created_at|date:"F j, Y" }}</p>
-          </div>
-
-          <div class="review-main-cont">
-            <p>{{ user_review.comment }}</p>
-          </div>
-        </section>
-      {% endfor %}
-    {% else %}
-      <div class="alert alert-error">
-        No reviews found for this user.
-        Debug: User={{ user_reviewed.username }}, Review count={{ reviews_given.count }}
-      </div>
-    {% endif %}
-  </div>
+        {% endif %}
+    </div>
 </section>

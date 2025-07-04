@@ -3,9 +3,9 @@ from django.conf import settings
 from django.utils import timezone
 
 class SubscriptionPlan(models.TextChoices):
-    STARTER = 'starter', 'Starter'
-    GROWTH = 'growth', 'Growth'
-    ELITE = 'elite', 'Elite'
+    STARTER = 'Starter', 'Starter'
+    GROWTH = 'Growth', 'Growth'
+    ELITE = 'Elite', 'Elite'
 
 class SubscriptionStatus(models.TextChoices):
     ACTIVE = 'active', 'Active'

@@ -13,8 +13,8 @@ class ReviewType(models.TextChoices):
 class BaseReview(models.Model):
     reviewer = models.ForeignKey(AUTH_USER_MODEL, blank=True, null=True, on_delete=models.CASCADE)
     rating = models.SmallIntegerField(choices=[(i, i) for i in range(1, 6)])
-    main_caption = models.CharField(max_length=100)
-    comment = models.TextField()
+    main_caption = models.CharField(max_length=40)
+    comment = models.TextField(max_length=300)
     created_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now_add=True)
     likes = models.IntegerField(default=0)
@@ -22,10 +22,6 @@ class BaseReview(models.Model):
 
     class Meta:
         abstract = True
-
-    def clean(self):
-        if not hasattr(self, 'reviewer') or not self.reviewer:
-            raise ValidationError("Reviews must have a reviewer")
 
 
 class WebsiteReview(BaseReview):
@@ -47,32 +43,18 @@ class UserReview(BaseReview):
         related_name='user_reviews'
     )
 
-    def __init__(self, *args, **kwargs):
-        self._reviewer = kwargs.pop('reviewer', None)
-        super().__init__(*args, **kwargs)
-
     def clean(self):
-        super().clean()
-
-        # Ensure reviewer is set either through _reviewer or reviewer field
-        if not hasattr(self, 'reviewer') or not self.reviewer:
-            if self._reviewer:
-                self.reviewer = self._reviewer
-            else:
-                raise ValidationError("User reviews must have a reviewer inside the model check")
-
-        if not self.reviewee:
-            raise ValidationError("User reviews must have a reviewee")
-
-        if self.reviewer == self.reviewee:
-            raise ValidationError("Cannot review yourself")
+        # Only validate if both reviewer and reviewee are set
+        if self.reviewer_id and self.reviewee_id:
+            if self.reviewer_id == self.reviewee_id:
+                raise ValidationError("Cannot review yourself")
 
     def save(self, *args, **kwargs):
-        # Set reviewer from init if not already set
-        if self._reviewer and not self.reviewer_id:
-            self.reviewer = self._reviewer
-
-        self.full_clean()  # This will call the clean() method
+        """Ensure required fields are set before saving"""
+        if not hasattr(self, 'reviewer'):
+            raise ValueError("Reviewer must be set before saving")
+        if not hasattr(self, 'reviewee'):
+            raise ValueError("Reviewee must be set before saving")
         super().save(*args, **kwargs)
 
 

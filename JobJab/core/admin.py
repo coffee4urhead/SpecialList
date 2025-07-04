@@ -6,7 +6,7 @@ from JobJab.core.models import CustomUser, Organization, UserLocation, Certifica
 
 class SubscriptionInline(admin.StackedInline):
     model = Subscription
-    fields = ('stripe_customer_id', 'subscription_plan_type')
+    fields = ('stripe_customer_id', 'plan')
     can_delete = False
     extra = 0
 
@@ -18,7 +18,7 @@ class CustomUserAdmin(UserAdmin):
     list_display = ('username', 'email', 'user_type', 'is_staff', 'get_subscription_plan')
 
     def get_subscription_plan(self, obj):
-        return obj.subscription.subscription_plan_type if hasattr(obj, 'subscription') else None
+        return obj.subscription.plan if hasattr(obj, 'subscription') else None
 
     get_subscription_plan.short_description = 'Subscription Plan'
 

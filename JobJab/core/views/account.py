@@ -1,3 +1,5 @@
+import json
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
@@ -39,8 +41,6 @@ def account_view(request, username):
         'organization_formset': formset,
         'reviews_given': reviews_given,
     }
-
-    print(context)
     return render(request, 'core/accounts/my_account.html', context)
 
 def followers_following_view(request, username):
@@ -80,3 +80,32 @@ def followers_following_view(request, username):
     }
 
     return render(request, 'template-components/follow_modal_content.html', context)
+
+@login_required(login_url='login')
+def update_followers(request, username, followerId):
+    if request.method == 'POST' and request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        try:
+            data = json.loads(request.body)
+            action = data.get('action')
+        except json.JSONDecodeError:
+            return JsonResponse({'status': 'error', 'message': 'Invalid JSON'}, status=400)
+
+        try:
+            profile_user = CustomUser.objects.get(username=username)
+            follower = CustomUser.objects.get(id=followerId)
+
+            if action == 'follow':
+                profile_user.followers.add(follower)
+
+                print(f"Here is the follower that i have gained: {profile_user.followers.get(id=followerId)}")
+                return JsonResponse({'status': 'success', 'message': 'Now following'})
+            elif action == 'unfollow':
+                profile_user.followers.remove(follower)
+                return JsonResponse({'status': 'success', 'message': 'Unfollowed'})
+            else:
+                return JsonResponse({'status': 'error', 'message': 'Invalid action'}, status=400)
+
+        except CustomUser.DoesNotExist:
+            return JsonResponse({'status': 'error', 'message': 'User does not exist'}, status=400)
+
+    return JsonResponse({'status': 'error', 'message': 'Invalid request'}, status=400)

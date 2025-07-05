@@ -31,7 +31,7 @@ function setupReviewModal(username, reviewId = null) {
             .then(data => {
                 if (data.status === 'success') {
                     overlay.remove();
-                    window.location.reload(); // Refresh to show updated review
+                    window.location.reload();
                 } else {
                     Object.entries(data.errors).forEach(([field, errors]) => {
                         const errorElement = document.createElement('div');
@@ -51,7 +51,7 @@ function setupReviewModal(username, reviewId = null) {
                 console.error('Error submitting form:', error);
                 alert('Error submitting form. Please try again.');
             });
-        // Star rating functionality
+
         const starContainer = overlay.querySelector('.star-rating');
         if (starContainer) {
             starContainer.addEventListener('click', function (e) {
@@ -106,7 +106,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Handle Edit Review button clicks
     document.querySelectorAll('.edit-rev').forEach(editBtn => {
         editBtn.addEventListener('click', function () {
             const username = this.getAttribute('data-username');
@@ -115,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function () {
             fetch(`/reviews/user/${username}/editReview/${reviewId}/`)
                 .then(response => {
                     if (!response.ok) throw new Error('Failed to load edit form');
-                    return response.text();  // Get the form HTML
+                    return response.text();
                 })
                 .then(html => {
                     document.body.insertAdjacentHTML('beforeend', `<div class="modal-overlay">${html}</div>`);

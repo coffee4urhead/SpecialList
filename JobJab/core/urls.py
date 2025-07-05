@@ -14,6 +14,7 @@ urlpatterns = [
                   path('user/<str:username>/', include([
                       path('', account.account_view, name='account_view'),
                       path('connections/', account.followers_following_view, name='user_connections'),
+                      path('connections/updateConnection/<int:followerId>/', account.update_followers, name='update_followers'),
                       path('location-with-connections/', location.user_location_with_connections,
                            name='user_location_with_connections'),
                       path('certificates/', certificates.user_certificates, name='user_certificates'),

@@ -7,7 +7,7 @@ function getUsernameFromUrl() {
     throw new Error('Wasn`t able to extract a proper username!');
 }
 
-function getCookie(name) {
+export function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
         const cookies = document.cookie.split(';');
@@ -215,13 +215,12 @@ function displayAllLocations(userLocation, connections) {
 
             map.fitBounds(bounds, {
                 padding: [50, 50],
-                maxZoom: 15  // Prevent zooming too far out
+                maxZoom: 15
             });
         }
     }, 100);
 }
 
-// Single DOMContentLoaded listener
 document.addEventListener('DOMContentLoaded', async () => {
     try {
         const {user_location, connections} = await getCombinedLocationData();

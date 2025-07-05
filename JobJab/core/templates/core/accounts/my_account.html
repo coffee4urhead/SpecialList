@@ -55,11 +55,12 @@
 </main>
 
 
-<script src="{% static 'js-scripts/profile-scripts/leave-review-script.js' %}"></script>
+<script type="module" src="{% static 'js-scripts/profile-scripts/leave-review-script.js' %}"></script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
         crossorigin=""></script>
-<script src="{% static 'js-scripts/profile-scripts/get_location.js' %}"></script>
+<script type="module" src="{% static 'js-scripts/profile-scripts/get_location.js' %}"></script>
+<script type="module" src="{% static 'js-scripts/profile-scripts/follow-script.js' %}"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         document.querySelector('.connections-link').addEventListener('click', function () {
@@ -71,21 +72,6 @@
                     setupModal();
                 });
         });
-
-        const followBtn = document.querySelector('button.filled-web-btn.follow');
-        if (followBtn) {
-            followBtn.addEventListener('click', function () {
-                if (this.classList.contains('follow')) {
-                    this.innerText = 'Unfollow';
-                    this.classList.remove('follow');
-                    this.classList.add('unfollow');
-                } else {
-                    this.innerText = 'Follow Account';
-                    this.classList.remove('unfollow');
-                    this.classList.add('follow');
-                }
-            });
-        }
 
         function setupModal() {
             const overlay = document.querySelector('.modal-overlay');

@@ -2,10 +2,12 @@
     <div class="profile-column-left">
         <section id="profile-pics-holder">
             {% if viewed_account.backcover_profile %}
-                <img id='profile-background' src="{{ viewed_account.backcover_profile.url }}" alt="{{ viewed_account.get_full_name|default:viewed_account.username }}"/>
+                <img id='profile-background' src="{{ viewed_account.backcover_profile.url }}"
+                     alt="{{ viewed_account.get_full_name|default:viewed_account.username }}"/>
             {% endif %}
             {% if user.profile_picture %}
-                <img id='profile-image' src="{{ viewed_account.profile_picture.url }}" alt="{{ viewed_account.get_full_name|default:viewed_account.username }}">
+                <img id='profile-image' src="{{ viewed_account.profile_picture.url }}"
+                     alt="{{ viewed_account.get_full_name|default:viewed_account.username }}">
             {% endif %}
             <div id="profile-namings">
                 <h3>{{ viewed_account.get_full_name }}</h3>
@@ -25,9 +27,20 @@
                     {% include 'core/accounts/profile_template.html' %}
                 </div>
             {% else %}
-                <button class="filled-web-btn follow">Follow Account</button>
+                <button class="filled-web-btn {% if user in viewed_account.followers.all %}unfollow{% else %}follow{% endif %}"
+                        data-action="{% if user in viewed_account.followers.all %}unfollow{% else %}follow{% endif %}"
+                        data-follower-id="{{ request.user.id }}"
+                        data-username="{{ viewed_account.username }}">
+                    {% if user in viewed_account.followers.all %}
+                        Unfollow Account
+                    {% else %}
+                        Follow Account
+                    {% endif %}
+                </button>
+
                 <button class="emp-web-btn" id="review-btn" data-username="{{ viewed_account.username }}"
-                    data-reviewer-id="{{ request.user.id  }}">Leave Review</button>
+                        data-reviewer-id="{{ request.user.id }}">Leave Review
+                </button>
             {% endif %}
 
 
@@ -44,8 +57,8 @@
                     {% for membership in viewed_account.userorganization_set.all %}
                         {% if membership.organization.logo %}
                             <img src="{{ membership.organization.logo.url }}"
-                                alt="{{ membership.organization.name }}"
-                                title="{{ membership.organization.name }} ({{ membership.position|default:'Member' }})">
+                                 alt="{{ membership.organization.name }}"
+                                 title="{{ membership.organization.name }} ({{ membership.position|default:'Member' }})">
                         {% endif %}
                     {% empty %}
                         <p>No organizations listed yet</p>

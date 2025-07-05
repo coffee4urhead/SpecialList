@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const username = this.getAttribute('data-username');
             const reviewerId = this.getAttribute('data-reviewer-id');
 
-            fetch(`/user/${username}/leaveReview/`)
+            fetch(`/reviews/user/${username}/leaveReview/`)
                 .then(response => {
                     if (!response.ok) throw new Error('Network response was not ok');
                     return response.text();
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 const formData = new FormData(form);
 
-                fetch(`/user/${username}/leaveReview/`, {
+                fetch(`/reviews/user/${username}/leaveReview/`, {
                     method: 'POST',
                     body: formData,
                     headers: {

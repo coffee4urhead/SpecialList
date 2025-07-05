@@ -1,6 +1,7 @@
 @import "../../utils/web_colors.scss";
 @import "../../utils/general-web-mixins/main-web-utls.scss";
 @import "../../utils/general-web-mixins/main-button-mixin.scss";
+@import '../../utils/general-web-mixins/main-button-mixin.scss';
 
 section#reviews-for-user {
   display: flex;
@@ -70,7 +71,7 @@ section.review-card {
     width: 100%;
     max-height: 9rem;
     overflow-y: auto;
-    padding-right: 0.5rem; // room for scrollbar if needed
+    padding-right: 0.5rem;
 
     p {
       @include def-web-text($pref-font-size: clamp(1.2em, 1.5em, 2em), $pref-font-st: normal);
@@ -78,7 +79,6 @@ section.review-card {
       word-break: break-word;
     }
 
-    // Optional: custom scrollbar for overflow
     &::-webkit-scrollbar {
       width: 6px;
     }
@@ -90,6 +90,32 @@ section.review-card {
 
     &::-webkit-scrollbar-track {
       background: transparent;
+    }
+  }
+
+  div.bottom-section-edit {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 30px;
+    margin: 10px auto;
+
+    a.emp-web-btn {
+      @include emp-web-btn($arg-width: 100%, $arg-height: 45px, $arg-bg-color: transparent, $txt-color: $main-web-color);
+      color: red;
+      text-decoration: none;
+    }
+
+    button.filled-web-btn {
+      @include filled-web-btn($arg-width: 50%, $arg-height: 45px, $arg-bg-color: $main-web-color, $txt-color: $main-web-color);
+      color: $secondary-web-color;
+    }
+
+    a.emp-web-btn, button.filled-web-btn {
+      background-color: transparent;
+      border: none;
+      font-size: 1em;
     }
   }
 

@@ -41,10 +41,37 @@
   &:hover {
     background-color: $hover-bg;
     transform: translateY(-1px);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
   &:active {
     transform: translateY(0);
+  }
+}
+
+@mixin filled-web-btn($arg-width: 70%, $arg-height: 45px, $arg-bg-color: $additional_web_color, $txt-color: $main-web-color) {
+  @include main-button($arg-width: 70%, $arg-height: 45px, $arg-bg-color: $additional_web_color, $txt-color: $main-web-color);
+  border-radius: 8px;
+  font-size: 1.5em;
+  font-weight: 500;
+  border: 2px solid $main-web-color;
+
+  &:hover {
+    transform: translateY(-2px);
+    transition: transform 0.2s linear;
+  }
+}
+
+@mixin emp-web-btn($arg-width: 70%, $arg-height: 45px, $arg-bg-color: $main-web-color, $txt-color: $main-web-color) {
+  @include main-button($arg-width: 70%, $arg-height: 45px, $arg-bg-color: $main-web-color, $txt-color: $main-web-color);
+  border-radius: 8px;
+  color: $eccentric-color;
+  font-size: 1.1em;
+  font-weight: 500;
+  border: 2px solid $eccentric-color;
+
+  &:hover {
+    transform: translateY(-2px);
+    transition: transform 0.2s linear;
   }
 }

@@ -83,6 +83,59 @@ section.review-card .review-main-cont::-webkit-scrollbar-thumb {
 section.review-card .review-main-cont::-webkit-scrollbar-track {
   background: transparent;
 }
+section.review-card div.bottom-section-edit {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 30px;
+  margin: 10px auto;
+}
+section.review-card div.bottom-section-edit a.emp-web-btn {
+  width: 70%;
+  height: 45px;
+  background-color: #ffffff;
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1.2em;
+  font-style: normal;
+  color: #ffffff;
+  border-radius: 8px;
+  color: #32AE88;
+  font-size: 1.1em;
+  font-weight: 500;
+  border: 2px solid #32AE88;
+  color: red;
+  text-decoration: none;
+}
+section.review-card div.bottom-section-edit a.emp-web-btn:hover {
+  transform: translateY(-2px);
+  transition: transform 0.2s linear;
+}
+section.review-card div.bottom-section-edit button.filled-web-btn {
+  width: 70%;
+  height: 45px;
+  background-color: #008DAA;
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1.2em;
+  font-style: normal;
+  color: #ffffff;
+  border-radius: 8px;
+  font-size: 1.5em;
+  font-weight: 500;
+  border: 2px solid #ffffff;
+  color: #06BAC5;
+}
+section.review-card div.bottom-section-edit button.filled-web-btn:hover {
+  transform: translateY(-2px);
+  transition: transform 0.2s linear;
+}
+section.review-card div.bottom-section-edit a.emp-web-btn, section.review-card div.bottom-section-edit button.filled-web-btn {
+  background-color: transparent;
+  border: none;
+  font-size: 1em;
+}
 section.review-card .star-rating {
   display: inline-flex;
   gap: 0.25rem;

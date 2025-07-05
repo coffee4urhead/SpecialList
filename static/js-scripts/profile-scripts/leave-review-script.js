@@ -1,10 +1,90 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Handle Leave Review button click
+function setupReviewModal(username, reviewId = null) {
+    const overlay = document.querySelector('.modal-overlay');
+    const form = document.getElementById('review-form');
+
+    if (!overlay || !form) return;
+
+    overlay.addEventListener('click', function (e) {
+        if (e.target.classList.contains('modal-overlay') || e.target.classList.contains('close-modal')) {
+            overlay.remove();
+        }
+    });
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        document.querySelectorAll('.error').forEach(el => el.remove());
+
+        const formData = new FormData(form);
+        const endpoint = reviewId
+            ? `/reviews/user/${username}/editReview/${reviewId}/`
+            : `/reviews/user/${username}/leaveReview/`;
+
+        fetch(endpoint, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': form.querySelector('[name=csrfmiddlewaretoken]').value,
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    overlay.remove();
+                    window.location.reload(); // Refresh to show updated review
+                } else {
+                    Object.entries(data.errors).forEach(([field, errors]) => {
+                        const errorElement = document.createElement('div');
+                        errorElement.className = 'error';
+                        errorElement.textContent = Array.isArray(errors)
+                            ? errors.map(e => e.message || e).join(', ')
+                            : errors;
+
+                        const fieldElement = form.querySelector(`[name="${field}"]`);
+                        if (fieldElement) {
+                            fieldElement.parentNode.appendChild(errorElement);
+                        }
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error submitting form:', error);
+                alert('Error submitting form. Please try again.');
+            });
+        // Star rating functionality
+        const starContainer = overlay.querySelector('.star-rating');
+        if (starContainer) {
+            starContainer.addEventListener('click', function (e) {
+                if (e.target.tagName === 'LABEL') {
+                    const radio = e.target.previousElementSibling;
+                    if (radio) radio.checked = true;
+
+                    const allLabels = Array.from(starContainer.querySelectorAll('label'));
+                    allLabels.forEach(label => {
+                        label.style.color = '#ddd';
+                    });
+
+                    let fill = false;
+                    for (let i = allLabels.length - 1; i >= 0; i--) {
+                        const label = allLabels[i];
+                        if (label === e.target) {
+                            fill = true;
+                        }
+                        if (fill) {
+                            label.style.color = 'gold';
+                        }
+                    }
+                }
+            });
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function () {
     const leaveReviewBtn = document.getElementById('review-btn');
     if (leaveReviewBtn) {
-        leaveReviewBtn.addEventListener('click', function() {
+        leaveReviewBtn.addEventListener('click', function () {
             const username = this.getAttribute('data-username');
-            const reviewerId = this.getAttribute('data-reviewer-id');
 
             fetch(`/reviews/user/${username}/leaveReview/`)
                 .then(response => {
@@ -26,93 +106,25 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    function setupReviewModal(username) {
-        const overlay = document.querySelector('.modal-overlay');
-        const form = document.getElementById('review-form');
+    // Handle Edit Review button clicks
+    document.querySelectorAll('.edit-rev').forEach(editBtn => {
+        editBtn.addEventListener('click', function () {
+            const username = this.getAttribute('data-username');
+            const reviewId = this.getAttribute('data-review-id');
 
-        if (!overlay) return;
-
-        // Close modal
-        overlay.addEventListener('click', function(e) {
-            if (e.target.classList.contains('modal-overlay') ||
-                e.target.classList.contains('close-modal')) {
-                overlay.remove();
-            }
-        });
-
-        if (form) {
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-
-                // Clear previous errors
-                document.querySelectorAll('.error').forEach(el => el.remove());
-
-                const formData = new FormData(form);
-
-                fetch(`/reviews/user/${username}/leaveReview/`, {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'X-CSRFToken': form.querySelector('[name=csrfmiddlewaretoken]').value,
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }
-                })
+            fetch(`/reviews/user/${username}/editReview/${reviewId}/`)
                 .then(response => {
-                    const contentType = response.headers.get('content-type');
-                    if (!contentType || !contentType.includes('application/json')) {
-                        return response.text().then(text => {
-                            throw new Error('Server returned non-JSON response');
-                        });
-                    }
-                    return response.json();
+                    if (!response.ok) throw new Error('Failed to load edit form');
+                    return response.text();  // Get the form HTML
                 })
-                .then(data => {
-                    if (data.status === 'success') {
-                        overlay.remove();
-                        window.location.reload();
-                    } else if (data.errors) {
-                        Object.entries(data.errors).forEach(([field, errors]) => {
-                            const errorElement = document.createElement('div');
-                            errorElement.className = 'error';
-                            errorElement.textContent = Array.isArray(errors)
-                                ? errors.map(e => e.message || e).join(', ')
-                                : errors;
-
-                            const fieldElement = form.querySelector(`[name="${field}"]`);
-                            if (fieldElement) {
-                                fieldElement.parentNode.appendChild(errorElement);
-                            }
-                        });
-                    }
+                .then(html => {
+                    document.body.insertAdjacentHTML('beforeend', `<div class="modal-overlay">${html}</div>`);
+                    setupReviewModal(username, reviewId);
                 })
                 .catch(error => {
-                    console.error('Error submitting review:', error);
-                    alert('Error submitting review. Please check the form and try again.');
+                    console.error('Error loading edit form:', error);
+                    alert('Could not load edit form. Please try again.');
                 });
-            });
-        }
-
-        // Star rating functionality
-        const starContainer = overlay.querySelector('.star-rating');
-        if (starContainer) {
-            starContainer.addEventListener('click', function(e) {
-                if (e.target.tagName === 'LABEL') {
-                    const radio = e.target.previousElementSibling;
-                    radio.checked = true;
-
-                    // Update star colors
-                    const stars = starContainer.querySelectorAll('label');
-                    stars.forEach(star => star.style.color = '#ddd');
-
-                    let current = e.target;
-                    while (current) {
-                        if (current.tagName === 'LABEL') {
-                            current.style.color = 'gold';
-                        }
-                        current = current.previousElementSibling;
-                    }
-                }
-            });
-        }
-    }
+        });
+    });
 });

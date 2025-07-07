@@ -51,3 +51,71 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
+
+const editCertificateButton = document.querySelector('button.edit-btn');
+let editModal = null;
+
+if (editCertificateButton) {
+    editCertificateButton.addEventListener('click', (e) => {
+        const certificateId = e.currentTarget.dataset.certId;
+
+        if (certificateId) {
+            fetch(`/certificates/edit/${certificateId}/`)
+                .then(res => res.json())
+                .then(data => {
+                    if (!editModal) {
+                        editModal = document.createElement('div');
+                        editModal.id = 'edit-certificate-modal-container';
+                        document.body.appendChild(editModal);
+
+                        editModal.addEventListener('click', (event) => {
+                            if (event.target === editModal) {
+                                editModal.querySelector('.edit-certificate-modal').classList.remove('active');
+                            }
+                        });
+                    }
+
+                    editModal.innerHTML = data.form_html;
+                    const modalContent = editModal.querySelector('.edit-certificate-modal');
+                    modalContent.classList.add('active');
+
+                    const closeBtn = editModal.querySelector('.close-edit-btn');
+                    if (closeBtn) {
+                        closeBtn.addEventListener('click', () => {
+                            modalContent.classList.remove('active');
+                        });
+                    }
+
+                    const editForm = editModal.querySelector('#edit-certificate-form');
+                    if (editForm) {
+                        editForm.addEventListener('submit', (e) => {
+                            e.preventDefault();
+                            const formData = new FormData(editForm);
+
+                            fetch(`/certificates/edit/${certificateId}/`, {
+                                method: 'POST',
+                                body: formData,
+                                headers: {
+                                    'X-CSRFToken': formData.get('csrfmiddlewaretoken'),
+                                },
+                            })
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data.success) {
+                                        window.location.href = data.redirect_url;
+                                    } else {
+                                        console.error('Error updating certificate:', data.errors);
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error('Error:', error);
+                                });
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading edit form:', error);
+                });
+        }
+    });
+}

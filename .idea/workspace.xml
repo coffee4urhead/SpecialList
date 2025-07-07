@@ -5,13 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a6602c8c-3836-4310-91e0-bc55f682d51c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/static/js-scripts/profile-scripts/follow-script.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JobJab/core/templates/template-components/form-modals/edit-certificate-form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/form-styles/edit-certificate-form-style.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/core/templates/core/accounts/my_account.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/core/accounts/my_account.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/core/templates/template-components/profile-main-info-tab.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/template-components/profile-main-info-tab.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/core/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/core/templates/core/accounts/account-tabs/account_certificates.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/core/accounts/account-tabs/account_certificates.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/core/templates/core/accounts/account-tabs/certificates-display.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/core/accounts/account-tabs/certificates-display.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JobJab/core/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/core/views/account.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/views/account.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js-scripts/profile-scripts/get_location.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js-scripts/profile-scripts/get_location.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/core/views/certificates.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/views/certificates.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js-scripts/profile-scripts/certificate-change-script.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js-scripts/profile-scripts/certificate-change-script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js-scripts/profile-scripts/certificate-options-handler.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js-scripts/profile-scripts/certificate-options-handler.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,9 +27,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="Python Script" />
         <option value="JavaScript File" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -149,7 +152,8 @@
       <workItem from="1751544268737" duration="1412000" />
       <workItem from="1751560468329" duration="7374000" />
       <workItem from="1751623518395" duration="12531000" />
-      <workItem from="1751701712472" duration="12331000" />
+      <workItem from="1751701712472" duration="12596000" />
+      <workItem from="1751874477719" duration="4768000" />
     </task>
     <servers />
   </component>

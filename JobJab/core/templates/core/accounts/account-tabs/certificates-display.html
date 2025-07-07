@@ -1,69 +1,70 @@
 <div class="pdf-preview-container mb-3">
-            {% if certificates.first %}
-                {% if certificates.first.preview_image %}
-                    <img src="{{ certificates.first.preview_image.url }}"
-                         alt="{{ certificates.first.title }}"
-                         id="certificate-file-preview">
-                    <h2><a>{{ certificates.first.title }}</a></h2>
-                {% else %}
-                    <p>Preview not available</p>
-                {% endif %}
-            {% else %}
-                <p>No certificates to display</p>
+    {% if certificates.first %}
+        {% if certificates.first.preview_image %}
+            <img src="{{ certificates.first.preview_image.url }}"
+                 alt="{{ certificates.first.title }}"
+                 id="certificate-file-preview">
+            <h2><a>{{ certificates.first.title }}</a></h2>
+        {% else %}
+            <p>Preview not available</p>
+        {% endif %}
+    {% else %}
+        <p>No certificates to display</p>
+    {% endif %}
+</div>
+
+{% if request.user == user %}
+    <div id="certificate-options">
+    <div class="options">
+        <div class="delete-cert">
+            <h2>Delete Certificate</h2>
+            {% if request.user == user and certificates.first %}
+                <form method="post" action="{% url 'delete_certificate' certificates.first.id %}">
+                    {% csrf_token %}
+                    <div id="bottom-cont-holder">
+                        <h2><a>{{ certificates.first.title }}</a></h2>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </div>
+                </form>
             {% endif %}
         </div>
 
-        {% if request.user == user %}
-            <div id="certificate-options">
-                <div class="options">
-                    <div class="delete-cert">
-                        <h2>Delete Certificate</h2>
-                        {% if request.user == user and certificates.first %}
-                            <form method="post" action="{% url 'delete_certificate' certificates.first.id %}">
-                                {% csrf_token %}
-                                <div id="bottom-cont-holder">
-                                    <h2><a>{{ certificates.first.title }}</a></h2>
-                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                </div>
-                            </form>
-                        {% endif %}
-                    </div>
 
-                    <div class="edit-cert">
-                        <h2>Edit Certificate</h2>
-                        <div class="content">
-                            <p>Edit certificate details and information</p>
-                            <button class="edit-btn">Edit</button>
-                        </div>
-                    </div>
-
-                    <div class="upload-another">
-                        <h2>Upload Another</h2>
-                        <div class="content">
-                            <button id="show-upload-form">Upload New Certificate</button>
-                        </div>
-                    </div>
-                </div>
+        <div class="edit-cert">
+            <h2>Edit Certificate</h2>
+            <div class="content">
+                <p>Edit certificate details and information</p>
+                <button class="edit-btn" data-cert-id="{{ certificates.first.id }}">Edit</button>
             </div>
-        {% endif %}
+        </div>
 
-        {% if request.user == user %}
-            <div class="upload-certificate-modal">
-                <div class="modal-content">
-                    <span class="close-btn">&times;</span>
-                    <h3>Upload New Certificate</h3>
-                    <form method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <div class="form-group">
-                            <label for="{{ form.title.id_for_label }}">Certificate Title:</label>
-                            {{ form.title }}
-                        </div>
-                        <div class="form-group">
-                            <label for="{{ form.certificate_file.id_for_label }}">Certificate File:</label>
-                            {{ form.certificate_file }}
-                        </div>
-                        <button type="submit" class="filled-web-btn">Upload Certificate</button>
-                    </form>
-                </div>
+        <div class="upload-another">
+            <h2>Upload Another</h2>
+            <div class="content">
+                <button id="show-upload-form">Upload New Certificate</button>
             </div>
-        {% endif %}
+        </div>
+    </div>
+{% endif %}
+</div>
+
+{% if request.user == user %}
+    <div class="upload-certificate-modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h3>Upload New Certificate</h3>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="{{ form.title.id_for_label }}">Certificate Title:</label>
+                    {{ form.title }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.certificate_file.id_for_label }}">Certificate File:</label>
+                    {{ form.certificate_file }}
+                </div>
+                <button type="submit" class="filled-web-btn">Upload Certificate</button>
+            </form>
+        </div>
+    </div>
+{% endif %}

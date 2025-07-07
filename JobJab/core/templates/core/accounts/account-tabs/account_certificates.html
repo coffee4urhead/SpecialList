@@ -9,6 +9,8 @@
               href="{% static 'core/profile-view-styles/profile-tabs-views/account-certificates.scss' %}">
         <link rel="stylesheet" type="text/x-scss"
               href="{% static 'core/profile-view-styles/profile-tabs-views/certificates-display-styles.scss' %}">
+        <link rel="stylesheet" type="text/x-scss"
+              href="{% static 'form-styles/edit-certificate-form-style.scss' %}">
         <link rel="stylesheet" type="text/x-scss" href="{% static 'core/homepage/footer-styles.scss' %}">
     {% endcompress %}
 
@@ -45,7 +47,7 @@
     <article id="certificates">
         <div class="certificates-list">
             {% for certificate in certificates %}
-                <div class="certificate-item" data-certificate-title="{{ certificate.title }}" data-preview-url="
+                <div class="certificate-item" data-certificate-id="{{ certificate.id }}" data-certificate-title="{{ certificate.title }}" data-preview-url="
                         {% if certificate.preview_image %}{{ certificate.preview_image.url }}{% endif %}">
                     <h4>{{ certificate.title }}</h4>
                     <p>Uploaded: {{ certificate.uploaded_at|date:"F j, Y" }}</p>

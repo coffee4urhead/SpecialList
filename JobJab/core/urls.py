@@ -14,7 +14,8 @@ urlpatterns = [
                   path('user/<str:username>/', include([
                       path('', account.account_view, name='account_view'),
                       path('connections/', account.followers_following_view, name='user_connections'),
-                      path('connections/updateConnection/<int:followerId>/', account.update_followers, name='update_followers'),
+                      path('connections/updateConnection/<int:followerId>/', account.update_followers,
+                           name='update_followers'),
                       path('location-with-connections/', location.user_location_with_connections,
                            name='user_location_with_connections'),
                       path('certificates/', certificates.user_certificates, name='user_certificates'),
@@ -24,5 +25,6 @@ urlpatterns = [
                   path('about/', main_views.about, name='about'),
                   path('privacyPolicy/', main_views.privacy_policy, name='privacy_policy'),
                   path('updateGeolocation/<str:username>/', location.update_geolocation, name='update_geolocation'),
-                  path('certificates/delete/<int:pk>/', certificates.delete_certificate, name='delete_certificate'),
+                  path('certificates/delete/<int:cert_id>/', certificates.delete_certificate, name='delete_certificate'),
+                  path('certificates/edit/<int:certificate_id>/', certificates.edit_certificate, name='edit_certificate'),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,18 @@
+<div class="edit-certificate-modal">
+    <div class="modal-content">
+        <span class="close-edit-btn">&times;</span>
+        <h3>Edit Certificate</h3>
+        <form method="post" enctype="multipart/form-data" id="edit-certificate-form" data-certificate-id="{{ certificate_id }}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="{{ form.title.id_for_label }}">Certificate Title:</label>
+                {{ form.title }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.certificate_file.id_for_label }}">Certificate File:</label>
+                {{ form.certificate_file }}
+            </div>
+            <button type="submit" class="filled-web-btn">Update Certificate</button>
+        </form>
+    </div>
+</div>

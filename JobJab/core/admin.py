@@ -49,4 +49,4 @@ class OrganizationAdmin(admin.ModelAdmin):
 
 @admin.register(Certificate)
 class CertificateAdmin(admin.ModelAdmin):
-    list_display = ('user', 'title', 'certificate_file', 'uploaded_at', 'is_verified')
+    list_display = ('id', 'user', 'title', 'certificate_file', 'uploaded_at', 'is_verified')

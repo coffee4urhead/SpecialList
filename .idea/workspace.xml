@@ -5,16 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a6602c8c-3836-4310-91e0-bc55f682d51c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/JobJab/core/templates/template-components/form-modals/edit-certificate-form.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/form-styles/edit-certificate-form-style.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JobJab/core/templates/core/password-auth/password-reset.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JobJab/core/templates/core/password-auth/password_reset_complete.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JobJab/core/templates/core/password-auth/password_reset_confirm.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JobJab/core/templates/core/password-auth/password_reset_done.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JobJab/core/templates/core/password-auth/password_reset_email.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JobJab/core/templates/core/password-auth/password_reset_subject.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/core/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/core/templates/core/accounts/account-tabs/account_certificates.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/core/accounts/account-tabs/account_certificates.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/core/templates/core/accounts/account-tabs/certificates-display.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/core/accounts/account-tabs/certificates-display.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/core/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/core/templates/core/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/core/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/core/templates/template-components/profile-main-info-tab.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/template-components/profile-main-info-tab.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JobJab/core/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/core/views/certificates.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/views/certificates.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js-scripts/profile-scripts/certificate-change-script.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js-scripts/profile-scripts/certificate-change-script.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js-scripts/profile-scripts/certificate-options-handler.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js-scripts/profile-scripts/certificate-options-handler.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/core/register-form.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/register-form.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/core/register-form.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/register-form.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/core/register-form.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/register-form.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -153,7 +158,7 @@
       <workItem from="1751560468329" duration="7374000" />
       <workItem from="1751623518395" duration="12531000" />
       <workItem from="1751701712472" duration="12596000" />
-      <workItem from="1751874477719" duration="4768000" />
+      <workItem from="1751874477719" duration="11524000" />
     </task>
     <servers />
   </component>

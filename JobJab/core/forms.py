@@ -1,7 +1,10 @@
+import re
+
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import get_user_model, forms
 from django import forms
 from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
 from django.forms import ClearableFileInput, inlineformset_factory
 
 from JobJab.core.models import TIMEZONE_CHOICES, UserOrganization, CustomUser, Certificate
@@ -15,9 +18,27 @@ class CleanUserCreationForm(UserCreationForm):
 
         for fieldname in self.fields:
             self.fields[fieldname].help_text = None
+
+    def clean_password2(self):
+        password2 = super().clean_password2()
+
+        if len(password2) < 8:
+            raise ValidationError("Password must be at least 8 characters long.")
+        if not re.search(r'[A-Z]', password2):
+            raise ValidationError("Password must contain at least one uppercase letter.")
+        if not re.search(r'[a-z]', password2):
+            raise ValidationError("Password must contain at least one lowercase letter.")
+        if not re.search(r'[0-9]', password2):
+            raise ValidationError("Password must contain at least one number.")
+        if not re.search(r'[!@#$%^&*(),.?":{}|<>]', password2):
+            raise ValidationError("Password must contain at least one special character.")
+
+        return password2
+
     class Meta:
         model = User
         fields = ('username', 'email', "user_type", 'password1', 'password2')
+
 
 class CleanLoginForm(AuthenticationForm):
     class CleanLoginForm(AuthenticationForm):
@@ -32,11 +53,27 @@ class CleanLoginForm(AuthenticationForm):
                 'placeholder': 'Password'
             })
 
+    def clean(self):
+        username = self.cleaned_data.get('username')
+        password = self.cleaned_data.get('password')
+
+        if username and password:
+            from django.contrib.auth import authenticate
+            user = authenticate(username=username, password=password)
+            if user is None:
+                raise forms.ValidationError(
+                    _("Invalid username or password."),
+                    code='invalid_login',
+                )
+        return super().clean()
+
     class Meta:
         fields = ['username', 'password']
 
+
 class CustomImageInput(ClearableFileInput):
     template_name = 'widgets/custom_clearable_file_input.html'
+
 
 class ProfileEditForm(forms.ModelForm):
     class Meta:
@@ -60,6 +97,7 @@ class ProfileEditForm(forms.ModelForm):
             'backcover_profile': CustomImageInput(attrs={'class': 'form-control-file'}),
         }
 
+
 class UserOrganizationForm(forms.ModelForm):
     class Meta:
         model = UserOrganization
@@ -69,6 +107,7 @@ class UserOrganizationForm(forms.ModelForm):
             'end_date': forms.DateInput(attrs={'type': 'date'}),
         }
 
+
 UserOrganizationFormSet = inlineformset_factory(
     parent_model=CustomUser,
     model=UserOrganization,
@@ -76,6 +115,7 @@ UserOrganizationFormSet = inlineformset_factory(
     extra=1,
     can_delete=True
 )
+
 
 class CertificateForm(forms.ModelForm):
     class Meta:

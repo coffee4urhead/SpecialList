@@ -9,27 +9,44 @@
     <title>Login</title>
 </head>
 <body>
-    <header id="head-cont">
-        <h1 class="web-title">Special<span class="web-title-handle">List</span></h1>
-    </header>
-    <main id="main-cont">
-        <div id="form-cont">
-            <form id="main-form" method="POST" action="{% url 'login' %}">
-                {% csrf_token %}
-                {% for field in form %}
-                    <div class="form-field">
-                        {{ field.label_tag }}
-                        {{ field }}
-                        {% if field.errors %}
-                            <div class="error">{{ field.errors }}</div>
-                        {% endif %}
-                    </div>
-                {% endfor %}
-                <button type="submit">Log In</button>
-            </form>
-            <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+<header id="head-cont">
+    <h1 class="web-title">Special<span class="web-title-handle">List</span></h1>
+</header>
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+            <button onclick="this.parentElement.remove()">X</button>
         </div>
-    </main>
-    <img id="image-vector" src="{% static 'images/register-vector.png' %}" alt="Logo">
+    {% endfor %}
+{% endif %}
+
+<main id="main-cont">
+    <div id="form-cont">
+        <form id="main-form" method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-field">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% if field.errors %}
+                        <div class="error">
+                            <ul>
+                                {% for error in field.errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+
+                </div>
+            {% endfor %}
+            <button type="submit">Log In</button>
+        </form>
+        <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+        <p><a href="{% url 'password_reset' %}">Forgot your password?</a></p>
+    </div>
+</main>
+<img id="image-vector" src="{% static 'images/register-vector.png' %}" alt="Logo">
 </body>
 </html>

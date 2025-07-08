@@ -54,6 +54,7 @@ form#profile-edit-form div.form-group input[type=text],
 form#profile-edit-form div.form-group input[type=email],
 form#profile-edit-form div.form-group input[type=file],
 form#profile-edit-form div.form-group input[type=tel],
+form#profile-edit-form div.form-group input[type=time],
 form#profile-edit-form div.form-group select,
 form#profile-edit-form div.form-group textarea {
   padding: 10px;
@@ -70,6 +71,7 @@ form#profile-edit-form div.form-group input[type=text]:focus,
 form#profile-edit-form div.form-group input[type=email]:focus,
 form#profile-edit-form div.form-group input[type=file]:focus,
 form#profile-edit-form div.form-group input[type=tel]:focus,
+form#profile-edit-form div.form-group input[type=time]:focus,
 form#profile-edit-form div.form-group select:focus,
 form#profile-edit-form div.form-group textarea:focus {
   outline: none;

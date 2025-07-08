@@ -5,13 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a6602c8c-3836-4310-91e0-bc55f682d51c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/JobJab/core/templates/core/password-auth/sth.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/password-styles/password-reset.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/core/templates/core/password-auth/password-reset.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/core/password-auth/password-reset.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/core/templates/core/password-auth/password_reset_complete.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/core/password-auth/password_reset_complete.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/core/templates/core/password-auth/password_reset_confirm.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/core/password-auth/password_reset_confirm.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/core/templates/core/password-auth/password_reset_done.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/core/password-auth/password_reset_done.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/core/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/core/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -152,7 +148,7 @@
       <workItem from="1751701712472" duration="12596000" />
       <workItem from="1751874477719" duration="12268000" />
       <workItem from="1751891089142" duration="773000" />
-      <workItem from="1751974281322" duration="4684000" />
+      <workItem from="1751974281322" duration="5316000" />
     </task>
     <servers />
   </component>

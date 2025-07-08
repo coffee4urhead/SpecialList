@@ -2,7 +2,7 @@ import os
 
 from PIL import Image
 from django.contrib.auth.models import AbstractUser
-from django.core.validators import FileExtensionValidator, MinLengthValidator
+from django.core.validators import FileExtensionValidator, MinLengthValidator, MaxValueValidator, MinValueValidator
 
 from django.db import models
 from pdf2image import convert_from_path
@@ -148,6 +148,8 @@ class CustomUser(AbstractUser):
     phone_number = models.CharField(max_length=15, blank=True, null=True)
     profession = models.CharField(max_length=100, blank=True)
     personal_number = models.CharField(max_length=100, blank=True, null=True)
+    preferred_start = models.TimeField(blank=True, null=True)
+    preferred_end = models.TimeField(blank=True, null=True)
     is_verified = models.BooleanField(default=False)
     verified_at = models.DateTimeField(blank=True, null=True)
     timezone = models.CharField(

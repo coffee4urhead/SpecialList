@@ -88,10 +88,14 @@ class ProfileEditForm(forms.ModelForm):
             'phone_number',
             'profession',
             'personal_number',
-            'timezone'
+            'timezone',
+            'preferred_start',
+            'preferred_end',
         ]
         widgets = {
             'timezone': forms.Select(choices=TIMEZONE_CHOICES),
+            'preferred_start': forms.TimeInput(attrs={'type': 'time', 'class': 'form-control'}),
+            'preferred_end': forms.TimeInput(attrs={'type': 'time', 'class': 'form-control'}),
             'bio': forms.Textarea(attrs={'rows': 4}),
             'profile_picture': CustomImageInput(attrs={'class': 'form-control-file'}),
             'backcover_profile': CustomImageInput(attrs={'class': 'form-control-file'}),

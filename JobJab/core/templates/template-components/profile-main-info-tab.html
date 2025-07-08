@@ -50,8 +50,14 @@
                     <span class="followers-count">{{ viewed_account.get_user_followers }}</span> Followers and
                     <span class="following-count">{{ viewed_account.get_user_following }}</span> Following
                 </p>
-                <!-- TO BE IMPLEMENTED -->
-                <p>Preferred work period: 5:00PM-7:00PM</p>
+                <p>Preferred work period:
+                    {% if viewed_account.preferred_start and viewed_account.preferred_end %}
+                        {{ viewed_account.preferred_start|time:"g:i A" }} -
+                        {{ viewed_account.preferred_end|time:"g:i A" }}
+                    {% else %}
+                        Not specified
+                    {% endif %}
+                </p>
 
                 <p>Been part of these organisations</p>
                 <div class="organization-logos">

@@ -1,0 +1,1 @@
+@import "../utils/web_colors.scss";@import "../utils/general-web-mixins/main-web-utls.scss";@import "../utils/general-web-mixins/main-button-mixin.scss";body{background-color:#06BAC5;main#form-container{background-color:white;display:flex;flex-direction:column;width:80%;height:auto;justify-content:space-evenly;align-items:center;margin:20px auto}}

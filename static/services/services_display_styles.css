@@ -5,6 +5,7 @@ div.service-mini-cont {
   padding: 30px;
   border-radius: 8px;
   height: auto;
+  overflow: scroll;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;

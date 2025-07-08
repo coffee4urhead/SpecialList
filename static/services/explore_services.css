@@ -211,9 +211,14 @@ div#service-options .options > div.create-another .content button {
   background: white;
   padding: 30px;
   border-radius: 12px;
+  max-height: 90vh;
+  overflow-y: auto;
   width: 90%;
   max-width: 600px;
   position: relative;
+}
+.upload-service-modal .modal-content p {
+  color: black;
 }
 .upload-service-modal .modal-content .close-btn {
   position: absolute;

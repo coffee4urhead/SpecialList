@@ -51,3 +51,35 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
+
+function showBookingModal(serviceId) {
+    fetch(`/services/${serviceId}/slots/`)
+        .then(response => response.json())
+        .then(slots => {
+            const modal = document.getElementById('booking-modal');
+            const slotsContainer = document.getElementById('time-slots');
+
+            slotsContainer.innerHTML = slots.map(slot => `
+                <div class="time-slot" data-slot-id="${slot.id}">
+                    ${slot.day} - ${slot.start_time} to ${slot.end_time}
+                </div>
+            `).join('');
+
+            modal.style.display = 'block';
+        });
+}
+
+document.getElementById('booking-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+
+    fetch('/bookings/create/', {
+        method: 'POST',
+        body: formData
+    }).then(response => {
+        if(response.ok) {
+            alert('Booking confirmed!');
+            location.reload();
+        }
+    });
+});

@@ -1,0 +1,23 @@
+<div id="booking-modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3>Book This Service</h3>
+        <form id="booking-form" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="time_slot_id" id="selected-slot">
+            <div class="form-group">
+                <label>Your Name:</label>
+                <input type="text" name="name" required>
+            </div>
+            <div class="form-group">
+                <label>Email:</label>
+                <input type="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label>Notes:</label>
+                <textarea name="notes"></textarea>
+            </div>
+            <button type="submit" class="book-btn">Confirm Booking</button>
+        </form>
+    </div>
+</div>

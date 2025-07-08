@@ -1,24 +1,34 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
-from JobJab.services.forms import ServiceListingForm
 from JobJab.services.models import ServiceListing
+from .forms import ServiceListingForm
+from ..booking.forms import ProviderAvailabilityForm
 
-# Create your views here.
+
 def explore_services(request):
-    """ return all service listings available by some filters  """
-
     if request.method == 'POST':
-        form = ServiceListingForm(request.POST, request.FILES)
-        if form.is_valid():
-            service = form.save(commit=False)
+        service_form = ServiceListingForm(request.POST, request.FILES)
+        availability_form = ProviderAvailabilityForm(request.POST)
+
+        if service_form.is_valid() and availability_form.is_valid():
+            service = service_form.save(commit=False)
             service.provider = request.user
             service.save()
+
+            availability = availability_form.save(commit=False)
+            availability.provider = request.user
+            availability.save()
+
             return redirect('explore_services')
     else:
-        form = ServiceListingForm()
-        services = ServiceListing.objects.all()
+        service_form = ServiceListingForm()
+        availability_form = ProviderAvailabilityForm()
 
-        return render(request, 'explore_services.html', {'form': form, 'services': services})
+    return render(request, 'explore_services.html', {
+        'form': service_form,
+        'availability_form': availability_form,
+        'services': ServiceListing.objects.all()
+    })
 
 @login_required
 def delete_service(request, pk):

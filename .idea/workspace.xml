@@ -5,9 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a6602c8c-3836-4310-91e0-bc55f682d51c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/JobJab/booking/forms.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JobJab/booking/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JobJab/booking/utils.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JobJab/services/templates/partials/_availability_table.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JobJab/services/templates/partials/_booking_modal.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/core/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/core/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/booking/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/booking/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/booking/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/booking/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/services/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/services/templates/services-display.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/templates/services-display.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/services/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/services/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js-scripts/services-scripts/services-options-handler.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js-scripts/services-scripts/services-options-handler.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/services/explore_services.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/explore_services.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/services/explore_services.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/explore_services.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/services/explore_services.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/explore_services.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/services/services_display_styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/services_display_styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/services/services_display_styles.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/services_display_styles.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/services/services_display_styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/services_display_styles.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,9 +36,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="JavaScript File" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -148,7 +164,7 @@
       <workItem from="1751701712472" duration="12596000" />
       <workItem from="1751874477719" duration="12268000" />
       <workItem from="1751891089142" duration="773000" />
-      <workItem from="1751974281322" duration="5316000" />
+      <workItem from="1751974281322" duration="10926000" />
     </task>
     <servers />
   </component>

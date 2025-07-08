@@ -231,9 +231,15 @@ div#service-options {
     background: white;
     padding: 30px;
     border-radius: 12px;
+    max-height: 90vh;
+    overflow-y: auto;
     width: 90%;
     max-width: 600px;
     position: relative;
+
+    p {
+      color: black;
+    }
 
     .close-btn {
       position: absolute;

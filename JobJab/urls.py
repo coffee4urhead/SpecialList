@@ -21,6 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('JobJab.core.urls')),
     path('services/', include('JobJab.services.urls')),
+    path('booking/', include('JobJab.booking.urls')),
     path('subscriptions/', include('JobJab.subscriptions.urls')),
     path('reviews/', include('JobJab.reviews.urls')),
 ]

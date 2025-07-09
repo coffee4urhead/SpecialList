@@ -1,34 +1,40 @@
 from django.contrib.auth.decorators import login_required
+from django.forms import modelformset_factory
 from django.shortcuts import render, redirect, get_object_or_404
-from JobJab.services.models import ServiceListing
-from .forms import ServiceListingForm
+from JobJab.services.models import ServiceListing, Availability
+from .forms import ServiceListingForm, AvailabilityForm
 from ..booking.forms import ProviderAvailabilityForm
+from ..booking.models import ProviderAvailability, WeeklyTimeSlot
 
+DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
 
+@login_required
 def explore_services(request):
+    availability, _ = ProviderAvailability.objects.get_or_create(provider=request.user)
+
     if request.method == 'POST':
-        service_form = ServiceListingForm(request.POST, request.FILES)
-        availability_form = ProviderAvailabilityForm(request.POST)
+        form = ProviderAvailabilityForm(request.POST, instance=availability)
+        if form.is_valid():
+            form.save()
 
-        if service_form.is_valid() and availability_form.is_valid():
-            service = service_form.save(commit=False)
-            service.provider = request.user
-            service.save()
-
-            availability = availability_form.save(commit=False)
-            availability.provider = request.user
-            availability.save()
+            availability.time_slots.all().delete()
+            availability._generate_weekly_slots()
 
             return redirect('explore_services')
     else:
-        service_form = ServiceListingForm()
-        availability_form = ProviderAvailabilityForm()
+        form = ProviderAvailabilityForm(instance=availability)
+
+    time_slots = availability.time_slots.order_by('day_of_week', 'start_time')
 
     return render(request, 'explore_services.html', {
-        'form': service_form,
-        'availability_form': availability_form,
+        'form': ServiceListingForm(),
+        'availability_form': form,
+        'time_slots': time_slots,
         'services': ServiceListing.objects.all()
     })
+
+
+
 
 @login_required
 def delete_service(request, pk):

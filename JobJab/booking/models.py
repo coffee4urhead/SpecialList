@@ -36,7 +36,7 @@ class ProviderAvailability(models.Model):
             self._generate_weekly_slots()
 
     def _generate_weekly_slots(self):
-        for day in range(5):  # Monday(0) to Friday(4)
+        for day in range(5):
             current_time = self.provider.preferred_start
             while current_time < self.provider.preferred_end:
                 end_time = (datetime.combine(datetime.today(), current_time) +

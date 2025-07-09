@@ -5,7 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a6602c8c-3836-4310-91e0-bc55f682d51c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/static/js-scripts/utils.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/services/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/services/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/services/templates/explore_services.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/templates/explore_services.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/services/templates/services-display.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/templates/services-display.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/services/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/services/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js-scripts/services-scripts/services-options-handler.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js-scripts/services-scripts/services-options-handler.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/services/services_display_styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/services_display_styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/services/services_display_styles.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/services_display_styles.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/services/services_display_styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/services_display_styles.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,9 +29,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="HTML File" />
         <option value="Python Script" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -147,7 +158,7 @@
       <workItem from="1751874477719" duration="12268000" />
       <workItem from="1751891089142" duration="773000" />
       <workItem from="1751974281322" duration="11071000" />
-      <workItem from="1752075248509" duration="5004000" />
+      <workItem from="1752075248509" duration="11006000" />
     </task>
     <servers />
   </component>

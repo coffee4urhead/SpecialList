@@ -1,3 +1,6 @@
+import getCookie from "../utils.js";
+
+
 document.addEventListener('DOMContentLoaded', function () {
     const options = document.querySelectorAll('#service-options .options > div');
     options.forEach(option => {
@@ -50,36 +53,76 @@ document.addEventListener('DOMContentLoaded', function () {
             document.querySelector('#service-options .options').style.display = 'block';
         });
     }
-});
 
-function showBookingModal(serviceId) {
-    fetch(`/services/${serviceId}/slots/`)
-        .then(response => response.json())
-        .then(slots => {
-            const modal = document.getElementById('booking-modal');
-            const slotsContainer = document.getElementById('time-slots');
+    const likeButtons = document.querySelectorAll('button.like-button');
+    const viewLikersButtons = document.querySelectorAll('.view-likers-button');
+    const modal = document.getElementById('likers-modal');
+    const modalContent = modal.querySelector('.modal-content');
+    const likerList = document.getElementById('liker-list');
+    const closeLikesModalBtn = document.querySelector('.close-likers-btn');
 
-            slotsContainer.innerHTML = slots.map(slot => `
-                <div class="time-slot" data-slot-id="${slot.id}">
-                    ${slot.day} - ${slot.start_time} to ${slot.end_time}
-                </div>
-            `).join('');
+    viewLikersButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const serviceId = this.dataset.serviceId;
 
-            modal.style.display = 'block';
+            fetch(`/services/${serviceId}/likers/`)
+                .then(response => response.json())
+                .then(data => {
+                    likerList.innerHTML = '';
+
+                    data.likers.forEach(user => {
+                        const item = document.createElement('div');
+                        item.className = 'liker-item';
+                        item.innerHTML = `
+    <a href="/user/${user.username}">
+        <img src="${user.profile_pic || '/static/images/default-user.png'}" alt="${user.full_name}"></a>
+        <div class="user-info">
+             <strong>${user.full_name}</strong>
+            <span>${user.username}</span>
+            <small>${user.joined_on}</small>  
+        </div>
+`;
+
+
+                        likerList.appendChild(item);
+                    });
+
+                    modal.classList.add('active');
+                });
         });
-}
+    });
 
-document.getElementById('booking-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const formData = new FormData(this);
+    closeLikesModalBtn.addEventListener('click', () => {
+        modal.classList.remove('active');
+    });
 
-    fetch('/bookings/create/', {
-        method: 'POST',
-        body: formData
-    }).then(response => {
-        if(response.ok) {
-            alert('Booking confirmed!');
-            location.reload();
+    window.addEventListener('click', function (event) {
+        if (modal.classList.contains('active') && !modalContent.contains(event.target)) {
+            modal.classList.remove('active');
         }
+    });
+
+    likeButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const serviceId = this.dataset.serviceId;
+            const csrftoken = getCookie('csrftoken');
+
+            fetch(`/services/${serviceId}/like/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrftoken,
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.liked) {
+                        this.querySelector('img').src = "/static/images/like-full.png";
+                    } else {
+                        this.querySelector('img').src = "/static/images/like-empty.png";
+                    }
+                    this.querySelector('.like-count-number').textContent = data.like_count;
+                });
+        });
     });
 });

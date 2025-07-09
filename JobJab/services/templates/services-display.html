@@ -47,6 +47,7 @@
                         <p>Description: {{ service.description }}</p>
                         <p>Service price: {{ service.price }}</p>
 
+                        <div class="bottom-sect-interact"></div>
                         {% if request.user != service.provider %}
                             <button class="book-btn"
                                     data-service-id="{{ service.id }}"
@@ -55,6 +56,37 @@
                             </button>
                         {% endif %}
                         <p>Required time for the offering: {{ service.duration_minutes }}</p>
+
+                        <div class="icon-holder">
+                            <button class="like-button" data-service-id="{{ service.id }}">
+                                {% if user in service.likes.all %}
+                                    <img class="icon-image" src="{% static 'images/like-full.png' %}"
+                                         alt="like icon filled"/>
+                                {% else %}
+                                    <img class="icon-image" src="{% static 'images/like-empty.png' %}"
+                                         alt="like icon empty"/>
+                                {% endif %}
+                                <span class="like-count-number clickable">{{ service.likes.count }}</span>
+                            </button>
+                            <button class="view-likers-button" data-service-id="{{ service.id }}">
+                                View likes
+                            </button>
+
+                            <button class="comment-button" data-service-id="{{ service.id }}">
+                                <img class="icon-image" src="{% static 'images/comment-icon.png' %}"
+                                     alt="comment icon"/>
+                                <span class="like-count">0</span>
+                            </button>
+
+                            <div id="likers-modal" class="likers-modal">
+                                <div class="modal-content">
+                                    <span class="close-likers-btn">&times;</span>
+                                    <h2>Liked by</h2>
+                                    <div id="liker-list"></div>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                 {% else %}
                     <p>Preview not available</p>

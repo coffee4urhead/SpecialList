@@ -65,5 +65,110 @@ div.service-mini-cont div.text-service-info p {
   font-style: normal;
   color: black;
 }
+div.service-mini-cont div.text-service-info div.icon-holder {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 30px;
+  align-items: center;
+  align-content: center;
+}
+div.service-mini-cont div.text-service-info div.icon-holder button.like-button, div.service-mini-cont div.text-service-info div.icon-holder button.comment-button, div.service-mini-cont div.text-service-info div.icon-holder button.view-likers-button {
+  border: none;
+}
+div.service-mini-cont div.text-service-info div.icon-holder button.like-button img.icon-image, div.service-mini-cont div.text-service-info div.icon-holder button.comment-button img.icon-image, div.service-mini-cont div.text-service-info div.icon-holder button.view-likers-button img.icon-image {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+div.service-mini-cont div.text-service-info div.icon-holder button.like-button:hover, div.service-mini-cont div.text-service-info div.icon-holder button.comment-button:hover, div.service-mini-cont div.text-service-info div.icon-holder button.view-likers-button:hover {
+  transform: translateY(-2px);
+  transition: transform 0.2s linear;
+}
+div.service-mini-cont div.text-service-info div.icon-holder .likers-modal {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  z-index: 9999;
+}
+div.service-mini-cont div.text-service-info div.icon-holder div.user-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  gap: 4px;
+}
+div.service-mini-cont div.text-service-info div.icon-holder div.user-info strong {
+  font-size: 1.1em;
+}
+div.service-mini-cont div.text-service-info div.icon-holder div.user-info span {
+  color: #666;
+  font-size: 0.9em;
+}
+div.service-mini-cont div.text-service-info div.icon-holder div.user-info small {
+  color: #999;
+  font-size: 0.8em;
+  margin-top: 3px;
+}
+div.service-mini-cont div.text-service-info div.icon-holder .likers-modal.active {
+  display: block;
+}
+div.service-mini-cont div.text-service-info div.icon-holder .likers-modal .modal-content {
+  background: white;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-height: 50%;
+  overflow-y: auto;
+  border-radius: 10px 10px 0 0;
+  padding: 20px;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+}
+div.service-mini-cont div.text-service-info div.icon-holder .likers-modal .modal-content h2 {
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 2.3em;
+  font-style: normal;
+  margin-left: 20px;
+  padding: 13px;
+  margin: 10px;
+  padding: 5px;
+}
+div.service-mini-cont div.text-service-info div.icon-holder .close-likers-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+div.service-mini-cont div.text-service-info div.icon-holder .likers-modal.active {
+  bottom: 0;
+}
+div.service-mini-cont div.text-service-info div.icon-holder .modal-content h2 {
+  margin-top: 0;
+}
+div.service-mini-cont div.text-service-info div.icon-holder #liker-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+div.service-mini-cont div.text-service-info div.icon-holder .liker-item {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+div.service-mini-cont div.text-service-info div.icon-holder .liker-item img {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+}
 
 /*# sourceMappingURL=services_display_styles.css.map */

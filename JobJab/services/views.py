@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.forms import modelformset_factory
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from JobJab.services.models import ServiceListing, Availability
 from .forms import ServiceListingForm, AvailabilityForm
@@ -34,7 +35,42 @@ def explore_services(request):
     })
 
 
+@login_required(login_url='login')
+def like_service(request, service_id):
+    service = get_object_or_404(ServiceListing, id=service_id)
+    user = request.user
 
+    if request.method == 'POST':
+        if user in service.likes.all():
+            service.likes.remove(user)
+            liked = False
+        else:
+            service.likes.add(user)
+            liked = True
+
+        return JsonResponse({
+            'liked': liked,
+            'like_count': service.likes.count()
+        })
+
+    return JsonResponse({'error': 'Invalid request'}, status=400)
+
+@login_required
+def get_service_likers(request, service_id):
+    service = get_object_or_404(ServiceListing, id=service_id)
+    likers = service.likes.all()
+
+    data = {
+        "likers": [
+            {
+                "username": user.username,
+                "full_name": user.get_full_name(),
+                'joined_on': user.date_joined.strftime('%B %d, %Y'),
+                "profile_pic": user.profile_picture.url if user.profile_picture else None,
+            } for user in likers
+        ]
+    }
+    return JsonResponse(data)
 
 @login_required
 def delete_service(request, pk):

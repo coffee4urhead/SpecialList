@@ -49,6 +49,7 @@ class ServiceListing(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     duration_minutes = models.PositiveIntegerField(default=60)
     is_active = models.BooleanField(default=True)
+    likes = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='services_likes')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

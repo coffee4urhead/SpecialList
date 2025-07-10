@@ -3,17 +3,20 @@
         <div id="social-info-holder">
             <div class="button-links">
                 {% if viewed_account == request.user %}
-                    <button class="filled-web-btn"><a href="{% url 'user_certificates' request.user.username %}">Certificates</a></button>
+                    <button class="filled-web-btn"><a href="{% url 'user_certificates' request.user.username %}">Certificates</a>
+                    </button>
                     <button class="filled-web-btn"><a href="#">Payments</a></button>
                 {% else %}
-                    <button class="filled-web-btn"><a href="{% url 'user_certificates' viewed_account.username %}">Certificates</a></button>
+                    <button class="filled-web-btn"><a href="{% url 'user_certificates' viewed_account.username %}">Certificates</a>
+                    </button>
                 {% endif %}
             </div>
 
             <p>You can also find me at: Social links icons (To be implemented)</p>
             <p>Personal phone number: {{ viewed_account.phone_number }}</p>
             <p>Email: {{ viewed_account.email }}</p>
-            <button id="outline-btn" class="username-getter" data-username="{{ viewed_account.username }}">Message</button>
+            <button id="outline-btn" class="username-getter" data-username="{{ viewed_account.username }}">Message
+            </button>
         </div>
 
         <div class="img-geo-cont">
@@ -28,5 +31,12 @@
         <div id="reviews-scroll-container">
             {% include 'user-review.html' with given_reviews=given_reviews user_reviewed=viewed_account %}
         </div>
-  </section>
+    </section>
+
+    <section id="favourites-section">
+        <h2>Recently took interest in:</h2>
+        <div id="flags-scroll-container">
+            {% include 'user-flags.html' with flagged_favourite_services=flagged_services %}
+        </div>
+    </section>
 </article>

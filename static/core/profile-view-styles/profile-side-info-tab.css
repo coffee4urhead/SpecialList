@@ -154,14 +154,14 @@ div.button-links button.filled-web-btn:hover {
   transition: transform 0.2s linear;
 }
 
-section#reviews-section {
+section#reviews-section, section#favourites-section {
   width: 100%;
   height: 50%;
   border-radius: 8px;
   padding: 30px;
   background-color: white;
 }
-section#reviews-section h2 {
+section#reviews-section h2, section#favourites-section h2 {
   font-family: "Euclid Circular A", sans-serif;
   font-weight: 400;
   font-size: 1.8em;

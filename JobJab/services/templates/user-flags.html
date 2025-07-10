@@ -1,0 +1,91 @@
+<section id="flags-for-user">
+    <div id="flags-scroll-container">
+
+        {% if flagged_favourite_services %}
+            {% for service in flagged_favourite_services %}
+                <div class="service-mini-cont">
+                    <div id="top-content">
+                        <div class="user-rev-info">
+                            {% if service.provider.profile_picture %}
+                                <a href="{% url 'account_view' service.provider.username %}">
+                                    <img src="{{ service.provider.profile_picture.url }}"
+                                         alt="{{ service.provider.get_full_name|default:service.provider.username }}">
+                                </a>
+                            {% else %}
+                                {% load static %}
+                                <a href="{% url 'account_view' service.provider.username %}">
+                                    <img src="{% static '/images/avatar-default-photo.png' %}"
+                                         alt="{{ service.provider.get_full_name|default:service.provider.username }}">
+                                </a>
+                            {% endif %}
+
+                            <div class="rev-info-side">
+                                <div class="star-rating">
+                                    {% for i in "12345" %}
+                                        <i class="fas fa-star{% if forloop.counter > 1 %} text-muted{% endif %}"></i>
+                                    {% endfor %}
+                                </div>
+                                <p>{{ service.provider.get_full_name|default:service.provider.username }}</p>
+                                <p>Posted on: {{ service.created_at|date:"F j, Y" }}</p>
+                            </div>
+                        </div>
+
+                        {% if service.service_photo %}
+                            <div class="service-image-cont">
+                                <img src="{{ service.service_photo.url }}" alt="{{ service.title }}"
+                                     id="service-file-preview">
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="text-service-info">
+                        <h2><a href="{% url 'explore_services' %}">{{ service.title }}</a></h2>
+                        <p>Description: {{ service.description }}</p>
+                        <p>Service price (USD): {{ service.price }}$</p>
+                        <p>Required time: {{ service.duration_minutes }} minutes</p>
+
+                        <div class="icon-holder">
+                            <button class="like-button" data-service-id="{{ service.id }}">
+                                {% if user in service.likes.all %}
+                                    <img class="icon-image" src="{% static 'images/like-full.png' %}"
+                                         alt="like full"/>
+                                {% else %}
+                                    <img class="icon-image" src="{% static 'images/like-empty.png' %}"
+                                         alt="like empty"/>
+                                {% endif %}
+                                <span class="like-count-number">{{ service.likes.count }}</span>
+                            </button>
+                            <button class="view-likers-button" data-service-id="{{ service.id }}">
+                                View likes
+                            </button>
+
+                            <button class="comment-button" data-service-id="{{ service.id }}">
+                                <img class="icon-image" src="{% static 'images/comment-icon.png' %}"
+                                     alt="comment icon"/>
+                                <span class="comment-count">0</span>
+                            </button>
+
+                            <div id="likers-modal" class="likers-modal">
+                                <div class="modal-content">
+                                    <span class="close-likers-btn">&times;</span>
+                                    <h2>Liked by</h2>
+                                    <div id="liker-list"></div>
+                                </div>
+                            </div>
+
+                            {% if request.user != service.provider %}
+                                <button class="book-btn"
+                                        data-service-id="{{ service.id }}"
+                                        onclick="showBookingModal({{ service.id }})">
+                                    Book This Service
+                                </button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No favourited services to show.</p>
+        {% endif %}
+    </div>
+</section>

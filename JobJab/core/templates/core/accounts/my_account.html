@@ -19,6 +19,8 @@
               href="{% static 'core/profile-view-styles/user-profile-reviews-style.scss' %}">
         <link rel="stylesheet" type="text/x-scss"
               href="{% static 'core/profile-view-styles/leave-review-form-styles.scss' %}">
+                <link rel="stylesheet" type="text/x-scss"
+              href="{% static 'services/user-flags-styles.scss' %}">
     {% endcompress %}
 
     <style>
@@ -61,6 +63,7 @@
         crossorigin=""></script>
 <script type="module" src="{% static 'js-scripts/profile-scripts/get_location.js' %}"></script>
 <script type="module" src="{% static 'js-scripts/profile-scripts/follow-script.js' %}"></script>
+<script type="module" src="{% static 'js-scripts/services-scripts/services-options-handler.js' %}"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         document.querySelector('.connections-link').addEventListener('click', function () {

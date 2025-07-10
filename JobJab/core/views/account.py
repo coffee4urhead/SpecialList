@@ -8,12 +8,14 @@ from django.shortcuts import render, get_object_or_404, redirect
 from JobJab.core.forms import UserOrganizationFormSet, ProfileEditForm
 from JobJab.core.models import UserLocation, CustomUser
 from JobJab.reviews.models import UserReview
+from JobJab.services.models import ServiceListing
 
 
 @login_required
 def account_view(request, username):
     viewed_account = get_object_or_404(CustomUser, username=username)
     reviews_given = UserReview.objects.filter(reviewee=viewed_account)
+    flagged_services = viewed_account.services_favorites.all()
     is_owner = (request.user == viewed_account)
 
     if is_owner:
@@ -39,6 +41,7 @@ def account_view(request, username):
         'viewed_account': viewed_account,
         'form': form,
         'organization_formset': formset,
+        'flagged_services': flagged_services,
         'reviews_given': reviews_given,
     }
     return render(request, 'core/accounts/my_account.html', context)

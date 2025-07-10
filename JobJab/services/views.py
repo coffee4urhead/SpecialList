@@ -55,6 +55,26 @@ def like_service(request, service_id):
 
     return JsonResponse({'error': 'Invalid request'}, status=400)
 
+@login_required(login_url='login')
+def flag_favourite(request, service_id):
+    service = get_object_or_404(ServiceListing, id=service_id)
+    user = request.user
+
+    if request.method == 'POST':
+        if user in service.favorite_flagged.all():
+            service.favorite_flagged.remove(user)
+            flagged = False
+        else:
+            service.favorite_flagged.add(user)
+            flagged = True
+
+        return JsonResponse({
+            'flagged': flagged,
+            'flagged_count': service.favorite_flagged.count()
+        })
+
+    return JsonResponse({'error': 'Invalid request'}, status=400)
+
 @login_required
 def get_service_likers(request, service_id):
     service = get_object_or_404(ServiceListing, id=service_id)

@@ -2,37 +2,52 @@
     {% for service in services %}
         {% if service %}
             <div class="service-mini-cont">
-                <div class="user-rev-info">
+                <div id="top-content">
+                    <div class="user-rev-info">
 
-                    {% if service.provider.profile_picture %}
-                        <a href="{% url 'account_view' service.provider.username %}">
-                            <img src="{{ service.provider.profile_picture.url }}"
-                                 alt="{{ service.provider.get_full_name|default:service.provider.username }}">
-                        </a>
-                    {% else %}
-                        {% load static %}
-                        <a href="{% url 'account_view' service.provider.username %}">
-                            <img src="{% static '/images/avatar-default-photo.png' %}"
-                                 alt="{{ service.provider.get_full_name|default:service.provider.username }}">
-                        </a>
-                    {% endif %}
+                        {% if service.provider.profile_picture %}
+                            <a href="{% url 'account_view' service.provider.username %}">
+                                <img src="{{ service.provider.profile_picture.url }}"
+                                     alt="{{ service.provider.get_full_name|default:service.provider.username }}">
+                            </a>
+                        {% else %}
+                            {% load static %}
+                            <a href="{% url 'account_view' service.provider.username %}">
+                                <img src="{% static '/images/avatar-default-photo.png' %}"
+                                     alt="{{ service.provider.get_full_name|default:service.provider.username }}">
+                            </a>
+                        {% endif %}
 
-                    <div class="rev-info-side">
-                        <div class="star-rating">
-                            {% for i in "12345" %}
-                                <!-- To be implemented -->
-                                <i class="fas fa-star{% if forloop.counter > 1 %} text-muted{% endif %}"></i>
-                            {% endfor %}
+                        <div class="rev-info-side">
+                            <div class="star-rating">
+                                {% for i in "12345" %}
+                                    <!-- To be implemented -->
+                                    <i class="fas fa-star{% if forloop.counter > 1 %} text-muted{% endif %}"></i>
+                                {% endfor %}
+                            </div>
+                            <p>
+                                {% if service.provider %}
+                                    {{ service.provider.get_full_name|default:service.provider.username }}
+                                {% else %}
+                                    [Deleted User]
+                                {% endif %}
+                            </p>
+
+                            <p>Posted on: {{ service.created_at|date:"F j, Y" }}</p>
                         </div>
-                        <p>
-                            {% if service.provider %}
-                                {{ service.provider.get_full_name|default:service.provider.username }}
-                            {% else %}
-                                [Deleted User]
-                            {% endif %}
-                        </p>
+                    </div>
 
-                        <p>Posted on: {{ service.created_at|date:"F j, Y" }}</p>
+                    <div class="icon-holder">
+                        <button class="add-favorites" data-service-id="{{ service.id }}">
+                            {% if user in service.favorite_flagged.all %}
+                                <img class="icon-image" src="{% static 'images/flag-full.png' %}"
+                                     alt="flag favourite icon filled"/>
+                            {% else %}
+                                <img class="icon-image" src="{% static 'images/flag-empty.png' %}"
+                                     alt="flag favourite icon empty"/>
+                            {% endif %}
+                            <span class="flag-count-number">{{ service.favorite_flagged.count }}</span>
+                        </button>
                     </div>
                 </div>
 
@@ -45,7 +60,7 @@
                     <div class="text-service-info">
                         <h2><a>{{ service.title }}</a></h2>
                         <p>Description: {{ service.description }}</p>
-                        <p>Service price: {{ service.price }}</p>
+                        <p>Service price (in USD): {{ service.price }}$</p>
 
                         <div class="bottom-sect-interact"></div>
                         {% if request.user != service.provider %}
@@ -55,7 +70,7 @@
                                 Book This Service
                             </button>
                         {% endif %}
-                        <p>Required time for the offering: {{ service.duration_minutes }}</p>
+                        <p>Required time for the offering (in minutes): {{ service.duration_minutes }}</p>
 
                         <div class="icon-holder">
                             <button class="like-button" data-service-id="{{ service.id }}">

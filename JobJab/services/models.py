@@ -50,6 +50,7 @@ class ServiceListing(models.Model):
     duration_minutes = models.PositiveIntegerField(default=60)
     is_active = models.BooleanField(default=True)
     likes = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='services_likes')
+    favorite_flagged = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='services_favorites')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

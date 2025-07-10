@@ -125,4 +125,30 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
         });
     });
+
+    const flagButtons = document.querySelectorAll('button.add-favorites')
+
+    flagButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const serviceId = this.dataset.serviceId;
+            const csrftoken = getCookie('csrftoken');
+
+            fetch(`/services/${serviceId}/flagFavourite/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrftoken,
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.flagged) {
+                        this.querySelector('img').src = "/static/images/flag-full.png";
+                    } else {
+                        this.querySelector('img').src = "/static/images/flag-empty.png";
+                    }
+                    this.querySelector('.flag-count-number').textContent = data.flagged_count;
+                });
+        });
+    });
 });

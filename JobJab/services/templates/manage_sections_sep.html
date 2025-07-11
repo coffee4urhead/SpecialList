@@ -8,6 +8,28 @@
         <link rel="stylesheet" type="text/x-scss" href="{% static 'services/manage-sections-styles.scss' %}">
         <link rel="stylesheet" type="text/x-scss" href="{% static 'core/homepage/footer-styles.scss' %}">
     {% endcompress %}
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background-color: white;
+
+            p, a {
+                font-family: "Euclid Circular A", sans-serif;
+                font-weight: 500;
+                font-size: 1em;
+                font-style: normal;
+                color: white;
+            }
+        }
+    </style>
     <title>Manage Sections</title>
 </head>
 <body>
@@ -16,65 +38,72 @@
 <main id="manage-sections-container">
     <h2>Manage Service Sections for {{ service.title }}</h2>
 
+
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ formset.management_form }}
 
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ formset.management_form }}
+        <div id="sections-formset">
+            {% for form in formset %}
+                <div class="section-form" data-section-type="{{ form.section_type.value|default:'text_image' }}">
+                    {{ form.id }}
+                    <div class="form-header">
+                        <h3>Section #{{ forloop.counter }}</h3>
+                    </div>
 
-            <div id="sections-formset">
-                {% for form in formset %}
-                    <div class="section-form" data-section-type="{{ form.section_type.value|default:'text_image' }}">
-                        {{ form.id }}
-                        <div class="form-header">
-                            <h3>Section #{{ forloop.counter }}</h3>
-                            {% if form.instance.pk %}{{ form.DELETE }}{% endif %}
+                    <div class="section-type-control">
+                        {{ form.section_type.label_tag }}
+                        {{ form.section_type }}
+                    </div>
+
+                    {{ form.order.as_hidden }}
+
+                    <div class="form-fields">
+                        <div class="field-title">
+                            {{ form.title.label_tag }}
+                            {{ form.title }}
                         </div>
 
-                        <div class="section-type-control">
-                            {{ form.section_type.label_tag }}
-                            {{ form.section_type }}
+                        <div class="field-content" data-depends-on="content">
+                            {{ form.content.label_tag }}
+                            {{ form.content }}
                         </div>
 
-                        {{ form.order.as_hidden }}
+                        <div class="field-list-items" data-depends-on="list_items">
+                            {{ form.list_items.label_tag }}
+                            {{ form.list_items }}
+                        </div>
 
-                        <div class="form-fields">
-                            <div class="field-title">
-                                {{ form.title.label_tag }}
-                                {{ form.title }}
-                            </div>
+                        <div class="field-image" data-depends-on="image">
+                            {{ form.image.label_tag }}
+                            {{ form.image }}
+                            {% if form.instance.image %}
+                                <img src="{{ form.instance.image.url }}" alt="Current image" width="100"
+                                     class="current-image">
+                            {% endif %}
+                        </div>
 
-                            <div class="field-content" data-depends-on="content">
-                                {{ form.content.label_tag }}
-                                {{ form.content }}
-                            </div>
-
-                            <div class="field-list-items" data-depends-on="list_items">
-                                {{ form.list_items.label_tag }}
-                                {{ form.list_items }}
-                            </div>
-
-                            <div class="field-image" data-depends-on="image">
-                                {{ form.image.label_tag }}
-                                {{ form.image }}
-                                {% if form.instance.image %}
-                                    <img src="{{ form.instance.image.url }}" alt="Current image" width="100"
-                                         class="current-image">
+                        <div class="delete-section-wrapper">
+                            <label class="delete-checkbox-label">
+                                {% if form.instance.pk %}
+                                    {{ form.DELETE }}
                                 {% endif %}
-                            </div>
+                                <span class="custom-checkbox"></span>
+                                <span class="delete-text">Delete this section</span>
+                            </label>
                         </div>
                     </div>
-                {% endfor %}
-            </div>
+                </div>
+            {% endfor %}
+        </div>
 
-            <button type="button" id="add-more">Add Another Section</button>
-            <button type="submit">Save All Sections</button>
-        </form>
-
-        <a href="{% url 'extended_service_display' service.id %}" class="cancel-btn">Cancel</a>
+        <div class="buttons-container">
+            <button type="button" class="filled-web-btn" id="add-more">Add Another Section</button>
+            <button type="submit" class="emp-web-btn">Save All Sections</button>
+        </div>
     </form>
+
+    <a href="{% url 'extended_service_display' service.id %}" class="cancel-btn">Cancel</a>
 </main>
 
 {% include 'template-components/footer.html' %}

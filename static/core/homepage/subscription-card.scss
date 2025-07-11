@@ -52,11 +52,13 @@ section.card {
         padding-left: 1.5rem;
 
         &::before {
-          content: "•";
-          color: $additional_web_color;
-          position: absolute;
-          left: 0;
-        }
+            content: "\f00c";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 600;
+            position: absolute;
+            left: 0;
+            color: green;
+          }
       }
     }
   }

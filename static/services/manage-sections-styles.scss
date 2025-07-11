@@ -1,3 +1,98 @@
 @import "../utils/web_colors.scss";
 @import "../utils/general-web-mixins/main-web-utls.scss";
 @import "../utils/general-web-mixins/main-button-mixin.scss";
+
+
+main#manage-sections-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  align-content: center;
+
+  h2 {
+    @include web-title-special($pref-font-size: clamp(2em, 2.3em, 3em), $pref-font-st: normal);
+    margin: 30px;
+  }
+
+  form[method='POST'] {
+    div.section-form {
+      div.form-header {
+        h3 {
+          @include web-title-special($pref-font-size: clamp(2em, 2.3em, 3em), $pref-font-st: normal);
+          margin: 30px;
+        }
+      }
+    }
+
+    label {
+      @include def-web-text($pref-font-size: clamp(1em, 1.3em, 2em), $pref-font-st: 600);
+      color: $secondary-web-color;
+    }
+
+    input[type='text'],
+    input[type='email'],
+    input[type='file'],
+    input[type='tel'],
+    input[type='time'],
+    select,
+    textarea {
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      @include def-web-text($pref-font-size: 1em);
+      width: 100%;
+      box-sizing: border-box;
+
+      &:focus {
+        outline: none;
+        border-color: $eccentric-color;
+        box-shadow: 0 0 0 2px rgba($main-web-color, 0.2);
+      }
+    }
+
+    input[type='file'] {
+      padding: 8px 0;
+      border: none;
+    }
+
+    div.buttons-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      gap: 30px;
+      align-content: center;
+      align-items: center;
+
+      button.filled-web-btn {
+        align-self: center;
+        @include main-button($arg-width: 70%, $arg-height: 45px, $arg-bg-color: $additional_web_color, $txt-color: $main-web-color);
+        border-radius: 8px;
+        font-size: 1.5em;
+        font-weight: 500;
+        border: 2px solid $main-web-color;
+
+        &:hover {
+          transform: translateY(-2px);
+          transition: transform 0.2s linear;
+        }
+      }
+
+      button.emp-web-btn {
+        align-self: center;
+        @include main-button($arg-width: 70%, $arg-height: 45px, $arg-bg-color: $main-web-color, $txt-color: $main-web-color);
+        border-radius: 8px;
+        color: $eccentric-color;
+        font-size: 1.1em;
+        font-weight: 500;
+        border: 2px solid $eccentric-color;
+
+        &:hover {
+          transform: translateY(-2px);
+          transition: transform 0.2s linear;
+        }
+      }
+    }
+  }
+
+}

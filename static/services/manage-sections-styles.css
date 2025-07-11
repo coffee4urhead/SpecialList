@@ -1,3 +1,4 @@
+@charset "UTF-8";
 main#manage-sections-container {
   display: flex;
   flex-direction: column;
@@ -108,6 +109,39 @@ main#manage-sections-container form[method=POST] div.buttons-container button.em
 main#manage-sections-container form[method=POST] div.buttons-container button.emp-web-btn:hover {
   transform: translateY(-2px);
   transition: transform 0.2s linear;
+}
+main#manage-sections-container .editor-preview-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+main#manage-sections-container .editor-preview-container .editor-panel, main#manage-sections-container .editor-preview-container .preview-panel {
+  padding: 1rem;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  background: white;
+}
+main#manage-sections-container .editor-preview-container #live-preview {
+  font-family: "Euclid Circular A", sans-serif;
+  /* Mirror your display template styles */
+}
+main#manage-sections-container .editor-preview-container #live-preview .service-section {
+  margin: 2rem 0;
+}
+main#manage-sections-container .editor-preview-container #live-preview .text-image-section {
+  display: flex;
+  gap: 1rem;
+}
+main#manage-sections-container .editor-preview-container #live-preview .list-section li {
+  list-style-type: none;
+  padding-left: 1.5rem;
+  position: relative;
+}
+main#manage-sections-container .editor-preview-container #live-preview .list-section li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #06BAC5;
 }
 
 /*# sourceMappingURL=manage-sections-styles.css.map */

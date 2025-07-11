@@ -6,29 +6,11 @@
     {% compress css %}
         <link rel="stylesheet" type="text/x-scss" href="{% static 'core/homepage/home-header-style.scss' %}">
         <link rel="stylesheet" type="text/x-scss" href="{% static 'services/manage-sections-styles.scss' %}">
+        <link rel="stylesheet" type="text/x-scss" href="{% static 'services/extended-service-display-styles.scss' %}">
         <link rel="stylesheet" type="text/x-scss" href="{% static 'core/homepage/footer-styles.scss' %}">
     {% endcompress %}
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-            background-color: white;
-
-            p, a {
-                font-family: "Euclid Circular A", sans-serif;
-                font-weight: 500;
-                font-size: 1em;
-                font-style: normal;
-                color: white;
-            }
-        }
+        *{margin:0;padding:0;box-sizing:border-box}body{margin:0;padding:0;overflow-x:hidden;background-color:#fff}p,a{font-family:"Euclid Circular A",sans-serif;font-weight:500;font-size:1em;font-style:normal;color:#fff}
     </style>
     <title>Manage Sections</title>
 </head>
@@ -38,122 +20,119 @@
 <main id="manage-sections-container">
     <h2>Manage Service Sections for {{ service.title }}</h2>
 
+    <div class="editor-preview-container">
+        <div class="editor-panel">
+            <form method="post" enctype="multipart/form-data" id="sections-form">
+                {% csrf_token %}
+                {{ formset.management_form }}
 
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ formset.management_form }}
+                <div id="sections-formset">
+                    {% for form in formset %}
+                        <div class="section-form" data-section-type="{{ form.section_type.value|default:'text_image' }}">
+                            {{ form.id }}
+                            <div class="form-header">
+                                <h3>Section #{{ forloop.counter }}</h3>
+                            </div>
 
-        <div id="sections-formset">
-            {% for form in formset %}
-                <div class="section-form" data-section-type="{{ form.section_type.value|default:'text_image' }}">
-                    {{ form.id }}
-                    <div class="form-header">
-                        <h3>Section #{{ forloop.counter }}</h3>
-                    </div>
+                            <div class="section-type-control">
+                                {{ form.section_type.label_tag }}
+                                {{ form.section_type }}
+                            </div>
 
-                    <div class="section-type-control">
-                        {{ form.section_type.label_tag }}
-                        {{ form.section_type }}
-                    </div>
+                            {{ form.order.as_hidden }}
 
-                    {{ form.order.as_hidden }}
+                            <div class="form-fields">
+                                <div class="field-title">
+                                    {{ form.title.label_tag }}
+                                    {{ form.title }}
+                                </div>
 
-                    <div class="form-fields">
-                        <div class="field-title">
-                            {{ form.title.label_tag }}
-                            {{ form.title }}
+                                <div class="field-content" data-depends-on="content">
+                                    {{ form.content.label_tag }}
+                                    {{ form.content }}
+                                </div>
+
+                                <div class="field-list-items" data-depends-on="list_items">
+                                    {{ form.list_items.label_tag }}
+                                    {{ form.list_items }}
+                                </div>
+
+                                <div class="field-image" data-depends-on="image">
+                                    {{ form.image.label_tag }}
+                                    {{ form.image }}
+                                    {% if form.instance.image %}
+                                        <img src="{{ form.instance.image.url }}" alt="Current image" width="100" class="current-image">
+                                    {% endif %}
+                                </div>
+
+                                <div class="delete-section-wrapper">
+                                    <label class="delete-checkbox-label">
+                                        {% if form.instance.pk %}
+                                            {{ form.DELETE }}
+                                        {% endif %}
+                                        <span class="custom-checkbox"></span>
+                                        <span class="delete-text">Delete this section</span>
+                                    </label>
+                                </div>
+                            </div>
                         </div>
-
-                        <div class="field-content" data-depends-on="content">
-                            {{ form.content.label_tag }}
-                            {{ form.content }}
-                        </div>
-
-                        <div class="field-list-items" data-depends-on="list_items">
-                            {{ form.list_items.label_tag }}
-                            {{ form.list_items }}
-                        </div>
-
-                        <div class="field-image" data-depends-on="image">
-                            {{ form.image.label_tag }}
-                            {{ form.image }}
-                            {% if form.instance.image %}
-                                <img src="{{ form.instance.image.url }}" alt="Current image" width="100"
-                                     class="current-image">
-                            {% endif %}
-                        </div>
-
-                        <div class="delete-section-wrapper">
-                            <label class="delete-checkbox-label">
-                                {% if form.instance.pk %}
-                                    {{ form.DELETE }}
-                                {% endif %}
-                                <span class="custom-checkbox"></span>
-                                <span class="delete-text">Delete this section</span>
-                            </label>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
-            {% endfor %}
+
+                <div class="buttons-container">
+                    <button type="button" class="filled-web-btn" id="add-more">Add Another Section</button>
+                    <button type="submit" class="emp-web-btn">Save All Sections</button>
+                </div>
+            </form>
         </div>
 
-        <div class="buttons-container">
-            <button type="button" class="filled-web-btn" id="add-more">Add Another Section</button>
-            <button type="submit" class="emp-web-btn">Save All Sections</button>
+        <div class="preview-panel">
+            <h3>Live Preview</h3>
+            <div id="live-preview" class="extended-service-preview"></div>
         </div>
-    </form>
-
-    <a href="{% url 'extended_service_display' service.id %}" class="cancel-btn">Cancel</a>
+        <a href="{% url 'extended_service_display' service.id %}" class="cancel-btn">Cancel</a>
+    </div>
 </main>
 
 {% include 'template-components/footer.html' %}
 
+<script src="{% static 'js-scripts/services-scripts/preview-service-changes.js' %}"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        function updateFormFieldsVisibility(formDiv) {
-            const sectionType = formDiv.dataset.sectionType;
-            const fields = formDiv.querySelectorAll('.form-fields > [data-depends-on]');
-
-            fields.forEach(field => {
-                field.style.display = 'none';
-            });
-
-            switch (sectionType) {
-                case 'text_image':
-                    formDiv.querySelector('.field-content').style.display = 'block';
-                    formDiv.querySelector('.field-image').style.display = 'block';
-                    break;
-                case 'list':
-                    formDiv.querySelector('.field-list-items').style.display = 'block';
-                    break;
-                case 'text_only':
-                    formDiv.querySelector('.field-content').style.display = 'block';
-                    break;
-                case 'image_only':
-                    formDiv.querySelector('.field-image').style.display = 'block';
-                    break;
-            }
-
-            const listTextarea = formDiv.querySelector('[data-list-input]');
-            if (listTextarea) {
-                listTextarea.style.display = sectionType === 'list' ? 'block' : 'none';
-            }
+document.addEventListener('DOMContentLoaded',function(){
+    function updateFormFieldsVisibility(formDiv){
+        const sectionType=formDiv.dataset.sectionType;
+        const fields=formDiv.querySelectorAll('.form-fields > [data-depends-on]');
+        fields.forEach(field=>field.style.display='none');
+        switch(sectionType){
+            case'text_image':
+                formDiv.querySelector('.field-content').style.display='block';
+                formDiv.querySelector('.field-image').style.display='block';
+                break;
+            case'list':
+                formDiv.querySelector('.field-list-items').style.display='block';
+                break;
+            case'text_only':
+                formDiv.querySelector('.field-content').style.display='block';
+                break;
+            case'image_only':
+                formDiv.querySelector('.field-image').style.display='block';
+                break;
         }
+        const listTextarea=formDiv.querySelector('[data-list-input]');
+        if(listTextarea)listTextarea.style.display=sectionType==='list'?'block':'none';
+    }
 
-        document.querySelectorAll('[name$="-section_type"]').forEach(select => {
-            select.addEventListener('change', function () {
-                const formDiv = this.closest('.section-form');
-                formDiv.dataset.sectionType = this.value;
-                updateFormFieldsVisibility(formDiv);
-            });
+    document.querySelectorAll('[name$="-section_type"]').forEach(select=>{
+        select.addEventListener('change',function(){
+            const formDiv=this.closest('.section-form');
+            formDiv.dataset.sectionType=this.value;
+            updateFormFieldsVisibility(formDiv);
         });
-
-        document.querySelectorAll('.section-form').forEach(updateFormFieldsVisibility);
     });
 
-    document.getElementById('add-more').addEventListener('click', function () {
-        console.log('Add new section functionality would go here');
-    });
+    document.querySelectorAll('.section-form').forEach(updateFormFieldsVisibility);
+    document.getElementById('add-more').addEventListener('click',function(){});
+});
 </script>
 </body>
 </html>

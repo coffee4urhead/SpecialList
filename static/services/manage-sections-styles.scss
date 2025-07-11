@@ -95,4 +95,43 @@ main#manage-sections-container {
     }
   }
 
+  .editor-preview-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+
+    .editor-panel, .preview-panel {
+      padding: 1rem;
+      border: 1px solid #eee;
+      border-radius: 8px;
+      background: white;
+    }
+
+    #live-preview {
+      font-family: "Euclid Circular A", sans-serif;
+
+      /* Mirror your display template styles */
+      .service-section {
+        margin: 2rem 0;
+      }
+
+      .text-image-section {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .list-section li {
+        list-style-type: none;
+        padding-left: 1.5rem;
+        position: relative;
+
+        &::before {
+          content: "•";
+          position: absolute;
+          left: 0;
+          color: $secondary-web-color;
+        }
+      }
+    }
+  }
 }

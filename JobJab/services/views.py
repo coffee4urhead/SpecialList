@@ -1,11 +1,11 @@
 from django.contrib.auth.decorators import login_required
-from django.forms import modelformset_factory
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from JobJab.services.models import ServiceListing, Availability
-from .forms import ServiceListingForm, AvailabilityForm
+
+from JobJab.services.models import ServiceListing
+from .forms import ServiceListingForm, ServiceDetailSectionFormSet
 from ..booking.forms import ProviderAvailabilityForm
-from ..booking.models import ProviderAvailability, WeeklyTimeSlot
+from ..booking.models import ProviderAvailability
 
 DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
 
@@ -98,3 +98,29 @@ def delete_service(request, pk):
     if request.user == service.provider:
         service.delete()
     return redirect('explore_services')
+
+
+@login_required
+def extended_service_display(request, service_id):
+    service = get_object_or_404(ServiceListing, id=service_id)
+    return render(request, 'extended-service-display.html', {'service': service})
+
+
+@login_required
+def manage_service_sections(request, service_id):
+    service = get_object_or_404(ServiceListing, id=service_id, provider=request.user)
+
+    if request.method == 'POST':
+        formset = ServiceDetailSectionFormSet(request.POST, request.FILES, instance=service)
+        if formset.is_valid():
+            formset.save()
+            return redirect('extended_service_display', service_id=service.id)
+
+        print("Formset errors:", formset.errors)
+    else:
+        formset = ServiceDetailSectionFormSet(instance=service)
+
+    return render(request, 'manage_sections_sep.html', {
+        'service': service,
+        'formset': formset
+    })

@@ -58,7 +58,7 @@
                              id="service-file-preview">
                     </div>
                     <div class="text-service-info">
-                        <h2><a>{{ service.title }}</a></h2>
+                        <h2><a href="{% url 'extended_service_display' service.id %}">{{ service.title }}</a></h2>
                         <p>Description: {{ service.description }}</p>
                         <p>Service price (in USD): {{ service.price }}$</p>
 

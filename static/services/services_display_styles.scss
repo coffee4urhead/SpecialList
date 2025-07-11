@@ -101,6 +101,12 @@ div.service-mini-cont {
     align-content: center;
     gap: 20px;
 
+    h2 {
+      a {
+        color: $secondary-web-color;
+      }
+    }
+
     p {
       @include def-web-text($pref-font-size: 1.5em, $pref-font-st: normal);
       color: black;

@@ -106,7 +106,6 @@ article#profile-side-info-tab-cont {
 
     p {
        @include def-web-text($pref-font-size: clamp(1em, 1.5em, 2em), $pref-font-st: italic);
-
     }
     button#outline-btn {
       border: 2px solid $secondary-web-color;

@@ -1,0 +1,30 @@
+{% extends 'extended-service-display.html' %}
+
+{% block content %}
+<h2>Manage Service Sections for {{ service.title }}</h2>
+
+
+
+<style>
+    /* Add some basic styling */
+    .section-form {
+        border: 1px solid #ddd;
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+    }
+    .form-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    .current-image {
+        display: block;
+        margin-top: 5px;
+    }
+    [data-depends-on] {
+        margin-bottom: 10px;
+    }
+</style>
+{% endblock %}

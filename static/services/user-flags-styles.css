@@ -85,6 +85,9 @@ div.service-mini-cont div.text-service-info {
   align-content: center;
   gap: 20px;
 }
+div.service-mini-cont div.text-service-info h2 a {
+  color: #06BAC5;
+}
 div.service-mini-cont div.text-service-info p {
   font-family: "Euclid Circular A", sans-serif;
   font-weight: 400;

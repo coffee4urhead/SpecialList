@@ -3,7 +3,7 @@ import json
 from django import forms
 from django.forms import inlineformset_factory
 
-from .models import ServiceListing, Availability, ServiceCategory, ServiceDetailSection
+from .models import ServiceListing, Availability, ServiceCategory, ServiceDetailSection, Comment
 
 
 # Will not be used for now!
@@ -108,3 +108,16 @@ ServiceDetailSectionFormSet = inlineformset_factory(
     can_order=True,
     fields=['section_type', 'order', 'title', 'content', 'image', 'list_items']
 )
+
+class CommentForm(forms.ModelForm):
+    content = forms.CharField(
+        widget=forms.TextInput(attrs={
+            'class': 'comment-input',
+            'placeholder': 'Enter your comment...',
+            'id': 'comment-input-field'
+        })
+    )
+
+    class Meta:
+        model = Comment
+        fields = ['content']

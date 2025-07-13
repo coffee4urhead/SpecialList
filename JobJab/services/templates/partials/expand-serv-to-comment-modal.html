@@ -1,0 +1,74 @@
+<div class="modal-container">
+    <div class="whole-comment-modal-cont">
+        <button class="close-modal" aria-label="Close modal">&times;</button>
+        <div class="service-mini-cont-comment-view">
+            <div id="top-content">
+                <div class="user-rev-info">
+
+                    {% if service.provider.profile_picture %}
+                        <a href="{% url 'account_view' service.provider.username %}">
+                            <img src="{{ service.provider.profile_picture.url }}"
+                                 alt="{{ service.provider.get_full_name|default:service.provider.username }}">
+                        </a>
+                    {% else %}
+                        {% load static %}
+                        <a href="{% url 'account_view' service.provider.username %}">
+                            <img src="{% static '/images/avatar-default-photo.png' %}"
+                                 alt="{{ service.provider.get_full_name|default:service.provider.username }}">
+                        </a>
+                    {% endif %}
+
+                    <div class="rev-info-side">
+                        <div class="star-rating">
+                            {% for i in "12345" %}
+                                <!-- To be implemented -->
+                                <i class="fas fa-star{% if forloop.counter > 1 %} text-muted{% endif %}"></i>
+                            {% endfor %}
+                        </div>
+                        <p>
+                            {% if service.provider %}
+                                {{ service.provider.get_full_name|default:service.provider.username }}
+                            {% else %}
+                                [Deleted User]
+                            {% endif %}
+                        </p>
+
+                        <p>Posted on: {{ service.created_at|date:"F j, Y" }}</p>
+                    </div>
+                </div>
+            </div>
+
+            {% if service.service_photo %}
+                <div class="service-image-cont">
+                    <img src="{{ service.service_photo.url }}"
+                         alt="{{ service.title }}"
+                         id="service-file-preview">
+                </div>
+                <div class="text-service-info">
+                    <h2><a href="{% url 'extended_service_display' service.id %}">{{ service.title }}</a></h2>
+                    <p>Description: {{ service.description }}</p>
+                    <p>Service price (in USD): {{ service.price }}$</p>
+
+                    <div class="bottom-sect-interact"></div>
+                    {% if request.user != service.provider %}
+                        <button class="book-btn"
+                                data-service-id="{{ service.id }}"
+                                onclick="showBookingModal({{ service.id }})">
+                            Book This Service
+                        </button>
+                    {% endif %}
+                    <p>Required time for the offering (in minutes): {{ service.duration_minutes }}</p>
+                </div>
+            {% else %}
+                <p>Preview not available</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <form id="leave-comment-form" method="POST">
+        {{ comments_form }}
+        {% csrf_token %}
+
+        <button type="submit" class="filled-web-btn">Submit Review</button>
+    </form>
+</div>

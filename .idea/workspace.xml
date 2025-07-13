@@ -5,13 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a6602c8c-3836-4310-91e0-bc55f682d51c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/static/js-scripts/services-scripts/preview-service-changes.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JobJab/services/templates/partials/expand-serv-to-comment-modal.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/js-scripts/services-scripts/handle-comment-modal.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/services/expand-serv-to-comment-modal.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/services/templates/manage_sections.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/services/templates/manage_sections_sep.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/templates/manage_sections_sep.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/services/manage-sections-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/manage-sections-styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/services/manage-sections-styles.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/manage-sections-styles.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/services/manage-sections-styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/manage-sections-styles.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/services/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/services/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/services/templates/explore_services.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/templates/explore_services.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/services/templates/extended-service-display.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/templates/extended-service-display.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/services/templates/services-display.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/templates/services-display.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/services/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/services/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -155,7 +159,8 @@
       <workItem from="1751974281322" duration="11071000" />
       <workItem from="1752075248509" duration="11217000" />
       <workItem from="1752174493163" duration="6864000" />
-      <workItem from="1752253188812" duration="11639000" />
+      <workItem from="1752253188812" duration="12961000" />
+      <workItem from="1752406514632" duration="6133000" />
     </task>
     <servers />
   </component>

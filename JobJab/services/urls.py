@@ -5,6 +5,7 @@ from ..booking.views import ServiceBookingView
 urlpatterns = [
     path('explore/', views.explore_services, name='explore_services'),
     path('<int:pk>/', ServiceBookingView.as_view(), name='service_detail'),
+    path('<int:pk>/comment/', views.comment_service, name='comment_service'),
     path('<int:service_id>/like/', views.like_service, name='like_service'),
     path('<int:service_id>/flagFavourite/', views.flag_favourite, name='flag_favourite'),
     path('<int:service_id>/likers/', views.get_service_likers, name='get_likers'),

@@ -90,7 +90,15 @@
         </div>
     {% endfor %}
 </main>
-
+<article>
+    {% for comment in service.comments.all %}
+        <div class="comment-item">
+            {{ comment.content }}
+        </div>
+    {% empty %}
+        <p>No comments yet.</p>
+    {% endfor %}
+</article>
 {% include 'template-components/footer.html' %}
 </body>
 </html>

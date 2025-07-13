@@ -1,13 +1,15 @@
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
 
 from JobJab.services.models import ServiceListing
-from .forms import ServiceListingForm, ServiceDetailSectionFormSet
+from .forms import ServiceListingForm, ServiceDetailSectionFormSet, CommentForm
 from ..booking.forms import ProviderAvailabilityForm
 from ..booking.models import ProviderAvailability
 
 DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
+
 
 @login_required
 def explore_services(request):
@@ -55,6 +57,7 @@ def like_service(request, service_id):
 
     return JsonResponse({'error': 'Invalid request'}, status=400)
 
+
 @login_required(login_url='login')
 def flag_favourite(request, service_id):
     service = get_object_or_404(ServiceListing, id=service_id)
@@ -75,6 +78,7 @@ def flag_favourite(request, service_id):
 
     return JsonResponse({'error': 'Invalid request'}, status=400)
 
+
 @login_required
 def get_service_likers(request, service_id):
     service = get_object_or_404(ServiceListing, id=service_id)
@@ -92,6 +96,7 @@ def get_service_likers(request, service_id):
     }
     return JsonResponse(data)
 
+
 @login_required
 def delete_service(request, pk):
     service = get_object_or_404(ServiceListing, pk=pk)
@@ -102,7 +107,7 @@ def delete_service(request, pk):
 
 @login_required
 def extended_service_display(request, service_id):
-    service = get_object_or_404(ServiceListing, id=service_id)
+    service = get_object_or_404(ServiceListing.objects.prefetch_related('comments'), id=service_id)
     return render(request, 'extended-service-display.html', {'service': service})
 
 
@@ -124,3 +129,36 @@ def manage_service_sections(request, service_id):
         'service': service,
         'formset': formset
     })
+
+
+@login_required(login_url='login')
+def comment_service(request, pk):
+    service = get_object_or_404(ServiceListing, id=pk)
+
+    if request.method == 'POST':
+        comments_form = CommentForm(request.POST)
+        if comments_form.is_valid():
+            comment = comments_form.save(commit=False)
+            comment.author = request.user
+            comment.save()
+            service.comments.add(comment)
+            if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                return JsonResponse({
+                    'status': 'success',
+                    'comment': {
+                        'content': comment.content,
+                        'author': comment.author.username,
+                        'created_at': comment.created_at.strftime('%Y-%m-%d %H:%M')
+                    },
+                    'service_id': service.id
+                })
+            return redirect('service_detail', pk=service.id)
+    else:
+        comments_form = CommentForm()
+
+    context = {
+        'comments_form': comments_form,
+        'service': service,
+        'form_action': reverse('comment_service', args=[service.id])
+    }
+    return render(request, 'partials/expand-serv-to-comment-modal.html', context)

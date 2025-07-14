@@ -29,55 +29,57 @@
     overflow-y: auto;
     margin: auto;
 
-    div.whole-comment-modal-cont {
-      overflow: visible;
+    form#leave-comment-form {
+      label {
+        display: block;
+        @include def-web-text($pref-font-size: 1.5em, $pref-font-st: normal);
+        margin-bottom: 5px;
+        font-weight: 500;
+      }
 
-      form#leave-comment-form {
-        max-height: 100%;
-        overflow-y: auto;
-        background-color: red !important;
-        border: 2px solid purple !important;
+      input[type="text"].comment-input {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        background-color: #f8f8f8;
+        border: 2px solid #ddd;
+        border-radius: 4px;
+        font-size: 1em;
+        transition: all 0.3s ease;
+        display: block;
 
-        input[type="text"].comment-input {
-          width: 100%;
-          padding: 12px 20px;
-          margin: 8px 0;
-          background-color: #f8f8f8;
-          border: 2px solid #ddd;
-          border-radius: 4px;
-          font-size: 1em;
-          transition: all 0.3s ease;
-          display: block;
-
-          &:focus {
-            outline: none;
-            border-color: $secondary-web-color;
-            box-shadow: 0 0 8px rgba($secondary-web-color, 0.3);
-            background-color: white;
-          }
-
-          &::placeholder {
-            color: #999;
-            font-style: italic;
-          }
+        &:focus {
+          outline: none;
+          border-color: $secondary-web-color;
+          box-shadow: 0 0 8px rgba($secondary-web-color, 0.3);
+          background-color: white;
         }
 
-        button.filled-web-btn {
-          padding: 0 20px;
-          text-align: center;
-          @include main-button($arg-width: 80%, $arg-height: 45px, $arg-bg-color: $additional_web_color, $txt-color: $main-web-color);
-          border-radius: 8px;
-          font-size: 1.1em;
-          font-weight: 700;
-          line-height: 45px;
-          border: 2px solid $main-web-color;
-
-          &:hover {
-            transform: translateY(-2px);
-            transition: transform 0.2s linear;
-          }
+        &::placeholder {
+          color: #999;
+          font-style: italic;
         }
       }
+
+      button.filled-web-btn {
+        padding: 0 20px;
+        text-align: center;
+        @include main-button($arg-width: 80%, $arg-height: 45px, $arg-bg-color: $additional_web_color, $txt-color: $main-web-color);
+        border-radius: 8px;
+        font-size: 1.1em;
+        font-weight: 700;
+        line-height: 45px;
+        border: 2px solid $main-web-color;
+
+        &:hover {
+          transform: translateY(-2px);
+          transition: transform 0.2s linear;
+        }
+      }
+    }
+
+    div.whole-comment-modal-cont {
+      overflow: visible;
 
       div.service-mini-cont-comment-view {
         margin: 20px 0;
@@ -202,11 +204,4 @@
   border: none;
   font-size: 24px;
   cursor: pointer;
-}
-
-article#comment-serv-layout {
-  h1 {
-    color: red;
-    font-size: large;
-  }
 }

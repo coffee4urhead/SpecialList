@@ -65,10 +65,5 @@
         </div>
     </div>
 
-    <form id="leave-comment-form" method="POST">
-        {{ comments_form }}
-        {% csrf_token %}
-
-        <button type="submit" class="filled-web-btn">Submit Review</button>
-    </form>
+    {% include 'partials/comment-form.html' %}
 </div>

@@ -1,0 +1,13 @@
+<form id="leave-comment-form" method="POST">
+    {% csrf_token %}
+    <label for="id_content">Say something</label>
+    <input
+            id="id_content"
+            type="text"
+            name="content"
+            class="comment-input"
+            placeholder="Enter your comment..."
+            required/>
+
+    <button type="submit" class="filled-web-btn">Submit Review</button>
+</form>

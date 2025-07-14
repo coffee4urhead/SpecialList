@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 
-from JobJab.services.models import ServiceListing
+from JobJab.services.models import ServiceListing, Comment
 from .forms import ServiceListingForm, ServiceDetailSectionFormSet, CommentForm
 from ..booking.forms import ProviderAvailabilityForm
 from ..booking.models import ProviderAvailability
@@ -140,6 +140,16 @@ def comment_service(request, pk):
         if comments_form.is_valid():
             comment = comments_form.save(commit=False)
             comment.author = request.user
+            parent_id = request.POST.get('parent_id')
+
+            if parent_id:
+                try:
+                    parent_comment = Comment.objects.get(id=parent_id)
+                    comment.parent = parent_comment
+                except Comment.DoesNotExist:
+                    print("Parent comment not found")
+                    pass
+
             comment.save()
             service.comments.add(comment)
             if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
@@ -148,11 +158,14 @@ def comment_service(request, pk):
                     'comment': {
                         'content': comment.content,
                         'author': comment.author.username,
-                        'created_at': comment.created_at.strftime('%Y-%m-%d %H:%M')
+                        'created_at': comment.created_at.strftime('%Y-%m-%d %H:%M'),
+                        'is_reply': comment.parent is not None,
+                        'parent_id': comment.parent_id
                     },
-                    'service_id': service.id
+                    'service_id': service.id,
+                    'redirect_url': reverse('extended_service_display', args=[service.id]) + f'#comment-{comment.id}'
                 })
-            return redirect('service_detail', pk=service.id)
+            return redirect(f"{reverse('extended_service_display', args=[service.id])}#comment-{comment.id}")
     else:
         comments_form = CommentForm()
 

@@ -29,10 +29,10 @@ function setupCommentModal(serviceId = null) {
             .then(response => response.json())
             .then(data => {
                 if (data.status === 'success') {
-                    const commentCountSpan = document.querySelector('span.comment-count');
-                    commentCountSpan
                     overlay.remove();
-                    window.location.reload();
+                    if (data.redirect_url) {
+                        window.location.href = data.redirect_url;
+                    }
                 } else {
                     Object.entries(data.errors).forEach(([field, errors]) => {
                         const errorElement = document.createElement('div');
@@ -53,6 +53,8 @@ function setupCommentModal(serviceId = null) {
                 alert('Error submitting form. Please try again.');
             });
     });
+
+    return false;
 }
 
 document.addEventListener('DOMContentLoaded', () => {

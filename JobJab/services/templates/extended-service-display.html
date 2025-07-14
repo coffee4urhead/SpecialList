@@ -97,6 +97,7 @@
 
 <article id="comments-section">
     <h2>User Feedback: </h2>
+    {% include 'partials/comment-form.html' %}
     {% for comment in service.comments.all %}
         {% if not comment.parent_id %}
             <div class="comment-item" id="comment-{{ comment.id }}">

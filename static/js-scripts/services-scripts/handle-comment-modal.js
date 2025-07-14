@@ -14,6 +14,9 @@ function setupCommentModal(serviceId = null) {
 
     form.addEventListener('submit', function (e) {
         e.preventDefault();
+        const submitButton = form.querySelector('[type="submit"]');
+        submitButton.disabled = true;
+
         document.querySelectorAll('.error').forEach(el => el.remove());
 
         const formData = new FormData(form);
@@ -26,12 +29,21 @@ function setupCommentModal(serviceId = null) {
                 'X-CSRFToken': getCookie('csrftoken')
             }
         })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
             .then(data => {
                 if (data.status === 'success') {
-                    overlay.remove();
+                    overlay.remove()
+                    console.log("Comment posted")
+
                     if (data.redirect_url) {
                         window.location.href = data.redirect_url;
+                    } else {
+                        window.location.reload();
                     }
                 } else {
                     Object.entries(data.errors).forEach(([field, errors]) => {
@@ -50,22 +62,27 @@ function setupCommentModal(serviceId = null) {
             })
             .catch(error => {
                 console.error('Error submitting form:', error);
-                alert('Error submitting form. Please try again.');
+                const errorElement = document.createElement('div');
+                errorElement.className = 'error';
+                errorElement.textContent = 'Error submitting form. Please try again.';
+                form.prepend(errorElement);
+            })
+            .finally(() => {
+                submitButton.disabled = false;
             });
     });
-
-    return false;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Handle comment button clicks
     const commentButtons = document.querySelectorAll('button.comment-button');
-
     commentButtons.forEach((comButton) => {
         comButton.addEventListener('click', () => {
             const serviceId = comButton.dataset.serviceId;
-            const formContainer = document.createElement('div');
-            formContainer.id = `comment-form-${serviceId}`;
-            document.body.appendChild(formContainer);
+            const existingOverlay = document.querySelector('.modal-overlay');
+            if (existingOverlay) {
+                existingOverlay.remove();
+            }
 
             fetch(`/services/${serviceId}/comment/`)
                 .then(response => {
@@ -75,17 +92,132 @@ document.addEventListener('DOMContentLoaded', () => {
                     return response.text();
                 })
                 .then(html => {
-                    document.body.insertAdjacentHTML('beforeend', `
-                        <div class="modal-overlay">
-                            ${html}
-                        </div>
-                    `);
-                    setupCommentModal(serviceId)
+                    const overlay = document.createElement('div');
+                    overlay.className = 'modal-overlay';
+                    overlay.innerHTML = html;
+                    document.body.appendChild(overlay);
+                    setupCommentModal(serviceId);
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    formContainer.innerHTML = `<p>Error loading comment form: ${error.message}</p>`;
+                    const errorContainer = document.createElement('div');
+                    errorContainer.className = 'error-message';
+                    errorContainer.textContent = `Error loading comment form: ${error.message}`;
+                    document.body.appendChild(errorContainer);
+                    setTimeout(() => errorContainer.remove(), 5000);
                 });
+        });
+    });
+
+    const hash = window.location.hash;
+    if (hash?.startsWith('#comment-')) {
+        const commentElement = document.querySelector(hash);
+        if (commentElement) {
+            commentElement.classList.add('highlight-comment');
+
+            setTimeout(() => {
+                commentElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+
+                setTimeout(() => {
+                    commentElement.classList.remove('highlight-comment');
+                }, 2000);
+            }, 300);
+        }
+    }
+
+    const commentItems = document.querySelectorAll('.comment-item');
+    commentItems.forEach(comment => {
+        comment.addEventListener('mouseenter', () => {
+            const actions = comment.querySelector('.comment-actions');
+            if (actions) {
+                actions.style.opacity = '1';
+                actions.style.visibility = 'visible';
+            }
+        });
+
+        comment.addEventListener('mouseleave', () => {
+            const actions = comment.querySelector('.comment-actions');
+            if (actions && !comment.querySelector('.reply-form-container:focus-within')) {
+                actions.style.opacity = '0';
+                actions.style.visibility = 'hidden';
+            }
+        });
+
+        const replyBtn = comment.querySelector('.reply-btn');
+        if (replyBtn) {
+            replyBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const commentId = replyBtn.dataset.commentId;
+                const replyForm = document.getElementById(`reply-form-${commentId}`);
+
+                if (replyForm.style.display === 'none') {
+                    replyForm.style.display = 'block';
+                    replyForm.scrollIntoView({behavior: 'smooth', block: 'nearest'});
+                } else {
+                    replyForm.style.display = 'none';
+                }
+            });
+        }
+    });
+
+    document.querySelectorAll('#comments-section form, #leave-comment-form').forEach(form => {
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const submitButton = form.querySelector('[type="submit"]');
+            submitButton.disabled = true;
+
+            // Use the form's action attribute properly
+            const actionUrl = form.action;
+            const formData = new FormData(form);
+
+            // Handle parent comments for replies
+            const commentId = form.closest('.reply-form-container')?.id.replace('reply-form-', '');
+            if (commentId) formData.append('parent_id', commentId);
+
+            try {
+                const response = await fetch(actionUrl, {
+                    method: 'POST',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'X-CSRFToken': getCookie('csrftoken')
+                    },
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (data.status === 'success') {
+                    // For modal form
+                    if (form.id === 'leave-comment-form') {
+                        const overlay = document.querySelector('.modal-overlay');
+                        if (overlay) overlay.remove();
+                    }
+
+                    // For reply forms
+                    if (commentId) {
+                        document.getElementById(`reply-form-${commentId}`).style.display = 'none';
+                    }
+
+                    // Always redirect to the comment anchor
+                    if (data.redirect_url) {
+                        window.location.href = data.redirect_url;
+                    } else {
+                        window.location.reload();
+                    }
+                } else {
+                    // Error handling
+                    console.error('Submission error:', data.errors);
+                    alert('Error submitting comment: ' + (data.message || 'Unknown error'));
+                }
+            } catch (error) {
+                console.error('Network error:', error);
+                alert('Network error submitting comment');
+            } finally {
+                submitButton.disabled = false;
+            }
         });
     });
 });

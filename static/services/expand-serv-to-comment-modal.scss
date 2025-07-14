@@ -1,6 +1,7 @@
 @import "../utils/web_colors.scss";
 @import "../utils/general-web-mixins/main-web-utls.scss";
 @import "../utils/general-web-mixins/main-button-mixin.scss";
+@import './extended-service-display-styles.scss';
 
 .modal-overlay {
   position: fixed;
@@ -174,7 +175,7 @@
           align-content: center;
           gap: 20px;
 
-          h2 {
+          h1 {
             a {
               color: $secondary-web-color;
             }

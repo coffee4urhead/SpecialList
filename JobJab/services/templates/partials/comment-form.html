@@ -1,4 +1,4 @@
-<form id="leave-comment-form" method="POST">
+<form id="leave-comment-form" action="{% url 'comment_service' service.id %}" method="POST">
     {% csrf_token %}
     <label for="id_content">Say something</label>
     <input

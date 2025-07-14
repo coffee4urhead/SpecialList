@@ -21,7 +21,6 @@
                         <div class="rev-info-side">
                             <div class="star-rating">
                                 {% for i in "12345" %}
-                                    <!-- To be implemented -->
                                     <i class="fas fa-star{% if forloop.counter > 1 %} text-muted{% endif %}"></i>
                                 {% endfor %}
                             </div>
@@ -58,7 +57,7 @@
                              id="service-file-preview">
                     </div>
                     <div class="text-service-info">
-                        <h2><a href="{% url 'extended_service_display' service.id %}">{{ service.title }}</a></h2>
+                        <h1><a href="{% url 'extended_service_display' service.id %}">{{ service.title }}</a></h1>
                         <p>Description: {{ service.description }}</p>
                         <p>Service price (in USD): {{ service.price }}$</p>
 

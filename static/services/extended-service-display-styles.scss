@@ -214,6 +214,8 @@ main#extended-service-info-container {
 }
 
 form#leave-comment-form {
+  width: 100%;
+
   label {
     display: block;
     @include def-web-text($pref-font-size: 1.5em, $pref-font-st: normal);
@@ -222,7 +224,7 @@ form#leave-comment-form {
   }
 
   input[type="text"].comment-input {
-    width: 100%;
+    width: 60%;
     padding: 12px 20px;
     margin: 8px 0;
     background-color: #f8f8f8;
@@ -246,9 +248,8 @@ form#leave-comment-form {
   }
 
   button.filled-web-btn {
-    padding: 0 20px;
     text-align: center;
-    @include main-button($arg-width: 80%, $arg-height: 45px, $arg-bg-color: $additional_web_color, $txt-color: $main-web-color);
+    @include main-button($arg-width: 50%, $arg-height: 45px, $arg-bg-color: $additional_web_color, $txt-color: $main-web-color);
     border-radius: 8px;
     font-size: 1.1em;
     font-weight: 700;
@@ -284,7 +285,7 @@ article#comments-section {
     padding: 0 1rem;
   }
 
-  width: 70%;
+  width: 100%;
   height: auto;
   display: flex;
   background-color: #f5f5f5;
@@ -413,5 +414,50 @@ article#comments-section {
     font-style: italic;
     display: block;
     margin-top: 5px;
+  }
+}
+
+.highlight-comment {
+  position: relative;
+  animation: highlightFade 2s ease-in-out;
+
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg,
+            rgba(249, 248, 113, 0) 0%,
+            rgba(249, 248, 113, 0.3) 50%,
+            rgba(249, 248, 113, 0) 100%);
+    animation: highlightShine 1.5s ease-in-out;
+    pointer-events: none;
+  }
+}
+
+@keyframes highlightFade {
+  0% {
+    background-color: #f9f871;
+    box-shadow: 0 0 0 1px #f9f871;
+  }
+  70% {
+    background-color: rgba(249, 248, 113, 0.3);
+    box-shadow: 0 0 0 1px rgba(249, 248, 113, 0.3);
+  }
+  100% {
+    background-color: transparent;
+    box-shadow: none;
+  }
+}
+
+@keyframes highlightShine {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
   }
 }

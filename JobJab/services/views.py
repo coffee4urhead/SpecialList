@@ -140,38 +140,32 @@ def comment_service(request, pk):
         if comments_form.is_valid():
             comment = comments_form.save(commit=False)
             comment.author = request.user
-            parent_id = request.POST.get('parent_id')
 
+            parent_id = request.POST.get('parent_id')
             if parent_id:
                 try:
                     parent_comment = Comment.objects.get(id=parent_id)
                     comment.parent = parent_comment
                 except Comment.DoesNotExist:
-                    print("Parent comment not found")
-                    pass
+                    print("Comment doesn't exist")
 
             comment.save()
+            print(f"Comment saved {comment}")
             service.comments.add(comment)
+
+            redirect_url = reverse('extended_service_display', args=[service.id]) + f'#comment-{comment.id}'
+
             if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
                 return JsonResponse({
                     'status': 'success',
-                    'comment': {
-                        'content': comment.content,
-                        'author': comment.author.username,
-                        'created_at': comment.created_at.strftime('%Y-%m-%d %H:%M'),
-                        'is_reply': comment.parent is not None,
-                        'parent_id': comment.parent_id
-                    },
-                    'service_id': service.id,
-                    'redirect_url': reverse('extended_service_display', args=[service.id]) + f'#comment-{comment.id}'
+                    'redirect_url': redirect_url,
+                    'comment_id': comment.id
                 })
-            return redirect(f"{reverse('extended_service_display', args=[service.id])}#comment-{comment.id}")
-    else:
-        comments_form = CommentForm()
 
-    context = {
+            return redirect(redirect_url)
+
+    comments_form = CommentForm()
+    return render(request, 'partials/expand-serv-to-comment-modal.html', {
         'comments_form': comments_form,
-        'service': service,
-        'form_action': reverse('comment_service', args=[service.id])
-    }
-    return render(request, 'partials/expand-serv-to-comment-modal.html', context)
+        'service': service
+    })

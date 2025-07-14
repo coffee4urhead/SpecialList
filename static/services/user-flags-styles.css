@@ -85,8 +85,10 @@ div.service-mini-cont div.text-service-info {
   align-content: center;
   gap: 20px;
 }
-div.service-mini-cont div.text-service-info h2 a {
+div.service-mini-cont div.text-service-info h1 a {
   color: #06BAC5;
+  padding: 30px;
+  display: block;
 }
 div.service-mini-cont div.text-service-info p {
   font-family: "Euclid Circular A", sans-serif;
@@ -159,7 +161,7 @@ div.service-mini-cont div.text-service-info div.icon-holder .likers-modal .modal
   padding: 20px;
   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
 }
-div.service-mini-cont div.text-service-info div.icon-holder .likers-modal .modal-content h2 {
+div.service-mini-cont div.text-service-info div.icon-holder .likers-modal .modal-content h1 {
   font-family: "Euclid Circular A", sans-serif;
   font-weight: 400;
   font-size: 2.3em;
@@ -181,7 +183,7 @@ div.service-mini-cont div.text-service-info div.icon-holder .close-likers-btn {
 div.service-mini-cont div.text-service-info div.icon-holder .likers-modal.active {
   bottom: 0;
 }
-div.service-mini-cont div.text-service-info div.icon-holder .modal-content h2 {
+div.service-mini-cont div.text-service-info div.icon-holder .modal-content h1 {
   margin-top: 0;
 }
 div.service-mini-cont div.text-service-info div.icon-holder #liker-list {

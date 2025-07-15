@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment Canceled</title>
+    <style>
+        .container { max-width: 800px; margin: 0 auto; padding: 20px; text-align: center; }
+        .cancel-icon { color: #f44336; font-size: 72px; }
+    </style>
+    <title>Subscription payment denied</title>
+</head>
+<body>
+    <div class="container">
+        <div class="cancel-icon">✗</div>
+        <h1>Payment Canceled</h1>
+        <p>Your subscription was not completed.</p>
+        <p>You can try again anytime.</p>
+        <a href="{% url 'create-checkout-session' plan_type %}">Try Again</a> |
+        <a href="{% url 'home' %}">Return to Home</a>
+    </div>
+</body>
+</html>

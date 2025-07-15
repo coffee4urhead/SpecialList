@@ -15,103 +15,103 @@
         <link rel="stylesheet" type="text/x-scss" href="{% static 'core/homepage/second-caption-comp-styles.scss' %}">
         <link rel="stylesheet" type="text/x-scss" href="{% static 'core/homepage/footer-styles.scss' %}">
     {% endcompress %}
-<style>
-    * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-body {
-  margin: 0;
-  padding: 0;
-    overflow-x: hidden;
-    background-color: white;
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background-color: white;
 
-    p, a {
-        font-family: "Euclid Circular A", sans-serif;
-        font-weight: 500;
-        font-size: 1em;
-        font-style: normal;
-        color: white;
-      }
-}
+            p, a {
+                font-family: "Euclid Circular A", sans-serif;
+                font-weight: 500;
+                font-size: 1em;
+                font-style: normal;
+                color: white;
+            }
+        }
 
-main#main-web-container {
-    width: 100%;
-    height: auto;
-    background-color: #001E2B;
-}
-</style>
+        main#main-web-container {
+            width: 100%;
+            height: auto;
+            background-color: #001E2B;
+        }
+    </style>
     <title>SpecialList</title>
 </head>
 <body>
-    {% if messages %}
-        {% for message in messages %}
+{% if messages %}
+    {% for message in messages %}
         <div class="alert alert-{{ message.tags }}">
             {{ message }}
             <button onclick="this.parentElement.remove()">X</button>
         </div>
-        {% endfor %}
-    {% endif %}
+    {% endfor %}
+{% endif %}
 
-    {% include 'template-components/header-comp.html' %}
-    {% include "template-components/first-caption-comp.html" %}
+{% include 'template-components/header-comp.html' %}
+{% include "template-components/first-caption-comp.html" %}
 
-    <main id="main-web-container">
-        {% load flip_tags %}
-        {% flip_component image='images/flip-component-image.png' heading="Connect with Professionals or Promote Your Services — All in One Place" text="Experience a seamless platform designed for both individuals and businesses. Whether you're offering services or seeking skilled professionals, SpecialList enables efficient and trustworthy interactions." flip=True text_color='white' opacity=0.7%}
+<main id="main-web-container">
+    {% load flip_tags %}
+    {% flip_component image='images/flip-component-image.png' heading="Connect with Professionals or Promote Your Services — All in One Place" text="Experience a seamless platform designed for both individuals and businesses. Whether you're offering services or seeking skilled professionals, SpecialList enables efficient and trustworthy interactions." flip=True text_color='white' opacity=0.7 %}
 
-        <article id="cards-container">
-            {% load card_tags list_utils %}
-            {% card_component title='1. Basic Plan — “Starter”' subtitle_pricing='price: 9.99$/month' subscription_caption='Features Included in the plan: ' list_of_features="Offer 3 active services, Appear in standard search results, Receive and manage up to 5 bookings/month, Access to basic analytics"|to_list %}
-            {% card_component title='2. Professional Plan — “Growth”' subtitle_pricing='price: 29.99$/month' subscription_caption='Includes all Basic features, plus: ' list_of_features="Up to 10 active service listings, Priority placement in search results, Unlimited bookings, Full analytics dashboard"|to_list %}
-            {% card_component title=' 3. Business Plan — “Elite”' subtitle_pricing='price: 79.99$/month' subscription_caption='Includes all Professional features, plus: ' list_of_features="Unlimited listings, Featured badge and homepage spotlight, Early access to new features, Become eligible for gold partner"|to_list %}
-        </article>
-    </main>
+    <article id="cards-container">
+        {% load card_tags list_utils %}
+        {% card_component title='1. Basic Plan — “Starter”' subtitle_pricing='price: 9.99$/month' subscription_caption='Features Included in the plan: ' list_of_features="Offer 3 active services, Appear in standard search results, Receive and manage up to 5 bookings/month, Access to basic analytics"|to_list %}
+        {% card_component title='2. Professional Plan — “Growth”' subtitle_pricing='price: 29.99$/month' subscription_caption='Includes all Basic features, plus: ' list_of_features="Up to 10 active service listings, Priority placement in search results, Unlimited bookings, Full analytics dashboard"|to_list %}
+        {% card_component title=' 3. Business Plan — “Elite”' subtitle_pricing='price: 79.99$/month' subscription_caption='Includes all Professional features, plus: ' list_of_features="Unlimited listings, Featured badge and homepage spotlight, Early access to new features, Become eligible for gold partner"|to_list %}
+    </article>
+</main>
 
-    <article id="website-testimonials">
+<article id="website-testimonials">
     <h1>Reviews from our clients</h1>
-        {% with reviews=reviews_from_user_to_the_website %}
-            {% if reviews %}
-                <div class="reviews-flex-wrapper">
-                    <div class="reviews-row">
-                        {% for review in reviews|slice:":2" %}
-                            {% include "review_card.html" with review=review %}
-                        {% endfor %}
-                    </div>
-
-                    <div class="center-image">
-                        <img src="{% static 'images/home-webpage-photo1.png' %}" alt="Center Image">
-                    </div>
-
-                    <div class="reviews-row-bottom">
-                        {% for review in reviews|slice:"2:" %}
-                            {% include "review_card.html" with review=review %}
-                        {% endfor %}
-                    </div>
+    {% with reviews=reviews_from_user_to_the_website %}
+        {% if reviews %}
+            <div class="reviews-flex-wrapper">
+                <div class="reviews-row">
+                    {% for review in reviews|slice:":2" %}
+                        {% include "review_card.html" with review=review %}
+                    {% endfor %}
                 </div>
-            {% else %}
-                <div class="alert alert-error">
-                    No reviews found for this user.
+
+                <div class="center-image">
+                    <img src="{% static 'images/home-webpage-photo1.png' %}" alt="Center Image">
                 </div>
-            {% endif %}
-        {% endwith %}
-    </article>
 
-    <article id="gold-part-carousel">
-        <div id="section-text-holder">
-            <h1>Our Gold Partners</h1>
-            <p>Our top of the line teams offering high-grade products and services</p>
-        </div>
+                <div class="reviews-row-bottom">
+                    {% for review in reviews|slice:"2:" %}
+                        {% include "review_card.html" with review=review %}
+                    {% endfor %}
+                </div>
+            </div>
+        {% else %}
+            <div class="alert alert-error">
+                <p>No reviews found for this user.</p>
+            </div>
+        {% endif %}
+    {% endwith %}
+</article>
 
-        <div id="carousels-holder">
-            {% load show_gold_partners %}
-            {% show_gold_partners %}
-        </div>
-    </article>
+<article id="gold-part-carousel">
+    <div id="section-text-holder">
+        <h1>Our Gold Partners</h1>
+        <p>Our top of the line teams offering high-grade products and services</p>
+    </div>
 
-    {% include 'template-components/second-caption-comp.html' %}
-    {% include 'template-components/footer.html' %}
+    <div id="carousels-holder">
+        {% load show_gold_partners %}
+        {% show_gold_partners %}
+    </div>
+</article>
+
+{% include 'template-components/second-caption-comp.html' %}
+{% include 'template-components/footer.html' %}
 </body>
 </html>

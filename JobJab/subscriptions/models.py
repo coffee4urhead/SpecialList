@@ -3,9 +3,10 @@ from django.conf import settings
 from django.utils import timezone
 
 class SubscriptionPlan(models.TextChoices):
-    STARTER = 'Starter', 'Starter'
-    GROWTH = 'Growth', 'Growth'
-    ELITE = 'Elite', 'Elite'
+    STARTER = 'Starter', 'Starter'  # price_1RgkviRohIG2l47dLU47xuS0
+    GROWTH = 'Growth', 'Growth'  # price_1RgkxxRohIG2l47dABCDEFGH
+    ELITE = 'Elite', 'Elite'  # price_1RgkyyRohIG2l47dIJKLMNOP
+
 
 class SubscriptionStatus(models.TextChoices):
     ACTIVE = 'active', 'Active'
@@ -15,6 +16,7 @@ class SubscriptionStatus(models.TextChoices):
     INCOMPLETE = 'incomplete', 'Incomplete'
     INCOMPLETE_EXPIRED = 'incomplete_expired', 'Incomplete Expired'
     TRIALING = 'trialing', 'Trialing'
+
 
 class Subscription(models.Model):
     user = models.OneToOneField(
@@ -60,6 +62,21 @@ class Subscription(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    # Add these new fields
+    price = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        null=True,
+        blank=True,
+        help_text="Monthly price in USD"
+    )
+    stripe_price_id = models.CharField(
+        max_length=100,
+        blank=True,
+        null=True,
+        help_text="Stripe Price ID for this plan"
+    )
+
     def __str__(self):
         return f"{self.user.username}'s {self.get_plan_display()} Subscription ({self.get_status_display()})"
 
@@ -70,6 +87,10 @@ class Subscription(models.Model):
             SubscriptionStatus.ACTIVE,
             SubscriptionStatus.TRIALING
         ] and (self.current_period_end is None or self.current_period_end > timezone.now())
+
+    def get_price_display(self):
+        """Formatted price with currency"""
+        return f"${self.price}/month" if self.price else "Price not set"
 
     class Meta:
         ordering = ['-created_at']

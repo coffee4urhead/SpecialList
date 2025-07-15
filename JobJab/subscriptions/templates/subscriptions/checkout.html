@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Subscribe to JobJab</title>
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        button {
+            background: #6772e5;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #5469d4;
+        }
+    </style>
+    <title>Checkout</title>
+</head>
+<body>
+<div class="container">
+    <h1>Subscribe to JobJab Premium</h1>
+    <p>Get full access to all premium features</p>
+
+    <form action="{% url 'create-checkout-session' plan_type %}" method="POST">
+        {% csrf_token %}
+        <button type="submit">Subscribe Now</button>
+    </form>
+</div>
+</body>
+</html>

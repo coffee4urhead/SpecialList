@@ -1,17 +1,29 @@
 <section class="card">
     <div class="main-info">
-        <h3>{% if title %} {{ title }} {% endif %}</h3>
-        <p>{% if subtitle_pricing %} {{ subtitle_pricing }} {% endif %}</p>
+        <h3>{{ title }}</h3>
+        <p>{{ subtitle_pricing }}</p>
     </div>
     <div class="subscription-stats">
-        <h4>{% if subscription_caption %} {{ subscription_caption }} {% endif %}</h4>
+        <h4>{{ subscription_caption }}</h4>
         <ul>
-            {% if list_of_features %}
-                {% for feature in list_of_features %}
-                    <li> {{ feature }} </li>
-                {% endfor %}
-            {% endif %}
+            {% for feature in list_of_features %}
+                <li>{{ feature }}</li>
+            {% endfor %}
         </ul>
     </div>
-    <button class="filled-web-btn">Subscribe</button>
+
+    {% if "Starter" in title %}
+        {% url 'create-checkout-session' 'starter' as checkout_url %}
+    {% elif "Growth" in title %}
+        {% url 'create-checkout-session' 'growth' as checkout_url %}
+    {% elif "Elite" in title %}
+        {% url 'create-checkout-session' 'elite' as checkout_url %}
+    {% else %}
+        {% url 'create-checkout-session' 'starter' as checkout_url %}
+    {% endif %}
+
+    <form action="{{ checkout_url }}" method="POST">
+        {% csrf_token %}
+        <button type="submit" class="filled-web-btn">Subscribe</button>
+    </form>
 </section>

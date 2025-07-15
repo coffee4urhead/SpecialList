@@ -74,7 +74,6 @@ function setupCommentModal(serviceId = null) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Handle comment button clicks
     const commentButtons = document.querySelectorAll('button.comment-button');
     commentButtons.forEach((comButton) => {
         comButton.addEventListener('click', () => {
@@ -169,11 +168,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const submitButton = form.querySelector('[type="submit"]');
             submitButton.disabled = true;
 
-            // Use the form's action attribute properly
             const actionUrl = form.action;
             const formData = new FormData(form);
 
-            // Handle parent comments for replies
             const commentId = form.closest('.reply-form-container')?.id.replace('reply-form-', '');
             if (commentId) formData.append('parent_id', commentId);
 
@@ -190,25 +187,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 const data = await response.json();
 
                 if (data.status === 'success') {
-                    // For modal form
                     if (form.id === 'leave-comment-form') {
                         const overlay = document.querySelector('.modal-overlay');
                         if (overlay) overlay.remove();
                     }
 
-                    // For reply forms
                     if (commentId) {
                         document.getElementById(`reply-form-${commentId}`).style.display = 'none';
                     }
 
-                    // Always redirect to the comment anchor
                     if (data.redirect_url) {
                         window.location.href = data.redirect_url;
                     } else {
                         window.location.reload();
                     }
                 } else {
-                    // Error handling
                     console.error('Submission error:', data.errors);
                     alert('Error submitting comment: ' + (data.message || 'Unknown error'));
                 }

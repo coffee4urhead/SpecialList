@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment Successful</title>
+    <style>
+        .container { max-width: 800px; margin: 0 auto; padding: 20px; text-align: center; }
+        .success-icon { color: #4CAF50; font-size: 72px; }
+    </style>
+    <title>Monthly Subscription payed successfully</title>
+</head>
+<body>
+    <div class="container">
+        <div class="success-icon">✓</div>
+        <h1>Payment Successful!</h1>
+        <p>Thank you for your subscription.</p>
+        {% if customer %}
+            <p>Customer Email: {{ customer.email }}</p>
+        {% endif %}
+        <a href="{% url 'home' %}">Return to Home</a>
+    </div>
+</body>
+</html>

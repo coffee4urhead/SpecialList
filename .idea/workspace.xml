@@ -5,21 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a6602c8c-3836-4310-91e0-bc55f682d51c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/JobJab/subscriptions/templates/subscriptions/canceled.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JobJab/subscriptions/templates/subscriptions/checkout.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JobJab/subscriptions/templates/subscriptions/success.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/services/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/services/templates/extended-service-display.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/templates/extended-service-display.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/services/templates/partials/comment-form.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/templates/partials/comment-form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/services/templates/partials/expand-serv-to-comment-modal.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/templates/partials/expand-serv-to-comment-modal.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/services/templates/services-display.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/templates/services-display.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/services/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/core/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/core/templates/core/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/core/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/core/templates/template-components/subscription-card.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/template-components/subscription-card.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/subscriptions/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/subscriptions/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/subscriptions/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/subscriptions/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/subscriptions/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/subscriptions/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/subscriptions/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/subscriptions/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/js-scripts/services-scripts/handle-comment-modal.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js-scripts/services-scripts/handle-comment-modal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/services/expand-serv-to-comment-modal.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/expand-serv-to-comment-modal.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/services/expand-serv-to-comment-modal.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/expand-serv-to-comment-modal.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/services/expand-serv-to-comment-modal.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/expand-serv-to-comment-modal.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/services/extended-service-display-styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/extended-service-display-styles.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/services/services_display_styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/services_display_styles.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/services/user-flags-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/user-flags-styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/services/user-flags-styles.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/user-flags-styles.css.map" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,29 +47,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;Django Server.JobJab.executor&quot;: &quot;Debug&quot;,
-    &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/dark1/Desktop/Python/JobJab&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;watcher.settings&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "Django Server.JobJab.executor": "Debug",
+    "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.pycharm.django.structure.promotion.once.per.project": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/dark1/Desktop/Python/JobJab",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "watcher.settings",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;postgresql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\dark1\Desktop\Python\JobJab\static\js-scripts\profile-scripts" />
@@ -166,7 +165,9 @@
       <workItem from="1752253188812" duration="12961000" />
       <workItem from="1752406514632" duration="7773000" />
       <workItem from="1752499434065" duration="10105000" />
-      <workItem from="1752512286355" duration="3757000" />
+      <workItem from="1752512286355" duration="4041000" />
+      <workItem from="1752518146794" duration="477000" />
+      <workItem from="1752583530070" duration="11180000" />
     </task>
     <servers />
   </component>

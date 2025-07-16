@@ -41,8 +41,8 @@ class UserOrganization(models.Model):
 
 
 class UserChoices(models.TextChoices):
-    Seeker = "Seeker" "Seeker"
-    Provider = "Provider" "Provider"
+    Seeker = "Seeker", "Seeker"
+    Provider = "Provider", "Provider"
 
 
 class Certificate(models.Model):

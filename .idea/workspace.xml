@@ -5,12 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a6602c8c-3836-4310-91e0-bc55f682d51c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/JobJab/subscriptions/cron.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JobJab/core/templates/core/accounts/account-tabs/account_payments.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JobJab/core/views/payments.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/core/profile-view-styles/profile-tabs-views/account-payments-styles.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JobJab/core/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JobJab/core/templates/core/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/core/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/core/templates/template-components/profile-main-info-tab.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/template-components/profile-main-info-tab.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/core/templates/core/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/core/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/core/templates/template-components/profile-side-info-tab.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/template-components/profile-side-info-tab.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/core/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JobJab/subscriptions/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/subscriptions/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JobJab/subscriptions/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/subscriptions/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JobJab/subscriptions/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/subscriptions/views.py" afterDir="false" />
@@ -165,7 +168,7 @@
       <workItem from="1752518146794" duration="477000" />
       <workItem from="1752583530070" duration="11475000" />
       <workItem from="1752604741679" duration="1139000" />
-      <workItem from="1752670404428" duration="10299000" />
+      <workItem from="1752670404428" duration="14883000" />
     </task>
     <servers />
   </component>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load compress static %}
+    {% compress css %}
+        <link rel="stylesheet" type="text/x-scss" href="{% static 'core/homepage/home-header-style.scss' %}">
+        <link rel="stylesheet" type="text/x-scss" href="{% static 'core/profile-view-styles/profile-tabs-views/account-payments-styles.scss' %}">
+    {% endcompress %}
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+
+            p, a {
+                font-family: "Euclid Circular A", sans-serif;
+                font-weight: 500;
+                font-size: 1em;
+                font-style: normal;
+                color: black;
+            }
+        }
+    </style>
+
+    <title>Account payments Tab</title>
+</head>
+<body>
+
+{% include 'template-components/header-comp.html' %}
+
+<h1>{{ user.get_full_name|default:user.get_username }}'s Subscriptions made</h1>
+
+<main id="main-payment-content">
+    <section id="subs-section">
+        {% for payment in payments %}
+            <table>
+                <caption>Payment {{ payment.id }}</caption>
+                <tbody>
+                <tr>
+                    <th>Customer</th>
+                    <th>Provider</th>
+                    <th>Plan Type</th>
+                    <th>Starts on (Date)</th>
+                    <th>Ends on (Date)</th>
+                    <th>Price Payed (in USD)</th>
+                </tr>
+                <tr>
+                    <td><a href="{% url 'account_view' user.get_username %}">{{ payment.user }}</a></td>
+                    <td>SpecialList</td>
+                    <td>{{ payment.plan }}</td>
+                    <td>{{ payment.current_period_start }}</td>
+                    <td>{{ payment.current_period_end }}</td>
+                    <td>{{ payment.price }}$</td>
+                </tr>
+                </tbody>
+            </table>
+        {% endfor %}
+    </section>
+</main>
+
+</body>
+</html>

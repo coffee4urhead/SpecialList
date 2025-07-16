@@ -5,7 +5,7 @@
                 {% if viewed_account == request.user %}
                     <button class="filled-web-btn"><a href="{% url 'user_certificates' request.user.username %}">Certificates</a>
                     </button>
-                    <button class="filled-web-btn"><a href="#">Payments</a></button>
+                    <button class="filled-web-btn"><a href="{% url 'user_payments' request.user.username %}">Payments</a></button>
                 {% else %}
                     <button class="filled-web-btn"><a href="{% url 'user_certificates' viewed_account.username %}">Certificates</a>
                     </button>

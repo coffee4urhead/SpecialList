@@ -47,6 +47,12 @@
         <p><a href="{% url 'password_reset' %}">Forgot your password?</a></p>
     </div>
 </main>
+
+<script>
+    setTimeout(() => {
+        document.querySelectorAll('.alert').forEach(alert => alert.remove());
+    }, 3000);
+</script>
 <img id="image-vector" src="{% static 'images/register-vector.png' %}" alt="Logo">
 </body>
 </html>

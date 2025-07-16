@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from JobJab.subscriptions.models import Subscription
+from JobJab.subscriptions.models import Subscription, SubscriptionRecord
 
 
 # Register your models here.
@@ -15,3 +15,9 @@ class SubscriptionAdmin(admin.ModelAdmin):
         return obj.is_current
     is_current.boolean = True
     is_current.short_description = 'Active?'
+
+@admin.register(SubscriptionRecord)
+class SubscriptionRecordAdmin(admin.ModelAdmin):
+    list_display = ('user', 'plan', 'status', 'price', 'created_at')
+    search_fields = ('user__email', 'stripe_subscription_id')
+    list_filter = ('plan', 'status', 'created_at')

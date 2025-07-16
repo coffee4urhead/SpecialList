@@ -1,7 +1,7 @@
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from JobJab.core.views import auth, location, certificates, account
+from JobJab.core.views import auth, location, certificates, account, payments
 from django.contrib.auth import views as auth_views
 from JobJab.core import main_views
 
@@ -33,6 +33,7 @@ urlpatterns = [
                       path('location-with-connections/', location.user_location_with_connections,
                            name='user_location_with_connections'),
                       path('certificates/', certificates.user_certificates, name='user_certificates'),
+                      path('payments/', payments.user_payments, name='user_payments'),
                   ])),
 
                   path('', main_views.home, name='home'),

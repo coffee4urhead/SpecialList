@@ -1,7 +1,6 @@
 import os
 from datetime import timedelta
 
-
 import stripe
 from django.conf import settings
 from django.http import HttpResponse
@@ -12,8 +11,8 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 
-from JobJab.core.models import CustomUser, UserChoices
-from JobJab.subscriptions.models import Subscription, SubscriptionPlan, SubscriptionStatus
+from JobJab.core.models import CustomUser
+from JobJab.subscriptions.models import Subscription, SubscriptionPlan, SubscriptionStatus, SubscriptionRecord
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -69,7 +68,7 @@ def success_view(request):
         amount = stripe_subscription['items']['data'][0]['price']['unit_amount'] / 100
         plan = session.metadata.get('plan', SubscriptionPlan.STARTER)
 
-        current_start =timezone.now()
+        current_start = timezone.now()
         current_end = current_start + timedelta(days=31)
 
         user = request.user
@@ -87,6 +86,20 @@ def success_view(request):
                 'current_period_end': current_end if current_end else None,
             }
         )
+
+        SubscriptionRecord.objects.create(
+            user=user,
+            plan=plan,
+            stripe_customer_id=session.customer,
+            stripe_subscription_id=session.subscription,
+            stripe_price_id=price_id,
+            status=stripe_subscription.status,
+            price=amount,
+            cancel_at_period_end=stripe_subscription.cancel_at_period_end,
+            current_period_start=current_start,
+            current_period_end=current_end
+        )
+
         user.subscription_membership = subscription
         user.save()
 
@@ -94,7 +107,6 @@ def success_view(request):
     except Exception as e:
         print(f"Failed to attach subscription in success_view: {e}")
         return render(request, 'subscriptions/success.html')
-
 
 
 @login_required(login_url='login')
@@ -157,6 +169,15 @@ def handle_invoice_payment_succeeded(invoice):
         return
 
     plan = detect_plan_from_price_id(price_id)
+    current_start = timezone.now()
+    current_end = current_start + timedelta(days=31)
+
+    try:
+        stripe_subscription = stripe.Subscription.retrieve(stripe_subscription_id)
+        cancel_at_period_end = stripe_subscription.cancel_at_period_end
+    except Exception:
+        cancel_at_period_end = False
+
     sub, _ = Subscription.objects.update_or_create(
         user=user,
         defaults={
@@ -166,7 +187,23 @@ def handle_invoice_payment_succeeded(invoice):
             'price': amount,
             'status': SubscriptionStatus.ACTIVE,
             'plan': plan,
+            'cancel_at_period_end': cancel_at_period_end,
+            'current_period_start': current_start,
+            'current_period_end': current_end
         }
+    )
+
+    SubscriptionRecord.objects.create(
+        user=user,
+        plan=plan,
+        stripe_customer_id=stripe_customer_id,
+        stripe_subscription_id=stripe_subscription_id,
+        stripe_price_id=price_id,
+        status=SubscriptionStatus.ACTIVE,
+        price=amount,
+        cancel_at_period_end=cancel_at_period_end,
+        current_period_start=current_start,
+        current_period_end=current_end
     )
     user.subscription_membership = sub
     user.save()
@@ -206,6 +243,19 @@ def handle_checkout_session(session):
             }
         )
 
+        SubscriptionRecord.objects.create(
+            user=user,
+            plan=plan,
+            stripe_customer_id=customer_id,
+            stripe_subscription_id=subscription_id,
+            stripe_price_id=price_id,
+            status=stripe_subscription.status,
+            price=amount,
+            cancel_at_period_end=stripe_subscription.cancel_at_period_end,
+            current_period_start=current_start,
+            current_period_end=current_end
+        )
+
         user.subscription_membership = subscription
         user.save()
 
@@ -213,7 +263,6 @@ def handle_checkout_session(session):
         print(f"User with email {customer_email} not found")
     except Exception as e:
         print(f"Error handling checkout session: {str(e)}")
-
 
 
 def handle_subscription_deleted(subscription):

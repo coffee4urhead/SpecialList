@@ -17,7 +17,6 @@ load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
@@ -28,7 +27,6 @@ SECRET_KEY = 'django-insecure-1-c&y%1jrn*$&l41!5$_y^9thbvk*h#*6%j955sh$9i=$qr(a0
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
 
 # Application definition
 
@@ -46,6 +44,11 @@ INSTALLED_APPS = [
     "JobJab.subscriptions",
     'compressor',
     'pdf2image',
+    'django_cron',
+]
+
+CRON_CLASSES = [
+    "JobJab.subscriptions.cron.CheckOverdueSubscriptionsCronJob",
 ]
 
 MIDDLEWARE = [
@@ -80,22 +83,19 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'JobJab.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
- 'default': {
- 'ENGINE': 'django.db.backends.postgresql',
- 'NAME': 'JobJab',
- 'USER': 'postgres',
- 'PASSWORD': 'churchupey2611',
- 'HOST': '127.0.0.1',
- 'PORT': '5432'
- }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'JobJab',
+        'USER': 'postgres',
+        'PASSWORD': 'churchupey2611',
+        'HOST': '127.0.0.1',
+        'PORT': '5432'
+    }
 }
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -116,7 +116,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
@@ -127,7 +126,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
@@ -181,6 +179,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER =  os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

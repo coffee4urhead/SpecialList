@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 from django.utils import timezone
 
+
 class SubscriptionPlan(models.TextChoices):
     STARTER = 'Starter', 'Starter'  # price_1RgkviRohIG2l47dLU47xuS0
     GROWTH = 'Growth', 'Growth'  # price_1RgkxxRohIG2l47dABCDEFGH
@@ -78,15 +79,31 @@ class Subscription(models.Model):
     )
 
     def __str__(self):
-        return f"{self.user.username}'s {self.get_plan_display()} Subscription ({self.get_status_display()})"
+        status = "Active" if self.is_current else "Inactive"
+
+        return f"{self.user.username}'s {self.get_plan_display()} Subscription ({status})"
 
     @property
-    def is_active(self):
-        """Check if subscription is currently active"""
-        return self.status in [
-            SubscriptionStatus.ACTIVE,
-            SubscriptionStatus.TRIALING
-        ] and (self.current_period_end is None or self.current_period_end > timezone.now())
+    def normalized_status(self):
+        if self.is_current:
+            if self.status != SubscriptionStatus.ACTIVE:
+                self.status = SubscriptionStatus.ACTIVE
+                self.save(update_fields=['status'])
+            return SubscriptionStatus.ACTIVE
+        else:
+            if self.status != SubscriptionStatus.PAST_DUE:
+                self.status = SubscriptionStatus.PAST_DUE
+                self.save(update_fields=['status'])
+            return SubscriptionStatus.PAST_DUE
+
+    @property
+    def is_current(self):
+        now = timezone.now()
+        return (
+                self.current_period_start and
+                self.current_period_end and
+                self.current_period_start <= now < self.current_period_end
+        )
 
     def get_price_display(self):
         """Formatted price with currency"""

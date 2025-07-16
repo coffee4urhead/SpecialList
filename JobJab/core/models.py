@@ -154,7 +154,7 @@ class CustomUser(AbstractUser):
     preferred_end = models.TimeField(blank=True, null=True)
     is_verified = models.BooleanField(default=False)
     verified_at = models.DateTimeField(blank=True, null=True)
-    subscription_membership = models.OneToOneField(Subscription, on_delete=models.CASCADE, blank=True, null=True)
+    subscription_membership = models.OneToOneField(Subscription, on_delete=models.CASCADE, blank=True, null=True, related_name='user_subscription')
     timezone = models.CharField(
         max_length=50,
         choices=TIMEZONE_CHOICES,

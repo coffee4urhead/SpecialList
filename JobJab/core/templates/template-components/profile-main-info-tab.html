@@ -12,6 +12,10 @@
             <div id="profile-namings">
                 <h3>{{ viewed_account.get_full_name }}</h3>
                 <p>@{{ viewed_account.get_username }}</p>
+
+                {% with _=viewed_account.subscription_membership.normalized_status %}
+                    <p>{{ viewed_account.subscription_membership }}</p>
+                {% endwith %}
             </div>
         </section>
     </div>

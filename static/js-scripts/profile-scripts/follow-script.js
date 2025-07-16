@@ -7,10 +7,6 @@ if (followBtn) {
         const username = this.dataset.username;
         const followerId = this.dataset.followerId;
 
-        console.log(`This is the action ${action}`);
-        console.log(`This is the username that i am supposed to follow: ${username}`);
-        console.log(`This is the follower id that the username is supposed to get: ${followerId}`);
-
         fetch(`/user/${username}/connections/updateConnection/${followerId}/`, {
             method: 'POST',
             headers: {

@@ -91,6 +91,7 @@ class ProfileEditForm(forms.ModelForm):
             'timezone',
             'preferred_start',
             'preferred_end',
+            'user_type',
         ]
         widgets = {
             'timezone': forms.Select(choices=TIMEZONE_CHOICES),

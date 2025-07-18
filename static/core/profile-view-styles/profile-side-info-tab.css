@@ -161,7 +161,7 @@ section#reviews-section, section#favourites-section {
   padding: 30px;
   background-color: white;
 }
-section#reviews-section h2, section#favourites-section h2 {
+section#reviews-section h1, section#favourites-section h1 {
   font-family: "Euclid Circular A", sans-serif;
   font-weight: 400;
   font-size: 1.8em;

@@ -1,5 +1,29 @@
 import getCookie from "../utils.js";
 
+function showAlert(message, type = 'warning', timeout = 5000) {
+    const alertContainer = document.getElementById('alert-container');
+    if (!alertContainer) return;
+
+    const alertDiv = document.createElement('div');
+    alertDiv.className = `alert alert-${type}`;
+    alertDiv.innerHTML = `
+        ${message}
+        <button onclick="this.parentElement.remove()" style="
+            background: none;
+            border: none;
+            cursor: pointer;
+            position: absolute;
+            right: 10px;
+            top: 10px;
+        ">X</button>
+    `;
+
+    alertContainer.appendChild(alertDiv);
+
+    setTimeout(() => {
+        alertDiv.remove();
+    }, timeout);
+}
 
 document.addEventListener('DOMContentLoaded', function () {
     const options = document.querySelectorAll('#service-options .options > div');
@@ -26,6 +50,21 @@ document.addEventListener('DOMContentLoaded', function () {
     if (uploadTrigger && uploadModal) {
         uploadTrigger.addEventListener('click', (e) => {
             e.preventDefault();
+
+            const serviceOptions = document.getElementById('service-options');
+            const canCreateMore = serviceOptions ?
+                serviceOptions.dataset.canCreateMore === 'true' : false;
+
+            if (!canCreateMore) {
+                showAlert(
+                    'You\'ve reached your service limit. ' +
+                    '<a href="/" style="color: #0056b3; text-decoration: underline;">Upgrade your plan</a> to create more services.',
+                    'warning',
+                    8000
+                );
+                return;
+            }
+
             uploadModal.classList.add('active');
         });
 
@@ -74,16 +113,15 @@ document.addEventListener('DOMContentLoaded', function () {
                         const item = document.createElement('div');
                         item.className = 'liker-item';
                         item.innerHTML = `
-    <a href="/user/${user.username}">
-        <img src="${user.profile_pic || '/static/images/default-user.png'}" alt="${user.full_name}"></a>
-        <div class="user-info">
-             <strong>${user.full_name}</strong>
-            <span>${user.username}</span>
-            <small>${user.joined_on}</small>  
-        </div>
-`;
-
-
+                            <a href="/user/${user.username}">
+                                <img src="${user.profile_pic || '/static/images/default-user.png'}" alt="${user.full_name}">
+                            </a>
+                            <div class="user-info">
+                                <strong>${user.full_name}</strong>
+                                <span>${user.username}</span>
+                                <small>${user.joined_on}</small>  
+                            </div>
+                        `;
                         likerList.appendChild(item);
                     });
 
@@ -126,7 +164,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    const flagButtons = document.querySelectorAll('button.add-favorites')
+    const flagButtons = document.querySelectorAll('button.add-favorites');
 
     flagButtons.forEach(button => {
         button.addEventListener('click', function () {

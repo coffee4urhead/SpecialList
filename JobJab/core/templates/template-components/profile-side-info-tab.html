@@ -27,14 +27,14 @@
         </div>
     </section>
     <section id="reviews-section">
-        <h2>User Reviews</h2>
+        <h1>User Reviews</h1>
         <div id="reviews-scroll-container">
             {% include 'user-review.html' with given_reviews=given_reviews user_reviewed=viewed_account %}
         </div>
     </section>
 
     <section id="favourites-section">
-        <h2>Recently took interest in:</h2>
+        <h1>Recently took interest in:</h1>
         <div id="flags-scroll-container">
             {% include 'user-flags.html' with flagged_favourite_services=flagged_services %}
         </div>

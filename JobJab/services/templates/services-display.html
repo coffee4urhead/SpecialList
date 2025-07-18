@@ -1,10 +1,19 @@
+<div id="alert-container" style="position: fixed; top: 20px; right: 20px; z-index: 1000;">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+                <button onclick="this.parentElement.remove()">X</button>
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
 <div class="pdf-preview-container mb-3">
     {% for service in services %}
         {% if service %}
             <div class="service-mini-cont">
                 <div id="top-content">
                     <div class="user-rev-info">
-
                         {% if service.provider.profile_picture %}
                             <a href="{% url 'account_view' service.provider.username %}">
                                 <img src="{{ service.provider.profile_picture.url }}"
@@ -113,7 +122,7 @@
 </div>
 
 {% if request.user == user %}
-    <div id="service-options">
+    <div id="service-options" data-can-create-more="{{ can_create_more|yesno:'true,false' }}">
         <div class="options">
             <div class="delete-service">
                 <h2>Delete Service</h2>
@@ -151,53 +160,76 @@
         <div class="modal-content">
             <span class="close-btn">&times;</span>
             <h3>Create New Service</h3>
-            <form method="post" enctype="multipart/form-data">
+
+            <!-- Availability Form -->
+            <form method="post" id="availability-form" class="form-section">
                 {% csrf_token %}
+                <h4>Set Your Availability</h4>
+                {{ availability_form.as_p }}
+                <button type="submit" class="btn">Set Your Availability</button>
+            </form>
 
-                <div class="form-section">
-                    <h4>Set Your Availability</h4>
-                    {{ availability_form.as_p }}
-                    <button type="submit" class="btn">Set Your Availability</button>
-                </div>
+            <!-- Weekly Availability Table -->
+            <div class="form-section">
+                <h2>Set Weekly Availability</h2>
+                {% include 'partials/_availability_table.html' with formset=formset %}
+            </div>
 
-                <div class="form-section">
-                    <h2>Set Weekly Availability</h2>
-                    {% include 'partials/_availability_table.html' with formset=formset %}
-                </div>
-
+            <!-- Service Creation Form -->
+            <form method="post" enctype="multipart/form-data" id="service-creation-form">
+                {% csrf_token %}
                 <div class="form-group">
                     <label for="{{ form.title.id_for_label }}">Service Title:</label>
                     {{ form.title }}
+                    {{ form.title.errors }}
                 </div>
                 <div class="form-group">
                     <label for="{{ form.description.id_for_label }}">Description:</label>
                     {{ form.description }}
+                    {{ form.description.errors }}
                 </div>
                 <div class="form-group">
                     <label for="{{ form.service_photo.id_for_label }}">Service Image:</label>
                     {{ form.service_photo }}
+                    {{ form.service_photo.errors }}
                 </div>
                 <div class="form-group">
                     <label for="{{ form.category.id_for_label }}">Category:</label>
                     {{ form.category }}
+                    {{ form.category.errors }}
                 </div>
                 <div class="form-group">
                     <label for="{{ form.price.id_for_label }}">Price:</label>
                     {{ form.price }}
+                    {{ form.price.errors }}
                 </div>
                 <div class="form-group">
                     <label for="{{ form.duration_minutes.id_for_label }}">Duration (minutes):</label>
                     {{ form.duration_minutes }}
+                    {{ form.duration_minutes.errors }}
                 </div>
                 <div class="form-group">
                     <label for="{{ form.location.id_for_label }}">Location:</label>
                     {{ form.location }}
+                    {{ form.location.errors }}
                 </div>
                 <div class="form-group">
                     <label for="{{ form.is_active.id_for_label }}">Active:</label>
                     {{ form.is_active }}
+                    {{ form.is_active.errors }}
                 </div>
-                <button type="submit" class="filled-web-btn">Create Service</button>
+
+                {% if form.errors %}
+                    <div class="form-errors">
+                        <ul>
+                            {% for error in form.non_field_errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+
+                <button type="submit" name="create_service" class="filled-web-btn">Create Service</button>
             </form>
         </div>
     </div>

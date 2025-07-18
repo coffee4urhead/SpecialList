@@ -8,7 +8,6 @@ from django.shortcuts import render, get_object_or_404, redirect
 from JobJab.core.forms import UserOrganizationFormSet, ProfileEditForm
 from JobJab.core.models import UserLocation, CustomUser
 from JobJab.reviews.models import UserReview
-from JobJab.services.models import ServiceListing
 
 
 @login_required

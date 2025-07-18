@@ -20,6 +20,8 @@
         <link rel="stylesheet" type="text/x-scss"
               href="{% static 'core/profile-view-styles/leave-review-form-styles.scss' %}">
                 <link rel="stylesheet" type="text/x-scss"
+              href="{% static 'services/expand-serv-to-comment-modal.scss' %}">
+                <link rel="stylesheet" type="text/x-scss"
               href="{% static 'services/user-flags-styles.scss' %}">
     {% endcompress %}
 
@@ -61,6 +63,7 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
         crossorigin=""></script>
+<script type="module" src="{% static 'js-scripts/services-scripts/handle-comment-modal.js' %}"></script>
 <script type="module" src="{% static 'js-scripts/profile-scripts/get_location.js' %}"></script>
 <script type="module" src="{% static 'js-scripts/profile-scripts/follow-script.js' %}"></script>
 <script type="module" src="{% static 'js-scripts/services-scripts/services-options-handler.js' %}"></script>

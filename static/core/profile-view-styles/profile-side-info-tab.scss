@@ -157,7 +157,7 @@ section#reviews-section, section#favourites-section {
   padding: 30px;
   background-color: white;
 
-  h2 {
+  h1 {
     @include web-title-special($pref-font-size: 1.8em, $pref-font-st: normal);
     font-weight: bold;
   }

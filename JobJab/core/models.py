@@ -162,6 +162,10 @@ class CustomUser(AbstractUser):
         help_text='User timezone, e.g., America/New_York'
     )
 
+    @property
+    def user_services(self):
+        return self.services.all().count()
+
     def get_user_followers(self):
         return self.followers.all().count()
 

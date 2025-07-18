@@ -5,36 +5,49 @@ from django.urls import reverse
 
 from JobJab.services.models import ServiceListing, Comment
 from .forms import ServiceListingForm, ServiceDetailSectionFormSet, CommentForm
+from .utils import get_service_limit_for_plan
 from ..booking.forms import ProviderAvailabilityForm
 from ..booking.models import ProviderAvailability
 
 DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
 
 
-@login_required
+@login_required(login_url='login')
 def explore_services(request):
-    availability, _ = ProviderAvailability.objects.get_or_create(provider=request.user)
+    user = request.user
+    availability, _ = ProviderAvailability.objects.get_or_create(provider=user)
+    services = user.services.all()
+
+    subscription = user.subscription_membership
+    plan = subscription.plan if subscription else 'No plan'
+    allowed_services = get_service_limit_for_plan(plan)
+    service_count = services.count()
+    can_create_more = service_count < allowed_services
 
     if request.method == 'POST':
-        form = ProviderAvailabilityForm(request.POST, instance=availability)
-        if form.is_valid():
-            form.save()
+        if 'create_service' in request.POST:
+            service_form = ServiceListingForm(request.POST, request.FILES)
 
-            availability.time_slots.all().delete()
-            availability._generate_weekly_slots()
+            if service_form.is_valid() and can_create_more:
+                service = service_form.save(commit=False)
+                service.provider = user
+                service.save()
+        else:
+            # Handle availability form
+            pass
 
-            return redirect('explore_services')
-    else:
-        form = ProviderAvailabilityForm(instance=availability)
-
-    time_slots = availability.time_slots.order_by('day_of_week', 'start_time')
-
-    return render(request, 'explore_services.html', {
+    context = {
         'form': ServiceListingForm(),
-        'availability_form': form,
-        'time_slots': time_slots,
-        'services': ServiceListing.objects.all()
-    })
+        'availability_form': ProviderAvailabilityForm(instance=availability),
+        'time_slots': availability.time_slots.order_by('day_of_week', 'start_time'),
+        'services': ServiceListing.objects.all(),
+        'user_services': services,
+        'plan': plan,
+        'allowed_services': allowed_services,
+        'service_count': service_count,
+        'can_create_more': can_create_more
+    }
+    return render(request, 'explore_services.html', context)
 
 
 @login_required(login_url='login')

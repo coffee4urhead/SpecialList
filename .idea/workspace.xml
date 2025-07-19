@@ -5,13 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a6602c8c-3836-4310-91e0-bc55f682d51c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/JobJab/subscriptions/templates/subscriptions/offer-plans-page.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/subscriptions/offer-plans-page.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/subscriptions/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/subscriptions/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/core/templates/core/accounts/account-tabs/account_payments.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/core/accounts/account-tabs/account_payments.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/core/views/payments.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/views/payments.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/subscriptions/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/subscriptions/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JobJab/subscriptions/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/subscriptions/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js-scripts/services-scripts/services-options-handler.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js-scripts/services-scripts/services-options-handler.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/utils/web_colors.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/utils/web_colors.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/core/about-page/faq-component-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/about-page/faq-component-styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/core/about-page/faq-component-styles.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/about-page/faq-component-styles.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/core/about-page/faq-component-styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/about-page/faq-component-styles.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/profile-tabs-views/account-payments-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/profile-tabs-views/account-payments-styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/profile-tabs-views/account-payments-styles.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/profile-tabs-views/account-payments-styles.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/profile-tabs-views/account-payments-styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/profile-tabs-views/account-payments-styles.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -165,7 +169,7 @@
       <workItem from="1752604741679" duration="1139000" />
       <workItem from="1752670404428" duration="15624000" />
       <workItem from="1752857700915" duration="8108000" />
-      <workItem from="1752927967539" duration="1823000" />
+      <workItem from="1752927967539" duration="11305000" />
     </task>
     <servers />
   </component>

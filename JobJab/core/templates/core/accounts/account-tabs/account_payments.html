@@ -5,7 +5,8 @@
     {% load compress static %}
     {% compress css %}
         <link rel="stylesheet" type="text/x-scss" href="{% static 'core/homepage/home-header-style.scss' %}">
-        <link rel="stylesheet" type="text/x-scss" href="{% static 'core/profile-view-styles/profile-tabs-views/account-payments-styles.scss' %}">
+        <link rel="stylesheet" type="text/x-scss"
+              href="{% static 'core/profile-view-styles/profile-tabs-views/account-payments-styles.scss' %}">
     {% endcompress %}
 
     <style>
@@ -19,14 +20,20 @@
             margin: 0;
             padding: 0;
             overflow-x: hidden;
+            font-family: "Euclid Circular A", sans-serif;
+        }
 
-            p, a {
-                font-family: "Euclid Circular A", sans-serif;
-                font-weight: 500;
-                font-size: 1em;
-                font-style: normal;
-                color: black;
-            }
+        p, a {
+            font-weight: 500;
+            font-size: 1em;
+            font-style: normal;
+            color: black;
+        }
+
+        #main-payment-content {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
         }
     </style>
 
@@ -36,34 +43,51 @@
 
 {% include 'template-components/header-comp.html' %}
 
-<h1>{{ user.get_full_name|default:user.get_username }}'s Subscriptions made</h1>
+<h1>{{ user.get_full_name|default:user.username }}'s Payment History</h1>
 
 <main id="main-payment-content">
-    <section id="subs-section">
-        {% for payment in payments %}
-            <table>
-                <caption>Payment {{ payment.id }}</caption>
-                <tbody>
-                <tr>
-                    <th>Customer</th>
-                    <th>Provider</th>
-                    <th>Plan Type</th>
-                    <th>Starts on (Date)</th>
-                    <th>Ends on (Date)</th>
-                    <th>Price Payed (in USD)</th>
-                </tr>
-                <tr>
-                    <td><a href="{% url 'account_view' user.get_username %}">{{ payment.user }}</a></td>
-                    <td>SpecialList</td>
-                    <td>{{ payment.plan }}</td>
-                    <td>{{ payment.current_period_start }}</td>
-                    <td>{{ payment.current_period_end }}</td>
-                    <td>{{ payment.price }}$</td>
-                </tr>
-                </tbody>
-            </table>
+    {% if payment_details %}
+        {% for payment in payment_details %}
+            <div class="payment-card">
+                <div class="payment-header">
+                    <h3>{{ payment.record.get_plan_display }} Plan</h3>
+                    <span class="payment-status">{{ payment.status|default:"N/A"|title }}</span>
+                </div>
+
+                <div class="payment-details">
+                    <div>
+                        <p><strong>Amount:</strong> {{ payment.amount_paid|default:"N/A" }}</p>
+                        <p><strong>Date:</strong>
+                            {% if payment.date_paid %}{{ payment.date_paid|date:"M d, Y" }}{% else %}N/A{% endif %}</p>
+                        <p><strong>Subscription
+                            ID:</strong> {{ payment.record.stripe_subscription_id|truncatechars:12 }}</p>
+                    </div>
+                    <div>
+                        <p><strong>Period Start:</strong> {{ payment.record.current_period_start|date:"M d, Y" }}</p>
+                        <p><strong>Period End:</strong> {{ payment.record.current_period_end|date:"M d, Y" }}</p>
+                        <p><strong>Auto-renew:</strong> {% if payment.record.cancel_at_period_end %}No{% else %}
+                            Yes{% endif %}</p>
+                    </div>
+                </div>
+                <div class="receipt-buttons">
+                    {% if payment.receipt_url %}
+                        <a href="{{ payment.receipt_url|safe }}" target="_blank" rel="noopener noreferrer"
+                           class="receipt-btn">
+                            View Receipt Online
+                        </a>
+                    {% endif %}
+
+                    {% if payment.pdf_url %}
+                        <a href="{{ payment.pdf_url|safe }}" download class="receipt-btn">
+                            Download PDF Receipt
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
         {% endfor %}
-    </section>
+    {% else %}
+        <p class="no-payments">No payment records found.</p>
+    {% endif %}
 </main>
 
 </body>

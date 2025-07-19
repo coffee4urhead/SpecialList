@@ -25,14 +25,18 @@ class Subscription(models.Model):
         on_delete=models.CASCADE,
         related_name='subscription'
     )
-    stripe_customer_id = models.CharField(max_length=255, unique=True)
+    stripe_customer_id = models.CharField(max_length=512, unique=True)
     stripe_subscription_id = models.CharField(
-        max_length=255,
+        max_length=512,
         unique=True,
         blank=True,
         null=True,
         help_text="The Stripe subscription ID"
     )
+    stripe_invoice_id = models.CharField(unique=True,
+                                         blank=True,
+                                         null=True,
+                                         help_text="The Stripe subscription ID")
     plan = models.CharField(
         max_length=20,
         choices=SubscriptionPlan,
@@ -115,10 +119,13 @@ class Subscription(models.Model):
 
 class SubscriptionRecord(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    stripe_customer_id = models.CharField(max_length=255)
-    stripe_subscription_id = models.CharField(max_length=255)
-    stripe_price_id = models.CharField(max_length=255)
-
+    stripe_customer_id = models.CharField(max_length=512)
+    stripe_subscription_id = models.CharField(max_length=512)
+    stripe_price_id = models.CharField(max_length=512)
+    stripe_invoice_id = models.CharField(unique=True,
+                                         blank=True,
+                                         null=True,
+                                         help_text="The Stripe subscription ID")
     plan = models.CharField(max_length=50, choices=SubscriptionPlan)
     status = models.CharField(max_length=50)
     price = models.DecimalField(max_digits=10, decimal_places=2)

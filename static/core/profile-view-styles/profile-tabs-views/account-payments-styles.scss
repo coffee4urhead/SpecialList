@@ -14,48 +14,64 @@ main#main-payment-content {
   justify-content: space-evenly;
   align-items: center;
 
-  section#subs-section {
-    height: auto;
-    width: 100%;
+
+  .payment-card {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .payment-header {
     display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
 
-    h2 {
-      @include web-title-special($pref-font-size: clamp(1.7em, 2em, 2.5em), $pref-font-st: normal);
-      padding: 30px;
-    }
+  .payment-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
 
-    table {
-      padding: 30px;
-      background-color: $secondary-web-color;
-      border: 2px solid white;
-      border-radius: 8px;
+  .receipt-btn {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: #06BAC5;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 1rem;
+  }
 
-      table, th, tr, td {
-        border: 2px solid white;
-        border-collapse: collapse;
-        color: white;
-      }
+  .receipt-btn:hover {
+    background: #008DAA;
+  }
 
-      caption {
-        @include web-title-special($pref-font-size: clamp(1.7em, 2em, 2.5em), $pref-font-st: normal);
-        padding: 30px;
-      }
+  h1 {
+    text-align: center;
+    margin: 2rem 0;
+    color: #072C3C;
+  }
 
-      tr {
-        padding: 30px;
-        @include def-web-text($pref-font-size: clamp(1em, 1.5em, 2em), $pref-font-st: oblique);
+  .receipt-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 1rem;
+  }
 
-        th, td {
-          padding: 30px;
-        }
+  .receipt-btn {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: #06BAC5;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background 0.3s ease;
+  }
 
-        th {
-          @include web-title-special($pref-font-size: clamp(1.4em, 1.5em, 2em), $pref-font-st: normal);
-        }
-      }
-    }
+  .receipt-btn:hover {
+    background: #008DAA;
   }
 }

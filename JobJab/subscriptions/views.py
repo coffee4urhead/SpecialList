@@ -60,12 +60,26 @@ def success_view(request):
         return render(request, 'subscriptions/success.html')
 
     try:
-        session = stripe.checkout.Session.retrieve(session_id)
-        customer = stripe.Customer.retrieve(session.customer)
-        stripe_subscription = stripe.Subscription.retrieve(session.subscription)
+        # Retrieve the session with expanded subscription
+        session = stripe.checkout.Session.retrieve(
+            session_id,
+            expand=['subscription', 'subscription.latest_invoice']
+        )
 
-        price_id = stripe_subscription['items']['data'][0]['price']['id']
-        amount = stripe_subscription['items']['data'][0]['price']['unit_amount'] / 100
+        if not session.subscription:
+            return render(request, 'subscriptions/success.html')
+
+        # Get the subscription ID as string
+        subscription_id = session.subscription.id
+
+        # Get the invoice ID if it exists
+        invoice_id = None
+        if hasattr(session.subscription, 'latest_invoice') and session.subscription.latest_invoice:
+            invoice_id = session.subscription.latest_invoice.id
+
+        # Get price details
+        price_id = session.subscription['items']['data'][0]['price']['id']
+        amount = session.subscription['items']['data'][0]['price']['unit_amount'] / 100
         plan = session.metadata.get('plan', SubscriptionPlan.STARTER)
 
         current_start = timezone.now()
@@ -76,14 +90,15 @@ def success_view(request):
             user=user,
             defaults={
                 'stripe_customer_id': session.customer,
-                'stripe_subscription_id': session.subscription,
+                'stripe_subscription_id': subscription_id,  # Use the string ID
                 'stripe_price_id': price_id,
+                'stripe_invoice_id': invoice_id,
                 'plan': plan,
-                'status': stripe_subscription.status,
+                'status': session.subscription.status,
                 'price': amount,
-                'cancel_at_period_end': stripe_subscription.cancel_at_period_end,
-                'current_period_start': current_start if current_start else None,
-                'current_period_end': current_end if current_end else None,
+                'cancel_at_period_end': session.subscription.cancel_at_period_end,
+                'current_period_start': current_start,
+                'current_period_end': current_end,
             }
         )
 
@@ -91,11 +106,12 @@ def success_view(request):
             user=user,
             plan=plan,
             stripe_customer_id=session.customer,
-            stripe_subscription_id=session.subscription,
+            stripe_subscription_id=subscription_id,
             stripe_price_id=price_id,
-            status=stripe_subscription.status,
+            stripe_invoice_id=invoice_id,
+            status=session.subscription.status,
             price=amount,
-            cancel_at_period_end=stripe_subscription.cancel_at_period_end,
+            cancel_at_period_end=session.subscription.cancel_at_period_end,
             current_period_start=current_start,
             current_period_end=current_end
         )
@@ -103,7 +119,7 @@ def success_view(request):
         user.subscription_membership = subscription
         user.save()
 
-        return render(request, 'subscriptions/success.html', {'customer': customer})
+        return render(request, 'subscriptions/success.html')
     except Exception as e:
         print(f"Failed to attach subscription in success_view: {e}")
         return render(request, 'subscriptions/success.html')
@@ -138,6 +154,8 @@ def stripe_webhook(request):
         handle_subscription_updated(obj)
     elif event_type == 'invoice.payment_failed':
         handle_payment_failed(obj)
+    elif event_type == 'invoice.finalized':
+        handle_invoice_finalized(obj)
 
     return HttpResponse(status=200)
 
@@ -149,6 +167,8 @@ def detect_plan_from_price_id(price_id):
 def handle_invoice_payment_succeeded(invoice):
     stripe_customer_id = invoice.get("customer")
     stripe_subscription_id = invoice.get("subscription")
+    invoice_id = invoice.get("id")  # Use the invoice's own ID
+
     amount = invoice.get('amount_paid', 0) / 100
 
     price_id = None
@@ -185,6 +205,7 @@ def handle_invoice_payment_succeeded(invoice):
             'stripe_subscription_id': stripe_subscription_id,
             'stripe_price_id': price_id,
             'price': amount,
+            'stripe_invoice_id': invoice_id,
             'status': SubscriptionStatus.ACTIVE,
             'plan': plan,
             'cancel_at_period_end': cancel_at_period_end,
@@ -198,6 +219,7 @@ def handle_invoice_payment_succeeded(invoice):
         plan=plan,
         stripe_customer_id=stripe_customer_id,
         stripe_subscription_id=stripe_subscription_id,
+        stripe_invoice_id=invoice_id,
         stripe_price_id=price_id,
         status=SubscriptionStatus.ACTIVE,
         price=amount,
@@ -216,11 +238,22 @@ def handle_checkout_session(session):
             return
 
         subscription_id = session.get("subscription")
+        if not subscription_id:
+            return
+
+        stripe_subscription = stripe.Subscription.retrieve(subscription_id)
+        latest_invoice = stripe_subscription.latest_invoice
+
+        # Get the invoice object if it exists
+        invoice_id = None
+        if latest_invoice:
+            invoice = stripe.Invoice.retrieve(latest_invoice)
+            invoice_id = invoice.id
+
         customer_id = session.get("customer")
         plan = session.get("metadata", {}).get("plan", SubscriptionPlan.STARTER)
 
         user = CustomUser.objects.get(email=customer_email)
-        stripe_subscription = stripe.Subscription.retrieve(subscription_id)
 
         price_id = stripe_subscription['items']['data'][0]['price']['id']
         amount = stripe_subscription['items']['data'][0]['price']['unit_amount'] / 100
@@ -233,13 +266,14 @@ def handle_checkout_session(session):
             defaults={
                 'stripe_customer_id': customer_id,
                 'stripe_subscription_id': subscription_id,
+                'stripe_invoice_id': invoice_id,
                 'stripe_price_id': price_id,
                 'plan': plan,
                 'status': stripe_subscription.status,
                 'price': amount,
                 'cancel_at_period_end': stripe_subscription.cancel_at_period_end,
-                'current_period_start': current_start if current_start else None,
-                'current_period_end': current_end if current_end else None,
+                'current_period_start': current_start,
+                'current_period_end': current_end,
             }
         )
 
@@ -248,6 +282,7 @@ def handle_checkout_session(session):
             plan=plan,
             stripe_customer_id=customer_id,
             stripe_subscription_id=subscription_id,
+            stripe_invoice_id=invoice_id,
             stripe_price_id=price_id,
             status=stripe_subscription.status,
             price=amount,
@@ -263,6 +298,77 @@ def handle_checkout_session(session):
         print(f"User with email {customer_email} not found")
     except Exception as e:
         print(f"Error handling checkout session: {str(e)}")
+
+
+def handle_invoice_finalized(invoice):
+    stripe_customer_id = invoice.get("customer")
+    stripe_subscription_id = invoice.get("subscription")
+    invoice_id = invoice.get("id")  # This is the correct invoice ID
+
+    # Get email from invoice (customer_email is provided)
+    customer_email = invoice.get("customer_email")
+
+    user = CustomUser.objects.filter(subscription__stripe_customer_id=stripe_customer_id).first()
+    if not user and customer_email:
+        user = CustomUser.objects.filter(email=customer_email).first()
+
+    if not user:
+        print(f"Invoice Finalized: User not found for customer ID {stripe_customer_id}")
+        return
+
+    # Get plan from line item
+    try:
+        line_item = invoice['lines']['data'][0]
+        price_id = line_item.get('price', {}).get('id')
+    except (IndexError, KeyError, TypeError):
+        price_id = None
+
+    plan = detect_plan_from_price_id(price_id)
+    amount = invoice.get('amount_due', 0) / 100
+
+    current_start = timezone.now()
+    current_end = current_start + timedelta(days=30)
+
+    try:
+        stripe_subscription = stripe.Subscription.retrieve(stripe_subscription_id)
+        cancel_at_period_end = stripe_subscription.cancel_at_period_end
+        status = stripe_subscription.status
+    except Exception:
+        cancel_at_period_end = False
+        status = SubscriptionStatus.ACTIVE
+
+    subscription, _ = Subscription.objects.update_or_create(
+        user=user,
+        defaults={
+            'stripe_customer_id': stripe_customer_id,
+            'stripe_subscription_id': stripe_subscription_id,
+            'stripe_price_id': price_id,
+            'stripe_invoice_id': invoice_id,
+            'plan': plan,
+            'status': status,
+            'price': amount,
+            'cancel_at_period_end': cancel_at_period_end,
+            'current_period_start': current_start,
+            'current_period_end': current_end
+        }
+    )
+
+    SubscriptionRecord.objects.create(
+        user=user,
+        plan=plan,
+        stripe_customer_id=stripe_customer_id,
+        stripe_subscription_id=stripe_subscription_id,
+        stripe_price_id=price_id,
+        stripe_invoice_id=invoice_id,
+        status=status,
+        price=amount,
+        cancel_at_period_end=cancel_at_period_end,
+        current_period_start=current_start,
+        current_period_end=current_end
+    )
+
+    user.subscription_membership = subscription
+    user.save()
 
 
 def handle_subscription_deleted(subscription):
@@ -293,6 +399,7 @@ def handle_payment_failed(invoice):
         sub.save()
     except Subscription.DoesNotExist:
         pass
+
 
 def offer_plans(request):
     return render(request, 'subscriptions/offer-plans-page.html')

@@ -36,6 +36,14 @@ section#faq-cont ol li {
   background-color: #06BAC5;
   padding: 2rem;
   border-radius: 20px;
+  transition: background-color 0.3s ease;
+}
+section#faq-cont ol li:hover {
+  background-color: #05a3ac;
+}
+section#faq-cont ol li details {
+  overflow: hidden;
+  transition: all 0.5s ease;
 }
 section#faq-cont ol li details > summary {
   list-style: none;
@@ -51,6 +59,7 @@ section#faq-cont ol li details > summary {
   cursor: pointer;
   position: relative;
   padding-right: 3rem;
+  transition: margin-bottom 0.5s ease;
 }
 section#faq-cont ol li details > summary::-webkit-details-marker {
   display: none;
@@ -63,10 +72,19 @@ section#faq-cont ol li details > summary::after {
   transform: translateY(-50%);
   font-size: 2.5rem;
   color: white;
-  transition: all 0.3s ease;
+  transition: all 0.5s ease;
+}
+section#faq-cont ol li details[open] > summary {
+  margin-bottom: 15px;
 }
 section#faq-cont ol li details[open] > summary::after {
   content: "-";
+  transform: translateY(-50%) rotate(180deg);
+}
+section#faq-cont ol li details[open] p {
+  opacity: 1;
+  max-height: 1000px;
+  transform: translateY(0);
 }
 section#faq-cont ol li details p {
   font-family: "Euclid Circular A", sans-serif;
@@ -75,6 +93,13 @@ section#faq-cont ol li details p {
   font-style: normal;
   padding: 30px;
   font-weight: 400;
+  color: white;
+  margin: 0;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 0.5s ease-out, max-height 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.4s ease-out;
+  transform: translateY(-10px);
 }
 
 /*# sourceMappingURL=faq-component-styles.css.map */

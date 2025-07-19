@@ -1,0 +1,1 @@
+{"version":3,"sourceRoot":"","sources":["offer-plans-page.scss","../utils/web_colors.scss","../utils/general-web-mixins/main-web-utls.scss"],"names":[],"mappings":"AAIA;EACA,kBCEgB;EDDd;EACA;;AAGE;EETD;EACC;EACA,WFQ8C;EEP9C,YFOoE;EENpE;EACA;EFME;;AAGF;EACE,OCbiB;;;ADkBvB;EACE;IAAK;;EACL;IAAM;;EACN;IAAO","file":"offer-plans-page.css"}

@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (!canCreateMore) {
                 showAlert(
                     'You\'ve reached your service limit. ' +
-                    '<a href="/" style="color: #0056b3; text-decoration: underline;">Upgrade your plan</a> to create more services.',
+                    '<a href="/subscriptions/offerSubscriptions/" style="color: #0056b3; text-decoration: underline;">Upgrade your plan</a> to create more services.',
                     'warning',
                     8000
                 );

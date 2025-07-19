@@ -24,6 +24,7 @@
         <section id="side-info">
             <p>{{ viewed_account.bio|default:"some bio description" }}</p>
             <p><a href="{% url 'password_reset' %}">Reset Password</a></p>
+            <p><a href="{% url 'offer_plans' %}">Change current plan here</a></p>
 
             {% if viewed_account == request.user %}
                 <button id="edit-profile-btn" class="filled-web-btn">Edit profile</button>

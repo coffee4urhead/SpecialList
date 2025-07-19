@@ -293,3 +293,6 @@ def handle_payment_failed(invoice):
         sub.save()
     except Subscription.DoesNotExist:
         pass
+
+def offer_plans(request):
+    return render(request, 'subscriptions/offer-plans-page.html')

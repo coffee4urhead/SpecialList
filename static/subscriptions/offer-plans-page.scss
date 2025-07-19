@@ -1,0 +1,26 @@
+@import "../utils/web_colors.scss";
+@import "../utils/general-web-mixins/main-web-utls.scss";
+@import "../utils/general-web-mixins/main-button-mixin.scss";
+
+body {
+background-image: $back-img-grad;
+  background-size: 300% 300%;
+  animation: gradientShift 12s ease infinite;
+
+  header#head-sect {
+    h1#head-title {
+      @include web-title-special($pref-font-size: 6.5em, $pref-font-st: normal);
+      color: white;
+    }
+
+    span {
+      color: $additional_web_color;
+    }
+  }
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}

@@ -1,0 +1,51 @@
+<article id="website-rev-container">
+    <h1>Special<span>List</span> – Leave Review for our services!</h1>
+
+    <div id='review-form-cont'>
+        <div id="form-cont">
+            <form method="POST">
+                {% csrf_token %}
+
+                {% if website_review_form.non_field_errors %}
+                    <div class="error-message">
+                        {{ website_review_form.non_field_errors }}
+                    </div>
+                {% endif %}
+
+                <div class="form-group">
+                    <label>Rating:</label>
+                    <div class="star-rating">
+                        {% for i in "54321" %}
+                            <input type="radio" id="star{{ i }}" name="rating" value="{{ i }}"
+                                   {% if website_review_form.rating.value == i %}checked{% endif %}>
+                            <label for="star{{ i }}">★</label>
+                        {% endfor %}
+                    </div>
+                    {% if website_review_form.rating.errors %}
+                        <div class="error">{{ website_review_form.rating.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label>Title</label>
+                    {{ website_review_form.main_caption }}
+                    {{ website_review_form.main_caption.errors }}
+                </div>
+
+                <div class="form-group">
+                    <label>Your Review</label>
+                    {{ website_review_form.comment }}
+                    {{ website_review_form.comment.errors }}
+                </div>
+
+                <button type="submit" class="filled-web-btn">Leave Review</button>
+            </form>
+        </div>
+
+        <div class="review-img">
+            {% load static %}
+            <img src="{% static 'images/web-review-gif.gif' %}"
+                 alt="Website review rating gif animated picture showing a man with and without glasses"/>
+        </div>
+    </div>
+</article>

@@ -1,0 +1,214 @@
+@import "../../utils/web_colors.scss";
+@import "../../utils/general-web-mixins/main-web-utls.scss";
+@import "../../utils/general-web-mixins/main-button-mixin.scss";
+
+article#website-rev-container {
+  width: 100%;
+  max-width: 1200px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  margin: 2rem auto;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+
+  & h1 {
+    @include web-title-special($pref-font-size: 2.5em, $pref-font-st: bold);
+    border-bottom: 3px solid $eccentric-color;
+    padding: 1rem;
+    margin-bottom: 1em;
+    text-align: center;
+    width: 100%;
+
+    span {
+      color: $additional_web_color;
+    }
+  }
+
+  div#review-form-cont {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 50px;
+    flex-wrap: wrap;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 30px;
+    }
+  }
+
+  div#form-cont {
+    width: 100%;
+    flex: 1;
+    min-width: 300px;
+    max-width: 600px;
+
+    form {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+
+      .errorlist {
+        list-style: none;
+        padding: 0;
+        margin: 0.5rem 0 1rem 0;
+
+        li {
+          color: #d32f2f;
+          background-color: #ffebee;
+          padding: 0.75rem 1rem;
+          border-radius: 4px;
+          margin-bottom: 0.5rem;
+          font-size: 0.9em;
+          font-weight: 500;
+          display: flex;
+          align-items: center;
+          border-left: 4px solid #d32f2f;
+
+          &::before {
+            content: "⚠️";
+            margin-right: 0.5rem;
+            font-size: 1.1em;
+          }
+        }
+      }
+
+      .form-group {
+        margin-bottom: 0;
+      }
+
+      .form-group label {
+        display: block;
+        @include def-web-text($pref-font-size: 1.5em, $pref-font-st: oblique);
+        margin-bottom: 8px;
+        font-weight: 600;
+      }
+
+      .form-group input[type="text"],
+      .form-group textarea {
+        width: 100%;
+        padding: 12px 16px;
+        border: 2px solid lighten($secondary-web-color, 20%);
+        border-radius: 8px;
+        @include def-web-text($pref-font-size: 1em, $pref-font-st: normal);
+        transition: all 0.3s ease;
+        background: rgba(255, 255, 255, 0.9);
+
+        &:focus {
+          border-color: $eccentric-color;
+          box-shadow: 0 0 0 3px rgba($eccentric-color, 0.2);
+          outline: none;
+        }
+
+        &::placeholder {
+          color: lighten($secondary-web-color, 30%);
+        }
+      }
+
+      .form-group textarea {
+        min-height: 150px;
+        resize: vertical;
+      }
+
+      button.filled-web-btn {
+        padding: 0 20px;
+        text-align: center;
+        @include main-button($arg-width: 100%, $arg-height: 50px, $arg-bg-color: $additional_web_color, $txt-color: $main-web-color);
+        border-radius: 12px;
+        font-size: 1.1em;
+        font-weight: 700;
+        line-height: 50px;
+        border: none;
+        margin-top: 1rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+          background: darken($additional_web_color, 10%);
+        }
+
+        &:active {
+          transform: translateY(0);
+        }
+      }
+    }
+  }
+
+  .review-img {
+    flex: 1;
+    min-width: 300px;
+    max-width: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: scale(1.02);
+      }
+    }
+  }
+}
+
+.star-rating {
+  display: flex;
+  gap: 12px;
+  margin: 8px 0;
+
+  input {
+    display: none;
+
+    &:checked ~ label,
+    &:hover ~ label {
+      color: gold;
+    }
+  }
+
+  label {
+    color: #ddd;
+    font-size: 2.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      color: gold;
+      transform: scale(1.1);
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form-group {
+  animation: fadeIn 0.4s ease forwards;
+
+  @for $i from 1 through 5 {
+    &:nth-child(#{$i}) {
+      animation-delay: $i * 0.1s;
+    }
+  }
+}

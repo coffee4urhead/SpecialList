@@ -27,10 +27,6 @@ class BaseReview(models.Model):
 class WebsiteReview(BaseReview):
     """Review for the entire platform"""
 
-    def clean(self):
-        if not self.reviewer:
-            raise ValidationError("Website reviews must have a reviewer")
-
     def __str__(self):
         return f"Website review by {self.reviewer.username}"
 

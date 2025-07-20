@@ -19,7 +19,7 @@ article#website-testimonials div.reviews-flex-wrapper {
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  gap: 100px;
+  gap: 10px;
 }
 article#website-testimonials div.reviews-flex-wrapper div.reviews-row {
   width: 100%;
@@ -27,7 +27,7 @@ article#website-testimonials div.reviews-flex-wrapper div.reviews-row {
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 article#website-testimonials div.reviews-flex-wrapper div.reviews-row-bottom {
   width: 100%;

@@ -1,35 +1,54 @@
 <header id="head-sect">
-    <h1 class="web-title">Special<span>List</span></h1>
-    <nav>
-        <ul class="links-holder">
-        <li><a class="link-web" href={% url 'home' %}>Home</a></li>
-        <li><a class="link-web" href={% url 'about' %}>About</a></li>
-        <li><a class="link-web" href={% url 'explore_services' %}>Explore Services</a></li>
-        <li><a class="link-web" href='#'>Chats</a></li>
-    </ul>
-    </nav>
+    <div class="header-container">
+        <button class="hamburger-btn" aria-label="Menu" aria-expanded="false">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
 
-    {% if user.is_authenticated %}
-        <div id="head-buttons-cont">
-            <p style="color: black">Welcome, {{ user.username }}!</p>
-            {% if user.profile_picture %}
-                <a href="{% url 'account_view' user.username %}">
-                    <img src="{{ user.profile_picture.url }}"
-                     alt="{{ user.get_full_name|default:user.username }}">
+        <h1 class="web-title">Special<span>List</span></h1>
+
+        {% if user.is_authenticated %}
+            <div class="auth-section">
+                <p class="welcome-message">Welcome, {{ user.username }}!</p>
+                {% if user.profile_picture %}
+                    <a href="{% url 'account_view' user.username %}" class="profile-link">
+                        <img id="profile-photo" src="{{ user.profile_picture.url }}"
+                             alt="{{ user.get_full_name|default:user.username }}">
+                    </a>
+                {% else %}
+                    {% load static %}
+                    <a href="{% url 'account_view' user.username %}" class="profile-link">
+                        <img id="profile-photo" src="{% static '/images/avatar-default-photo.png' %}"
+                             alt="{{ user.get_full_name|default:user.username }}">
+                    </a>
+                {% endif %}
+                <a href="{% url 'logout' %}">
+                    <img class="logout-img" src="{% static 'images/logout.png' %}" alt="logout icon"/>
                 </a>
-            {% else %}
-                {% load static %}
-                <a href="{% url 'account_view' user.username %}">
-                    <img src="{% static '/images/avatar-default-photo.png' %}"
-                     alt="{{ user.get_full_name|default:user.username }}">
-                </a>
-            {% endif %}
-        <button class="emp-web-btn"><a style="color: black; text-decoration: none" href={% url 'logout' %}>Logout</a></button>
-        </div>
-     {% else %}
-        <div id='head-buttons-cont'>
-            <button class="filled-web-btn"><a style='text-decoration: none;' href={% url 'register' %}>Sign In</a></button>
-        <button class="emp-web-btn">Get Started</button>
+            </div>
+        {% else %}
+            <div class="auth-section">
+                <button class="filled-web-btn">
+                    <a href="{% url 'register' %}">Sign In</a>
+                </button>
+                <button class="emp-web-btn">Get Started</button>
+            </div>
+        {% endif %}
     </div>
-    {% endif %}
+
+    <div class="side-panel">
+        <nav class="main-nav">
+            <ul class="links-holder">
+                <li><img class="header-icon" src="{% static 'images/home-icon.png' %}" alt="home icon"/><a
+                        class="link-web" href="{% url 'home' %}">Home</a></li>
+                <li><img class="header-icon" src="{% static 'images/about-page-icon.png' %}" alt="about page icon"/><a
+                        class="link-web" href="{% url 'about' %}">About</a></li>
+                <li><img class="header-icon" src="{% static 'images/explore-icon.png' %}" alt="explore page icon"/><a
+                        class="link-web" href="{% url 'explore_services' %}">Explore Services</a></li>
+                <li><img class="header-icon" src="{% static 'images/messages-icon.png' %}" alt="chats page icon"/><a
+                        class="link-web" href="#">Chats</a></li>
+            </ul>
+        </nav>
+    </div>
 </header>

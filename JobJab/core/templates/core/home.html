@@ -114,31 +114,7 @@
 {% include 'template-components/second-caption-comp.html' %}
 {% include 'template-components/footer.html' %}
 
-<script>
-    const subscribeButtons = document.querySelectorAll('form[method=post] button.filled-web-btn');
-
-    const userType = "{{ request.user.user_type|escapejs }}";
-
-    function performCheck(event) {
-
-        console.log('User Type:', userType);
-        if (userType !== 'Provider' && userType) {
-            event.preventDefault();
-            const divError = document.createElement('div');
-            divError.classList.add('alert-error');
-            divError.classList.add('alert');
-            divError.innerHTML = 'Only Providers can subscribe. <button onclick="this.parentElement.remove()">X</button>'
-            document.body.appendChild(divError);
-
-            setTimeout(() => {
-                divError.remove();
-            }, 2000);
-        }
-    }
-
-    subscribeButtons.forEach((subButton) => {
-        subButton.addEventListener('click', performCheck);
-    });
-</script>
+<script src="{% static 'js-scripts/home-script.js' %}"></script>
+<script src="{% static 'js-scripts/home-side-panel.js' %}"></script>
 </body>
 </html>

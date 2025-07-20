@@ -2,13 +2,25 @@ header#head-sect {
   width: 100%;
   display: flex;
   flex-direction: column;
+  padding: 1rem;
+  position: relative;
+  min-height: 80px;
+  background: white;
+}
+header#head-sect .header-container {
+  display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 3px solid black;
-  padding: 1rem;
-  gap: 1rem;
+  width: 100%;
+  position: relative;
+  z-index: 100;
 }
-header#head-sect img {
+header#head-sect .header-container a img.logout-img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+header#head-sect img#profile-photo {
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -17,26 +29,129 @@ header#head-sect img {
 header#head-sect h1.web-title {
   font-family: "Euclid Circular A", sans-serif;
   font-weight: 400;
-  font-size: 2.5em;
+  font-size: 2.7rem;
   font-style: normal;
   margin-left: 20px;
   padding: 13px;
   margin: 0;
   flex-shrink: 0;
+  white-space: nowrap;
+  margin-left: 60px;
+  position: relative;
 }
 header#head-sect span {
   color: #06BAC5;
 }
-header#head-sect div#head-buttons-cont {
+header#head-sect .hamburger-btn {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   justify-content: center;
-  gap: 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1002;
+}
+header#head-sect .hamburger-btn .hamburger-line {
+  display: block;
+  width: 30px;
+  height: 3px;
+  background-color: black;
+  margin: 5px 0;
+  transition: all 0.3s ease;
+  transform-origin: center;
+  pointer-events: none;
+}
+header#head-sect .hamburger-btn.open .hamburger-line:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+header#head-sect .hamburger-btn.open .hamburger-line:nth-child(2) {
+  opacity: 0;
+}
+header#head-sect .hamburger-btn.open .hamburger-line:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+header#head-sect .side-panel {
+  position: fixed;
+  top: 0;
+  left: -300px;
+  width: 280px;
+  height: 100vh;
+  background: white;
+  z-index: 1000;
+  transition: transform 0.3s ease;
+  padding-top: 80px;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+}
+header#head-sect .side-panel.active {
+  transform: translateX(300px);
+}
+header#head-sect .side-panel nav.main-nav {
+  width: 100%;
+  padding: 1rem;
+}
+header#head-sect .side-panel nav.main-nav ul.links-holder {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  gap: 1.5rem;
+}
+header#head-sect .side-panel nav.main-nav ul.links-holder li {
+  display: flex;
+  justify-content: flex-start;
   align-items: center;
+  gap: 20px;
+}
+header#head-sect .side-panel nav.main-nav ul.links-holder li img.header-icon {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+header#head-sect .side-panel nav.main-nav ul.links-holder li a.link-web {
+  color: black;
+  font-size: 1.2em;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  display: block;
+  transition: all 0.3s ease;
+  border-radius: 4px;
+}
+header#head-sect .side-panel nav.main-nav ul.links-holder li a.link-web:hover {
+  color: white;
+  background-color: #06BAC5;
+}
+header#head-sect .auth-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-left: auto;
+  z-index: 1;
+}
+header#head-sect .auth-section .welcome-message {
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1.5em;
+  font-style: normal;
+  color: black;
+}
+header#head-sect .auth-section button {
   flex-shrink: 0;
 }
-header#head-sect div#head-buttons-cont button.filled-web-btn,
-header#head-sect div#head-buttons-cont button.emp-web-btn {
+header#head-sect .auth-section button a {
+  color: inherit;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+header#head-sect .auth-section button.filled-web-btn,
+header#head-sect .auth-section button.emp-web-btn {
   width: 120px;
   height: 50px;
   background-color: #008DAA;
@@ -46,17 +161,17 @@ header#head-sect div#head-buttons-cont button.emp-web-btn {
   font-style: normal;
   color: #ffffff;
   border-radius: 8px;
+  line-height: 45px;
   border: 3px solid #ffffff;
-  flex-shrink: 0;
 }
-header#head-sect div#head-buttons-cont button.filled-web-btn:hover,
-header#head-sect div#head-buttons-cont button.emp-web-btn:hover {
+header#head-sect .auth-section button.filled-web-btn:hover,
+header#head-sect .auth-section button.emp-web-btn:hover {
   color: black;
   background-color: #ffffff;
-  border: 3px solid #008DAA;
-  transition: background-color 0.2s linear;
+  border: 3px solid #ffffff;
+  transition: background-color 0.6s ease-in-out;
 }
-header#head-sect div#head-buttons-cont button.emp-web-btn {
+header#head-sect .auth-section button.emp-web-btn {
   width: 120px;
   height: 50px;
   background-color: #ffffff;
@@ -67,54 +182,10 @@ header#head-sect div#head-buttons-cont button.emp-web-btn {
   color: black;
   border: 3px solid #008DAA;
 }
-header#head-sect div#head-buttons-cont button.emp-web-btn:hover {
+header#head-sect .auth-section button.emp-web-btn:hover {
   color: white;
   background-color: #008DAA;
   border: 3px solid #ffffff;
-}
-header#head-sect nav ul.links-holder {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  gap: 1rem;
-}
-header#head-sect nav ul.links-holder li {
-  flex-shrink: 0;
-}
-header#head-sect nav ul.links-holder li a.link-web {
-  color: black;
-  font-size: clamp(1.1em, 3vw, 1.6em);
-  text-decoration: none;
-  white-space: nowrap;
-}
-
-@media (max-width: 900px) {
-  header#head-sect {
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-  }
-  header#head-sect nav ul.links-holder {
-    flex-direction: column;
-    gap: 100px;
-  }
-}
-@media (min-width: 900px) {
-  header#head-sect {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    align-items: center;
-  }
-  header#head-sect nav ul.links-holder {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 100px;
-  }
 }
 
 /*# sourceMappingURL=home-header-style.css.map */

@@ -1,16 +1,26 @@
 """
 ASGI config for JobJab project.
-
-It exposes the ASGI callable as a module-level variable named ``application``.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/5.2/howto/deployment/asgi/
 """
 
 import os
 
-from django.core.asgi import get_asgi_application
-
+# Set DJANGO_SETTINGS_MODULE *before* anything else
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'JobJab.settings')
 
-application = get_asgi_application()
+# Import and set up Django
+import django
+django.setup()  # <-- this must happen BEFORE importing routing or models
+
+from channels.routing import ProtocolTypeRouter, URLRouter
+from channels.auth import AuthMiddlewareStack
+from django.core.asgi import get_asgi_application
+import JobJab.chats.routing  # Import AFTER django.setup()
+
+application = ProtocolTypeRouter({
+    "http": get_asgi_application(),
+    "websocket": AuthMiddlewareStack(
+        URLRouter(
+            JobJab.chats.routing.websocket_urlpatterns
+        )
+    ),
+})

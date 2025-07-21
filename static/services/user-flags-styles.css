@@ -231,7 +231,7 @@ section#flags-for-user::-webkit-scrollbar {
 
 div.service-mini-cont {
   flex: 0 0 auto;
-  width: 40rem;
+  width: 60rem;
   max-width: 90vw;
   scroll-snap-align: start;
   gap: 50px;
@@ -241,22 +241,24 @@ div.service-mini-cont {
   padding: 1rem;
   background-color: white;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-content: space-between;
+  align-items: center;
 }
 div.service-mini-cont:hover {
   transform: scale(1.02);
   transition: transform 0.2s ease;
 }
 div.service-mini-cont div#top-content {
-  width: 100%;
+  width: 90%;
   height: 100%;
   align-self: flex-start;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-content: center;
-  align-items: center;
+  justify-content: space-around;
+  align-content: flex-start;
+  align-items: flex-start;
 }
 div.service-mini-cont div#top-content div.service-image-cont {
   display: flex;
@@ -284,9 +286,6 @@ div.service-mini-cont div#top-content div.icon-holder button.add-favorites:hover
   transition: transform 0.2s linear;
 }
 div.service-mini-cont .user-rev-info {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
   margin-bottom: 1rem;
 }
 div.service-mini-cont .user-rev-info p {
@@ -324,6 +323,7 @@ div.service-mini-cont .star-rating .text-muted::before {
   color: grey;
 }
 div.service-mini-cont div.text-service-info {
+  width: 90%;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -331,7 +331,6 @@ div.service-mini-cont div.text-service-info {
   gap: 20px;
 }
 div.service-mini-cont div.text-service-info h2 a {
-  text-decoration: none;
   color: #06BAC5;
 }
 div.service-mini-cont div.text-service-info p {

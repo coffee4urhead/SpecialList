@@ -36,15 +36,19 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'daphne',
     'django.contrib.staticfiles',
     'JobJab.core.apps.CoreConfig',
     "JobJab.services",
     "JobJab.booking",
     "JobJab.reviews",
     "JobJab.subscriptions",
+    'JobJab.chats',
     'compressor',
     'pdf2image',
     'django_cron',
+    'channels',
+    'django.contrib.postgres',
 ]
 
 CRON_CLASSES = [
@@ -80,6 +84,11 @@ TEMPLATES = [
         },
     },
 ]
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    },
+}
 
 WSGI_APPLICATION = 'JobJab.wsgi.application'
 
@@ -182,3 +191,5 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+ASGI_APPLICATION = 'JobJab.routing.application'

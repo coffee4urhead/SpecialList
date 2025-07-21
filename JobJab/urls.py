@@ -24,5 +24,5 @@ urlpatterns = [
     path('booking/', include('JobJab.booking.urls')),
     path('subscriptions/', include('JobJab.subscriptions.urls')),
     path('reviews/', include('JobJab.reviews.urls')),
+    path('chats/', include('JobJab.chats.urls'))
 ]
-

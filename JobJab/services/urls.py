@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path
 from . import views
 from ..booking.views import ServiceBookingView
@@ -12,4 +14,4 @@ urlpatterns = [
     path('extendedServiceInfo/<int:service_id>/', views.extended_service_display, name='extended_service_display'),
     path('service/<int:service_id>/manage/', views.manage_service_sections, name='manage_service_sections'),
     path('delete/<int:pk>/', views.delete_service, name='delete_service'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

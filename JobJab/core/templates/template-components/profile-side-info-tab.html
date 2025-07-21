@@ -5,7 +5,8 @@
                 {% if viewed_account == request.user %}
                     <button class="filled-web-btn"><a href="{% url 'user_certificates' request.user.username %}">Certificates</a>
                     </button>
-                    <button class="filled-web-btn"><a href="{% url 'user_payments' request.user.username %}">Payments</a></button>
+                    <button class="filled-web-btn"><a
+                            href="{% url 'user_payments' request.user.username %}">Payments</a></button>
                 {% else %}
                     <button class="filled-web-btn"><a href="{% url 'user_certificates' viewed_account.username %}">Certificates</a>
                     </button>
@@ -15,7 +16,11 @@
             <p>You can also find me at: Social links icons (To be implemented)</p>
             <p>Personal phone number: {{ viewed_account.phone_number }}</p>
             <p>Email: {{ viewed_account.email }}</p>
-            <button id="outline-btn" class="username-getter" data-username="{{ viewed_account.username }}">Message
+
+            <button id="outline-btn" class="username-getter"
+                    data-username="{{ viewed_account.username }}"
+                    data-user-id="{{ request.user.id }}">
+                Message
             </button>
         </div>
 
@@ -39,4 +44,5 @@
             {% include 'user-flags.html' with flagged_favourite_services=flagged_services %}
         </div>
     </section>
+    <div id="chat-container"></div>
 </article>

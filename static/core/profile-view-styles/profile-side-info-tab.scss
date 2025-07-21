@@ -14,6 +14,67 @@ main#main-profile-contents {
 }
 
 article#profile-side-info-tab-cont {
+
+  #chat-window {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 350px;
+    background: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    max-height: 500px;
+  }
+
+  .chat-header {
+    padding: 10px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .messages-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+  }
+
+  .chat-input {
+    padding: 10px;
+    border-top: 1px solid #eee;
+    display: flex;
+    gap: 5px;
+  }
+
+  .message {
+    margin-bottom: 10px;
+    padding: 8px 12px;
+    border-radius: 18px;
+    max-width: 80%;
+  }
+
+  .message.sent {
+    background: #007bff;
+    color: white;
+    margin-left: auto;
+  }
+
+  .message.received {
+    background: #f1f1f1;
+    margin-right: auto;
+  }
+
+  .message-time {
+    font-size: 0.7em;
+    opacity: 0.7;
+    margin-top: 4px;
+  }
+
   margin-top: 40px;
   display: flex;
   flex-direction: column;
@@ -105,8 +166,9 @@ article#profile-side-info-tab-cont {
     gap: 30px;
 
     p {
-       @include def-web-text($pref-font-size: clamp(1em, 1.5em, 2em), $pref-font-st: italic);
+      @include def-web-text($pref-font-size: clamp(1em, 1.5em, 2em), $pref-font-st: italic);
     }
+
     button#outline-btn {
       border: 2px solid $secondary-web-color;
       border-radius: 40px;
@@ -115,6 +177,11 @@ article#profile-side-info-tab-cont {
       font-weight: 500;
       padding: 20px;
       @include def-web-text($pref-font-size: clamp(1em, 1.5em, 2em), $pref-font-st: italic);
+
+      &:hover {
+        transform: translateY(-5px);
+        transition: transform 0.3s ease-in-out;
+      }
     }
   }
 }
@@ -152,7 +219,7 @@ div.button-links {
 
 section#reviews-section, section#favourites-section {
   width: 100%;
-  height: 50%;
+  height: auto;
   border-radius: 8px;
   padding: 30px;
   background-color: white;

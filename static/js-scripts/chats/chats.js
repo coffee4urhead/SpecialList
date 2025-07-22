@@ -6,6 +6,22 @@ export default class ChatClient {
             `ws://${window.location.host}/ws/chat/${conversationId}/`
         );
 
+        this.socket.onopen = () => {
+            console.log(`[WebSocket] Connected to conversation ${this.conversationId}`);
+        };
+
+        this.socket.onerror = (e) => {
+            console.log('[WebSocket] Error:', e);
+            setTimeout(() => this.reconnect(), 5000);
+        };
+
+        this.socket.onclose = (e) => {
+            console.log('[WebSocket] Closed:', e);
+            setTimeout(() => this.reconnect(), 5000);
+        };
+
+        this.setupEventHandlers();
+        this.setupPing();
         this.setupEventHandlers();
         this.setupPing();
     }
@@ -14,7 +30,7 @@ export default class ChatClient {
         this.socket.onmessage = (e) => {
             const data = JSON.parse(e.data);
 
-            switch(data.type) {
+            switch (data.type) {
                 case 'text_message':
                     this.handleTextMessage(data);
                     break;
@@ -55,6 +71,10 @@ export default class ChatClient {
     }
 
     sendTextMessage(content) {
+        if (this.socket.readyState !== WebSocket.OPEN) {
+            console.warn('WebSocket not open');
+            return;
+        }
         this.socket.send(JSON.stringify({
             type: 'text_message',
             message: content
@@ -79,14 +99,32 @@ export default class ChatClient {
         }));
     }
 
-    sendReadReceipt(messageIds) {
-        this.socket.send(JSON.stringify({
-            type: 'read_receipt',
-            message_ids: messageIds
-        }));
+    sendReadReceipt(data) {
+        let message_ids = [];
+
+        if (Array.isArray(data)) {
+            message_ids = data;
+        } else if (data && Array.isArray(data.message_ids)) {
+            message_ids = data.message_ids;
+            if (data.reader_id === this.userId) {
+                return;
+            }
+        } else {
+            console.warn('sendReadReceipt: invalid data', data);
+            return;
+        }
+
+        message_ids.forEach(id => {
+            const msgEl = document.querySelector(`.message[data-id="${id}"]`);
+            if (msgEl) {
+                msgEl.classList.add('read');
+                const readTick = msgEl.querySelector('.read-indicator');
+                if (readTick) readTick.style.visibility = 'visible';
+            }
+        });
     }
 
-    // Message handlers
+
     handleTextMessage(data) {
         const messagesContainer = document.querySelector('.messages-container');
         if (messagesContainer) {
@@ -122,14 +160,47 @@ export default class ChatClient {
     }
 
     handleTypingIndicator(data) {
-        // Show typing indicator
+        const typingIndicator = document.querySelector('.typing-indicator');
+        if (!typingIndicator) return;
+
+        if (data.typing && data.user_id !== this.userId) {
+            typingIndicator.style.display = 'block';
+            typingIndicator.textContent = `${data.username} is typing...`;
+
+            clearTimeout(this._typingTimeout);
+            this._typingTimeout = setTimeout(() => {
+                typingIndicator.style.display = 'none';
+            }, 3000);
+        } else {
+            typingIndicator.style.display = 'none';
+        }
     }
+
 
     handleReadReceipt(data) {
-        // Update message status
+        const {message_ids} = data;
+
+        message_ids.forEach(id => {
+            const msgEl = document.querySelector(`.message[data-id="${id}"]`);
+            if (msgEl) {
+                msgEl.classList.add('read');
+                const readTick = msgEl.querySelector('.read-indicator');
+                if (readTick) readTick.style.visibility = 'visible';
+            }
+        });
     }
 
+
     handleUserStatus(data) {
-        // Update user status indicator
+        const statusEl = document.querySelector('.user-status');
+        if (!statusEl) return;
+
+        if (data.online) {
+            statusEl.textContent = 'Online';
+            statusEl.style.color = 'green';
+        } else {
+            statusEl.textContent = 'Offline';
+            statusEl.style.color = 'gray';
+        }
     }
 }

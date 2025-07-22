@@ -15,7 +15,7 @@ class UserLocationAdmin(admin.ModelAdmin):
     list_display = ('user', 'latitude', 'longitude', 'last_updated')
 
 class CustomUserAdmin(UserAdmin):
-    list_display = ('username', 'email', 'user_type', 'is_staff', 'get_subscription_plan')
+    list_display = ('username', 'email', 'user_type', 'is_staff', 'get_subscription_plan', 'last_login', 'is_active')
 
     def get_subscription_plan(self, obj):
         return obj.subscription.plan if hasattr(obj, 'subscription') else None

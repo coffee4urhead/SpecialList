@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load compress static %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    {% compress css %}
+        <link rel="stylesheet" type="text/x-scss" href="{% static 'core/homepage/home-header-style.scss' %}">
+        <link rel="stylesheet" type="text/x-scss" href="{% static 'chats/explore-conversations-styles.scss' %}">
+        <link rel="stylesheet" type="text/x-scss" href="{% static 'core/homepage/footer-styles.scss' %}">
+    {% endcompress %}
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background-color: white;
+
+            p, a {
+                font-family: "Euclid Circular A", sans-serif;
+                font-weight: 500;
+                font-size: 1em;
+                font-style: normal;
+                color: white;
+            }
+        }
+
+        main#main-web-container {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+    <title>Your SpecialList Chat with users from the community</title>
+</head>
+<body>
+{% include 'template-components/header-comp.html' %}
+
+<main id="main-web-container">
+    <h1 style="color: white; padding: 20px;">Interactions and chats with people</h1>
+
+    <div class="category-tabs">
+        {% for category in categories %}
+            <button class="{% if current_filter == category.value %}filled-web-btn{% else %}emp-web-btn{% endif %}"
+                    data-filter="{{ category.value }}">
+                {{ category.name }}
+            </button>
+        {% endfor %}
+    </div>
+
+    <div class="conversation-list">
+        {% for conversation in conversation_data %}
+            {% if conversation.user_type == current_filter %}
+                <a href="{% url 'chat_with_user' conversation.other_user.id %}" class="conversation-link">
+                    <div class="conversation-item" data-user-type="{{ conversation.user_type|lower }}">
+                        {% if conversation.other_user and conversation.other_user.profile_picture %}
+                            <div class="avatar-link">
+                                <img src="{{ conversation.other_user.profile_picture.url }}"
+                                     alt="{{ conversation.other_user.username }}"
+                                     class="user-avatar">
+                            </div>
+                        {% else %}
+                            <div class="user-avatar default-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                        {% endif %}
+
+                        <div class="conversation-content">
+                            <div class="user-name">
+                                <p>{{ conversation.other_user.username|default:"Unknown User" }}</p>
+                            </div>
+                            {% if conversation.last_message %}
+                                <div class="last-message">
+                                    {% if conversation.last_message.content %}
+                                        <p>{{ conversation.last_message.content|truncatechars:30 }}</p>
+                                    {% else %}
+                                        <p>Image or media message</p>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+
+                            {% if conversation.last_message_time %}
+                                <div class="message-time">
+                                    <p>{{ conversation.last_message_time|timesince }} ago </p>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </a>
+            {% endif %}
+        {% empty %}
+            <div class="no-conversations">No conversations yet</div>
+        {% endfor %}
+    </div>
+</main>
+
+{% include 'template-components/footer.html' %}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const filterButtons = document.querySelectorAll('.category-tabs button');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const filterValue = this.dataset.filter;
+
+                filterButtons.forEach(btn => {
+                    btn.classList.remove('filled-web-btn', 'emp-web-btn');
+                    btn.classList.add(
+                        btn.dataset.filter === filterValue ? 'filled-web-btn' : 'emp-web-btn'
+                    );
+                });
+
+
+                const url = new URL(window.location);
+                url.searchParams.set('filter', filterValue);
+                window.location.href = url.toString();
+            });
+        });
+    });
+</script>
+<script src="{% static 'js-scripts/home-side-panel.js' %}"></script>
+</body>
+</html>

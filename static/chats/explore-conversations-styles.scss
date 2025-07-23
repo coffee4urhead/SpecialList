@@ -1,0 +1,139 @@
+@import "../utils/web_colors.scss";
+@import "../utils/general-web-mixins/main-web-utls.scss";
+@import "../utils/general-web-mixins/main-button-mixin.scss";
+
+main#main-web-container {
+  div.category-tabs {
+    width: 40%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: flex-start;
+
+    button.filled-web-btn {
+      text-align: center;
+      @include main-button($arg-width: 30%, $arg-height: 3rem, $arg-bg-color: $additional_web_color, $txt-color: $main-web-color);
+      padding: 0;
+      margin: 0;
+      border-radius: 8px;
+      font-size: 1.3em;
+      border: 2px solid $main-web-color;
+
+      a {
+        text-decoration: none;
+        color: white;
+        font-weight: 500;
+        display: block;
+        padding: 0 20px;
+        line-height: 45px;
+      }
+
+      &:hover {
+        transform: translateY(-2px);
+        transition: transform 0.2s linear;
+      }
+    }
+
+    button.emp-web-btn {
+      text-align: center;
+      @include main-button($arg-width: 30%, $arg-height: 3rem, $arg-bg-color: $main-web-color, $txt-color: $eccentric-color);
+      padding: 0;
+      margin: 0;
+      border-radius: 8px;
+      font-size: 1.3em;
+      border: 2px solid $eccentric-color;
+
+      a {
+        text-decoration: none;
+        color: white;
+        font-weight: 500;
+        display: block;
+        padding: 0 20px;
+        line-height: 45px;
+      }
+
+      &:hover {
+        transform: translateY(-2px);
+        transition: transform 0.2s linear;
+      }
+    }
+  }
+
+  div.conversation-list {
+    margin-top: 30px;
+    height: 50rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-content: flex-start;
+
+    div.conversation-item {
+      width: 50rem;
+      height: 10rem;
+      padding: 30px;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: flex-start;
+      gap: 10px;
+      background-color: #07212c;
+
+      .avatar-link {
+        display: inline-block;
+      }
+
+      .user-avatar {
+        width: 70px !important;
+        height: 70px !important;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid $additional_web_color;
+      }
+
+      .default-avatar {
+        @extend .user-avatar;
+        background: #ccc;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #666;
+      }
+
+      .conversation-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        .user-name {
+          p {
+            @include def-web-text($pref-font-size: clamp(1em, 1.5em, 2em), $pref-font-st: italic);
+            color: white;
+          }
+        }
+
+        .service-title {
+          color: lighten($additional_web_color, 20%);
+        }
+
+        .last-message {
+          @include def-web-text($pref-font-size: clamp(1em, 1.3em, 1.5em), $pref-font-st: italic);
+          color: #aaa;
+        }
+
+        .message-time {
+          color: #777;
+          font-size: 0.8rem;
+          align-self: flex-end;
+        }
+      }
+    }
+
+    .no-conversations {
+      color: white;
+      text-align: center;
+      padding: 40px;
+    }
+  }
+}

@@ -10,7 +10,7 @@ class Conversation(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def get_last_message(self):
-        return self.messages.order_by('-timestamp').first()
+        return self.messages.select_related('sender').order_by('-timestamp').first()
 
 
 class Message(models.Model):

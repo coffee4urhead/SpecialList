@@ -1,0 +1,135 @@
+main#main-web-container div.category-tabs {
+  width: 40%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: flex-start;
+}
+main#main-web-container div.category-tabs button.filled-web-btn {
+  text-align: center;
+  width: 30%;
+  height: 3rem;
+  background-color: #008DAA;
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1.2em;
+  font-style: normal;
+  color: #ffffff;
+  padding: 0;
+  margin: 0;
+  border-radius: 8px;
+  font-size: 1.3em;
+  border: 2px solid #ffffff;
+}
+main#main-web-container div.category-tabs button.filled-web-btn a {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  display: block;
+  padding: 0 20px;
+  line-height: 45px;
+}
+main#main-web-container div.category-tabs button.filled-web-btn:hover {
+  transform: translateY(-2px);
+  transition: transform 0.2s linear;
+}
+main#main-web-container div.category-tabs button.emp-web-btn {
+  text-align: center;
+  width: 30%;
+  height: 3rem;
+  background-color: #ffffff;
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1.2em;
+  font-style: normal;
+  color: #32AE88;
+  padding: 0;
+  margin: 0;
+  border-radius: 8px;
+  font-size: 1.3em;
+  border: 2px solid #32AE88;
+}
+main#main-web-container div.category-tabs button.emp-web-btn a {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  display: block;
+  padding: 0 20px;
+  line-height: 45px;
+}
+main#main-web-container div.category-tabs button.emp-web-btn:hover {
+  transform: translateY(-2px);
+  transition: transform 0.2s linear;
+}
+main#main-web-container div.conversation-list {
+  margin-top: 30px;
+  height: 50rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-content: flex-start;
+}
+main#main-web-container div.conversation-list div.conversation-item {
+  width: 50rem;
+  height: 10rem;
+  padding: 30px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 10px;
+  background-color: #07212c;
+}
+main#main-web-container div.conversation-list div.conversation-item .avatar-link {
+  display: inline-block;
+}
+main#main-web-container div.conversation-list div.conversation-item .user-avatar, main#main-web-container div.conversation-list div.conversation-item .default-avatar {
+  width: 70px !important;
+  height: 70px !important;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #008DAA;
+}
+main#main-web-container div.conversation-list div.conversation-item .default-avatar {
+  background: #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+}
+main#main-web-container div.conversation-list div.conversation-item .conversation-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+main#main-web-container div.conversation-list div.conversation-item .conversation-content .user-name p {
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1.5em;
+  font-style: italic;
+  color: white;
+}
+main#main-web-container div.conversation-list div.conversation-item .conversation-content .service-title {
+  color: #11d6ff;
+}
+main#main-web-container div.conversation-list div.conversation-item .conversation-content .last-message {
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1.3em;
+  font-style: italic;
+  color: #aaa;
+}
+main#main-web-container div.conversation-list div.conversation-item .conversation-content .message-time {
+  color: #777;
+  font-size: 0.8rem;
+  align-self: flex-end;
+}
+main#main-web-container div.conversation-list .no-conversations {
+  color: white;
+  text-align: center;
+  padding: 40px;
+}
+
+/*# sourceMappingURL=explore-conversations-styles.css.map */

@@ -63,7 +63,7 @@
 }
 
 @mixin emp-web-btn($arg-width: 70%, $arg-height: 45px, $arg-bg-color: $main-web-color, $txt-color: $main-web-color) {
-  @include main-button($arg-width: 70%, $arg-height: 45px, $arg-bg-color: $main-web-color, $txt-color: $main-web-color);
+  @include main-button($arg-width: $arg-width, $arg-height: $arg-height, $arg-bg-color: $main-web-color, $txt-color: $main-web-color);
   border-radius: 8px;
   color: $eccentric-color;
   font-size: 1.1em;

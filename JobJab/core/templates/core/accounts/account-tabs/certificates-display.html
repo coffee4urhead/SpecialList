@@ -9,7 +9,11 @@
             <p>Preview not available</p>
         {% endif %}
     {% else %}
-        <p>No certificates to display</p>
+        <div class="not-found">
+        {% load static %}
+            <p>No certificates to display</p>
+            <img src="{% static 'images/not-found.png' %}" alt="not found resources for this webpage"/>
+        </div>
     {% endif %}
 </div>
 

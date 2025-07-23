@@ -69,6 +69,25 @@ main#main-web-container div.conversation-list {
   justify-content: space-evenly;
   align-content: flex-start;
 }
+main#main-web-container div.conversation-list div.not-found {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  gap: 20px;
+}
+main#main-web-container div.conversation-list div.not-found p {
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 2em;
+  font-style: normal;
+  color: black;
+}
+main#main-web-container div.conversation-list div.not-found img {
+  width: 400px;
+  height: auto;
+  object-fit: contain;
+}
 main#main-web-container div.conversation-list div.conversation-item {
   width: 50rem;
   height: 10rem;

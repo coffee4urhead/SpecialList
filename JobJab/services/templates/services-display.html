@@ -9,8 +9,8 @@
     {% endif %}
 </div>
 <div class="pdf-preview-container mb-3">
-    {% for service in services %}
-        {% if service %}
+    {% if services %}
+        {% for service in services %}
             <div class="service-mini-cont">
                 <div id="top-content">
                     <div class="user-rev-info">
@@ -115,10 +115,13 @@
                     <p>Preview not available</p>
                 {% endif %}
             </div>
-        {% else %}
+        {% endfor %}
+    {% else %}
+        <div class="not-found">
             <p>No services to display</p>
-        {% endif %}
-    {% endfor %}
+            <img src="{% static 'images/not-found.png' %}" alt="not found resources for this webpage"/>
+        </div>
+    {% endif %}
 </div>
 
 {% if request.user == user %}

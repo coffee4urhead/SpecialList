@@ -44,22 +44,25 @@
 <h1>{{ user.full_name }} Certificates Page!</h1>
 
 <main id="certificates-container">
-    <article id="certificates">
-        <div class="certificates-list">
-            {% for certificate in certificates %}
-                <div class="certificate-item" data-certificate-id="{{ certificate.id }}" data-certificate-title="{{ certificate.title }}" data-preview-url="
+    {% if certificates %}
+        <article id="certificates">
+            <div class="certificates-list">
+                {% for certificate in certificates %}
+                    <div class="certificate-item" data-certificate-id="{{ certificate.id }}"
+                         data-certificate-title="{{ certificate.title }}" data-preview-url="
                         {% if certificate.preview_image %}{{ certificate.preview_image.url }}{% endif %}">
-                    <h4>{{ certificate.title }}</h4>
-                    <p>Uploaded: {{ certificate.uploaded_at|date:"F j, Y" }}</p>
-                    <p>{% if certificate.is_verified %}Verified
-                        <img id="verify-logo" src="{% static 'images/verify.png' %}" alt="verify logo"/>{% else %}
-                        Pending verification{% endif %}</p>
-                </div>
-            {% empty %}
-                <p>No certificates uploaded yet.</p>
-            {% endfor %}
-        </div>
-    </article>
+                        <h4>{{ certificate.title }}</h4>
+                        <p>Uploaded: {{ certificate.uploaded_at|date:"F j, Y" }}</p>
+                        <p>{% if certificate.is_verified %}Verified
+                            <img id="verify-logo" src="{% static 'images/verify.png' %}" alt="verify logo"/>{% else %}
+                            Pending verification{% endif %}</p>
+                    </div>
+                {% empty %}
+                    <p>No certificates uploaded yet.</p>
+                {% endfor %}
+            </div>
+        </article>
+    {% endif %}
 
     <article id="certificate-display">
         {% include 'core/accounts/account-tabs/certificates-display.html' %}

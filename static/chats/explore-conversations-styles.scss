@@ -67,6 +67,25 @@ main#main-web-container {
     justify-content: space-evenly;
     align-content: flex-start;
 
+    div.not-found {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-content: center;
+      gap: 20px;
+
+      p {
+        @include def-web-text($pref-font-size: 2em, $pref-font-st: normal);
+        color: black;
+      }
+
+      img {
+        width: 400px;
+        height: auto;
+        object-fit: contain;
+      }
+    }
+
     div.conversation-item {
       width: 50rem;
       height: 10rem;

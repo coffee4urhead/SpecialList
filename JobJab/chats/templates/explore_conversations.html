@@ -16,6 +16,12 @@
             box-sizing: border-box;
         }
 
+        html, body {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
         body {
             margin: 0;
             padding: 0;
@@ -33,7 +39,7 @@
 
         main#main-web-container {
             width: 100%;
-            height: auto;
+            flex: 1;
         }
     </style>
     <title>Your SpecialList Chat with users from the community</title>
@@ -94,7 +100,10 @@
                 </a>
             {% endif %}
         {% empty %}
-            <div class="no-conversations">No conversations yet</div>
+            <div class="not-found">
+                <p>You haven't contacted anybody from the {{ current_filter }} filter</p>
+                <img src="{% static 'images/not-found.png' %}" alt="not found resources for this webpage"/>
+            </div>
         {% endfor %}
     </div>
 </main>

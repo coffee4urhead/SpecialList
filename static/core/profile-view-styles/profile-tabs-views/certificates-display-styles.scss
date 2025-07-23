@@ -8,6 +8,25 @@ div.pdf-preview-container {
   align-items: center;
   flex-direction: column;
 
+  div.not-found {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    gap: 20px;
+
+    p {
+      @include def-web-text($pref-font-size: 2em, $pref-font-st: normal);
+      color: black;
+    }
+
+    img {
+      width: 400px;
+      height: auto;
+      object-fit: contain;
+    }
+  }
+
   img#certificate-file-preview {
     width: 100%;
     max-width: 600px;

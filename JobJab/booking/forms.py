@@ -54,19 +54,18 @@ class WeeklyTimeSlotForm(forms.ModelForm):
 class BookingForm(forms.ModelForm):
     class Meta:
         model = Booking
-        fields = ['service', 'appointment_datetime', 'notes', 'time_slot']
+        fields = ['notes']
         widgets = {
-            'appointment_datetime': forms.DateTimeInput(
-                attrs={
-                    'type': 'datetime-local',
-                    'min': datetime.now().strftime("%Y-%m-%dT%H:%M")
-                }
-            ),
             'notes': forms.Textarea(attrs={'rows': 3}),
         }
 
     def __init__(self, *args, **kwargs):
         self.provider = kwargs.pop('provider', None)
+        self.seeker = kwargs.pop('seeker', None)
+        self.service = kwargs.pop('service', None)
+        self.status = kwargs.pop('status', None)
+        self.time_slot = kwargs.pop('time_slot', None)
+
         super().__init__(*args, **kwargs)
         if self.provider:
             self.fields['service'].queryset = ServiceListing.objects.filter(provider=self.provider)

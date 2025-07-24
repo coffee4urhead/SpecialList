@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@stripe/stripe-js": "^7.6.1",
+    "dotenv": "^17.2.0"
+  }
+}

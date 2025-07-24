@@ -2,6 +2,8 @@ from datetime import datetime, timedelta, date
 
 from django.db import models
 from django.conf import settings
+from django.utils import timezone
+
 from JobJab.core.models import UserChoices
 from JobJab.services.models import ServiceListing
 
@@ -102,9 +104,17 @@ class Booking(models.Model):
         related_name='bookings_received',
         limit_choices_to={'user_type': UserChoices.Provider}
     )
+    stripe_customer_id = models.CharField(max_length=512, unique=True)
+    stripe_subscription_id = models.CharField(
+        max_length=512,
+        unique=True,
+        blank=True,
+        null=True,
+        help_text="The Stripe subscription ID"
+    )
     service = models.ForeignKey(ServiceListing, on_delete=models.CASCADE, related_name='bookings')
 
-    appointment_datetime = models.DateTimeField()
+    appointment_datetime = models.DateTimeField(default=timezone.now)
     status = models.CharField(
         max_length=10,
         choices=BookingStatus,
@@ -120,6 +130,25 @@ class Booking(models.Model):
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    price = models.DecimalField(
+        decimal_places=2,
+        max_digits=5,
+        default=0,
+    )
+    stripe_payment_intent_id = models.CharField(max_length=255, blank=True, null=True)
+    payment_status = models.CharField(max_length=20, default='unpaid', choices=[
+        ('unpaid', 'Unpaid'),
+        ('pending', 'Pending'),
+        ('paid', 'Paid'),
+        ('failed', 'Failed'),
+        ('refunded', 'Refunded'),
+    ])
+    amount_paid = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+
+    def calculate_price(self):
+        """Calculate price based on service price and duration"""
+        duration_hours = (self.time_slot.end_time - self.time_slot.start_time).total_seconds() / 3600
+        return self.service.price * duration_hours
 
     def __str__(self):
         return f"Booking {self.id} from {self.seeker} to {self.provider} at {self.appointment_datetime}"

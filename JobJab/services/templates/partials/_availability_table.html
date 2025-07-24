@@ -17,14 +17,13 @@
                     {% with key=day_number|stringformat:"s"|add:"_"|add:start_str|add:"_"|add:end_str %}
                         {% with slot=slots_by_key|dict_key:key %}
                             {% if slot %}
-                                <td>
+                                <td data-slot-id="{{ slot.id }}">
                                     {% if slot.is_booked %}
                                         Booked
                                     {% else %}
                                         Available
                                     {% endif %}
-                                </td>
-                            {% else %}
+                                    {% else %}
                                 <td>-</td>
                             {% endif %}
                         {% endwith %}

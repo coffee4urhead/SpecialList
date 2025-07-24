@@ -1,14 +1,19 @@
+from decimal import Decimal
+
+import stripe
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import modelformset_factory
 from django.shortcuts import render, get_object_or_404
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.views.generic import DetailView
 
+from JobJab import settings
 from JobJab.booking.forms import BookingForm, WeeklyTimeSlotForm
-from JobJab.booking.models import WeeklyTimeSlot
+from JobJab.booking.models import WeeklyTimeSlot, Booking
 from JobJab.services.models import ServiceListing
 
 
@@ -60,27 +65,25 @@ def get_time_slots(request, service_id):
 
     return JsonResponse({'slots': data})
 
-@login_required
-@require_POST
+
 def create_booking(request):
-    form = BookingForm(request.POST, provider=request.user)
+    if request.method == 'POST':
+        form = BookingForm(request.POST)
+        if form.is_valid():
+            booking = form.save(commit=False)
+            booking.seeker = request.user
+            booking.price = booking.calculate_price()
+            booking.save()
 
-    if form.is_valid():
-        booking = form.save(commit=False)
-        booking.seeker = request.user
-        booking.provider = booking.service.provider
+            booking.time_slot.is_booked = True
+            booking.time_slot.save()
 
-        slot = booking.time_slot
-        if slot.is_booked:
-            return JsonResponse({'error': 'This time slot is already booked.'}, status=400)
-
-        slot.is_booked = True
-        slot.save()
-        booking.save()
-
-        return JsonResponse({'message': 'Booking created successfully.'})
-    else:
-        return JsonResponse({'errors': form.errors}, status=400)
+            return JsonResponse({
+                'success': True,
+                'booking_id': booking.id,
+                'amount': float(booking.price),
+            })
+    return JsonResponse({'error': 'Invalid request'}, status=400)
 
 def create_availability_view(request):
     WeeklyTimeSlotFormSet = modelformset_factory(
@@ -125,3 +128,60 @@ def availability_table_view(request):
         'days': days,
         'time_ranges': unique_times,
     })
+
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
+
+@csrf_exempt
+def create_payment_intent(request, booking_id):
+    booking = get_object_or_404(Booking, id=booking_id, seeker=request.user)
+
+    try:
+        amount = int(booking.calculate_price() * 100)
+
+        intent = stripe.PaymentIntent.create(
+            amount=amount,
+            currency='usd',
+            metadata={
+                'booking_id': booking.id,
+                'user_id': request.user.id
+            },
+        )
+
+        return JsonResponse({
+            'clientSecret': intent['client_secret'],
+            'amount': amount,
+            'booking_id': booking.id,
+        })
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=403)
+
+@csrf_exempt
+def stripe_webhook(request):
+    payload = request.body
+    sig_header = request.META['HTTP_STRIPE_SIGNATURE']
+    event = None
+
+    try:
+        event = stripe.Webhook.construct_event(
+            payload, sig_header, settings.STRIPE_WEBHOOK_SECRET
+        )
+    except ValueError as e:
+        return HttpResponse(status=400)
+    except stripe.error.SignatureVerificationError as e:
+        return HttpResponse(status=400)
+
+    if event['type'] == 'payment_intent.succeeded':
+        payment_intent = event['data']['object']
+        booking_id = payment_intent['metadata']['booking_id']
+
+        try:
+            booking = Booking.objects.get(id=booking_id)
+            booking.payment_status = 'paid'
+            booking.stripe_payment_intent_id = payment_intent['id']
+            booking.amount_paid = Decimal(payment_intent['amount']) / 100
+            booking.save()
+        except Booking.DoesNotExist:
+            pass
+
+    return HttpResponse(status=200)

@@ -1,33 +1,37 @@
-<form method="post" action="{% url 'booking:set_availability' %}">
-    {% csrf_token %}
-    {{ formset.management_form }}
-    <pre>{{ formset|length }} slots loaded</pre>
-
-    <table class="availability-table">
-        <thead>
-        <tr>
-            <th>Day</th>
-            <th>Start Time</th>
-            <th>End Time</th>
-            <th>Booked?</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for slot in time_slots %}
-            <tr>
-                <td>{{ slot.get_day_of_week_display }}</td>
-                <td>{{ slot.start_time }}</td>
-                <td>{{ slot.end_time }}</td>
-                <td>{{ slot.is_booked|yesno:"Yes,No" }}</td>
-            </tr>
-        {% empty %}
-            <tr>
-                <td colspan="4">No availability slots defined.</td>
-            </tr>
+{% load custom_filters %}
+<table class="availability-table">
+    <thead>
+    <tr>
+        <th>Time</th>
+        {% for day_number, day_name in days %}
+            <th>{{ day_name }}</th>
         {% endfor %}
-        </tbody>
-    </table>
-
-
-    <button type="submit" class="btn">Save Weekly Availability</button>
-</form>
+    </tr>
+    </thead>
+    <tbody>
+    {% for start, end in time_ranges %}
+        <tr>
+            <td>{{ start|time:"H:i" }} - {{ end|time:"H:i" }}</td>
+            {% for day_number, _ in days %}
+                {% with start_str=start|time:"H:i:s" end_str=end|time:"H:i:s" %}
+                    {% with key=day_number|stringformat:"s"|add:"_"|add:start_str|add:"_"|add:end_str %}
+                        {% with slot=slots_by_key|dict_key:key %}
+                            {% if slot %}
+                                <td>
+                                    {% if slot.is_booked %}
+                                        Booked
+                                    {% else %}
+                                        Available
+                                    {% endif %}
+                                </td>
+                            {% else %}
+                                <td>-</td>
+                            {% endif %}
+                        {% endwith %}
+                    {% endwith %}
+                {% endwith %}
+            {% endfor %}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 
 from django.db import models
 from django.conf import settings
@@ -38,8 +38,10 @@ class ProviderAvailability(models.Model):
     def _generate_weekly_slots(self):
         for day in range(5):
             current_time = self.provider.preferred_start
+            print(f"\nDay {day} ({WeeklyTimeSlot.DAYS_OF_WEEK[day][1]}):")
+
             while current_time < self.provider.preferred_end:
-                end_time = (datetime.combine(datetime.today(), current_time) +
+                end_time = (datetime.combine(date.today(), current_time) +
                             timedelta(minutes=self.slot_duration)).time()
 
                 WeeklyTimeSlot.objects.create(
@@ -49,7 +51,8 @@ class ProviderAvailability(models.Model):
                     end_time=end_time,
                     is_booked=False
                 )
-                current_time = (datetime.combine(datetime.today(), end_time) +
+
+                current_time = (datetime.combine(date.today(), end_time) +
                                 timedelta(minutes=self.buffer_time)).time()
 
     def __str__(self):
@@ -74,6 +77,10 @@ class WeeklyTimeSlot(models.Model):
     start_time = models.TimeField()
     end_time = models.TimeField()
     is_booked = models.BooleanField(default=False)
+
+    def change_status(self, status):
+        self.is_booked = status
+        self.save()
 
     class Meta:
         unique_together = ('availability', 'day_of_week', 'start_time')

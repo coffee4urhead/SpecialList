@@ -163,21 +163,6 @@
         <div class="modal-content">
             <span class="close-btn">&times;</span>
             <h3>Create New Service</h3>
-
-            <!-- Availability Form -->
-            <form method="post" id="availability-form" class="form-section">
-                {% csrf_token %}
-                <h4>Set Your Availability</h4>
-                {{ availability_form.as_p }}
-                <button type="submit" class="btn">Set Your Availability</button>
-            </form>
-
-            <!-- Weekly Availability Table -->
-            <div class="form-section">
-                <h2>Set Weekly Availability</h2>
-                {% include 'partials/_availability_table.html' with formset=formset %}
-            </div>
-
             <!-- Service Creation Form -->
             <form method="post" enctype="multipart/form-data" id="service-creation-form">
                 {% csrf_token %}

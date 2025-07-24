@@ -10,6 +10,7 @@ from .models import (
 from ..services.models import ServiceListing
 
 
+
 class ProviderAvailabilityForm(forms.ModelForm):
     class Meta:
         model = ProviderAvailability
@@ -18,6 +19,13 @@ class ProviderAvailabilityForm(forms.ModelForm):
             'slot_duration': forms.NumberInput(attrs={'min': 15, 'step': 15}),
             'buffer_time': forms.NumberInput(attrs={'min': 0}),
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        for field_name, field in self.fields.items():
+            if field.help_text:
+                field.label = field.help_text
 
     def clean_slot_duration(self):
         duration = self.cleaned_data['slot_duration']

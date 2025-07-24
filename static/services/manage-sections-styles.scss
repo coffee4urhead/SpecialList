@@ -2,6 +2,34 @@
 @import "../utils/general-web-mixins/main-web-utls.scss";
 @import "../utils/general-web-mixins/main-button-mixin.scss";
 
+button.filled-web-btn {
+  align-self: center;
+  @include main-button($arg-width: 70%, $arg-height: 45px, $arg-bg-color: $additional_web_color, $txt-color: $main-web-color);
+  border-radius: 8px;
+  font-size: 1.5em;
+  font-weight: 500;
+  border: 2px solid $main-web-color;
+
+  &:hover {
+    transform: translateY(-2px);
+    transition: transform 0.2s linear;
+  }
+}
+
+button.emp-web-btn {
+  align-self: center;
+  @include main-button($arg-width: 70%, $arg-height: 45px, $arg-bg-color: $main-web-color, $txt-color: $main-web-color);
+  border-radius: 8px;
+  color: $eccentric-color;
+  font-size: 1.1em;
+  font-weight: 500;
+  border: 2px solid $eccentric-color;
+
+  &:hover {
+    transform: translateY(-2px);
+    transition: transform 0.2s linear;
+  }
+}
 
 main#manage-sections-container {
   display: flex;
@@ -9,6 +37,73 @@ main#manage-sections-container {
   justify-content: space-evenly;
   align-items: center;
   align-content: center;
+
+  #availability-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-content: center;
+
+    p {
+      label {
+        color: black
+      }
+    }
+
+    input[type='number'] {
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      @include def-web-text($pref-font-size: 1em);
+      width: 50%;
+      box-sizing: border-box;
+
+      &:focus {
+        outline: none;
+        border-color: $eccentric-color;
+        box-shadow: 0 0 0 2px rgba($main-web-color, 0.2);
+      }
+    }
+
+    button.emp-web-btn {
+      width: 30%;
+    }
+  }
+
+  div.weekly-timestamps {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-content: center;
+
+    table.availability-table {
+      padding: 30px;
+      border-radius: 8px;
+      background-color: $secondary-web-color;
+
+      tbody tr:nth-child(even) {
+        background-color: $secondary-web-color;
+        color: white;
+      }
+
+      tbody tr:nth-child(odd) {
+        background-color: $main-web-color;
+      }
+
+      td, th {
+        padding: 10px;
+      }
+
+      td {
+        @include def-web-text($pref-font-size: clamp(0.5em, 1em, 1.3em), $pref-font-st: 600);
+      }
+
+      th {
+        @include web-title-special($pref-font-size: clamp(1em, 1.3em, 2em), $pref-font-st: normal);
+        color: white;
+      }
+    }
+  }
 
   h2 {
     @include web-title-special($pref-font-size: clamp(2em, 2.3em, 3em), $pref-font-st: normal);
@@ -63,35 +158,6 @@ main#manage-sections-container {
       gap: 30px;
       align-content: center;
       align-items: center;
-
-      button.filled-web-btn {
-        align-self: center;
-        @include main-button($arg-width: 70%, $arg-height: 45px, $arg-bg-color: $additional_web_color, $txt-color: $main-web-color);
-        border-radius: 8px;
-        font-size: 1.5em;
-        font-weight: 500;
-        border: 2px solid $main-web-color;
-
-        &:hover {
-          transform: translateY(-2px);
-          transition: transform 0.2s linear;
-        }
-      }
-
-      button.emp-web-btn {
-        align-self: center;
-        @include main-button($arg-width: 70%, $arg-height: 45px, $arg-bg-color: $main-web-color, $txt-color: $main-web-color);
-        border-radius: 8px;
-        color: $eccentric-color;
-        font-size: 1.1em;
-        font-weight: 500;
-        border: 2px solid $eccentric-color;
-
-        &:hover {
-          transform: translateY(-2px);
-          transition: transform 0.2s linear;
-        }
-      }
     }
   }
 
@@ -110,7 +176,6 @@ main#manage-sections-container {
     #live-preview {
       font-family: "Euclid Circular A", sans-serif;
 
-      /* Mirror your display template styles */
       .service-section {
         margin: 2rem 0;
       }

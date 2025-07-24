@@ -1,10 +1,115 @@
 @charset "UTF-8";
+button.filled-web-btn {
+  align-self: center;
+  width: 70%;
+  height: 45px;
+  background-color: #008DAA;
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1.2em;
+  font-style: normal;
+  color: #ffffff;
+  border-radius: 8px;
+  font-size: 1.5em;
+  font-weight: 500;
+  border: 2px solid #ffffff;
+}
+button.filled-web-btn:hover {
+  transform: translateY(-2px);
+  transition: transform 0.2s linear;
+}
+
+button.emp-web-btn {
+  align-self: center;
+  width: 70%;
+  height: 45px;
+  background-color: #ffffff;
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1.2em;
+  font-style: normal;
+  color: #ffffff;
+  border-radius: 8px;
+  color: #32AE88;
+  font-size: 1.1em;
+  font-weight: 500;
+  border: 2px solid #32AE88;
+}
+button.emp-web-btn:hover {
+  transform: translateY(-2px);
+  transition: transform 0.2s linear;
+}
+
 main#manage-sections-container {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
   align-content: center;
+}
+main#manage-sections-container #availability-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-content: center;
+}
+main#manage-sections-container #availability-form p label {
+  color: black;
+}
+main#manage-sections-container #availability-form input[type=number] {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1em;
+  font-style: normal;
+  width: 50%;
+  box-sizing: border-box;
+}
+main#manage-sections-container #availability-form input[type=number]:focus {
+  outline: none;
+  border-color: #32AE88;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
+}
+main#manage-sections-container #availability-form button.emp-web-btn {
+  width: 30%;
+}
+main#manage-sections-container div.weekly-timestamps {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-content: center;
+}
+main#manage-sections-container div.weekly-timestamps table.availability-table {
+  padding: 30px;
+  border-radius: 8px;
+  background-color: #06BAC5;
+}
+main#manage-sections-container div.weekly-timestamps table.availability-table tbody tr:nth-child(even) {
+  background-color: #06BAC5;
+  color: white;
+}
+main#manage-sections-container div.weekly-timestamps table.availability-table tbody tr:nth-child(odd) {
+  background-color: #ffffff;
+}
+main#manage-sections-container div.weekly-timestamps table.availability-table td, main#manage-sections-container div.weekly-timestamps table.availability-table th {
+  padding: 10px;
+}
+main#manage-sections-container div.weekly-timestamps table.availability-table td {
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1em;
+  font-style: 600;
+}
+main#manage-sections-container div.weekly-timestamps table.availability-table th {
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1.3em;
+  font-style: normal;
+  margin-left: 20px;
+  padding: 13px;
+  color: white;
 }
 main#manage-sections-container h2 {
   font-family: "Euclid Circular A", sans-serif;
@@ -71,45 +176,6 @@ main#manage-sections-container form[method=POST] div.buttons-container {
   align-content: center;
   align-items: center;
 }
-main#manage-sections-container form[method=POST] div.buttons-container button.filled-web-btn {
-  align-self: center;
-  width: 70%;
-  height: 45px;
-  background-color: #008DAA;
-  font-family: "Euclid Circular A", sans-serif;
-  font-weight: 400;
-  font-size: 1.2em;
-  font-style: normal;
-  color: #ffffff;
-  border-radius: 8px;
-  font-size: 1.5em;
-  font-weight: 500;
-  border: 2px solid #ffffff;
-}
-main#manage-sections-container form[method=POST] div.buttons-container button.filled-web-btn:hover {
-  transform: translateY(-2px);
-  transition: transform 0.2s linear;
-}
-main#manage-sections-container form[method=POST] div.buttons-container button.emp-web-btn {
-  align-self: center;
-  width: 70%;
-  height: 45px;
-  background-color: #ffffff;
-  font-family: "Euclid Circular A", sans-serif;
-  font-weight: 400;
-  font-size: 1.2em;
-  font-style: normal;
-  color: #ffffff;
-  border-radius: 8px;
-  color: #32AE88;
-  font-size: 1.1em;
-  font-weight: 500;
-  border: 2px solid #32AE88;
-}
-main#manage-sections-container form[method=POST] div.buttons-container button.emp-web-btn:hover {
-  transform: translateY(-2px);
-  transition: transform 0.2s linear;
-}
 main#manage-sections-container .editor-preview-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -123,7 +189,6 @@ main#manage-sections-container .editor-preview-container .editor-panel, main#man
 }
 main#manage-sections-container .editor-preview-container #live-preview {
   font-family: "Euclid Circular A", sans-serif;
-  /* Mirror your display template styles */
 }
 main#manage-sections-container .editor-preview-container #live-preview .service-section {
   margin: 2rem 0;

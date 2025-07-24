@@ -10,7 +10,26 @@
         <link rel="stylesheet" type="text/x-scss" href="{% static 'core/homepage/footer-styles.scss' %}">
     {% endcompress %}
     <style>
-        *{margin:0;padding:0;box-sizing:border-box}body{margin:0;padding:0;overflow-x:hidden;background-color:#fff}p,a{font-family:"Euclid Circular A",sans-serif;font-weight:500;font-size:1em;font-style:normal;color:#fff}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background-color: #fff
+        }
+
+        p, a {
+            font-family: "Euclid Circular A", sans-serif;
+            font-weight: 500;
+            font-size: 1em;
+            font-style: normal;
+            color: #fff
+        }
     </style>
     <title>Manage Sections</title>
 </head>
@@ -22,13 +41,60 @@
 
     <div class="editor-preview-container">
         <div class="editor-panel">
-            <form method="post" enctype="multipart/form-data" id="sections-form">
+            <div class="form-section" id="availability-form">
+                <h2>Set Your working time gaps</h2>
+                <form method="POST" id="working-time-form" name="working-time-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="form-type" value="availability-form">
+                    <div class="form-group">
+                        <label for="{{ availability_form.slot_duration.id_for_label }}">
+                            {{ availability_form.slot_duration.help_text }}
+                        </label>
+                        {{ availability_form.slot_duration }}
+                        {% if availability_form.slot_duration.errors %}
+                            <div class="form-error">{{ availability_form.slot_duration.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ availability_form.buffer_time.id_for_label }}">
+                            {{ availability_form.buffer_time.help_text }}
+                        </label>
+                        {{ availability_form.buffer_time }}
+                        {% if availability_form.buffer_time.errors %}
+                            <div class="form-error">{{ availability_form.buffer_time.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ availability_form.is_active.id_for_label }}">
+                            {{ availability_form.is_active.label }}
+                        </label>
+                        {{ availability_form.is_active }}
+                        {% if availability_form.is_active.errors %}
+                            <div class="form-error">{{ availability_form.is_active.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <button type="submit" class="emp-web-btn">Submit</button>
+                </form>
+            </div>
+
+            <div class="weekly-timestamps">
+                <h2>Set Weekly Availability</h2>
+                {% include 'partials/_availability_table.html' with slots_by_key=slots_by_key days=days time_ranges=time_ranges %}
+            </div>
+            {{ formset.management_form }}
+
+            <form method="post" enctype="multipart/form-data" id="sections-form" name="sections-form">
                 {% csrf_token %}
-                {{ formset.management_form }}
+             <input type="hidden" name="form-type" value="sections-form">
+                {{ section_formset.management_form }}
 
                 <div id="sections-formset">
-                    {% for form in formset %}
-                        <div class="section-form" data-section-type="{{ form.section_type.value|default:'text_image' }}">
+                    {% for form in section_formset %}
+                        <div class="section-form"
+                             data-section-type="{{ form.section_type.value|default:'text_image' }}">
                             {{ form.id }}
                             <div class="form-header">
                                 <h3>Section #{{ forloop.counter }}</h3>
@@ -61,7 +127,8 @@
                                     {{ form.image.label_tag }}
                                     {{ form.image }}
                                     {% if form.instance.image %}
-                                        <img src="{{ form.instance.image.url }}" alt="Current image" width="100" class="current-image">
+                                        <img src="{{ form.instance.image.url }}" alt="Current image" width="100"
+                                             class="current-image">
                                     {% endif %}
                                 </div>
 
@@ -97,42 +164,45 @@
 {% include 'template-components/footer.html' %}
 
 <script src="{% static 'js-scripts/services-scripts/preview-service-changes.js' %}"></script>
+<script src="{% static 'js-scripts/home-side-panel.js' %}"></script>
 <script>
-document.addEventListener('DOMContentLoaded',function(){
-    function updateFormFieldsVisibility(formDiv){
-        const sectionType=formDiv.dataset.sectionType;
-        const fields=formDiv.querySelectorAll('.form-fields > [data-depends-on]');
-        fields.forEach(field=>field.style.display='none');
-        switch(sectionType){
-            case'text_image':
-                formDiv.querySelector('.field-content').style.display='block';
-                formDiv.querySelector('.field-image').style.display='block';
-                break;
-            case'list':
-                formDiv.querySelector('.field-list-items').style.display='block';
-                break;
-            case'text_only':
-                formDiv.querySelector('.field-content').style.display='block';
-                break;
-            case'image_only':
-                formDiv.querySelector('.field-image').style.display='block';
-                break;
+    document.addEventListener('DOMContentLoaded', function () {
+        function updateFormFieldsVisibility(formDiv) {
+            const sectionType = formDiv.dataset.sectionType;
+            const fields = formDiv.querySelectorAll('.form-fields > [data-depends-on]');
+            fields.forEach(field => field.style.display = 'none');
+            switch (sectionType) {
+                case'text_image':
+                    formDiv.querySelector('.field-content').style.display = 'block';
+                    formDiv.querySelector('.field-image').style.display = 'block';
+                    break;
+                case'list':
+                    formDiv.querySelector('.field-list-items').style.display = 'block';
+                    break;
+                case'text_only':
+                    formDiv.querySelector('.field-content').style.display = 'block';
+                    break;
+                case'image_only':
+                    formDiv.querySelector('.field-image').style.display = 'block';
+                    break;
+            }
+            const listTextarea = formDiv.querySelector('[data-list-input]');
+            if (listTextarea) listTextarea.style.display = sectionType === 'list' ? 'block' : 'none';
         }
-        const listTextarea=formDiv.querySelector('[data-list-input]');
-        if(listTextarea)listTextarea.style.display=sectionType==='list'?'block':'none';
-    }
 
-    document.querySelectorAll('[name$="-section_type"]').forEach(select=>{
-        select.addEventListener('change',function(){
-            const formDiv=this.closest('.section-form');
-            formDiv.dataset.sectionType=this.value;
-            updateFormFieldsVisibility(formDiv);
+        document.querySelectorAll('[name$="-section_type"]').forEach(select => {
+            select.addEventListener('change', function () {
+                const formDiv = this.closest('.section-form');
+                formDiv.dataset.sectionType = this.value;
+                updateFormFieldsVisibility(formDiv);
+            });
+        });
+
+        document.querySelectorAll('.section-form').forEach(updateFormFieldsVisibility);
+        document.getElementById('add-more').addEventListener('click', function () {
         });
     });
-
-    document.querySelectorAll('.section-form').forEach(updateFormFieldsVisibility);
-    document.getElementById('add-more').addEventListener('click',function(){});
-});
 </script>
+<script src="{% static 'js-scripts/services-scripts/manage-sections-availability.js' %}"></script>
 </body>
 </html>

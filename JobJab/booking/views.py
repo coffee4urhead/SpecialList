@@ -90,7 +90,6 @@ def create_availability_view(request):
         can_delete=True
     )
 
-    #this is not a post request being made so the formset is empty which causes the empty table
     if request.method == 'POST':
         formset = WeeklyTimeSlotFormSet(request.POST)
         if formset.is_valid():
@@ -100,4 +99,29 @@ def create_availability_view(request):
 
     return render(request, 'services-display.html', {
         'formset': formset,
+    })
+
+from collections import defaultdict
+
+@login_required(login_url='login')
+def availability_table_view(request):
+    time_slots = WeeklyTimeSlot.objects.filter(
+        availability__provider=request.user
+    ).order_by('day_of_week', 'start_time')
+
+    slots_by_day = defaultdict(list)
+    for slot in time_slots:
+        slots_by_day[slot.day_of_week].append(slot)
+
+    days = [(0, "Monday"), (1, "Tuesday"), (2, "Wednesday"), (3, "Thursday"), (4, "Friday")]
+
+    unique_times = sorted({
+        (slot.start_time, slot.end_time)
+        for slot in time_slots
+    })
+
+    return render(request, 'partials/_availability_table.html', {
+        'slots_by_day': slots_by_day,
+        'days': days,
+        'time_ranges': unique_times,
     })

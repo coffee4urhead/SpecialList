@@ -1,4 +1,5 @@
 import os
+from datetime import time
 
 from PIL import Image
 from django.contrib.auth.models import AbstractUser
@@ -150,8 +151,8 @@ class CustomUser(AbstractUser):
     phone_number = models.CharField(max_length=15, blank=True, null=True)
     profession = models.CharField(max_length=100, blank=True)
     personal_number = models.CharField(max_length=100, blank=True, null=True)
-    preferred_start = models.TimeField(blank=True, null=True)
-    preferred_end = models.TimeField(blank=True, null=True)
+    preferred_start = models.TimeField(blank=True, null=True, default=time(9, 0))
+    preferred_end = models.TimeField(blank=True, null=True, default=time(17, 0))
     is_verified = models.BooleanField(default=False)
     verified_at = models.DateTimeField(blank=True, null=True)
     subscription_membership = models.OneToOneField(Subscription, on_delete=models.CASCADE, blank=True, null=True, related_name='user_subscription')

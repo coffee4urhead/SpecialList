@@ -1,13 +1,15 @@
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
+from django.template.loader import render_to_string
 from django.urls import reverse
+from django.views.decorators.http import require_http_methods
 
 from JobJab.services.models import ServiceListing, Comment
 from .forms import ServiceListingForm, ServiceDetailSectionFormSet, CommentForm
 from .utils import get_service_limit_for_plan
 from ..booking.forms import ProviderAvailabilityForm
-from ..booking.models import ProviderAvailability
+from ..booking.models import ProviderAvailability, WeeklyTimeSlot
 
 DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
 
@@ -15,7 +17,6 @@ DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
 @login_required(login_url='login')
 def explore_services(request):
     user = request.user
-    availability, _ = ProviderAvailability.objects.get_or_create(provider=user)
     services = user.services.all()
 
     subscription = user.subscription_membership
@@ -32,14 +33,9 @@ def explore_services(request):
                 service = service_form.save(commit=False)
                 service.provider = user
                 service.save()
-        else:
-            # Handle availability form
-            pass
 
     context = {
         'form': ServiceListingForm(),
-        'availability_form': ProviderAvailabilityForm(instance=availability),
-        'time_slots': availability.time_slots.order_by('day_of_week', 'start_time'),
         'services': ServiceListing.objects.all(),
         'user_services': services,
         'plan': plan,
@@ -127,22 +123,84 @@ def extended_service_display(request, service_id):
 @login_required
 def manage_service_sections(request, service_id):
     service = get_object_or_404(ServiceListing, id=service_id, provider=request.user)
+    availability, _ = ProviderAvailability.objects.get_or_create(provider=request.user)
+
+    days = WeeklyTimeSlot.DAYS_OF_WEEK
+    time_slots = availability.time_slots.order_by('day_of_week', 'start_time')
+    time_ranges = sorted(
+        set((slot.start_time, slot.end_time) for slot in time_slots),
+        key=lambda r: r[0]
+    )
+    slots_by_key = {
+        f"{slot.day_of_week}_{slot.start_time}_{slot.end_time}": slot
+        for slot in time_slots
+    }
 
     if request.method == 'POST':
-        formset = ServiceDetailSectionFormSet(request.POST, request.FILES, instance=service)
-        if formset.is_valid():
-            formset.save()
-            return redirect('extended_service_display', service_id=service.id)
+        form_type = request.POST.get('form-type')
 
-        print("Formset errors:", formset.errors)
-    else:
-        formset = ServiceDetailSectionFormSet(instance=service)
+        if form_type == 'availability-form':
+            availability_form = ProviderAvailabilityForm(request.POST, instance=availability)
+            if availability_form.is_valid():
+                availability = availability_form.save()
+                print(f'Availability before {availability.time_slots.all()}')
+                availability.time_slots.all().delete()
+                availability._generate_weekly_slots()
+
+                print(f'Availability after {availability.time_slots.all()}')
+                time_slots = availability.time_slots.order_by('day_of_week', 'start_time')
+                time_ranges = sorted(
+                    set((slot.start_time, slot.end_time) for slot in time_slots),
+                    key=lambda r: r[0]
+                )
+                slots_by_key = {
+                    f"{slot.day_of_week}_{slot.start_time}_{slot.end_time}": slot
+                    for slot in time_slots
+                }
+
+                if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                    table_html = render_to_string('partials/_availability_table.html', {
+                        'slots_by_key': slots_by_key,
+                        'days': days,
+                        'time_ranges': time_ranges,
+                        'availability': availability
+                    })
+
+                    return JsonResponse({
+                        'success': True,
+                        'table_html': table_html,
+                        'slot_duration': availability.slot_duration,
+                        'buffer_time': availability.buffer_time
+                    })
+
+                return redirect('extended_service_display', service_id=service.id)
+
+            elif request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                return JsonResponse({
+                    'success': False,
+                    'errors': availability_form.errors
+                }, status=400)
+
+        elif form_type == 'sections-form':
+            section_formset = ServiceDetailSectionFormSet(request.POST, request.FILES, instance=service)
+            if section_formset.is_valid():
+                section_formset.save()
+                return redirect('extended_service_display', service_id=service.id)
+
+    availability_form = ProviderAvailabilityForm(instance=availability, initial={
+        'slot_duration': availability.slot_duration or 30,
+        'buffer_time': availability.buffer_time or 15,
+    })
+    section_formset = ServiceDetailSectionFormSet(instance=service)
 
     return render(request, 'manage_sections_sep.html', {
         'service': service,
-        'formset': formset
+        'section_formset': section_formset,
+        'availability_form': availability_form,
+        'slots_by_key': slots_by_key,
+        'days': days,
+        'time_ranges': time_ranges,
     })
-
 
 @login_required(login_url='login')
 def comment_service(request, pk):

@@ -37,6 +37,28 @@ div.service-mini-cont .user-rev-info {
   align-items: center;
   gap: 1rem;
   margin-bottom: 1rem;
+  position: relative; /* Added for positioning context */
+}
+div.service-mini-cont .user-rev-info a {
+  position: relative; /* For absolute positioning of verify logo */
+  display: inline-block;
+}
+div.service-mini-cont .user-rev-info a img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+div.service-mini-cont .user-rev-info a #verify-logo {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid white;
+  background: white;
+  transform: translate(25%, 25%);
 }
 div.service-mini-cont .user-rev-info p {
   font-family: "Euclid Circular A", sans-serif;
@@ -221,6 +243,101 @@ div.pdf-preview-container div.not-found img {
   width: 400px;
   height: auto;
   object-fit: contain;
+}
+
+#filter-buttons {
+  display: flex;
+  gap: 10px;
+  margin: 20px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filled-web-btn {
+  background-color: #4CAF50;
+  color: white;
+  border: 1px solid #4CAF50;
+}
+
+.emp-web-btn {
+  background-color: white;
+  color: #4CAF50;
+  border: 1px solid #4CAF50;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border-radius: 4px;
+}
+
+.dropdown-menu a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-menu a:hover {
+  background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.location-popup {
+  display: none;
+  position: absolute;
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  width: 300px;
+  margin-top: 5px;
+}
+
+.location-popup label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.location-popup input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.location-popup button[type=submit] {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Show popup when active */
+.dropdown.active .location-popup {
+  display: block;
 }
 
 section#flags-for-user {

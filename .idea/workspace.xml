@@ -5,9 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a6602c8c-3836-4310-91e0-bc55f682d51c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/static/js-scripts/services-scripts/filter-services.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/services/templates/extended-service-display.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/templates/extended-service-display.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/services/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/services/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/services/templates/explore_services.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/templates/explore_services.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/services/templates/services-display.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/templates/services-display.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JobJab/services/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/services/services_display_styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/services_display_styles.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/services/user-flags-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/user-flags-styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/services/user-flags-styles.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/user-flags-styles.css.map" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -168,6 +175,7 @@
       <workItem from="1753251490333" duration="7268000" />
       <workItem from="1753277198753" duration="404000" />
       <workItem from="1753336534697" duration="20310000" />
+      <workItem from="1753377330921" duration="3853000" />
     </task>
     <servers />
   </component>

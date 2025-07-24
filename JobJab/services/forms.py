@@ -3,17 +3,7 @@ import json
 from django import forms
 from django.forms import inlineformset_factory
 
-from .models import ServiceListing, Availability, ServiceCategory, ServiceDetailSection, Comment
-
-
-# Will not be used for now!
-class ServiceCategoryForm(forms.ModelForm):
-    class Meta:
-        model = ServiceCategory
-        fields = ['name', 'description']
-        widgets = {
-            'description': forms.Textarea(attrs={'rows': 3}),
-        }
+from .models import ServiceListing, Availability, ServiceDetailSection, Comment
 
 
 class AvailabilityForm(forms.ModelForm):

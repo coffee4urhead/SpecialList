@@ -1,5 +1,6 @@
 import json
 
+from django.core.validators import MinLengthValidator
 from django.db import models
 from django.conf import settings
 
@@ -36,12 +37,68 @@ class Availability(models.Model):
         return f"{self.provider} - {self.status} on {self.date} from {self.start_time} to {self.end_time}"
 
 
-class ServiceCategory(models.Model):
-    name = models.CharField(max_length=100)
-    description = models.TextField(blank=True)
+class CategoryChoices(models.TextChoices):
+    # Professional Services
+    LEGAL = 'Legal', 'Legal Services'
+    ACCOUNTING = 'Accounting', 'Accounting & Finance'
+    CONSULTING = 'Consulting', 'Business Consulting'
+    HUMAN_RESOURCES = 'HR', 'Human Resources'
+    MARKETING = 'Marketing', 'Marketing & Advertising'
 
-    def __str__(self):
-        return self.name
+    # Healthcare & Wellness
+    HEALTHCARE = 'Healthcare', 'Healthcare Services'
+    FITNESS = 'Fitness', 'Fitness & Training'
+    MENTAL_HEALTH = 'MentalHealth', 'Mental Health'
+    NUTRITION = 'Nutrition', 'Nutrition & Diet'
+    BEAUTY = 'Beauty', 'Beauty & Cosmetics'
+
+    # Creative & Technical
+    DESIGN = 'Design', 'Graphic & Design'
+    DEVELOPMENT = 'Development', 'Web & App Development'
+    WRITING = 'Writing', 'Writing & Editing'
+    PHOTOGRAPHY = 'Photography', 'Photography'
+    VIDEO = 'Video', 'Video & Animation'
+    MUSIC = 'Music', 'Music & Audio'
+
+    # Trade & Home Services
+    CONSTRUCTION = 'Construction', 'Construction & Remodeling'
+    ELECTRICAL = 'Electrical', 'Electrical Services'
+    PLUMBING = 'Plumbing', 'Plumbing'
+    CLEANING = 'Cleaning', 'Cleaning Services'
+    LANDSCAPING = 'Landscaping', 'Landscaping & Gardening'
+
+    # Education & Training
+    TUTORING = 'Tutoring', 'Tutoring & Lessons'
+    LANGUAGE = 'Language', 'Language Teaching'
+    MUSIC_LESSONS = 'MusicLessons', 'Music Lessons'
+    TEST_PREP = 'TestPrep', 'Test Preparation'
+    WORKSHOPS = 'Workshops', 'Workshops & Classes'
+
+    # Technology
+    IT_SUPPORT = 'IT', 'IT Support'
+    CYBERSECURITY = 'Cybersecurity', 'Cybersecurity'
+    DATA_ANALYTICS = 'Data', 'Data Analytics'
+    AI = 'AI', 'Artificial Intelligence'
+    BLOCKCHAIN = 'Blockchain', 'Blockchain Services'
+
+    # Events & Hospitality
+    EVENT_PLANNING = 'Events', 'Event Planning'
+    CATERING = 'Catering', 'Catering Services'
+    PHOTOBOOTH = 'Photobooth', 'Photobooth Rental'
+    DJ = 'DJ', 'DJ Services'
+
+    # Transportation
+    DELIVERY = 'Delivery', 'Delivery Services'
+    TRANSPORT = 'Transport', 'Transportation'
+    LOGISTICS = 'Logistics', 'Logistics Services'
+
+    # Other Services
+    PET = 'Pet', 'Pet Services'
+    SENIOR = 'Senior', 'Senior Care'
+    CHILDCARE = 'Childcare', 'Childcare'
+    PERSONAL_ASSISTANT = 'PA', 'Personal Assistant'
+    VIRTUAL_ASSISTANT = 'VA', 'Virtual Assistant'
+    Other = 'Other', 'Other'
 
 
 class Comment(models.Model):
@@ -70,8 +127,8 @@ class ServiceListing(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True)
     service_photo = models.ImageField(upload_to='services/photos', blank=True)
-    category = models.ForeignKey(ServiceCategory, on_delete=models.SET_NULL, null=True, blank=True,
-                                 related_name='services')
+    location = models.CharField(max_length=100, default='Bulgaria/Sofia', help_text='Specify location in the format Country/(city, province, village etc.)', validators=[MinLengthValidator(10)])
+    category = models.CharField(choices=CategoryChoices, default=CategoryChoices.Other)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     duration_minutes = models.PositiveIntegerField(default=60)
     is_active = models.BooleanField(default=True)

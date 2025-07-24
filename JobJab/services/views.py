@@ -1,15 +1,17 @@
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
 from django.urls import reverse
-from django.views.decorators.http import require_http_methods
+from django.utils import timezone
 
 from JobJab.services.models import ServiceListing, Comment
 from .forms import ServiceListingForm, ServiceDetailSectionFormSet, CommentForm
 from .utils import get_service_limit_for_plan
 from ..booking.forms import ProviderAvailabilityForm
 from ..booking.models import ProviderAvailability, WeeklyTimeSlot
+from ..subscriptions.models import SubscriptionPlan, SubscriptionStatus
 
 DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
 
@@ -17,7 +19,41 @@ DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
 @login_required(login_url='login')
 def explore_services(request):
     user = request.user
-    services = ServiceListing.objects.all()
+    services = ServiceListing.objects.filter(is_active=True)
+
+    show_verified = request.GET.get('verified', 'false') == 'true'
+    show_freelancers = request.GET.get('freelancers', 'false') == 'true'
+    price_range = request.GET.get('price_range')
+    location_filter = request.GET.get('location')
+    if location_filter:
+        parts = location_filter.split('/')
+        if len(parts) == 2:
+            country, region = parts
+            services = services.filter(
+                Q(location__icontains=country) &
+                Q(location__icontains=region)
+            )
+        else:
+            services = services.filter(location__icontains=location_filter)
+
+    if show_verified:
+        services = services.filter(provider__is_verified=True)
+
+    if show_freelancers:
+        services = services.filter(
+            Q(provider__user_type='Freelancer') &
+            Q(provider__subscription_membership__plan=SubscriptionPlan.STARTER) &
+            Q(provider__subscription_membership__status=SubscriptionStatus.ACTIVE) &
+            Q(provider__subscription_membership__current_period_start__lte=timezone.now()) &
+            Q(provider__subscription_membership__current_period_end__gte=timezone.now())
+        )
+
+    if price_range:
+        min_price, max_price = map(float, price_range.split('-'))
+        services = services.filter(price__gte=min_price, price__lte=max_price)
+
+    if location_filter:
+        services = services.filter(location__icontains=location_filter)
 
     subscription = user.subscription_membership
     plan = subscription.plan if subscription else 'No plan'
@@ -28,7 +64,6 @@ def explore_services(request):
     if request.method == 'POST':
         if 'create_service' in request.POST:
             service_form = ServiceListingForm(request.POST, request.FILES)
-
             if service_form.is_valid() and can_create_more:
                 service = service_form.save(commit=False)
                 service.provider = user
@@ -36,12 +71,18 @@ def explore_services(request):
 
     context = {
         'form': ServiceListingForm(),
-        'services': ServiceListing.objects.all(),
-        'user_services': services,
+        'services': services,
+        'user_services': services.filter(provider=user),
         'plan': plan,
         'allowed_services': allowed_services,
         'service_count': service_count,
         'can_create_more': can_create_more,
+        'current_filters': {
+            'verified': show_verified,
+            'freelancers': show_freelancers,
+            'price_range': price_range,
+            'location': location_filter,
+        }
     }
     return render(request, 'explore_services.html', context)
 
@@ -119,7 +160,6 @@ def extended_service_display(request, service_id):
     service = get_object_or_404(ServiceListing.objects.prefetch_related('comments'), id=service_id)
     availability = ProviderAvailability.objects.filter(provider=service.provider).first()
 
-    # Prepare availability data
     days = WeeklyTimeSlot.DAYS_OF_WEEK
     time_slots = availability.time_slots.order_by('day_of_week', 'start_time') if availability else []
     time_ranges = sorted(
@@ -221,6 +261,7 @@ def manage_service_sections(request, service_id):
         'days': days,
         'time_ranges': time_ranges,
     })
+
 
 @login_required(login_url='login')
 def comment_service(request, pk):

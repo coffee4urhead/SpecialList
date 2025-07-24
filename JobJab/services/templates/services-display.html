@@ -8,6 +8,72 @@
         {% endfor %}
     {% endif %}
 </div>
+<section id="filter-buttons">
+    <button class="filter-btn {% if current_filters.verified %}filled-web-btn{% else %}emp-web-btn{% endif %}"
+            data-filter="verified"
+            data-value="true">
+        Show Verified
+    </button>
+
+    <button class="filter-btn {% if current_filters.freelancers %}filled-web-btn{% else %}emp-web-btn{% endif %}"
+            data-filter="freelancers"
+            data-value="true">
+        Show Freelancers
+    </button>
+
+    <div class="dropdown">
+        <button class="filter-btn dropdown-toggle {% if current_filters.price_range %}filled-web-btn{% else %}emp-web-btn{% endif %}"
+                type="button"
+                id="priceRangeDropdown"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false">
+            Price Range
+        </button>
+        <div class="dropdown-menu" aria-labelledby="priceRangeDropdown">
+            <a class="dropdown-item price-range" href="#" data-value="0-50">$0 - $50</a>
+            <a class="dropdown-item price-range" href="#" data-value="50-100">$50 - $100</a>
+            <a class="dropdown-item price-range" href="#" data-value="100-200">$100 - $200</a>
+            <a class="dropdown-item price-range" href="#" data-value="200-500">$200 - $500</a>
+            <a class="dropdown-item price-range" href="#" data-value="500-1000">$500 - $1000</a>
+        </div>
+    </div>
+
+    <div class="dropdown">
+        <button class="filter-btn popup-toggle {% if current_filters.location %}filled-web-btn{% else %}emp-web-btn{% endif %}"
+                type="button"
+                id="locationPopup"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false">
+            Location
+        </button>
+        <div class="location-popup" aria-labelledby="locationPopup">
+            <form method="get" action="{% url 'explore_services' %}">
+                <label for="location-entry">Specify location in the format Country/(city, province, village
+                    etc.)</label>
+                <input type="text"
+                       name="location"
+                       id="location-entry"
+                       value="{{ current_filters.location|default:'' }}"
+                       placeholder="e.g. Bulgaria/Sofia"/>
+
+                {% if current_filters.verified == 'true' %}
+                    <input type="hidden" name="verified" value="true">
+                {% endif %}
+
+                {% if current_filters.freelancers == 'true' %}
+                    <input type="hidden" name="freelancers" value="true">
+                {% endif %}
+
+                {% if current_filters.price_range %}
+                    <input type="hidden" name="price_range" value="{{ current_filters.price_range }}">
+                {% endif %}
+                <button type="submit" class="filled-web-btn">Search</button>
+            </form>
+        </div>
+    </div>
+</section>
 <div class="pdf-preview-container mb-3">
     {% if services %}
         {% for service in services %}
@@ -18,6 +84,13 @@
                             <a href="{% url 'account_view' service.provider.username %}">
                                 <img src="{{ service.provider.profile_picture.url }}"
                                      alt="{{ service.provider.get_full_name|default:service.provider.username }}">
+                                {% if service.provider.is_verified %}
+                                    {% load static %}
+                                    <img id="verify-logo" src="{% static 'images/verify.png' %}"
+                                         alt="verify logo"/>
+                                {% else %}
+                                    Pending verification
+                                {% endif %}
                             </a>
                         {% else %}
                             {% load static %}

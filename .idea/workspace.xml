@@ -5,21 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a6602c8c-3836-4310-91e0-bc55f682d51c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/JobJab/services/templatetags/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JobJab/services/templatetags/custom_filters.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/js-scripts/services-scripts/manage-sections-availability.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/booking/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/booking/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/booking/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/booking/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/booking/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/booking/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/core/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/services/templates/manage_sections_sep.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/templates/manage_sections_sep.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/services/templates/partials/_availability_table.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/templates/partials/_availability_table.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/services/templates/services-display.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/templates/services-display.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/services/templates/extended-service-display.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/templates/extended-service-display.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JobJab/services/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/services/manage-sections-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/manage-sections-styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/services/manage-sections-styles.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/manage-sections-styles.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/services/manage-sections-styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/manage-sections-styles.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -179,7 +167,7 @@
       <workItem from="1753169720024" duration="16236000" />
       <workItem from="1753251490333" duration="7268000" />
       <workItem from="1753277198753" duration="404000" />
-      <workItem from="1753336534697" duration="19107000" />
+      <workItem from="1753336534697" duration="20310000" />
     </task>
     <servers />
   </component>

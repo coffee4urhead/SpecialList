@@ -461,3 +461,38 @@ article#comments-section {
     transform: translateX(100%);
   }
 }
+
+div.weekly-timestamps {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-content: center;
+
+  table.availability-table {
+    padding: 30px;
+    border-radius: 8px;
+    background-color: $secondary-web-color;
+
+    tbody tr:nth-child(even) {
+      background-color: $secondary-web-color;
+      color: white;
+    }
+
+    tbody tr:nth-child(odd) {
+      background-color: $main-web-color;
+    }
+
+    td, th {
+      padding: 10px;
+    }
+
+    td {
+      @include def-web-text($pref-font-size: clamp(0.5em, 1em, 1.3em), $pref-font-st: 600);
+    }
+
+    th {
+      @include web-title-special($pref-font-size: clamp(1em, 1.3em, 2em), $pref-font-st: normal);
+      color: white;
+    }
+  }
+}

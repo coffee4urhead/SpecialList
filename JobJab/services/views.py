@@ -17,7 +17,7 @@ DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
 @login_required(login_url='login')
 def explore_services(request):
     user = request.user
-    services = user.services.all()
+    services = ServiceListing.objects.all()
 
     subscription = user.subscription_membership
     plan = subscription.plan if subscription else 'No plan'
@@ -41,7 +41,7 @@ def explore_services(request):
         'plan': plan,
         'allowed_services': allowed_services,
         'service_count': service_count,
-        'can_create_more': can_create_more
+        'can_create_more': can_create_more,
     }
     return render(request, 'explore_services.html', context)
 
@@ -117,7 +117,27 @@ def delete_service(request, pk):
 @login_required
 def extended_service_display(request, service_id):
     service = get_object_or_404(ServiceListing.objects.prefetch_related('comments'), id=service_id)
-    return render(request, 'extended-service-display.html', {'service': service})
+    availability = ProviderAvailability.objects.filter(provider=service.provider).first()
+
+    # Prepare availability data
+    days = WeeklyTimeSlot.DAYS_OF_WEEK
+    time_slots = availability.time_slots.order_by('day_of_week', 'start_time') if availability else []
+    time_ranges = sorted(
+        set((slot.start_time, slot.end_time) for slot in time_slots),
+        key=lambda r: r[0]
+    ) if availability else []
+    slots_by_key = {
+        f"{slot.day_of_week}_{slot.start_time}_{slot.end_time}": slot
+        for slot in time_slots
+    } if availability else {}
+
+    context = {
+        'service': service,
+        'slots_by_key': slots_by_key,
+        'days': days,
+        'time_ranges': time_ranges,
+    }
+    return render(request, 'extended-service-display.html', context)
 
 
 @login_required

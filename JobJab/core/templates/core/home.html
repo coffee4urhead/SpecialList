@@ -45,7 +45,8 @@
     </style>
     <title>SpecialList</title>
 </head>
-<body>
+<body data-user-type="{{ request.user.user_type|default:''|escapejs }}"
+      data-is-authenticated="{{ request.user.is_authenticated|yesno:'true,false' }}">
 {% if messages %}
     {% for message in messages %}
         <div class="alert alert-{{ message.tags }}">
@@ -114,6 +115,7 @@
 {% include 'template-components/second-caption-comp.html' %}
 {% include 'template-components/footer.html' %}
 
+<script></script>
 <script src="{% static 'js-scripts/home-script.js' %}"></script>
 <script src="{% static 'js-scripts/home-side-panel.js' %}"></script>
 </body>

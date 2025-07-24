@@ -1,0 +1,17 @@
+Django==5.2.1
+daphne==4.2.1
+channels==4.2.2
+channels_redis==4.2.1
+django-compressor==4.5.1
+django-cron==0.6.0
+django-stripe-payments==2.0.0
+stripe==12.3.0
+pdf2image==1.17.0
+Pillow==11.2.1
+psycopg2==2.9.10
+djangorestframework==3.16.0
+python-dotenv==1.1.1
+libsass==0.23.0
+django-libsass==0.9
+redis==6.2.0
+Faker==37.4.0

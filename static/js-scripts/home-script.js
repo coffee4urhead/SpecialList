@@ -1,17 +1,21 @@
-// subscription cards error handler
 const subscribeButtons = document.querySelectorAll('form[method=post] button.filled-web-btn');
 
-const userType = "{{ request.user.user_type|escapejs }}";
+const userType = document.body.dataset.userType;
+const isAuthenticated = document.body.dataset.isAuthenticated === 'true';
 
 function performCheck(event) {
-
-    console.log('User Type:', userType);
-    if (userType !== 'Provider' && userType) {
+    if (!isAuthenticated) {
         event.preventDefault();
+        window.location.href = '/user/login' + window.location.pathname;
+        return;
+    }
+
+    if (userType !== 'Provider') {
+        event.preventDefault();
+
         const divError = document.createElement('div');
-        divError.classList.add('alert-error');
-        divError.classList.add('alert');
-        divError.innerHTML = 'Only Providers can subscribe. <button onclick="this.parentElement.remove()">X</button>'
+        divError.classList.add('alert-error', 'alert');
+        divError.innerHTML = 'Only Providers can subscribe. <button onclick="this.parentElement.remove()">X</button>';
         document.body.appendChild(divError);
 
         setTimeout(() => {

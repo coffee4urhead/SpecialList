@@ -60,7 +60,6 @@ def success_view(request):
         return render(request, 'subscriptions/success.html')
 
     try:
-        # Retrieve the session with expanded subscription
         session = stripe.checkout.Session.retrieve(
             session_id,
             expand=['subscription', 'subscription.latest_invoice']
@@ -69,15 +68,12 @@ def success_view(request):
         if not session.subscription:
             return render(request, 'subscriptions/success.html')
 
-        # Get the subscription ID as string
         subscription_id = session.subscription.id
 
-        # Get the invoice ID if it exists
         invoice_id = None
         if hasattr(session.subscription, 'latest_invoice') and session.subscription.latest_invoice:
             invoice_id = session.subscription.latest_invoice.id
 
-        # Get price details
         price_id = session.subscription['items']['data'][0]['price']['id']
         amount = session.subscription['items']['data'][0]['price']['unit_amount'] / 100
         plan = session.metadata.get('plan', SubscriptionPlan.STARTER)
@@ -90,7 +86,7 @@ def success_view(request):
             user=user,
             defaults={
                 'stripe_customer_id': session.customer,
-                'stripe_subscription_id': subscription_id,  # Use the string ID
+                'stripe_subscription_id': subscription_id,
                 'stripe_price_id': price_id,
                 'stripe_invoice_id': invoice_id,
                 'plan': plan,
@@ -100,20 +96,6 @@ def success_view(request):
                 'current_period_start': current_start,
                 'current_period_end': current_end,
             }
-        )
-
-        SubscriptionRecord.objects.create(
-            user=user,
-            plan=plan,
-            stripe_customer_id=session.customer,
-            stripe_subscription_id=subscription_id,
-            stripe_price_id=price_id,
-            stripe_invoice_id=invoice_id,
-            status=session.subscription.status,
-            price=amount,
-            cancel_at_period_end=session.subscription.cancel_at_period_end,
-            current_period_start=current_start,
-            current_period_end=current_end
         )
 
         user.subscription_membership = subscription
@@ -167,7 +149,11 @@ def detect_plan_from_price_id(price_id):
 def handle_invoice_payment_succeeded(invoice):
     stripe_customer_id = invoice.get("customer")
     stripe_subscription_id = invoice.get("subscription")
-    invoice_id = invoice.get("id")  # Use the invoice's own ID
+    invoice_id = invoice.get("id")
+
+    if not stripe_subscription_id:
+        print(f"Skipping invoice {invoice_id} due to missing subscription_id")
+        return
 
     amount = invoice.get('amount_paid', 0) / 100
 
@@ -244,7 +230,6 @@ def handle_checkout_session(session):
         stripe_subscription = stripe.Subscription.retrieve(subscription_id)
         latest_invoice = stripe_subscription.latest_invoice
 
-        # Get the invoice object if it exists
         invoice_id = None
         if latest_invoice:
             invoice = stripe.Invoice.retrieve(latest_invoice)
@@ -303,9 +288,12 @@ def handle_checkout_session(session):
 def handle_invoice_finalized(invoice):
     stripe_customer_id = invoice.get("customer")
     stripe_subscription_id = invoice.get("subscription")
-    invoice_id = invoice.get("id")  # This is the correct invoice ID
+    invoice_id = invoice.get("id")
 
-    # Get email from invoice (customer_email is provided)
+    if not stripe_subscription_id:
+        print(f"Skipping invoice {invoice_id} due to missing subscription_id")
+        return
+
     customer_email = invoice.get("customer_email")
 
     user = CustomUser.objects.filter(subscription__stripe_customer_id=stripe_customer_id).first()
@@ -316,7 +304,6 @@ def handle_invoice_finalized(invoice):
         print(f"Invoice Finalized: User not found for customer ID {stripe_customer_id}")
         return
 
-    # Get plan from line item
     try:
         line_item = invoice['lines']['data'][0]
         price_id = line_item.get('price', {}).get('id')

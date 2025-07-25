@@ -1,0 +1,52 @@
+{% extends 'admin_home.html' %}
+{% block content %}
+    <article class="admin-content-container">
+        <h2>Services Dashboard</h2>
+
+        <div class="admin-stats-grid">
+            <div class="stat-card" data-popup-target="services-template">
+                <h3>Total Services</h3>
+                <p>{{ total_services }}</p>
+            </div>
+            <div class="stat-card" data-popup-target="availabilities-template">
+                <h3>Availabilities</h3>
+                <p>{{ availabilities|length }}</p>
+            </div>
+            <div class="stat-card" data-popup-target="comments-template">
+                <h3>Comments</h3>
+                <p>{{ comments|length }}</p>
+            </div>
+        </div>
+    </article>
+    <script src="https://cdn.plot.ly/plotly-2.25.2.min.js"></script>
+    <div class="graph-container">
+        <div class="graph-card">
+            <h3>New Services (30 Days)</h3>
+            {{ service_graph|safe }}
+        </div>
+
+        <div class="graph-card">
+            <h3>Availability Status</h3>
+            {{ availability_graph|safe }}
+        </div>
+
+        <div class="graph-card">
+            <h3>Comment Activity</h3>
+            {{ comment_graph|safe }}
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (typeof Plotly === 'undefined') {
+                console.error('Plotly not loaded!');
+                return;
+            }
+
+            const plotDivs = document.querySelectorAll('.plotly-graph-div');
+            plotDivs.forEach(div => {
+                console.log('Found Plotly div:', div.id);
+                Plotly.Plots.resize(div);
+            });
+        });
+    </script>
+{% endblock %}

@@ -7,7 +7,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const templates = {
         "user-template": document.getElementById("user-template"),
         "org-template": document.getElementById("org-template"),
-        "cert-template": document.getElementById("cert-template")
+        "cert-template": document.getElementById("cert-template"),
+        "services-template": document.getElementById("services-template"),
+        "availabilities-template": document.getElementById("availabilities-template"),
+        "comments-template": document.getElementById("comments-template"),
     };
 
     document.querySelectorAll(".stat-card").forEach(card => {
@@ -18,7 +21,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const template = templates[target];
             if (template) {
-                popupTitle.textContent = `Viewing ${target.charAt(0).toUpperCase() + target.slice(1)}`;
+                const readable = target.replace('-template', '').replace(/^\w/, c => c.toUpperCase());
+                popupTitle.textContent = `Viewing ${readable}`;
                 popupList.append(...Array.from(template.children).map(el => el.cloneNode(true)));
                 popup.classList.remove("hidden");
                 popup.classList.add("visible");
@@ -50,6 +54,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 break;
             case 'certificate':
                 adminUrl = `/admin/core/certificate/${id}/change/`;
+                break;
+            case 'service':
+                adminUrl = `/admin/services/servicelisting/${id}/change/`;
+                break;
+            case 'availability':
+                adminUrl = `/admin/eservices/availability/${id}/change/`;
+                break;
+            case 'comment':
+                adminUrl = `/admin/services/comment/${id}/change/`;
                 break;
             default:
                 return;

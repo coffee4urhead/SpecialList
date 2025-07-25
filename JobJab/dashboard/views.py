@@ -17,6 +17,8 @@ from JobJab.core.models import Organization, CustomUser, Certificate
 import plotly.express as px
 from plotly.offline import plot
 
+from JobJab.services.models import Availability, Comment, ServiceListing
+
 
 class AdminDashboardView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
     template_name = 'admin_home.html'
@@ -148,6 +150,83 @@ class GraphsView:
 
         return plot(fig, output_type='div', config=config, include_plotlyjs='cdn')
 
+    @staticmethod
+    def create_service_trend_graph(services, start_date, end_date):
+        df = pd.DataFrame(
+            services.annotate(date=TruncDate('created_at'))
+            .values('date')
+            .annotate(count=Count('id'))
+        )
+
+        if df.empty:
+            df = pd.DataFrame([{'date': start_date.date(), 'count': 0}])
+
+        df['date'] = pd.to_datetime(df['date'])
+        date_range = pd.date_range(start=start_date, end=end_date)
+        df = df.set_index('date').reindex(date_range, fill_value=0).reset_index()
+        df.rename(columns={'index': 'date'}, inplace=True)
+
+        fig = px.bar(
+            df, x='date', y='count', title='New Services Over Time',
+            labels={'date': 'Date', 'count': 'New Services'},
+            color_discrete_sequence=['#4D9DE0']
+        )
+        return plot(fig, output_type='div', include_plotlyjs='cdn')
+
+    @staticmethod
+    def create_availability_status_graph(availabilities):
+        df = pd.DataFrame(
+            availabilities.values('status').annotate(count=Count('id'))
+        )
+
+        # Ensure there's at least an empty bar chart
+        if df.empty:
+            df = pd.DataFrame({'status': [], 'count': []})
+
+        fig = px.bar(
+            df,
+            x='status',
+            y='count',
+            title='Availability Status Distribution',
+            labels={'status': 'Status', 'count': 'Count'},
+            color_discrete_sequence=['#6c757d']
+        )
+
+        fig.update_layout(
+            hovermode='x unified',
+            xaxis_title='Status',
+            yaxis_title='Number of Entries',
+            plot_bgcolor='white',
+            paper_bgcolor='white',
+            showlegend=False
+        )
+
+        return plot(fig, output_type='div', include_plotlyjs='cdn')
+
+    @staticmethod
+    def create_comment_activity_graph(comments, start_date, end_date):
+        df = pd.DataFrame(
+            comments.annotate(date=TruncDate('created_at'))
+            .values('date')
+            .annotate(count=Count('id'))
+        )
+
+        if df.empty:
+            df = pd.DataFrame([{'date': start_date.date(), 'count': 0}])
+
+        df['date'] = pd.to_datetime(df['date'])
+        date_range = pd.date_range(start=start_date, end=end_date)
+        df = df.set_index('date').reindex(date_range, fill_value=0).reset_index()
+        df.rename(columns={'index': 'date'}, inplace=True)
+
+        print(df)
+        fig = px.line(
+            df, x='date', y='count', title='Comment Activity',
+            labels={'date': 'Date', 'count': 'Comments'},
+            color_discrete_sequence=['#FF715B']
+        )
+        return plot(fig, output_type='div', include_plotlyjs='cdn')
+
 
 class CoreInfoView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
     template_name = 'template-admin-components/admin_core_info.html'
@@ -162,7 +241,6 @@ class CoreInfoView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
         end_date = timezone.now()
         start_date = end_date - timedelta(days=30)
         time_period = f"{start_date.strftime('%b %d')} to {end_date.strftime('%b %d')}"
-
 
         registration_data = (
             CustomUser.objects
@@ -200,3 +278,41 @@ class CoreInfoView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
             return redirect(self.get_login_url())
         messages.error(self.request, "Staff privileges required")
         return redirect(self.get_login_url())
+
+
+class ServicesInfoView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
+    template_name = 'template-admin-components/admin_services_info.html'
+    login_url = 'login'
+
+    def test_func(self):
+        return self.request.user.is_staff
+
+    def handle_no_permission(self):
+        if not self.request.user.is_authenticated:
+            return redirect(self.get_login_url())
+        messages.error(self.request, "Staff privileges required")
+        return redirect(self.get_login_url())
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        end_date = timezone.now().date()
+        start_date = end_date - timedelta(days=30)
+
+        services = ServiceListing.objects.select_related('provider').all()
+        recent_services = services.filter(created_at__range=(start_date, end_date))
+        availabilities = Availability.objects.all()
+        comments = Comment.objects.select_related('author').all()
+
+        context.update({
+            'total_services': services.count(),
+            'recent_services': recent_services,
+            'availabilities': availabilities,
+            'comments': comments,
+            'services': services,
+
+            'service_graph': GraphsView.create_service_trend_graph(services, start_date, end_date),
+            'availability_graph': GraphsView.create_availability_status_graph(availabilities),
+            'comment_graph': GraphsView.create_comment_activity_graph(comments, start_date, end_date),
+        })
+        return context

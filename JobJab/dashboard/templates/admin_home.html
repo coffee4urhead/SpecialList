@@ -98,6 +98,42 @@
     {% endfor %}
 </div>
 
+<div id="services-template" style="display:none;">
+    {% for service in recent_services %}
+        <div class="user-card" data-type="service" data-id="{{ service.id }}">
+            <strong>{{ service.title }}</strong><br>
+            Provider: {{ service.provider.get_full_name }}<br>
+            Created: {{ service.created_at|date:"Y-m-d" }}
+        </div>
+    {% empty %}
+        <p>No recent services found.</p>
+    {% endfor %}
+</div>
+
+<div id="availabilities-template" style="display:none;">
+    {% for availability in availabilities %}
+        <div class="user-card" data-type="availability" data-id="{{ availability.id }}">
+            Status: {{ availability.status }}<br>
+            Service: {{ availability.service.title }}<br>
+            Date: {{ availability.date|date:"Y-m-d" }}
+        </div>
+    {% empty %}
+        <p>No availabilities found.</p>
+    {% endfor %}
+</div>
+
+<div id="comments-template" style="display:none;">
+    {% for comment in comments %}
+        <div class="user-card" data-type="comment" data-id="{{ comment.id }}">
+            "{{ comment.text|truncatechars:50 }}"<br>
+            By: {{ comment.author.get_full_name }}<br>
+            On: {{ comment.created_at|date:"Y-m-d" }}
+        </div>
+    {% empty %}
+        <p>No comments found.</p>
+    {% endfor %}
+</div>
+
 <script src="{% static 'js-scripts/home-side-panel.js' %}"></script>
 <script src="{% static 'js-scripts/dashboard-scripts/core-models-handler.js' %}"></script>
 </body>

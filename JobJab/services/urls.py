@@ -1,17 +1,19 @@
-from django.conf import settings
-from django.conf.urls.static import static
 from django.urls import path
-from . import views
+from .views import (
+    ExploreServicesView, LikeServiceView, FlagFavouriteView,
+    GetServiceLikersView, DeleteServiceView, ExtendedServiceDisplayView,
+    ManageServiceSectionsView, CommentServiceView
+)
 from ..booking.views import ServiceBookingView
 
 urlpatterns = [
-    path('explore/', views.explore_services, name='explore_services'),
+    path('explore/', ExploreServicesView.as_view(), name='explore_services'),
     path('<int:pk>/', ServiceBookingView.as_view(), name='service_detail'),
-    path('<int:pk>/comment/', views.comment_service, name='comment_service'),
-    path('<int:service_id>/like/', views.like_service, name='like_service'),
-    path('<int:service_id>/flagFavourite/', views.flag_favourite, name='flag_favourite'),
-    path('<int:service_id>/likers/', views.get_service_likers, name='get_likers'),
-    path('extendedServiceInfo/<int:service_id>/', views.extended_service_display, name='extended_service_display'),
-    path('service/<int:service_id>/manage/', views.manage_service_sections, name='manage_service_sections'),
-    path('delete/<int:pk>/', views.delete_service, name='delete_service'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('<int:pk>/comment/', CommentServiceView.as_view(), name='comment_service'),
+    path('<int:service_id>/like/', LikeServiceView.as_view(), name='like_service'),
+    path('<int:service_id>/flagFavourite/', FlagFavouriteView.as_view(), name='flag_favourite'),
+    path('<int:service_id>/likers/', GetServiceLikersView.as_view(), name='get_likers'),
+    path('extendedServiceInfo/<int:service_id>/', ExtendedServiceDisplayView.as_view(), name='extended_service_display'),
+    path('service/<int:service_id>/manage/', ManageServiceSectionsView.as_view(), name='manage_service_sections'),
+    path('delete/<int:pk>/', DeleteServiceView.as_view(), name='delete_service'),
+]

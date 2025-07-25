@@ -21,6 +21,25 @@ section#reviews-for-user {
     justify-content: center;
     align-items: center;
     gap: 30px;
+
+    div.not-found {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-content: center;
+      gap: 20px;
+
+      p {
+        @include def-web-text($pref-font-size: 2em, $pref-font-st: normal);
+        color: black;
+      }
+
+      img {
+        width: 200px;
+        height: auto;
+        object-fit: contain;
+      }
+    }
   }
 
   scrollbar-width: none;
@@ -101,7 +120,7 @@ section.review-card {
     gap: 30px;
     margin: 10px auto;
 
-    a.emp-web-btn {
+    button.emp-web-btn {
       @include emp-web-btn($arg-width: 100%, $arg-height: 45px, $arg-bg-color: transparent, $txt-color: $main-web-color);
       color: red;
       text-decoration: none;

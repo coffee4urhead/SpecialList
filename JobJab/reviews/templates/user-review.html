@@ -43,20 +43,21 @@
                             <button type="submit" data-username="{{ user_review.reviewee.username }}"
                                     data-review-id="{{ user_review.id }}" class="filled-web-btn edit-rev">Edit Review
                             </button>
-                            <a href="{% url 'delete_user_review' request.user.username user_review.id %}"
-                               class="emp-web-btn delete-rev">
-                                Delete Review
-                            </a>
 
+                            <form action="{% url 'delete_user_review' request.user.username user_review.id %}"
+                                  method="post" style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="emp-web-btn delete-rev">Delete Review</button>
+                            </form>
                         </div>
                     {% endif %}
                 </section>
 
             {% endfor %}
         {% else %}
-            <div class="alert alert-error">
-                No reviews found for this user.
-                Debug: User={{ user_reviewed.username }}, Review count={{ reviews_given.count }}
+            <div class="not-found">
+                <p>No reviews for this user. Be the first to review!</p>
+                <img src="{% static 'images/not-found.png' %}" alt="not found resources for this webpage"/>
             </div>
         {% endif %}
     </div>

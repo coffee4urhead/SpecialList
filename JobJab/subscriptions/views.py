@@ -3,16 +3,20 @@ from datetime import timedelta
 
 import stripe
 from django.conf import settings
+from django.views import View
 from django.http import HttpResponse
-from django.utils import timezone
-from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect
+from django.utils import timezone
 from django.urls import reverse
-from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 from django.views.decorators.http import require_POST
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from JobJab.core.models import CustomUser
-from JobJab.subscriptions.models import Subscription, SubscriptionPlan, SubscriptionStatus, SubscriptionRecord
+from JobJab.subscriptions.models import (
+    Subscription, SubscriptionPlan, SubscriptionStatus, SubscriptionRecord
+)
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -25,121 +29,141 @@ PRICE_IDS = {
 PRICE_ID_TO_PLAN = {v: k for k, v in PRICE_IDS.items()}
 
 
-@require_POST
-@login_required(login_url='login')
-def create_checkout_session(request, plan_type):
-    try:
-        normalized_plan = plan_type.upper()
-        plan = getattr(SubscriptionPlan, normalized_plan, None)
-        price_id = PRICE_IDS.get(plan)
-
-        if not price_id:
-            return HttpResponse("Invalid plan type", status=400)
-
-        checkout_session = stripe.checkout.Session.create(
-            payment_method_types=['card'],
-            line_items=[{
-                'price': price_id,
-                'quantity': 1,
-            }],
-            mode='subscription',
-            success_url=request.build_absolute_uri(reverse('success')) + '?session_id={CHECKOUT_SESSION_ID}',
-            cancel_url=request.build_absolute_uri(reverse('canceled')),
-            customer_email=request.user.email,
-            metadata={'plan': plan.value},
-        )
-        return redirect(checkout_session.url, code=303)
-    except Exception as e:
-        return HttpResponse(str(e), status=500)
+class OfferPlansView(View):
+    def get(self, request):
+        return render(request, 'subscriptions/offer-plans-page.html')
 
 
-@login_required(login_url='login')
-def success_view(request):
-    session_id = request.GET.get('session_id')
-    if not session_id:
-        return render(request, 'subscriptions/success.html')
+@method_decorator([require_POST], name='dispatch')
+class CreateCheckoutSessionView(LoginRequiredMixin, View):
+    login_url = 'login'
 
-    try:
-        session = stripe.checkout.Session.retrieve(
-            session_id,
-            expand=['subscription', 'subscription.latest_invoice']
-        )
+    def post(self, request, plan_type):
+        try:
+            normalized_plan = plan_type.upper()
+            plan = getattr(SubscriptionPlan, normalized_plan, None)
+            price_id = PRICE_IDS.get(plan)
 
-        if not session.subscription:
+            if not price_id:
+                return HttpResponse("Invalid plan type", status=400)
+
+            checkout_session = stripe.checkout.Session.create(
+                payment_method_types=['card'],
+                line_items=[{'price': price_id, 'quantity': 1}],
+                mode='subscription',
+                success_url=request.build_absolute_uri(reverse('success')) + '?session_id={CHECKOUT_SESSION_ID}',
+                cancel_url=request.build_absolute_uri(reverse('canceled')),
+                customer_email=request.user.email,
+                metadata={'plan': plan.value},
+            )
+            return redirect(checkout_session.url, code=303)
+        except Exception as e:
+            return HttpResponse(str(e), status=500)
+
+
+class SuccessView(LoginRequiredMixin, View):
+    login_url = 'login'
+
+    def get(self, request):
+        session_id = request.GET.get('session_id')
+        if not session_id:
             return render(request, 'subscriptions/success.html')
 
-        subscription_id = session.subscription.id
+        try:
+            session = stripe.checkout.Session.retrieve(
+                session_id,
+                expand=['subscription', 'subscription.latest_invoice']
+            )
 
-        invoice_id = None
-        if hasattr(session.subscription, 'latest_invoice') and session.subscription.latest_invoice:
-            invoice_id = session.subscription.latest_invoice.id
+            if not session.subscription:
+                return render(request, 'subscriptions/success.html')
 
-        price_id = session.subscription['items']['data'][0]['price']['id']
-        amount = session.subscription['items']['data'][0]['price']['unit_amount'] / 100
-        plan = session.metadata.get('plan', SubscriptionPlan.STARTER)
+            subscription_id = session.subscription.id
+            invoice_id = session.subscription.latest_invoice.id if session.subscription.latest_invoice else None
+            price_id = session.subscription['items']['data'][0]['price']['id']
+            amount = session.subscription['items']['data'][0]['price']['unit_amount'] / 100
+            plan = session.metadata.get('plan', SubscriptionPlan.STARTER)
 
-        current_start = timezone.now()
-        current_end = current_start + timedelta(days=31)
+            current_start = timezone.now()
+            current_end = current_start + timedelta(days=31)
 
-        user = request.user
-        subscription, _ = Subscription.objects.update_or_create(
-            user=user,
-            defaults={
-                'stripe_customer_id': session.customer,
-                'stripe_subscription_id': subscription_id,
-                'stripe_price_id': price_id,
-                'stripe_invoice_id': invoice_id,
-                'plan': plan,
-                'status': session.subscription.status,
-                'price': amount,
-                'cancel_at_period_end': session.subscription.cancel_at_period_end,
-                'current_period_start': current_start,
-                'current_period_end': current_end,
-            }
-        )
+            user = request.user
+            subscription, _ = Subscription.objects.update_or_create(
+                user=user,
+                defaults={
+                    'stripe_customer_id': session.customer,
+                    'stripe_subscription_id': subscription_id,
+                    'stripe_price_id': price_id,
+                    'stripe_invoice_id': invoice_id,
+                    'plan': plan,
+                    'status': session.subscription.status,
+                    'price': amount,
+                    'cancel_at_period_end': session.subscription.cancel_at_period_end,
+                    'current_period_start': current_start,
+                    'current_period_end': current_end,
+                }
+            )
 
-        user.subscription_membership = subscription
-        user.save()
+            user.subscription_membership = subscription
+            user.save()
+
+            SubscriptionRecord.objects.create(
+                user=user,
+                plan=plan,
+                stripe_customer_id=session.customer,
+                stripe_subscription_id=subscription_id,
+                stripe_price_id=price_id,
+                stripe_invoice_id=invoice_id,
+                status=session.subscription.status,
+                price=amount,
+                cancel_at_period_end=session.subscription.cancel_at_period_end,
+                current_period_start=current_start,
+                current_period_end=current_end
+            )
+
+        except Exception as e:
+            print(f"Failed to attach subscription in success_view: {e}")
 
         return render(request, 'subscriptions/success.html')
-    except Exception as e:
-        print(f"Failed to attach subscription in success_view: {e}")
-        return render(request, 'subscriptions/success.html')
 
 
-@login_required(login_url='login')
-def canceled_view(request):
-    return render(request, 'subscriptions/canceled.html')
+class CanceledView(LoginRequiredMixin, View):
+    login_url = 'login'
+
+    def get(self, request):
+        return render(request, 'subscriptions/canceled.html')
 
 
-@csrf_exempt
-def stripe_webhook(request):
-    payload = request.body
-    sig_header = request.META.get('HTTP_STRIPE_SIGNATURE')
-    endpoint_secret = settings.STRIPE_WEBHOOK_SECRET
+@method_decorator(csrf_exempt, name='dispatch')
+class StripeWebhookView(View):
+    def post(self, request):
+        payload = request.body
+        sig_header = request.META.get('HTTP_STRIPE_SIGNATURE')
+        endpoint_secret = settings.STRIPE_WEBHOOK_SECRET
 
-    try:
-        event = stripe.Webhook.construct_event(payload, sig_header, endpoint_secret)
-    except (ValueError, stripe.error.SignatureVerificationError):
-        return HttpResponse(status=400)
+        try:
+            event = stripe.Webhook.construct_event(payload, sig_header, endpoint_secret)
+        except (ValueError, stripe.error.SignatureVerificationError):
+            return HttpResponse(status=400)
 
-    event_type = event['type']
-    obj = event['data']['object']
+        event_type = event['type']
+        obj = event['data']['object']
 
-    if event_type == 'invoice.payment_succeeded':
-        handle_invoice_payment_succeeded(obj)
-    elif event_type == 'checkout.session.completed':
-        handle_checkout_session(obj)
-    elif event_type == 'customer.subscription.deleted':
-        handle_subscription_deleted(obj)
-    elif event_type == 'customer.subscription.updated':
-        handle_subscription_updated(obj)
-    elif event_type == 'invoice.payment_failed':
-        handle_payment_failed(obj)
-    elif event_type == 'invoice.finalized':
-        handle_invoice_finalized(obj)
+        handler_map = {
+            'invoice.payment_succeeded': handle_invoice_payment_succeeded,
+            'checkout.session.completed': handle_checkout_session,
+            'customer.subscription.deleted': handle_subscription_deleted,
+            'customer.subscription.updated': handle_subscription_updated,
+            'invoice.payment_failed': handle_payment_failed,
+            'invoice.finalized': handle_invoice_finalized,
+        }
 
-    return HttpResponse(status=200)
+        handler = handler_map.get(event_type)
+        if handler:
+            handler(obj)
+
+        return HttpResponse(status=200)
+
 
 
 def detect_plan_from_price_id(price_id):

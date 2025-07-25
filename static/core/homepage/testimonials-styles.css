@@ -24,6 +24,7 @@ article#website-testimonials div.reviews-flex-wrapper {
 article#website-testimonials div.reviews-flex-wrapper div.reviews-row {
   width: 100%;
   display: flex;
+  gap: 10px;
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
@@ -32,6 +33,7 @@ article#website-testimonials div.reviews-flex-wrapper div.reviews-row {
 article#website-testimonials div.reviews-flex-wrapper div.reviews-row-bottom {
   width: 100%;
   display: flex;
+  gap: 10px;
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
@@ -50,7 +52,28 @@ article#website-testimonials section.review-card {
   justify-content: center;
 }
 article#website-testimonials section.review-card div.review-main-cont {
-  padding: 10px;
+  flex-grow: 1;
+  width: 100%;
+  max-height: 9rem;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+  scrollbar-width: thin;
+  scrollbar-color: black #0a3d53;
+}
+article#website-testimonials section.review-card div.review-main-cont::-webkit-scrollbar {
+  width: 8px;
+}
+article#website-testimonials section.review-card div.review-main-cont::-webkit-scrollbar-track {
+  background: #0a3d53;
+  border-radius: 10px;
+}
+article#website-testimonials section.review-card div.review-main-cont::-webkit-scrollbar-thumb {
+  background: black;
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+article#website-testimonials section.review-card div.review-main-cont::-webkit-scrollbar-thumb:hover {
+  background: black;
 }
 article#website-testimonials section.review-card div.review-main-cont p {
   font-family: "Euclid Circular A", sans-serif;
@@ -104,9 +127,11 @@ article#website-testimonials section.review-card .star-rating .text-muted::befor
   }
   article#website-testimonials div.reviews-row {
     flex-direction: row;
+    gap: 10px;
   }
   article#website-testimonials div.reviews-row-bottom {
     flex-direction: row;
+    gap: 10px;
   }
 }
 

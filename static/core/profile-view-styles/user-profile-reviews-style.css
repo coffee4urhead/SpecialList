@@ -19,6 +19,25 @@ section#reviews-for-user div#reviews-scroll-container {
   align-items: center;
   gap: 30px;
 }
+section#reviews-for-user div#reviews-scroll-container div.not-found {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  gap: 20px;
+}
+section#reviews-for-user div#reviews-scroll-container div.not-found p {
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 2em;
+  font-style: normal;
+  color: black;
+}
+section#reviews-for-user div#reviews-scroll-container div.not-found img {
+  width: 200px;
+  height: auto;
+  object-fit: contain;
+}
 section#reviews-for-user::-webkit-scrollbar {
   display: none;
 }
@@ -91,7 +110,7 @@ section.review-card div.bottom-section-edit {
   gap: 30px;
   margin: 10px auto;
 }
-section.review-card div.bottom-section-edit a.emp-web-btn {
+section.review-card div.bottom-section-edit button.emp-web-btn {
   width: 100%;
   height: 45px;
   background-color: #ffffff;
@@ -108,7 +127,7 @@ section.review-card div.bottom-section-edit a.emp-web-btn {
   color: red;
   text-decoration: none;
 }
-section.review-card div.bottom-section-edit a.emp-web-btn:hover {
+section.review-card div.bottom-section-edit button.emp-web-btn:hover {
   transform: translateY(-2px);
   transition: transform 0.2s linear;
 }

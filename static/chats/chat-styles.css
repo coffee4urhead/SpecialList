@@ -197,4 +197,15 @@ div.user-small-info {
   display: none;
 }
 
+.read-indicator {
+  font-size: 10px;
+  color: #999;
+  text-align: right;
+  margin-top: 2px;
+}
+
+.message.received .read-indicator {
+  color: rgba(0, 0, 0, 0.4);
+}
+
 /*# sourceMappingURL=chat-styles.css.map */

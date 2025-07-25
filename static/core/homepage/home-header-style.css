@@ -1,19 +1,21 @@
 header#head-sect {
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  padding: 1rem;
   position: relative;
-  min-height: 80px;
   background: white;
+  margin-bottom: 7rem;
 }
 header#head-sect .header-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 1rem;
   z-index: 100;
+  background: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 header#head-sect .header-container a img.logout-img {
   width: 50px;
@@ -33,13 +35,11 @@ header#head-sect h1.web-title {
   font-style: normal;
   margin-left: 20px;
   padding: 13px;
-  margin: 0;
+  position: relative;
   flex-shrink: 0;
   white-space: nowrap;
-  margin-left: 60px;
-  position: relative;
 }
-header#head-sect span {
+header#head-sect h1.web-title span {
   color: #06BAC5;
 }
 header#head-sect .hamburger-btn {
@@ -50,10 +50,8 @@ header#head-sect .hamburger-btn {
   border: none;
   cursor: pointer;
   padding: 10px;
-  position: absolute;
-  left: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
+  position: sticky;
+  top: 1rem;
   z-index: 1002;
 }
 header#head-sect .hamburger-btn .hamburger-line {

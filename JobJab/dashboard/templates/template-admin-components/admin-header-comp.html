@@ -1,0 +1,34 @@
+{% load static %}
+<header id="admin-header">
+    <div class="header-container">
+        <button class="hamburger-btn" aria-label="Menu" aria-expanded="false">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
+    </div>
+
+    <div class="side-panel">
+        <section id="website-main-info">
+            <img src="{% static 'images/SpecialListLogo.jpg' %}" alt="website logo"/>
+            <h1 class="web-title">Special<span>List</span></h1>
+        </section>
+
+        <nav class="main-nav">
+            <ul class="links-holder">
+                <li><img class="header-icon" src="{% static 'images/home-icon.png' %}" alt="home icon"/><a
+                        class="link-web" href="{% url 'home' %}">Bookings</a></li>
+                <li><img class="header-icon" src="{% static 'images/about-page-icon.png' %}" alt="about page icon"/><a
+                        class="link-web" href="{% url 'admin_core_info' %}">Core information</a></li>
+                <li><img class="header-icon" src="{% static 'images/explore-icon.png' %}" alt="explore page icon"/><a
+                        class="link-web" href="{% url 'explore_services' %}">Services</a></li>
+                <li><img class="header-icon" src="{% static 'images/messages-icon.png' %}" alt="chats page icon"/><a
+                        class="link-web" href="{% url 'explore_conversations' %}">Chats</a></li>
+                <li><img class="header-icon" src="{% static 'images/messages-icon.png' %}" alt="chats page icon"/><a
+                        class="link-web" href="{% url 'explore_conversations' %}">Reviews</a></li>
+                <li><img class="header-icon" src="{% static 'images/messages-icon.png' %}" alt="chats page icon"/><a
+                        class="link-web" href="{% url 'explore_conversations' %}">Subscriptions</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>

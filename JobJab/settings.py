@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "JobJab.services",
     "JobJab.booking",
     "JobJab.reviews",
+    'JobJab.dashboard',
     "JobJab.subscriptions",
     'JobJab.chats',
     'compressor',

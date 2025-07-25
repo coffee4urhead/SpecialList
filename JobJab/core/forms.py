@@ -13,17 +13,27 @@ User = get_user_model()
 
 
 class CleanUserCreationForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ('username', 'email', "user_type", 'password1', 'password2')
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
         for fieldname in self.fields:
             self.fields[fieldname].help_text = None
+            self.fields['password1'].help_text = "Your password must contain at least 10 characters."
 
     def clean_password2(self):
-        password2 = super().clean_password2()
+        password1 = self.cleaned_data.get("password1")
+        password2 = self.cleaned_data.get("password2")
 
-        if len(password2) < 8:
-            raise ValidationError("Password must be at least 8 characters long.")
+        # First check if passwords match (basic validation)
+        if password1 and password2 and password1 != password2:
+            raise ValidationError("Passwords don't match")
+
+        # Then add your custom validation
+        if len(password2) < 10:  # Changed to match your settings.py min_length
+            raise ValidationError("Password must be at least 10 characters long.")
         if not re.search(r'[A-Z]', password2):
             raise ValidationError("Password must contain at least one uppercase letter.")
         if not re.search(r'[a-z]', password2):
@@ -34,10 +44,6 @@ class CleanUserCreationForm(UserCreationForm):
             raise ValidationError("Password must contain at least one special character.")
 
         return password2
-
-    class Meta:
-        model = User
-        fields = ('username', 'email', "user_type", 'password1', 'password2')
 
 
 class CleanLoginForm(AuthenticationForm):

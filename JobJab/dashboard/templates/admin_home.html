@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load compress static %}
+    {% compress css %}
+        <link rel="stylesheet" type="text/x-scss" href="{% static 'admin-dashboard/admin-header-comp.scss' %}">
+        <link rel="stylesheet" type="text/x-scss" href="{% static 'admin-dashboard/admin_core_info_styles.scss' %}">
+        <link rel="stylesheet" type="text/x-scss" href="{% static 'admin-dashboard/admin-home-styles.scss' %}">
+    {% endcompress %}
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background-color: #F0F2F5;
+
+            p, a {
+                font-family: "Euclid Circular A", sans-serif;
+                font-weight: 500;
+                font-size: 1em;
+                font-style: normal;
+            }
+        }
+
+        main#main-web-container {
+            margin: 0 auto;
+            border-radius: 8px;
+            width: 70%;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            align-content: center;
+            align-items: center;
+            background-color: white;
+        }
+    </style>
+    <title>SpecialList admin dashboard home</title>
+</head>
+<body>
+{% include 'template-admin-components/admin-header-comp.html' %}
+<div class="dashboard-layout">
+    <main id="main-web-container">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <aside id="user-popup-overlay" class="popup-user-registry hidden">
+        <div class="popup-content">
+            <div class="popup-header">
+                <h3 id="popup-title">Popup</h3>
+                <button id="close-popup">&times;</button>
+            </div>
+            <div class="popup-user-list" id="popup-list">
+            </div>
+        </div>
+    </aside>
+
+</div>
+
+<div id="user-template" class="popup-template hidden">
+    {% for user in users %}
+        <section class="user-card" data-type="user" data-id="{{ user.id }}">
+            <label>
+                <input type="checkbox" name="delete-user"/>
+                <span>{{ user.get_full_name }} - {{ user.email }}</span>
+            </label>
+        </section>
+    {% endfor %}
+</div>
+
+<div id="org-template" class="popup-template hidden">
+    {% for org in organizations %}
+        <section class="user-card" data-type="organization" data-id="{{ org.id }}">
+            <label>
+                <input type="checkbox" name="delete-org"/>
+                <span>{{ org.name }} - {{ org.member_count }} Members</span>
+            </label>
+        </section>
+    {% endfor %}
+</div>
+
+<div id="cert-template" class="popup-template hidden">
+    {% for cert in unverified_certs %}
+        <section class="user-card" data-type="certificate" data-id="{{ cert.id }}">
+            <label>
+                <input type="checkbox" name="delete-cert"/>
+                <span>{{ cert.user.get_full_name }} - {{ cert.title }}</span>
+            </label>
+        </section>
+    {% endfor %}
+</div>
+
+<script src="{% static 'js-scripts/home-side-panel.js' %}"></script>
+<script src="{% static 'js-scripts/dashboard-scripts/core-models-handler.js' %}"></script>
+</body>
+</html>

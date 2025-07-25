@@ -35,8 +35,11 @@ class LoginView(View):
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
             user = authenticate(request, username=username, password=password)
+
             if user is not None:
                 auth_login(request, user)
+                if user.is_staff:
+                    return redirect('custom_admin_home')
                 return redirect('home')
         messages.error(request, 'Invalid username or password.')
         return render(request, self.template_name, {'form': form})

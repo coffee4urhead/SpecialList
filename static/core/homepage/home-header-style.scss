@@ -4,20 +4,22 @@
 
 header#head-sect {
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  padding: 1rem;
   position: relative;
-  min-height: 80px;
   background: white;
+  margin-bottom: 7rem;
 
   .header-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 1rem;
     z-index: 100;
+    background: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 
     a {
       img.logout-img {
@@ -37,15 +39,13 @@ header#head-sect {
 
   h1.web-title {
     @include web-title-special($pref-font-size: clamp(1.5rem, 2.7rem, 3.5rem), $pref-font-st: normal);
-    margin: 0;
+    position: relative;
     flex-shrink: 0;
     white-space: nowrap;
-    margin-left: 60px;
-    position: relative;
-  }
 
-  span {
-    color: $secondary-web-color;
+    span {
+      color: $secondary-web-color;
+    }
   }
 
   .hamburger-btn {
@@ -56,10 +56,8 @@ header#head-sect {
     border: none;
     cursor: pointer;
     padding: 10px;
-    position: absolute;
-    left: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
+    position: sticky;
+    top: 1rem;
     z-index: 1002;
 
     .hamburger-line {

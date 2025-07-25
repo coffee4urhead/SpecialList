@@ -1,3 +1,4 @@
+import json
 from decimal import Decimal
 
 import stripe
@@ -47,6 +48,7 @@ class ServiceBookingView(LoginRequiredMixin, DetailView):
         )
         return context
 
+
 def get_time_slots(request, service_id):
     service = get_object_or_404(ServiceListing, id=service_id)
     provider = service.provider
@@ -67,11 +69,33 @@ def get_time_slots(request, service_id):
 
 
 def create_booking(request):
-    if request.method == 'POST':
+    if request.method == 'POST' and request.headers.get('X-Requested-With') == 'XMLHttpRequest':
         form = BookingForm(request.POST)
         if form.is_valid():
             booking = form.save(commit=False)
             booking.seeker = request.user
+            try:
+                data = json.loads(request.body)
+            except json.JSONDecodeError:
+                return JsonResponse({'error': 'Invalid JSON'}, status=400)
+
+            slot_id = data.get('time_slot')
+            service_id = data.get('service')
+            notes = data.get('notes')
+
+            print(slot_id)
+            if slot_id:
+                booking.time_slot = get_object_or_404(WeeklyTimeSlot, id=slot_id)
+            else:
+                return JsonResponse({'error': 'Missing time_slot'}, status=400)
+            if not service_id:
+                return JsonResponse({'error': 'Missing service'}, status=400)
+
+            booking.time_slot = get_object_or_404(WeeklyTimeSlot, id=slot_id)
+            booking.service = get_object_or_404(ServiceListing, id=service_id)
+            booking.provider = booking.service.provider
+            booking.notes = notes
+
             booking.price = booking.calculate_price()
             booking.save()
 
@@ -84,6 +108,7 @@ def create_booking(request):
                 'amount': float(booking.price),
             })
     return JsonResponse({'error': 'Invalid request'}, status=400)
+
 
 def create_availability_view(request):
     WeeklyTimeSlotFormSet = modelformset_factory(
@@ -104,7 +129,9 @@ def create_availability_view(request):
         'formset': formset,
     })
 
+
 from collections import defaultdict
+
 
 @login_required(login_url='login')
 def availability_table_view(request):
@@ -132,29 +159,29 @@ def availability_table_view(request):
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
-@csrf_exempt
-def create_payment_intent(request, booking_id):
-    booking = get_object_or_404(Booking, id=booking_id, seeker=request.user)
 
+def create_payment_intent(request, booking_id):
     try:
-        amount = int(booking.calculate_price() * 100)
+        booking = Booking.objects.get(id=booking_id)
 
         intent = stripe.PaymentIntent.create(
-            amount=amount,
+            amount=int(booking.service.price * 100),
             currency='usd',
+            automatic_payment_methods={'enabled': True},
             metadata={
                 'booking_id': booking.id,
+                'service_id': booking.service.id,
                 'user_id': request.user.id
-            },
+            }
         )
 
         return JsonResponse({
-            'clientSecret': intent['client_secret'],
-            'amount': amount,
-            'booking_id': booking.id,
+            'clientSecret': intent.client_secret
         })
+
     except Exception as e:
-        return JsonResponse({'error': str(e)}, status=403)
+        return JsonResponse({'error': str(e)}, status=400)
+
 
 @csrf_exempt
 def stripe_webhook(request):

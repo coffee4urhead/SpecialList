@@ -11,6 +11,7 @@ from django.db.models import Q
 from JobJab.services.models import ServiceListing, Comment
 from .forms import ServiceListingForm, ServiceDetailSectionFormSet, CommentForm
 from .utils import get_service_limit_for_plan
+from .. import settings
 from ..booking.forms import ProviderAvailabilityForm
 from ..booking.models import ProviderAvailability, WeeklyTimeSlot
 from ..subscriptions.models import SubscriptionPlan, SubscriptionStatus
@@ -163,6 +164,7 @@ class ExtendedServiceDisplayView(LoginRequiredMixin, View):
             'slots_by_key': slots_by_key,
             'days': WeeklyTimeSlot.DAYS_OF_WEEK,
             'time_ranges': time_ranges,
+            'STRIPE_PUBLIC_KEY': settings.STRIPE_PUBLIC_KEY,
         }
         return render(request, 'extended-service-display.html', context)
 

@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
     {% load compress static %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     {% compress css %}
@@ -64,35 +66,31 @@
     <div class="weekly-timestamps">
         <h2>Service provider timetable & working/busy hours</h2>
         {% include 'partials/_availability_table.html' with slots_by_key=slots_by_key days=days time_ranges=time_ranges %}
-        <script src="https://js.stripe.com/v3/"></script>
-        <div id="payment-element" style="margin: 20px 0;"></div>
+    </div>
 
-        <div id="booking-modal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <h3>Book This Service</h3>
-                <div id="payment-flow" style="display:none;">
-                    <div id="payment-element-container">
-                        <div id="payment-element"></div>
-                    </div>
-                    <button id="submit-payment" class="book-btn">Pay Now</button>
-                    <div id="payment-message" class="hidden"></div>
-                </div>
-                <form id="booking-form" method="post">
-                    {% csrf_token %}
-                    <input type="hidden" name="time_slot_id" id="selected-slot">
-                    <input type="hidden" name="service_id" id="selected-service">
-                    <div class="form-group">
-                        <label>Your Email:</label>
-                        <input type="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Notes:</label>
-                        <textarea name="notes"></textarea>
-                    </div>
-                    <button type="button" id="proceed-to-payment" class="book-btn">Proceed to Payment</button>
-                </form>
-            </div>
+    <!-- Booking Modal -->
+    <div id="booking-modal"
+         style="display:none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5); z-index: 9999;">
+        <div style="background: white; margin: 5% auto; padding: 20px; max-width: 500px; position: relative; border-radius: 8px;">
+            <button class="close" style="position:absolute; top:10px; right:10px; font-size: 18px;">&times;</button>
+
+            <!-- Booking form -->
+            <form id="booking-form">
+                <input type="hidden" id="selected-slot" name="slot_id"/>
+                <input type="hidden" id="selected-service" name="service_id"/>
+                <label for="email">Your Email:</label><br/>
+                <input type="email" name="email" required/><br/><br/>
+                <label for="notes">Notes (optional):</label><br/>
+                <textarea name="notes"></textarea><br/><br/>
+                <button type="submit">Book this slot</button>
+            </form>
+
+            <!-- Payment form (hidden initially) -->
+            <form id="payment-form" style="display:none;">
+                <div id="payment-element"></div>
+                <div id="payment-message" class="hidden" style="color:red; margin-top:10px;"></div>
+                <button id="submit-button" type="submit">Pay</button>
+            </form>
         </div>
     </div>
 
@@ -201,6 +199,9 @@
 
 {% include 'template-components/footer.html' %}
 
+<script>
+    const STRIPE_PUBLIC_KEY = "{{ STRIPE_PUBLIC_KEY }}";
+</script>
 <script type="module" src="{% static 'js-scripts/bookings/main-booking-functionalilty.js' %}"></script>
 <script src="{% static 'js-scripts/home-side-panel.js' %}"></script>
 <script type="module" src="{% static 'js-scripts/services-scripts/comments-extended-display-func.js' %}"></script>

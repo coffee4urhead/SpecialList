@@ -142,15 +142,6 @@
                         <h1><a href="{% url 'extended_service_display' service.id %}">{{ service.title }}</a></h1>
                         <p>Description: {{ service.description }}</p>
                         <p>Service price (in USD): {{ service.price }}$</p>
-
-                        <div class="bottom-sect-interact"></div>
-                        {% if request.user != service.provider %}
-                            <button class="book-btn"
-                                    data-service-id="{{ service.id }}"
-                                    onclick="showBookingModal({{ service.id }})">
-                                Book This Service
-                            </button>
-                        {% endif %}
                         <p>Required time for the offering (in minutes): {{ service.duration_minutes }}</p>
 
                         <div class="icon-holder">

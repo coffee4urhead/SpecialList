@@ -1,4 +1,5 @@
-from datetime import datetime, timedelta, date
+from datetime import datetime, date, timedelta
+from decimal import Decimal
 
 from django.db import models
 from django.conf import settings
@@ -104,7 +105,7 @@ class Booking(models.Model):
         related_name='bookings_received',
         limit_choices_to={'user_type': UserChoices.Provider}
     )
-    stripe_customer_id = models.CharField(max_length=512, unique=True)
+    stripe_customer_id = models.CharField(max_length=512, unique=True, blank=True, null=True)
     stripe_subscription_id = models.CharField(
         max_length=512,
         unique=True,
@@ -145,10 +146,13 @@ class Booking(models.Model):
     ])
     amount_paid = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
+    from decimal import Decimal
+
     def calculate_price(self):
-        """Calculate price based on service price and duration"""
-        duration_hours = (self.time_slot.end_time - self.time_slot.start_time).total_seconds() / 3600
-        return self.service.price * duration_hours
+        duration_hours = (datetime.combine(date.today(), self.time_slot.end_time) -
+                          datetime.combine(date.today(), self.time_slot.start_time)).total_seconds() / 3600
+        duration_hours_decimal = Decimal(str(duration_hours))
+        return self.service.price * duration_hours_decimal
 
     def __str__(self):
         return f"Booking {self.id} from {self.seeker} to {self.provider} at {self.appointment_datetime}"

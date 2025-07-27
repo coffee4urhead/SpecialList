@@ -1,23 +1,24 @@
 from datetime import timedelta
 
 import pandas as pd
-from django.forms.models import modelform_factory
-from django.urls import reverse_lazy
 from plotly import graph_objects as go
 from django.contrib import messages
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.db.models.functions import TruncDate
 from django.utils import timezone
-from django.views.generic import TemplateView, DeleteView, UpdateView, ListView, DetailView
+from django.views.generic import TemplateView
 from django.shortcuts import redirect
 from django.db.models import Count
 
-from JobJab.core.forms import CertificateForm, ProfileEditForm
+from JobJab.booking.models import Booking
+from JobJab.chats.models import Conversation, Message
 from JobJab.core.models import Organization, CustomUser, Certificate
 import plotly.express as px
 from plotly.offline import plot
 
+from JobJab.reviews.models import WebsiteReview, UserReview
 from JobJab.services.models import Availability, Comment, ServiceListing
+from JobJab.subscriptions.models import SubscriptionRecord
 
 
 class AdminDashboardView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
@@ -151,9 +152,9 @@ class GraphsView:
         return plot(fig, output_type='div', config=config, include_plotlyjs='cdn')
 
     @staticmethod
-    def create_service_trend_graph(services, start_date, end_date):
+    def create_service_trend_graph(services, start_date, end_date, arg_getter='created_at'):
         df = pd.DataFrame(
-            services.annotate(date=TruncDate('created_at'))
+            services.annotate(date=TruncDate(arg_getter))
             .values('date')
             .annotate(count=Count('id'))
         )
@@ -314,5 +315,138 @@ class ServicesInfoView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
             'service_graph': GraphsView.create_service_trend_graph(services, start_date, end_date),
             'availability_graph': GraphsView.create_availability_status_graph(availabilities),
             'comment_graph': GraphsView.create_comment_activity_graph(comments, start_date, end_date),
+        })
+        return context
+
+
+class SubscriptionsInfoView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
+    template_name = 'template-admin-components/admin_subscriptions_info.html'
+    login_url = 'login'
+
+    def test_func(self):
+        return self.request.user.is_staff
+
+    def handle_no_permission(self):
+        if not self.request.user.is_authenticated:
+            return redirect(self.get_login_url())
+        messages.error(self.request, "Staff privileges required")
+        return redirect(self.get_login_url())
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        end_date = timezone.now().date()
+        start_date = end_date - timedelta(days=30)
+
+        subscriptions = SubscriptionRecord.objects.select_related('user').all()
+        recent_subscriptions = subscriptions.filter(created_at__range=(start_date, end_date))
+
+        context.update({
+            'total_subscriptions': subscriptions.count(),
+            'recent_subscriptions': recent_subscriptions,
+            'subscriptions': subscriptions,
+
+            'subscriptions_graph': GraphsView.create_service_trend_graph(subscriptions, start_date, end_date),
+        })
+        return context
+
+
+class ChatsInfoView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
+    template_name = 'template-admin-components/admin_chats_info.html'
+    login_url = 'login'
+
+    def test_func(self):
+        return self.request.user.is_staff
+
+    def handle_no_permission(self):
+        if not self.request.user.is_authenticated:
+            return redirect(self.get_login_url())
+        messages.error(self.request, "Staff privileges required")
+        return redirect(self.get_login_url())
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        end_date = timezone.now().date()
+        start_date = end_date - timedelta(days=30)
+
+        chats = Conversation.objects.prefetch_related('participants').all()
+        recent_chats = chats.filter(created_at__range=(start_date, end_date))
+        messages = Message.objects.select_related('sender').all()
+        messages_count = messages.count()
+
+        context.update({
+            'total_chats': chats.count(),
+            'total_messages': messages_count,
+            'messages': messages,
+            'recent_chats': recent_chats,
+            'chats': chats,
+
+            'messages_graph': GraphsView.create_service_trend_graph(messages, start_date, end_date, arg_getter='timestamp'),
+            'chats_graph': GraphsView.create_service_trend_graph(chats, start_date, end_date),
+        })
+        return context
+
+class ReviewsInfoView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
+    template_name = 'template-admin-components/admin_reviews_info.html'
+    login_url = 'login'
+
+    def test_func(self):
+        return self.request.user.is_staff
+
+    def handle_no_permission(self):
+        if not self.request.user.is_authenticated:
+            return redirect(self.get_login_url())
+        messages.error(self.request, "Staff privileges required")
+        return redirect(self.get_login_url())
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        end_date = timezone.now().date()
+        start_date = end_date - timedelta(days=30)
+
+        website_reviews = WebsiteReview.objects.prefetch_related('reviewer').all()
+
+        user_reviews = UserReview.objects.select_related('reviewer', 'reviewee').all()
+
+        context.update({
+            'total_web_reviews': website_reviews.count(),
+            'total_user_reviews': user_reviews.count(),
+            'website_reviews': website_reviews,
+            'user_reviews': user_reviews,
+
+            'website_reviews_graph': GraphsView.create_service_trend_graph(website_reviews, start_date, end_date),
+            'user_reviews_graph': GraphsView.create_service_trend_graph(user_reviews, start_date, end_date),
+        })
+        return context
+
+class BookingInfoView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
+    template_name = 'template-admin-components/admin_booking_info.html'
+    login_url = 'login'
+
+    def test_func(self):
+        return self.request.user.is_staff
+
+    def handle_no_permission(self):
+        if not self.request.user.is_authenticated:
+            return redirect(self.get_login_url())
+        messages.error(self.request, "Staff privileges required")
+        return redirect(self.get_login_url())
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        end_date = timezone.now().date()
+        start_date = end_date - timedelta(days=30)
+
+        bookings = Booking.objects.prefetch_related('seeker', 'provider').all()
+
+
+        context.update({
+            'total_bookings': bookings.count(),
+            'bookings': bookings,
+
+            'bookings_graph': GraphsView.create_service_trend_graph(bookings, start_date, end_date),
         })
         return context

@@ -1,0 +1,38 @@
+{% extends "admin_home.html" %}
+{% load static %}
+{% block content %}
+    <article class="admin-content-container">
+        <h2>Core Application Data</h2>
+
+        <section class="admin-stats-grid">
+            <div class="stat-card" data-popup-target="bookings-template">
+                <img class="stats-card-logo" src="{% static 'images/admin-images/users-logo.png' %}" alt="users image"/>
+                <h3>Total Bookings made for Services</h3>
+                <p>{{ total_bookings }}</p>
+            </div>
+        </section>
+    </article>
+    <script src="https://cdn.plot.ly/plotly-2.25.2.min.js"></script>
+    <div class="graph-container">
+        <div class="graph-card">
+            <h3>User Bookings Trend</h3>
+            <div class="plotly-graph">
+                {{ bookings_graph|safe }}
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (typeof Plotly === 'undefined') {
+                console.error('Plotly not loaded!');
+                return;
+            }
+
+            const plotDivs = document.querySelectorAll('.plotly-graph-div');
+            plotDivs.forEach(div => {
+                console.log('Found Plotly div:', div.id);
+                Plotly.Plots.resize(div);
+            });
+        });
+    </script>
+{% endblock %}

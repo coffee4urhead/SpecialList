@@ -11,6 +11,12 @@ document.addEventListener("DOMContentLoaded", function () {
         "services-template": document.getElementById("services-template"),
         "availabilities-template": document.getElementById("availabilities-template"),
         "comments-template": document.getElementById("comments-template"),
+        "subscriptions-template": document.getElementById("subscriptions-template"),
+        "chats-template": document.getElementById("chats-template"),
+        "messages-template": document.getElementById("messages-template"),
+        "website-review-template": document.getElementById("website-review-template"),
+        "user-review-template": document.getElementById("user-review-template"),
+        "bookings-template": document.getElementById("bookings-template"),
     };
 
     document.querySelectorAll(".stat-card").forEach(card => {
@@ -63,6 +69,24 @@ document.addEventListener("DOMContentLoaded", function () {
                 break;
             case 'comment':
                 adminUrl = `/admin/services/comment/${id}/change/`;
+                break;
+            case 'subscription':
+                adminUrl = `/admin/subscriptions/subscriptionrecord/${id}/change/`;
+                break;
+            case 'chat':
+                adminUrl = `/admin/chats/conversation/${id}/change/`;
+                break;
+            case 'message':
+                adminUrl = `/admin/chats/message/${id}/change/`;
+                break;
+            case 'web-rev':
+                adminUrl = `/admin/reviews/websitereview/${id}/change/`;
+                break;
+            case 'user-rev':
+                adminUrl = `/admin/reviews/userreview/${id}/change/`;
+                break;
+            case 'booking':
+                adminUrl = `http://127.0.0.1:8000/admin/booking/booking/${id}/change/`;
                 break;
             default:
                 return;

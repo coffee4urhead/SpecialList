@@ -98,7 +98,7 @@
     {% endfor %}
 </div>
 
-<div id="services-template" style="display:none;">
+<div id="services-template" class="popup-template hidden">
     {% for service in recent_services %}
         <div class="user-card" data-type="service" data-id="{{ service.id }}">
             <strong>{{ service.title }}</strong><br>
@@ -110,7 +110,7 @@
     {% endfor %}
 </div>
 
-<div id="availabilities-template" style="display:none;">
+<div id="availabilities-template" class="popup-template hidden">
     {% for availability in availabilities %}
         <div class="user-card" data-type="availability" data-id="{{ availability.id }}">
             Status: {{ availability.status }}<br>
@@ -122,7 +122,7 @@
     {% endfor %}
 </div>
 
-<div id="comments-template" style="display:none;">
+<div id="comments-template" class="popup-template hidden">
     {% for comment in comments %}
         <div class="user-card" data-type="comment" data-id="{{ comment.id }}">
             "{{ comment.text|truncatechars:50 }}"<br>
@@ -131,6 +131,88 @@
         </div>
     {% empty %}
         <p>No comments found.</p>
+    {% endfor %}
+</div>
+<div id="subscriptions-template" class="popup-template hidden">
+    {% for sub in subscriptions %}
+        <div class="user-card" data-type="subscription" data-id="{{ sub.id }}">
+            <p>Subscription {{ sub.plan }}({{ sub.price }}) for: {{ sub.user.get_username }}</p>
+            <p>Made on: {{ sub.created_at }}</p>
+            <p>Expiration dates: {{ sub.current_period_start }} - {{ sub.current_period_end }}</p>
+            <p>Status: {{ sub.status }}</p>
+        </div>
+    {% empty %}
+        <p>No subscriptions found.</p>
+    {% endfor %}
+</div>
+<div id="chats-template" class="popup-template hidden">
+    {% for chat in chats %}
+        <div class="user-card" data-type="chat" data-id="{{ chat.id }}">
+            <p>
+                Participants
+                {% for user in chat.participants.all %}
+                    <small>{{ user.get_username }}</small>
+                    <small>{{ user.email }}</small>
+                {% endfor %}
+            </p>
+            <p>Conversation created at: {{ chat.created_at }}</p>
+            <p>Last updated: {{ chat.updated_at }}</p>
+        </div>
+    {% empty %}
+        <p>No conversations found.</p>
+    {% endfor %}
+</div>
+<div id="messages-template" class="popup-template hidden">
+    {% for message in messages %}
+        <div class="user-card" data-type="message" data-id="{{ message.id }}">
+            {% if message.content %}
+                "{{ message.content.text|truncatechars:50 }}"<br>
+            {% else %}
+                "{{ message.image }}"<br>
+            {% endif %}
+            By: {{ message.sender.get_full_name }}<br>
+            On: {{ message.timestamp|date:"Y-m-d" }}
+        </div>
+    {% empty %}
+        <p>No messages found.</p>
+    {% endfor %}
+</div>
+<div id="website-review-template" class="popup-template hidden">
+    {% for rev in website_reviews %}
+        <div class="user-card" data-type="web-rev" data-id="{{ rev.id }}">
+            Main caption {{ rev.main_caption }}<br>
+            "{{ rev.comment.text|truncatechars:50 }}"<br>
+            By: {{ rev.reviewer.get_full_name }}<br>
+            On: {{ rev.created_at|date:"Y-m-d" }}
+        </div>
+    {% empty %}
+        <p>No website reviews found.</p>
+    {% endfor %}
+</div>
+<div id="user-review-template" class="popup-template hidden">
+    {% for user_rev in user_reviews %}
+        <div class="user-card" data-type="user-rev" data-id="{{ user_rev.id }}">
+            Main caption {{ user_rev.main_caption }}<br>
+            "{{ user_rev.comment.text|truncatechars:50 }}"<br>
+            By: {{ user_rev.reviewer.get_full_name }}<br>
+            On: {{ user_rev.created_at|date:"Y-m-d" }}
+        </div>
+    {% empty %}
+        <p>No User Reviews found.</p>
+    {% endfor %}
+</div>
+
+<div id="bookings-template" class="popup-template hidden">
+    {% for booking in bookings %}
+        <div class="user-card" data-type="booking" data-id="{{ booking.id }}">
+            Booking for Service {{ booking.service.title }} from {{ booking.provider.get_username }} for {{ booking.price }}<br>
+            Status for the booking: {{ booking.status }} made at {{ booking.appointment_datetime|date:"Y-m-d" }}<br>
+             Notes by the user: {{ booking.notes }} <br>
+            Booked By: {{ booking.seeker.get_full_name }}<br>
+            Service created at: {{ booking.service.created_at|date:"Y-m-d" }}
+        </div>
+    {% empty %}
+        <p>No Bookings found.</p>
     {% endfor %}
 </div>
 

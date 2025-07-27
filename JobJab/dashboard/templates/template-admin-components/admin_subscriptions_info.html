@@ -1,0 +1,34 @@
+{% extends 'admin_home.html' %}
+{% block content %}
+    <article class="admin-content-container">
+        <h2>Subscriptions Dashboard</h2>
+
+        <div class="admin-stats-grid">
+            <div class="stat-card" data-popup-target="subscriptions-template">
+                <h3>Total Subscriptions</h3>
+                <p>{{ total_subscriptions }}</p>
+            </div>
+        </div>
+    </article>
+    <script src="https://cdn.plot.ly/plotly-2.25.2.min.js"></script>
+    <div class="graph-container">
+        <div class="graph-card">
+            <h3>New Subscriptions (30 Days)</h3>
+            {{ subscriptions_graph|safe }}
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (typeof Plotly === 'undefined') {
+                console.error('Plotly not loaded!');
+                return;
+            }
+
+            const plotDivs = document.querySelectorAll('.plotly-graph-div');
+            plotDivs.forEach(div => {
+                console.log('Found Plotly div:', div.id);
+                Plotly.Plots.resize(div);
+            });
+        });
+    </script>
+{% endblock %}

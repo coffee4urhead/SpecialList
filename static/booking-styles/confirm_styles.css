@@ -1,0 +1,42 @@
+header#description-comp-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  background-color: #06BAC5;
+  color: #ffffff;
+  padding: 1rem;
+  text-align: center;
+}
+header#description-comp-header h1#web-title {
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 2.5em;
+  font-style: normal;
+  margin-left: 20px;
+  padding: 13px;
+}
+header#description-comp-header h1#web-title span {
+  color: #008DAA;
+}
+
+div.alert {
+  margin: 20px auto;
+}
+div.alert h2 {
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 2.3em;
+  font-style: normal;
+  margin-left: 20px;
+  padding: 13px;
+}
+div.alert p {
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1.5em;
+  font-style: oblique;
+}
+
+/*# sourceMappingURL=confirm_styles.css.map */

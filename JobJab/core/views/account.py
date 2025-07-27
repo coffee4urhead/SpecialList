@@ -105,9 +105,11 @@ class UpdateFollowersView(LoginRequiredMixin, View):
 
             if action == 'follow':
                 profile_user.followers.add(follower)
+                follower.following.add(profile_user)
                 return JsonResponse({'status': 'success', 'message': 'Now following'})
             elif action == 'unfollow':
                 profile_user.followers.remove(follower)
+                follower.following.remove(profile_user)
                 return JsonResponse({'status': 'success', 'message': 'Unfollowed'})
             else:
                 return JsonResponse({'status': 'error', 'message': 'Invalid action'}, status=400)

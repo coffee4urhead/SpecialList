@@ -1,9 +1,10 @@
 import getCookie from "../utils.js";
-import { loadStripe } from 'https://cdn.skypack.dev/@stripe/stripe-js';
+import {loadStripe} from 'https://cdn.skypack.dev/@stripe/stripe-js';
 
 let stripe;
 let elements;
 let clientSecret;
+let currentBookingId = null;
 
 function getServiceIdFromUrl() {
     const segments = window.location.pathname.split('/').filter(Boolean);
@@ -67,17 +68,28 @@ function initializeBookingHandlers() {
                 messageContainer.classList.add('hidden');
             }
 
-            const { error } = await stripe.confirmPayment({
+            if (!currentBookingId) {
+                if (messageContainer) {
+                    messageContainer.textContent = 'Booking ID not found. Please try again.';
+                    messageContainer.classList.remove('hidden');
+                }
+                if (submitBtn) submitBtn.disabled = false;
+                return;
+            }
+
+            const {error} = await stripe.confirmPayment({
                 elements,
                 confirmParams: {
-                    return_url: `${window.location.origin}/booking-confirmed/${document.getElementById('selected-slot').value}/`,
+                    return_url: `${window.location.origin}/booking/booking-confirmed/${currentBookingId}/`,
                     receipt_email: document.querySelector('#booking-form [name="email"]').value,
                 },
             });
 
-            if (error && messageContainer) {
-                messageContainer.textContent = error.message;
-                messageContainer.classList.remove('hidden');
+            if (error) {
+                if (messageContainer) {
+                    messageContainer.textContent = error.message;
+                    messageContainer.classList.remove('hidden');
+                }
                 if (submitBtn) submitBtn.disabled = false;
             }
         });
@@ -93,12 +105,14 @@ function initializeBookingHandlers() {
             try {
                 e.target.querySelector('button[type="submit"]').disabled = true;
 
-                await bookTimeSlot(slotId, serviceId);
+                const bookingData = await bookTimeSlot(slotId, serviceId);
+                currentBookingId = bookingData.booking_id;
 
                 bookingForm.style.display = 'none';
                 const paymentForm = document.getElementById('payment-form');
                 if (paymentForm) paymentForm.style.display = 'block';
             } catch (error) {
+                console.error('Booking failed:', error);
                 alert('Booking failed: ' + error.message);
                 bookingForm.style.display = 'block';
                 e.target.querySelector('button[type="submit"]').disabled = false;
@@ -137,51 +151,70 @@ function resetPaymentFlow() {
     }
     clientSecret = null;
     elements = null;
+    currentBookingId = null;
 }
 
 async function bookTimeSlot(slotId, serviceId) {
-    const bookingResponse = await fetch('/booking/create/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-Requested-With': 'XMLHttpRequest',
-            'X-CSRFToken': getCookie('csrftoken'),
-        },
-        body: JSON.stringify({
-            time_slot: slotId,
-            service: serviceId,
-            notes: document.querySelector('#booking-form textarea')?.value || '',
-            email: document.querySelector('#booking-form [name="email"]')?.value || ''
-        })
-    });
-    if (!bookingResponse.ok) throw new Error('Booking creation failed');
-    const bookingData = await bookingResponse.json();
+    try {
+        const bookingResponse = await fetch('/booking/create/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRFToken': getCookie('csrftoken'),
+            },
+            body: JSON.stringify({
+                time_slot: slotId,
+                service: serviceId,
+                notes: document.querySelector('#booking-form textarea')?.value || '',
+                email: document.querySelector('#booking-form [name="email"]')?.value || ''
+            })
+        });
 
-    const paymentResponse = await fetch(`/booking/payments/create-intent/${bookingData.booking_id}/`, {
-        method: 'POST',
-        headers: {
-            'X-CSRFToken': getCookie('csrftoken'),
-            'X-Requested-With': 'XMLHttpRequest',
-            'Content-Type': 'application/json',
+        if (!bookingResponse.ok) {
+            const errorData = await bookingResponse.json();
+            throw new Error(errorData.message || 'Booking creation failed');
         }
-    });
-    if (!paymentResponse.ok) throw new Error('Payment intent creation failed');
-    const paymentData = await paymentResponse.json();
 
-    clientSecret = paymentData.clientSecret;
+        const bookingData = await bookingResponse.json();
+        currentBookingId = bookingData.booking_id;
 
-    elements = stripe.elements({
-        clientSecret,
-        appearance: {
-            theme: 'stripe',
-            variables: {
-                colorPrimary: '#4CAF50',
-                colorBackground: '#ffffff',
-                colorText: '#32325d',
+        const paymentResponse = await fetch(`/booking/payments/create-intent/${currentBookingId}/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken'),
+                'X-Requested-With': 'XMLHttpRequest',
+                'Content-Type': 'application/json',
             }
-        }
-    });
+        });
 
-    const paymentElement = elements.create('payment');
-    paymentElement.mount('#payment-element');
+        if (!paymentResponse.ok) {
+            const errorData = await paymentResponse.json();
+            throw new Error(errorData.message || 'Payment setup failed');
+        }
+
+        const paymentData = await paymentResponse.json();
+        clientSecret = paymentData.clientSecret;
+
+        elements = stripe.elements({
+            clientSecret,
+            appearance: {
+                theme: 'stripe',
+                variables: {
+                    colorPrimary: '#4CAF50',
+                    colorBackground: '#ffffff',
+                    colorText: '#32325d',
+                }
+            }
+        });
+
+        const paymentElement = elements.create('payment');
+        paymentElement.mount('#payment-element');
+
+        return bookingData;
+
+    } catch (error) {
+        console.error('Booking error:', error);
+        throw error;
+    }
 }

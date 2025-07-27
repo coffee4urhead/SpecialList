@@ -1,4 +1,25 @@
 @charset "UTF-8";
+button.filled-web-btn {
+  text-align: center;
+  width: 50%;
+  height: 45px;
+  background-color: #008DAA;
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1.2em;
+  font-style: normal;
+  color: #ffffff;
+  border-radius: 8px;
+  font-size: 1.1em;
+  font-weight: 700;
+  line-height: 45px;
+  border: 2px solid #ffffff;
+}
+button.filled-web-btn:hover {
+  transform: translateY(-2px);
+  transition: transform 0.2s linear;
+}
+
 h2 {
   font-family: "Euclid Circular A", sans-serif;
   font-weight: 400;
@@ -29,6 +50,31 @@ main#extended-service-info-container {
   color: black;
   width: 100%;
   padding: 20px;
+}
+main#extended-service-info-container div#booking-modal form#booking-form label {
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 0.9em;
+  font-style: 600;
+  color: #06BAC5;
+}
+main#extended-service-info-container div#booking-modal form#booking-form input[type=email],
+main#extended-service-info-container div#booking-modal form#booking-form textarea {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1em;
+  font-style: normal;
+  width: 100%;
+  box-sizing: border-box;
+}
+main#extended-service-info-container div#booking-modal form#booking-form input[type=email]:focus,
+main#extended-service-info-container div#booking-modal form#booking-form textarea:focus {
+  outline: none;
+  border-color: #32AE88;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
 }
 main#extended-service-info-container section.service-header {
   color: black;
@@ -234,26 +280,6 @@ form#leave-comment-form input[type=text].comment-input:focus {
 form#leave-comment-form input[type=text].comment-input::placeholder {
   color: #999;
   font-style: italic;
-}
-form#leave-comment-form button.filled-web-btn {
-  text-align: center;
-  width: 50%;
-  height: 45px;
-  background-color: #008DAA;
-  font-family: "Euclid Circular A", sans-serif;
-  font-weight: 400;
-  font-size: 1.2em;
-  font-style: normal;
-  color: #ffffff;
-  border-radius: 8px;
-  font-size: 1.1em;
-  font-weight: 700;
-  line-height: 45px;
-  border: 2px solid #ffffff;
-}
-form#leave-comment-form button.filled-web-btn:hover {
-  transform: translateY(-2px);
-  transition: transform 0.2s linear;
 }
 
 article#comments-section {

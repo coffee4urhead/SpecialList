@@ -36,55 +36,114 @@
             margin: 0 auto;
         }
     </style>
-
     <title>Account payments Tab</title>
 </head>
 <body>
-
 {% include 'template-components/header-comp.html' %}
 
 <h1>{{ user.get_full_name|default:user.username }}'s Payment History</h1>
 
 <main id="main-payment-content">
     {% if payment_details %}
-        {% for payment in payment_details %}
-            <div class="payment-card">
-                <div class="payment-header">
-                    <h3>{{ payment.record.get_plan_display }} Plan</h3>
-                    <span class="payment-status">{{ payment.status|default:"N/A"|title }}</span>
-                </div>
+        <div class="payment-columns-container">
+            <!-- Bookings Column -->
+            <div class="payment-column">
+                <h2 class="payment-column-title">Bookings</h2>
+                {% for payment in payment_details %}
+                    {% if payment.type == 'booking' %}
+                        <div class="payment-card">
+                            <div class="payment-header">
+                                <div>
+                                    <span class="payment-type booking">Booking</span>
+                                    <h3>{{ payment.record.service.title }}</h3>
+                                </div>
+                                <span class="payment-status {% if payment.status == 'paid' %}paid{% endif %}">
+                                    {{ payment.status|default:"N/A"|title }}
+                                </span>
+                            </div>
 
-                <div class="payment-details">
-                    <div>
-                        <p><strong>Amount:</strong> {{ payment.amount_paid|default:"N/A" }}</p>
-                        <p><strong>Date:</strong>
-                            {% if payment.date_paid %}{{ payment.date_paid|date:"M d, Y" }}{% else %}N/A{% endif %}</p>
-                        <p><strong>Subscription
-                            ID:</strong> {{ payment.record.stripe_subscription_id|truncatechars:12 }}</p>
-                    </div>
-                    <div>
-                        <p><strong>Period Start:</strong> {{ payment.record.current_period_start|date:"M d, Y" }}</p>
-                        <p><strong>Period End:</strong> {{ payment.record.current_period_end|date:"M d, Y" }}</p>
-                        <p><strong>Auto-renew:</strong> {% if payment.record.cancel_at_period_end %}No{% else %}
-                            Yes{% endif %}</p>
-                    </div>
-                </div>
-                <div class="receipt-buttons">
-                    {% if payment.receipt_url %}
-                        <a href="{{ payment.receipt_url|safe }}" target="_blank" rel="noopener noreferrer"
-                           class="receipt-btn">
-                            View Receipt Online
-                        </a>
-                    {% endif %}
+                            <div class="payment-details">
+                                <div>
+                                    <p><strong>Amount:</strong> {{ payment.amount_paid|default:"N/A" }}</p>
+                                    <p><strong>Date:</strong> {{ payment.date_paid|date:"M d, Y H:i" }}</p>
+                                    <p><strong>ID:</strong> {{ payment.record.id }}</p>
+                                </div>
+                                <div>
+                                    <p><strong>Provider:</strong> {{ payment.record.provider.get_full_name }}</p>
+                                    <p><strong>Appointment:</strong> {{ payment.record.appointment_datetime|date:"M d, Y H:i" }}</p>
+                                    <p><strong>Service:</strong> {{ payment.record.service.title }}</p>
+                                </div>
+                            </div>
 
-                    {% if payment.pdf_url %}
-                        <a href="{{ payment.pdf_url|safe }}" download class="receipt-btn">
-                            Download PDF Receipt
-                        </a>
+                            <div class="receipt-buttons">
+                                {% if payment.receipt_url %}
+                                    <a href="{{ payment.receipt_url }}" target="_blank" rel="noopener noreferrer"
+                                       class="receipt-btn">
+                                        View Receipt Online
+                                    </a>
+                                {% endif %}
+                                {% if payment.pdf_url %}
+                                    <a href="{{ payment.pdf_url }}" download class="receipt-btn">
+                                        Download PDF Receipt
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
                     {% endif %}
-                </div>
+                {% empty %}
+                    <p class="no-payments">No booking records found.</p>
+                {% endfor %}
             </div>
-        {% endfor %}
+
+            <!-- Subscriptions Column -->
+            <div class="payment-column">
+                <h2 class="payment-column-title">Subscriptions</h2>
+                {% for payment in payment_details %}
+                    {% if payment.type == 'subscription' %}
+                        <div class="payment-card">
+                            <div class="payment-header">
+                                <div>
+                                    <span class="payment-type subscription">Subscription</span>
+                                    <h3>{{ payment.record.get_plan_display }} Plan</h3>
+                                </div>
+                                <span class="payment-status {% if payment.status == 'paid' %}paid{% endif %}">
+                                    {{ payment.status|default:"N/A"|title }}
+                                </span>
+                            </div>
+
+                            <div class="payment-details">
+                                <div>
+                                    <p><strong>Amount:</strong> {{ payment.amount_paid|default:"N/A" }}</p>
+                                    <p><strong>Date:</strong> {{ payment.date_paid|date:"M d, Y" }}</p>
+                                    <p><strong>ID:</strong> {{ payment.record.id }}</p>
+                                </div>
+                                <div>
+                                    <p><strong>Period Start:</strong> {{ payment.record.current_period_start|date:"M d, Y" }}</p>
+                                    <p><strong>Period End:</strong> {{ payment.record.current_period_end|date:"M d, Y" }}</p>
+                                    <p><strong>Auto-renew:</strong> {% if payment.record.cancel_at_period_end %}No{% else %}Yes{% endif %}</p>
+                                </div>
+                            </div>
+
+                            <div class="receipt-buttons">
+                                {% if payment.receipt_url %}
+                                    <a href="{{ payment.receipt_url }}" target="_blank" rel="noopener noreferrer"
+                                       class="receipt-btn">
+                                        View Receipt Online
+                                    </a>
+                                {% endif %}
+                                {% if payment.pdf_url %}
+                                    <a href="{{ payment.pdf_url }}" download class="receipt-btn">
+                                        Download PDF Receipt
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
+                {% empty %}
+                    <p class="no-payments">No subscription records found.</p>
+                {% endfor %}
+            </div>
+        </div>
     {% else %}
         <p class="no-payments">No payment records found.</p>
     {% endif %}

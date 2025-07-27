@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load compress static %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    {% compress css %}
+        <link rel="stylesheet" type="text/x-scss" href="{% static 'booking-styles/confirm_styles.scss' %}">
+    {% endcompress %}
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background-color: white;
+
+            p, a {
+                font-family: "Euclid Circular A", sans-serif;
+                font-weight: 500;
+                font-size: 1em;
+                font-style: normal;
+            }
+        }
+
+        main#main-web-container {
+            width: 100%;
+            height: auto;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+    </style>
+    <title>Booking Confirmation</title>
+</head>
+<body>
+<div class="container">
+    <header id="description-comp-header">
+        <h1 id="web-title">Special<span>List</span></h1>
+    </header>
+    <main id="main-web-container">
+        <div class="alert alert-success">
+            <h2>Booking Confirmed!</h2>
+            <p>Your booking #{{ booking.id }} has been successfully processed.</p>
+
+            {% if redirect_status == "succeeded" %}
+                <div class="alert alert-info">
+                    <h4>Payment Details</h4>
+                    <p>Amount: ${{ booking.price }}</p>
+                    <p>Status: Payment Succeeded</p>
+                    <p>Payment Intent: {{ payment_intent }}</p>
+                </div>
+            {% endif %}
+
+            <a href="{% url 'home' %}" class="btn btn-primary">Return Home</a>
+        </div>
+    </main>
+</div>
+</body>
+</html>

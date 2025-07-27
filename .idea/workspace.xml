@@ -5,16 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a6602c8c-3836-4310-91e0-bc55f682d51c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/JobJab/dashboard/templates/template-admin-components/admin_booking_info.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JobJab/dashboard/templates/template-admin-components/admin_chats_info.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JobJab/dashboard/templates/template-admin-components/admin_reviews_info.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JobJab/dashboard/templates/template-admin-components/admin_subscriptions_info.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JobJab/booking/management/commands/fix_draft_invoices.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JobJab/booking/templates/confirmation.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/booking-styles/confirm_styles.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/dashboard/templates/admin_home.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/dashboard/templates/admin_home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/dashboard/templates/template-admin-components/admin-header-comp.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/dashboard/templates/template-admin-components/admin-header-comp.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/dashboard/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/dashboard/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/dashboard/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/dashboard/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js-scripts/dashboard-scripts/core-models-handler.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js-scripts/dashboard-scripts/core-models-handler.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/booking/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/booking/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/booking/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/booking/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/booking/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/booking/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/core/templates/core/accounts/account-tabs/account_payments.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/core/accounts/account-tabs/account_payments.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/core/views/account.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/views/account.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/core/views/payments.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/views/payments.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/services/templates/extended-service-display.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/templates/extended-service-display.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/profile-side-info-tab.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/profile-side-info-tab.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/profile-side-info-tab.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/profile-side-info-tab.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/profile-tabs-views/account-payments-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/profile-tabs-views/account-payments-styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/profile-tabs-views/account-payments-styles.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/profile-tabs-views/account-payments-styles.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/profile-tabs-views/account-payments-styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/profile-tabs-views/account-payments-styles.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js-scripts/bookings/main-booking-functionalilty.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js-scripts/bookings/main-booking-functionalilty.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/services/expand-serv-to-comment-modal.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/expand-serv-to-comment-modal.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/services/expand-serv-to-comment-modal.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/expand-serv-to-comment-modal.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/services/extended-service-display-styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/extended-service-display-styles.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,9 +37,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="JavaScript File" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -177,7 +187,7 @@
       <workItem from="1753336534697" duration="20310000" />
       <workItem from="1753377330921" duration="9836000" />
       <workItem from="1753435326048" duration="34267000" />
-      <workItem from="1753600105389" duration="4911000" />
+      <workItem from="1753600105389" duration="18443000" />
     </task>
     <servers />
   </component>

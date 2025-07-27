@@ -14,6 +14,24 @@ main#main-payment-content {
   justify-content: space-evenly;
   align-items: center;
 
+  .payment-type {
+    font-size: 0.8em;
+    padding: 0.3em 0.6em;
+    border-radius: 4px;
+    background: #f0f0f0;
+    display: inline-block;
+    margin-bottom: 0.5em;
+  }
+
+  .payment-type.booking {
+    background: #e0f7fa;
+    color: #006064;
+  }
+
+  .payment-type.subscription {
+    background: #e8f5e9;
+    color: #2e7d32;
+  }
 
   .payment-card {
     background: #f8f9fa;
@@ -73,5 +91,30 @@ main#main-payment-content {
 
   .receipt-btn:hover {
     background: #008DAA;
+  }
+
+  .payment-columns-container {
+    display: flex;
+    gap: 2rem;
+    width: 100%;
+  }
+
+  .payment-column {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .payment-column-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #06BAC5;
+    color: #072C3C;
+  }
+
+  @media (max-width: 768px) {
+    .payment-columns-container {
+      flex-direction: column;
+    }
   }
 }

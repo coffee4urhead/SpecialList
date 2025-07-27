@@ -105,14 +105,6 @@ class Booking(models.Model):
         related_name='bookings_received',
         limit_choices_to={'user_type': UserChoices.Provider}
     )
-    stripe_customer_id = models.CharField(max_length=512, unique=True, blank=True, null=True)
-    stripe_subscription_id = models.CharField(
-        max_length=512,
-        unique=True,
-        blank=True,
-        null=True,
-        help_text="The Stripe subscription ID"
-    )
     service = models.ForeignKey(ServiceListing, on_delete=models.CASCADE, related_name='bookings')
 
     appointment_datetime = models.DateTimeField(default=timezone.now)
@@ -133,10 +125,15 @@ class Booking(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     price = models.DecimalField(
         decimal_places=2,
-        max_digits=5,
+        max_digits=10,
         default=0,
     )
+    stripe_customer_id = models.CharField(max_length=512, unique=True, blank=True, null=True)
     stripe_payment_intent_id = models.CharField(max_length=255, blank=True, null=True)
+    stripe_invoice_id = models.CharField(unique=True,
+                                         blank=True,
+                                         null=True,
+                                         help_text="The Stripe subscription ID")
     payment_status = models.CharField(max_length=20, default='unpaid', choices=[
         ('unpaid', 'Unpaid'),
         ('pending', 'Pending'),
@@ -145,14 +142,6 @@ class Booking(models.Model):
         ('refunded', 'Refunded'),
     ])
     amount_paid = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-
-    from decimal import Decimal
-
-    def calculate_price(self):
-        duration_hours = (datetime.combine(date.today(), self.time_slot.end_time) -
-                          datetime.combine(date.today(), self.time_slot.start_time)).total_seconds() / 3600
-        duration_hours_decimal = Decimal(str(duration_hours))
-        return self.service.price * duration_hours_decimal
 
     def __str__(self):
         return f"Booking {self.id} from {self.seeker} to {self.provider} at {self.appointment_datetime}"

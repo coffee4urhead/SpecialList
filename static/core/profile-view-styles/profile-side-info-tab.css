@@ -384,7 +384,7 @@ section#reviews-section h1, section#favourites-section h1 {
   animation-delay: 0.4s;
 }
 #chat-window.minimized {
-  height: 40px;
+  height: 100px;
   overflow: hidden;
 }
 #chat-window.minimized .chat-header {

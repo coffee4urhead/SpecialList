@@ -95,36 +95,19 @@ article#cards-container {
   width: 100%;
   box-sizing: border-box;
 }
+
 @media (max-width: 1000px) {
   article#cards-container {
     flex-direction: column;
     align-items: center;
+    width: 100%;
     gap: 50px;
     padding: 20px 10px;
   }
   article#cards-container section.card {
     margin: 0;
-    width: 80%;
+    width: 100%;
     height: auto;
-  }
-}
-
-@media (max-width: 400px) {
-  section.card {
-    padding: 1.5rem;
-    min-height: auto;
-  }
-  section.card .main-info h3 {
-    font-size: 1.5em !important;
-  }
-  section.card .main-info p {
-    font-size: 1.2em !important;
-  }
-  section.card .subscription-stats h4 {
-    font-size: 1.3em !important;
-  }
-  section.card .subscription-stats ul li {
-    font-size: 1em !important;
   }
 }
 

@@ -3,21 +3,18 @@ document.addEventListener('DOMContentLoaded', function () {
         button.addEventListener('click', function () {
             const filterType = this.dataset.filter;
             const currentValue = this.dataset.value;
-            const isActive = this.classList.contains('filled-web-btn');
 
-            if (isActive) {
-                this.classList.remove('filled-web-btn');
-                this.classList.add('emp-web-btn');
-            } else {
-                this.classList.remove('emp-web-btn');
-                this.classList.add('filled-web-btn');
-            }
+            this.classList.toggle('filled-web-btn');
+            this.classList.toggle('emp-web-btn');
+
+            this.style.fontFamily = 'inherit';
+            this.style.lineHeight = 'normal';
 
             const url = new URL(window.location);
-            if (isActive) {
-                url.searchParams.delete(filterType);
-            } else {
+            if (this.classList.contains('filled-web-btn')) {
                 url.searchParams.set(filterType, currentValue);
+            } else {
+                url.searchParams.delete(filterType);
             }
             window.location.href = url.toString();
         });

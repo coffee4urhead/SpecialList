@@ -20,7 +20,7 @@ article.flip-component {
       }
 
       p {
-        font-size: 1.25rem;
+        @include web-title-special($pref-font-size: clamp(1.5em, 1.7em, 2.4em), $pref-font-st: normal);
         text-align: start;
         line-height: 1.6;
         padding: 1.5rem;

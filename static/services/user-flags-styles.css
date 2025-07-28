@@ -246,29 +246,29 @@ div.pdf-preview-container div.not-found img {
 }
 
 #filter-buttons {
-  display: flex;
-  gap: 10px;
-  margin: 20px;
-  flex-wrap: wrap;
+  display: flex !important;
+  gap: 10px !important;
+  margin: 20px !important;
+  flex-wrap: wrap !important;
 }
 
 .filter-btn {
-  padding: 8px 16px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  padding: 8px 16px !important;
+  border-radius: 4px !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
 }
 
 .filled-web-btn {
-  background-color: #4CAF50;
-  color: white;
-  border: 1px solid #4CAF50;
+  background-color: #4CAF50 !important;
+  color: white !important;
+  border: 1px solid #4CAF50 !important;
 }
 
 .emp-web-btn {
-  background-color: white;
-  color: #4CAF50;
-  border: 1px solid #4CAF50;
+  background-color: white !important;
+  color: #4CAF50 !important;
+  border: 1px solid #4CAF50 !important;
 }
 
 .dropdown {

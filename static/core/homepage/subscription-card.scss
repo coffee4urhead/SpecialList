@@ -52,13 +52,13 @@ section.card {
         padding-left: 1.5rem;
 
         &::before {
-            content: "\f00c";
-            font-family: "Font Awesome 5 Free";
-            font-weight: 600;
-            position: absolute;
-            left: 0;
-            color: green;
-          }
+          content: "\f00c";
+          font-family: "Font Awesome 5 Free";
+          font-weight: 600;
+          position: absolute;
+          left: 0;
+          color: green;
+        }
       }
     }
   }
@@ -87,44 +87,20 @@ article#cards-container {
   padding: 20px;
   width: 100%;
   box-sizing: border-box;
+}
 
-  @media (max-width: 1000px) {
+@media (max-width: 1000px) {
+  article#cards-container {
     flex-direction: column;
     align-items: center;
+    width: 100%;
     gap: 50px;
     padding: 20px 10px;
 
     section.card {
       margin: 0;
-      width: 80%;
+      width: 100%;
       height: auto;
-    }
-  }
-}
-
-@media (max-width: 400px) {
-  section.card {
-    padding: 1.5rem;
-    min-height: auto;
-
-    .main-info {
-      h3 {
-        font-size: 1.5em !important;
-      }
-
-      p {
-        font-size: 1.2em !important;
-      }
-    }
-
-    .subscription-stats {
-      h4 {
-        font-size: 1.3em !important;
-      }
-
-      ul li {
-        font-size: 1em !important;
-      }
     }
   }
 }

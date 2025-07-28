@@ -23,7 +23,12 @@ article.flip-component section.flip-content div.flip-text h2.heading-text-sec-ca
   padding: 13px;
 }
 article.flip-component section.flip-content div.flip-text p {
-  font-size: 1.25rem;
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1.7em;
+  font-style: normal;
+  margin-left: 20px;
+  padding: 13px;
   text-align: start;
   line-height: 1.6;
   padding: 1.5rem;

@@ -14,9 +14,15 @@ article#first-caption-comp {
   overflow: hidden;
 
   @keyframes floatBlob {
-    0% { transform: translateX(0px); }
-    50% { transform: translateX(-10px); }
-    100% { transform: translateX(0px); }
+    0% {
+      transform: translateX(0px);
+    }
+    50% {
+      transform: translateX(-10px);
+    }
+    100% {
+      transform: translateX(0px);
+    }
   }
 
   .blob-clip-bg {
@@ -37,13 +43,15 @@ article#first-caption-comp {
 
   div.text-wrapper {
     h1#web-title {
-      @include web-title-special($pref-font-size: 3.5em, $pref-font-st: normal);
+      @include web-title-special($pref-font-size: clamp(2em, 2.3em, 3em), $pref-font-st: normal);
     }
+
     span {
       color: $additional_web_color;
     }
+
     p {
-      @include def-web-text($pref-font-size: 1.5em, $pref-font-st: normal);
+      @include def-web-text($pref-font-size: clamp(1.5em, 1.7em, 2.4em), $pref-font-st: normal);
       color: black;
       font-weight: 500;
       padding: 20px;
@@ -68,6 +76,7 @@ article#first-caption-comp {
         transition: background-color 0.2s linear;
       }
     }
+
     button.emp-web-btn {
       @include main-button($arg-width: 120px, $arg-height: 50px, $arg-bg-color: $main-web-color, $txt-color: black);
       border: none;
@@ -92,6 +101,7 @@ article#first-caption-comp {
           font-weight: bold;
           font-size: 1.3em;
         }
+
         p {
           color: black;
           font-weight: bold;
@@ -110,6 +120,7 @@ article#first-caption-comp {
       h1#web-title {
         font-size: 2.5em !important;
       }
+
       p {
         font-size: 1.2em !important;
         padding: 10px !important;
@@ -120,5 +131,11 @@ article#first-caption-comp {
       flex-direction: column;
       gap: 30px;
     }
+  }
+}
+
+@media (min-width: 912px) {
+  article#first-caption-comp {
+    min-height: 35rem;
   }
 }

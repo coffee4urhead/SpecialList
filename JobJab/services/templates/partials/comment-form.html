@@ -1,5 +1,6 @@
 <form id="leave-comment-form" action="{% url 'comment_service' service.id %}" method="POST">
     {% csrf_token %}
+    <input type="hidden" name="parent_id" value="{{ comment.id }}">
     <label for="id_content">Say something</label>
     <input
             id="id_content"

@@ -1,0 +1,34 @@
+{% load static profile_extras %}
+<div class="comment-item" id="comment-{{ comment.id }}">
+    <div class="comment-user-info">
+        <a href="{% url 'account_view' comment.author.username %}">
+            <img class="author-account-image" src="{{ comment.author|profile_picture_url }}" alt="Comment author's profile photo {{ comment.author.get_username }}"/>
+        </a>
+    </div>
+
+    <div class="comment-section">
+        <small>{{ comment.author.get_full_name|default:comment.author.username }} — {{ comment.created_at|timesince }} ago</small>
+        <p>{{ comment.content }}</p>
+
+        {% if comment.parent %}
+            <small class="reply-notice">↳ in reply to {{ comment.parent.author.username }}</small>
+        {% endif %}
+
+        <div class="comment-actions">
+            <button class="reply-btn" data-comment-id="{{ comment.id }}">
+                <i class="fas fa-reply"></i> Reply
+            </button>
+        </div>
+
+        <div class="reply-form-container" id="reply-form-{{ comment.id }}" style="display: none;">
+            {% include 'partials/comment-form.html' %}
+            <input type="hidden" name="parent_id" value="{{ comment.id }}">
+        </div>
+
+        <div class="nested-replies" id="replies-for-{{ comment.id }}">
+            {% for child in comment.children.all %}
+                {% include 'partials/single-comment.html' with comment=child %}
+            {% endfor %}
+        </div>
+    </div>
+</div>

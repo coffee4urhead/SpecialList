@@ -132,68 +132,9 @@
     <h2>User Feedback: </h2>
     {% include 'partials/comment-form.html' %}
     {% for comment in service.comments.all %}
-        {% if not comment.parent_id %}
-            <div class="comment-item" id="comment-{{ comment.id }}">
-                <div class="comment-user-info">
-                    {% if comment.author.profile_picture %}
-                        <a href="{% url 'account_view' comment.author.username %}">
-                            <img class='author-account-image' src="{{ comment.author.profile_picture.url }}"
-                                 alt="{{ comment.author.get_full_name|default:comment.author.username }}">
-                        </a>
-                    {% else %}
-                        {% load static %}
-                        <a href="{% url 'account_view' comment.author.username %}">
-                            <img class='author-account-image' src="{% static '/images/avatar-default-photo.png' %}"
-                                 alt="{{ comment.author.get_full_name|default:comment.author.username }}">
-                        </a>
-                    {% endif %}
-                </div>
-
-                <div class="comment-section">
-                    <small>{{ comment.author.get_full_name|default:comment.author.username }}
-                        — {{ comment.created_at|timesince }} ago</small>
-                    <p>{{ comment.content }}</p>
-
-                    <div class="comment-actions">
-                        <button class="reply-btn" data-comment-id="{{ comment.id }}">
-                            <i class="fas fa-reply"></i> Reply
-                        </button>
-                    </div>
-
-                    <div class="reply-form-container" id="reply-form-{{ comment.id }}" style="display: none;">
-                        {% include 'partials/comment-form.html' %}
-                        <input type="hidden" name="parent_id" value="{{ comment.id }}">
-                    </div>
-
-                    {% for reply in comment.replies.all %}
-                        <div class="comment-item" id="comment-{{ reply.id }}">
-                            <div class="comment-user-info">
-                                {% if reply.author.profile_picture %}
-                                    <a href="{% url 'account_view' reply.author.username %}">
-                                        <img class='author-account-image' src="{{ reply.author.profile_picture.url }}"
-                                             alt="{{ reply.author.get_full_name|default:reply.author.username }}">
-                                    </a>
-                                {% else %}
-                                    <a href="{% url 'account_view' reply.author.username %}">
-                                        <img class='author-account-image'
-                                             src="{% static '/images/avatar-default-photo.png' %}"
-                                             alt="{{ reply.author.get_full_name|default:reply.author.username }}">
-                                    </a>
-                                {% endif %}
-                            </div>
-                            <div class="comment-section">
-                                <small>{{ reply.author.get_full_name|default:reply.author.username }}
-                                    — {{ reply.created_at|timesince }} ago</small>
-                                <p>{{ reply.content }}</p>
-                                <small class="reply-notice">↳ in reply to {{ comment.author.username }}</small>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
+        {% if not comment.parent %}
+            {% include 'partials/single-comment.html' with comment=comment depth=3 %}
         {% endif %}
-    {% empty %}
-        <p>No comments yet.</p>
     {% endfor %}
 </article>
 

@@ -108,7 +108,7 @@ class Comment(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     parent = models.ForeignKey('self', null=True, blank=True,
                                on_delete=models.CASCADE,
-                               related_name='replies')
+                               related_name='children')
 
     is_active = models.BooleanField(default=True)
 

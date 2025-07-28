@@ -283,6 +283,7 @@ form#leave-comment-form input[type=text].comment-input::placeholder {
 }
 
 article#comments-section {
+  overflow-x: scroll;
   width: 100%;
   height: auto;
   display: flex;
@@ -424,6 +425,10 @@ article#comments-section .reply-notice {
   font-style: italic;
   display: block;
   margin-top: 5px;
+}
+article#comments-section .nested-replies {
+  margin-left: 2rem;
+  margin-top: 1rem;
 }
 
 .highlight-comment {

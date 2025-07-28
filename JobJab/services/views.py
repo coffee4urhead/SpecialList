@@ -6,7 +6,7 @@ from django.http import JsonResponse
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy, reverse
 from django.utils import timezone
-from django.db.models import Q
+from django.db.models import Q, Prefetch
 
 from JobJab.services.models import ServiceListing, Comment
 from .forms import ServiceListingForm, ServiceDetailSectionFormSet, CommentForm
@@ -241,8 +241,15 @@ class ManageServiceSectionsView(LoginRequiredMixin, View):
 
 class CommentServiceView(LoginRequiredMixin, View):
     def post(self, request, pk):
-        service = get_object_or_404(ServiceListing, id=pk)
+        service = get_object_or_404(
+            ServiceListing.objects.prefetch_related(
+                Prefetch('comments',
+                         queryset=Comment.objects.select_related('author', 'parent').prefetch_related('children'))
+            ),
+            id=pk
+        )
         form = CommentForm(request.POST)
+
         if form.is_valid():
             comment = form.save(commit=False)
             comment.author = request.user
@@ -257,15 +264,26 @@ class CommentServiceView(LoginRequiredMixin, View):
             comment.save()
             service.comments.add(comment)
 
-            redirect_url = reverse('extended_service_display', args=[service.id]) + f'#comment-{comment.id}'
-            if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-                return JsonResponse({'status': 'success', 'redirect_url': redirect_url, 'comment_id': comment.id})
-            return redirect(redirect_url)
+            if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+                comment_html = render_to_string(
+                    'partials/single-comment.html',
+                    {
+                        'comment': comment,
+                        'service': service,
+                        'parent_id': parent_id,
+                    },
+                    request=request
+                )
+                return JsonResponse({
+                    'status': 'success',
+                    'comment_html': comment_html,
+                    'comment_id': comment.id,
+                    'parent_id': parent_id,  # <- IMPORTANT!
+                })
 
-        return render(request, 'partials/expand-serv-to-comment-modal.html', {
-            'comments_form': form,
-            'service': service
-        })
+            return redirect('extended_service_display', service_id=service.id)
+
+        return JsonResponse({'status': 'error', 'errors': form.errors})
 
     def get(self, request, pk):
         service = get_object_or_404(ServiceListing, id=pk)

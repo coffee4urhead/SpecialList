@@ -1,136 +1,139 @@
-<div class="modal-container">
-    <div class="whole-comment-modal-cont">
-        <button class="close-modal" aria-label="Close modal">&times;</button>
-        <div class="service-mini-cont-comment-view">
-            <div id="top-content">
-                <div class="user-rev-info">
+<div class="modal-overlay" style="display:none;">
+    <div class="modal-container">
+        <div class="whole-comment-modal-cont">
+            <button class="close-modal" aria-label="Close modal">&times;</button>
+            <div class="service-mini-cont-comment-view">
+                <div id="top-content">
+                    <div class="user-rev-info">
 
-                    {% if service.provider.profile_picture %}
-                        <a href="{% url 'account_view' service.provider.username %}">
-                            <img src="{{ service.provider.profile_picture.url }}"
-                                 alt="{{ service.provider.get_full_name|default:service.provider.username }}">
-                        </a>
-                    {% else %}
-                        {% load static %}
-                        <a href="{% url 'account_view' service.provider.username %}">
-                            <img src="{% static '/images/avatar-default-photo.png' %}"
-                                 alt="{{ service.provider.get_full_name|default:service.provider.username }}">
-                        </a>
-                    {% endif %}
-
-                    <div class="rev-info-side">
-                        <div class="star-rating">
-                            {% for i in "12345" %}
-                                <!-- To be implemented -->
-                                <i class="fas fa-star{% if forloop.counter > 1 %} text-muted{% endif %}"></i>
-                            {% endfor %}
-                        </div>
-                        <p>
-                            {% if service.provider %}
-                                {{ service.provider.get_full_name|default:service.provider.username }}
-                            {% else %}
-                                [Deleted User]
-                            {% endif %}
-                        </p>
-
-                        <p>Posted on: {{ service.created_at|date:"F j, Y" }}</p>
-                    </div>
-                </div>
-            </div>
-
-            {% if service.service_photo %}
-                <div class="service-image-cont">
-                    <img src="{{ service.service_photo.url }}"
-                         alt="{{ service.title }}"
-                         id="service-file-preview">
-                </div>
-                <div class="text-service-info">
-                    <h1><a href="{% url 'extended_service_display' service.id %}">{{ service.title }}</a></h1>
-                    <p>Description: {{ service.description }}</p>
-                    <p>Service price (in USD): {{ service.price }}$</p>
-
-                    <div class="bottom-sect-interact"></div>
-                    {% if request.user != service.provider %}
-                        <button class="book-btn"
-                                data-service-id="{{ service.id }}"
-                                onclick="showBookingModal({{ service.id }})">
-                            Book This Service
-                        </button>
-                    {% endif %}
-                    <p>Required time for the offering (in minutes): {{ service.duration_minutes }}</p>
-                </div>
-            {% else %}
-                <p>Preview not available</p>
-            {% endif %}
-        </div>
-    </div>
-    <article id="comments-section">
-        {% for comment in service.comments.all %}
-            {% if not comment.parent_id %}
-                <div class="comment-item" id="comment-{{ comment.id }}">
-                    <div class="comment-user-info">
-                        {% if comment.author.profile_picture %}
-                            <a href="{% url 'account_view' comment.author.username %}">
-                                <img class='author-account-image' src="{{ comment.author.profile_picture.url }}"
-                                     alt="{{ comment.author.get_full_name|default:comment.author.username }}">
+                        {% if service.provider.profile_picture %}
+                            <a href="{% url 'account_view' service.provider.username %}">
+                                <img src="{{ service.provider.profile_picture.url }}"
+                                     alt="{{ service.provider.get_full_name|default:service.provider.username }}">
                             </a>
                         {% else %}
                             {% load static %}
-                            <a href="{% url 'account_view' comment.author.username %}">
-                                <img class='author-account-image' src="{% static '/images/avatar-default-photo.png' %}"
-                                     alt="{{ comment.author.get_full_name|default:comment.author.username }}">
+                            <a href="{% url 'account_view' service.provider.username %}">
+                                <img src="{% static '/images/avatar-default-photo.png' %}"
+                                     alt="{{ service.provider.get_full_name|default:service.provider.username }}">
                             </a>
                         {% endif %}
-                    </div>
 
-                    <div class="comment-section">
-                        <small>{{ comment.author.get_full_name|default:comment.author.username }}
-                            — {{ comment.created_at|timesince }} ago</small>
-                        <p>{{ comment.content }}</p>
-
-                        <div class="comment-actions">
-                            <button class="reply-btn" data-comment-id="{{ comment.id }}">
-                                <i class="fas fa-reply"></i> Reply
-                            </button>
-                        </div>
-
-                        <div class="reply-form-container" id="reply-form-{{ comment.id }}" style="display: none;">
-                            {% include 'partials/comment-form.html' %}
-                            <input type="hidden" name="parent_id" value="{{ comment.id }}">
-                        </div>
-
-                        {% for reply in comment.replies.all %}
-                            <div class="comment-item" id="comment-{{ reply.id }}">
-                                <div class="comment-user-info">
-                                    {% if reply.author.profile_picture %}
-                                        <a href="{% url 'account_view' reply.author.username %}">
-                                            <img class='author-account-image'
-                                                 src="{{ reply.author.profile_picture.url }}"
-                                                 alt="{{ reply.author.get_full_name|default:reply.author.username }}">
-                                        </a>
-                                    {% else %}
-                                        <a href="{% url 'account_view' reply.author.username %}">
-                                            <img class='author-account-image'
-                                                 src="{% static '/images/avatar-default-photo.png' %}"
-                                                 alt="{{ reply.author.get_full_name|default:reply.author.username }}">
-                                        </a>
-                                    {% endif %}
-                                </div>
-                                <div class="comment-section">
-                                    <small>{{ reply.author.get_full_name|default:reply.author.username }}
-                                        — {{ reply.created_at|timesince }} ago</small>
-                                    <p>{{ reply.content }}</p>
-                                    <small class="reply-notice">↳ in reply to {{ comment.author.username }}</small>
-                                </div>
+                        <div class="rev-info-side">
+                            <div class="star-rating">
+                                {% for i in "12345" %}
+                                    <!-- To be implemented -->
+                                    <i class="fas fa-star{% if forloop.counter > 1 %} text-muted{% endif %}"></i>
+                                {% endfor %}
                             </div>
-                        {% endfor %}
+                            <p>
+                                {% if service.provider %}
+                                    {{ service.provider.get_full_name|default:service.provider.username }}
+                                {% else %}
+                                    [Deleted User]
+                                {% endif %}
+                            </p>
+
+                            <p>Posted on: {{ service.created_at|date:"F j, Y" }}</p>
+                        </div>
                     </div>
                 </div>
-            {% endif %}
-        {% empty %}
-            <p>No comments yet.</p>
-        {% endfor %}
 
-        {% include 'partials/comment-form.html' %}
-    </article>
+                {% if service.service_photo %}
+                    <div class="service-image-cont">
+                        <img src="{{ service.service_photo.url }}"
+                             alt="{{ service.title }}"
+                             id="service-file-preview">
+                    </div>
+                    <div class="text-service-info">
+                        <h1><a href="{% url 'extended_service_display' service.id %}">{{ service.title }}</a></h1>
+                        <p>Description: {{ service.description }}</p>
+                        <p>Service price (in USD): {{ service.price }}$</p>
+
+                        <div class="bottom-sect-interact"></div>
+                        {% if request.user != service.provider %}
+                            <button class="book-btn"
+                                    data-service-id="{{ service.id }}"
+                                    onclick="showBookingModal({{ service.id }})">
+                                Book This Service
+                            </button>
+                        {% endif %}
+                        <p>Required time for the offering (in minutes): {{ service.duration_minutes }}</p>
+                    </div>
+                {% else %}
+                    <p>Preview not available</p>
+                {% endif %}
+            </div>
+        </div>
+        <article id="comments-section">
+            {% for comment in service.comments.all %}
+                {% if not comment.parent_id %}
+                    <div class="comment-item" id="comment-{{ comment.id }}">
+                        <div class="comment-user-info">
+                            {% if comment.author.profile_picture %}
+                                <a href="{% url 'account_view' comment.author.username %}">
+                                    <img class='author-account-image' src="{{ comment.author.profile_picture.url }}"
+                                         alt="{{ comment.author.get_full_name|default:comment.author.username }}">
+                                </a>
+                            {% else %}
+                                {% load static %}
+                                <a href="{% url 'account_view' comment.author.username %}">
+                                    <img class='author-account-image'
+                                         src="{% static '/images/avatar-default-photo.png' %}"
+                                         alt="{{ comment.author.get_full_name|default:comment.author.username }}">
+                                </a>
+                            {% endif %}
+                        </div>
+
+                        <div class="comment-section">
+                            <small>{{ comment.author.get_full_name|default:comment.author.username }}
+                                — {{ comment.created_at|timesince }} ago</small>
+                            <p>{{ comment.content }}</p>
+
+                            <div class="comment-actions">
+                                <button class="reply-btn" data-comment-id="{{ comment.id }}">
+                                    <i class="fas fa-reply"></i> Reply
+                                </button>
+                            </div>
+
+                            <div class="reply-form-container" id="reply-form-{{ comment.id }}" style="display: none;">
+                                {% include 'partials/comment-form.html' %}
+                                <input type="hidden" name="parent_id" value="{{ comment.id }}">
+                            </div>
+
+                            {% for reply in comment.replies.all %}
+                                <div class="comment-item" id="comment-{{ reply.id }}">
+                                    <div class="comment-user-info">
+                                        {% if reply.author.profile_picture %}
+                                            <a href="{% url 'account_view' reply.author.username %}">
+                                                <img class='author-account-image'
+                                                     src="{{ reply.author.profile_picture.url }}"
+                                                     alt="{{ reply.author.get_full_name|default:reply.author.username }}">
+                                            </a>
+                                        {% else %}
+                                            <a href="{% url 'account_view' reply.author.username %}">
+                                                <img class='author-account-image'
+                                                     src="{% static '/images/avatar-default-photo.png' %}"
+                                                     alt="{{ reply.author.get_full_name|default:reply.author.username }}">
+                                            </a>
+                                        {% endif %}
+                                    </div>
+                                    <div class="comment-section">
+                                        <small>{{ reply.author.get_full_name|default:reply.author.username }}
+                                            — {{ reply.created_at|timesince }} ago</small>
+                                        <p>{{ reply.content }}</p>
+                                        <small class="reply-notice">↳ in reply to {{ comment.author.username }}</small>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+            {% empty %}
+                <p>No comments yet.</p>
+            {% endfor %}
+
+            {% include 'partials/comment-form.html' %}
+        </article>
+    </div>
 </div>

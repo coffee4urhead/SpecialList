@@ -1,60 +1,34 @@
 import getCookie from "../utils.js";
 
 document.addEventListener('DOMContentLoaded', () => {
+    scrollToHashComment();
+    bindAllInitialCommentEvents();
+    bindNewCommentForms();
+});
+
+function scrollToHashComment() {
     const hash = window.location.hash;
-    if (hash && hash.startsWith('#comment-')) {
-        const commentElement = document.querySelector(hash);
-        if (commentElement) {
-            commentElement.scrollIntoView({behavior: 'smooth', block: 'start'});
-        }
+    if (hash?.startsWith('#comment-')) {
+        const el = document.querySelector(hash);
+        if (el) el.scrollIntoView({behavior: 'smooth', block: 'start'});
     }
+}
 
-    const commentItems = document.querySelectorAll('.comment-item');
+function bindAllInitialCommentEvents() {
+    document.querySelectorAll('.comment-item').forEach(bindCommentEvents);
+}
 
-    commentItems.forEach(comment => {
-        comment.addEventListener('mouseenter', () => {
-            const actions = comment.querySelector('.comment-actions');
-            if (actions) {
-                actions.style.opacity = '1';
-                actions.style.visibility = 'visible';
-            }
-        });
-
-        comment.addEventListener('mouseleave', () => {
-            const actions = comment.querySelector('.comment-actions');
-            if (actions && !comment.querySelector('.reply-form-container:focus-within')) {
-                actions.style.opacity = '0';
-                actions.style.visibility = 'hidden';
-            }
-        });
-
-        const replyBtn = comment.querySelector('.reply-btn');
-        if (replyBtn) {
-            replyBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const commentId = replyBtn.dataset.commentId;
-                const replyForm = document.getElementById(`reply-form-${commentId}`);
-
-                if (replyForm.style.display === 'none') {
-                    replyForm.style.display = 'block';
-                    replyForm.scrollIntoView({behavior: 'smooth', block: 'nearest'});
-                } else {
-                    replyForm.style.display = 'none';
-                }
-            });
-        }
-    });
-
-    document.querySelectorAll('#comments-section form').forEach(form => {
+function bindNewCommentForms() {
+    document.querySelectorAll('#comments-section form:not([data-bound])').forEach(form => {
+        form.dataset.bound = "true";
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
 
             const formData = new FormData(form);
-            const commentId = form.closest('.reply-form-container')?.id.replace('reply-form-', '');
+            const replyFormContainer = form.closest('.reply-form-container');
+            const parentId = replyFormContainer ? replyFormContainer.id.replace('reply-form-', '') : null;
 
-            if (commentId) {
-                formData.append('parent_id', commentId);
-            }
+            if (parentId) formData.append('parent_id', parentId);
 
             const serviceId = window.location.pathname.split('/').filter(Boolean).pop();
 
@@ -71,14 +45,65 @@ document.addEventListener('DOMContentLoaded', () => {
                 const data = await response.json();
 
                 if (data.status === 'success') {
-                    window.location.href = data.redirect_url;
+                    const temp = document.createElement('div');
+                    temp.innerHTML = (data.comment_html || '').trim();
+                    const newComment = temp.firstElementChild;
+                    if (!newComment) return;
+
+                    bindCommentEvents(newComment);
+                    bindNewCommentForms();
+
+                    if (data.parent_id) {
+                        const repliesContainer = document.getElementById(`replies-for-${data.parent_id}`);
+                        if (repliesContainer) {
+                            repliesContainer.appendChild(newComment);
+                        }
+                        const replyForm = document.getElementById(`reply-form-${data.parent_id}`);
+                        if (replyForm) replyForm.style.display = 'none';
+                    } else {
+                        document.getElementById('comments-section').appendChild(newComment);
+                    }
+
+                    form.reset();
                 } else {
                     alert('Error submitting comment: ' + (data.message || 'Unknown error'));
                 }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('Error submitting comment');
+            } catch {
+                alert('An error occurred while submitting your comment.');
             }
         });
     });
-});
+}
+
+function bindCommentEvents(commentEl) {
+    const replyBtn = commentEl.querySelector('.reply-btn');
+    if (replyBtn) {
+        replyBtn.addEventListener('click', e => {
+            e.stopPropagation();
+            const commentId = replyBtn.dataset.commentId;
+            const replyForm = document.getElementById(`reply-form-${commentId}`);
+            if (replyForm) {
+                const isHidden = replyForm.style.display === 'none';
+                replyForm.style.display = isHidden ? 'block' : 'none';
+                if (isHidden) replyForm.scrollIntoView({behavior: 'smooth', block: 'nearest'});
+            }
+        });
+    }
+
+    commentEl.addEventListener('mouseenter', () => {
+        const actions = commentEl.querySelector('.comment-actions');
+        if (actions) {
+            actions.style.opacity = '1';
+            actions.style.visibility = 'visible';
+        }
+    });
+
+    commentEl.addEventListener('mouseleave', () => {
+        const actions = commentEl.querySelector('.comment-actions');
+        const formFocused = commentEl.querySelector('.reply-form-container:focus-within');
+        if (actions && !formFocused) {
+            actions.style.opacity = '0';
+            actions.style.visibility = 'hidden';
+        }
+    });
+}

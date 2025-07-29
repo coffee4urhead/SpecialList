@@ -4,192 +4,166 @@
 
 article#website-rev-container {
   width: 100%;
-  max-width: 1200px;
   height: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 2rem;
-  margin: 2rem auto;
+  padding: 1rem;
+  margin: 1rem auto;
   background: white;
   border-radius: 16px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
 
-  & h1 {
-    @include web-title-special($pref-font-size: 2.5em, $pref-font-st: bold);
-    border-bottom: 3px solid $eccentric-color;
-    padding: 1rem;
-    margin-bottom: 1em;
-    text-align: center;
-    width: 100%;
+article#website-rev-container h1 {
+  @include web-title-special($pref-font-size: 1.8em, $pref-font-st: bold);
+  border-bottom: 3px solid $eccentric-color;
+  padding: 0.8rem;
+  margin-bottom: 0.8em;
+  text-align: center;
+  width: 100%;
+}
 
-    span {
-      color: $additional_web_color;
-    }
-  }
+article#website-rev-container h1 span {
+  color: $additional_web_color;
+}
 
-  div#review-form-cont {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 50px;
-    flex-wrap: wrap;
+div#review-form-cont {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
 
-    @media (max-width: 768px) {
-      flex-direction: column;
-      gap: 30px;
-    }
-  }
+div#form-cont {
+  width: 100%;
+}
 
-  div#form-cont {
-    width: 100%;
-    flex: 1;
-    min-width: 300px;
-    max-width: 600px;
+div#form-cont form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
 
-    form {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
+.errorlist {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 1rem 0;
+}
 
-      .errorlist {
-        list-style: none;
-        padding: 0;
-        margin: 0.5rem 0 1rem 0;
+.errorlist li {
+  color: #d32f2f;
+  background-color: #ffebee;
+  padding: 0.6rem 0.8rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  border-left: 4px solid #d32f2f;
+}
 
-        li {
-          color: #d32f2f;
-          background-color: #ffebee;
-          padding: 0.75rem 1rem;
-          border-radius: 4px;
-          margin-bottom: 0.5rem;
-          font-size: 0.9em;
-          font-weight: 500;
-          display: flex;
-          align-items: center;
-          border-left: 4px solid #d32f2f;
+.errorlist li::before {
+  content: "⚠️";
+  margin-right: 0.5rem;
+  font-size: 1em;
+}
 
-          &::before {
-            content: "⚠️";
-            margin-right: 0.5rem;
-            font-size: 1.1em;
-          }
-        }
-      }
+.form-group {
+  margin-bottom: 0;
+}
 
-      .form-group {
-        margin-bottom: 0;
-      }
+.form-group label {
+  display: block;
+  @include def-web-text($pref-font-size: 1.4em, $pref-font-st: oblique);
+  margin-bottom: 6px;
+  font-weight: 600;
+}
 
-      .form-group label {
-        display: block;
-        @include def-web-text($pref-font-size: 1.5em, $pref-font-st: oblique);
-        margin-bottom: 8px;
-        font-weight: 600;
-      }
+.form-group input[type="text"],
+.form-group textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border: 2px solid lighten($secondary-web-color, 20%);
+  border-radius: 8px;
+  @include def-web-text($pref-font-size: 1.4em, $pref-font-st: normal);
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.9);
+}
 
-      .form-group input[type="text"],
-      .form-group textarea {
-        width: 100%;
-        padding: 12px 16px;
-        border: 2px solid lighten($secondary-web-color, 20%);
-        border-radius: 8px;
-        @include def-web-text($pref-font-size: 1em, $pref-font-st: normal);
-        transition: all 0.3s ease;
-        background: rgba(255, 255, 255, 0.9);
+.form-group input[type="text"]:focus,
+.form-group textarea:focus {
+  border-color: $eccentric-color;
+  box-shadow: 0 0 0 3px rgba($eccentric-color, 0.2);
+  outline: none;
+}
 
-        &:focus {
-          border-color: $eccentric-color;
-          box-shadow: 0 0 0 3px rgba($eccentric-color, 0.2);
-          outline: none;
-        }
+.form-group input[type="text"]::placeholder,
+.form-group textarea::placeholder {
+  color: lighten($secondary-web-color, 30%);
+}
 
-        &::placeholder {
-          color: lighten($secondary-web-color, 30%);
-        }
-      }
+.form-group textarea {
+  min-height: 120px;
+  resize: vertical;
+}
 
-      .form-group textarea {
-        min-height: 150px;
-        resize: vertical;
-      }
+button.filled-web-btn {
+  padding: 0 16px;
+  text-align: center;
+  @include main-button($arg-width: 100%, $arg-height: 50px, $arg-bg-color: $additional_web_color, $txt-color: $main-web-color);
+  border-radius: 10px;
+  font-size: 1.5em;
+  font-weight: 700;
+  line-height: 40px;
+  border: none;
+  margin-top: 0.8rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
 
-      button.filled-web-btn {
-        padding: 0 20px;
-        text-align: center;
-        @include main-button($arg-width: 100%, $arg-height: 50px, $arg-bg-color: $additional_web_color, $txt-color: $main-web-color);
-        border-radius: 12px;
-        font-size: 1.1em;
-        font-weight: 700;
-        line-height: 50px;
-        border: none;
-        margin-top: 1rem;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+button.filled-web-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  background: darken($additional_web_color, 10%);
+}
 
-        &:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-          background: darken($additional_web_color, 10%);
-        }
+button.filled-web-btn:active {
+  transform: translateY(0);
+}
 
-        &:active {
-          transform: translateY(0);
-        }
-      }
-    }
-  }
-
-  .review-img {
-    flex: 1;
-    min-width: 300px;
-    max-width: 500px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-
-    img {
-      width: 100%;
-      height: auto;
-      object-fit: cover;
-      transition: transform 0.3s ease;
-
-      &:hover {
-        transform: scale(1.02);
-      }
-    }
-  }
+.review-img {
+  display: none;
 }
 
 .star-rating {
   display: flex;
-  gap: 12px;
-  margin: 8px 0;
+  gap: 10px;
+  font-size: 1.2rem;
+  margin: 6px 0;
+}
 
-  input {
-    display: none;
+.star-rating input {
+  display: none;
+}
 
-    &:checked ~ label,
-    &:hover ~ label {
-      color: gold;
-    }
-  }
+.star-rating input:checked ~ label,
+.star-rating input:hover ~ label {
+  color: gold;
+}
 
-  label {
-    color: #ddd;
-    font-size: 2.5rem;
-    cursor: pointer;
-    transition: all 0.2s ease;
+.star-rating label {
+  color: #ddd;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
 
-    &:hover {
-      color: gold;
-      transform: scale(1.1);
-    }
-  }
+.star-rating label:hover {
+  color: gold;
+  transform: scale(2);
 }
 
 @keyframes fadeIn {
@@ -205,10 +179,77 @@ article#website-rev-container {
 
 .form-group {
   animation: fadeIn 0.4s ease forwards;
+}
 
-  @for $i from 1 through 5 {
-    &:nth-child(#{$i}) {
-      animation-delay: $i * 0.1s;
-    }
+@media (min-width: 768px) and (max-width: 2000px) {
+  article#website-rev-container {
+    width: 90%;
+    padding: 2rem;
+    margin: 2rem auto;
+  }
+
+  article#website-rev-container h1 {
+    @include web-title-special($pref-font-size: 2.5em, $pref-font-st: bold);
+    padding: 1rem;
+    margin-bottom: 1em;
+  }
+
+  div#review-form-cont {
+    flex-direction: row;
+    gap: 50px;
+    max-width: 1200px;
+  }
+
+  .errorlist li {
+    font-size: 1.5rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .form-group label {
+    @include def-web-text($pref-font-size: 1.5em, $pref-font-st: oblique);
+    margin-bottom: 8px;
+  }
+
+  .form-group input[type="text"],
+  .form-group textarea {
+    @include def-web-text($pref-font-size: 1.5em, $pref-font-st: normal);
+    padding: 12px 16px;
+  }
+
+  .form-group textarea {
+    min-height: 150px;
+  }
+
+  button.filled-web-btn {
+    @include main-button($arg-width: 100%, $arg-height: 40px, $arg-bg-color: $additional_web_color, $txt-color: $main-web-color);
+    font-size: 1em;
+    line-height: 40px;
+    border-radius: 12px;
+    padding: 0 20px;
+    margin-top: 1rem;
+  }
+
+  .star-rating {
+    gap: 12px;
+    font-size: 1.5rem;
+    margin: 8px 0;
+  }
+
+  .star-rating label:hover {
+    transform: scale(2);
+  }
+
+  .review-img {
+    display: block;
+    width: auto;
+    height: auto;
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+@for $i from 1 through 5 {
+  .form-group:nth-child(#{$i}) {
+    animation-delay: $i * 0.1s;
   }
 }

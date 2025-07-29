@@ -11,13 +11,12 @@ article.flip-component section.flip-content {
   padding: 0 1rem;
 }
 article.flip-component section.flip-content div.flip-text {
-  width: 100%;
-  max-width: 70%;
+  width: 90%;
 }
 article.flip-component section.flip-content div.flip-text h2.heading-text-sec-caption {
   font-family: "Euclid Circular A", sans-serif;
   font-weight: 400;
-  font-size: 2.5em;
+  font-size: 2em;
   font-style: normal;
   margin-left: 20px;
   padding: 13px;
@@ -25,7 +24,7 @@ article.flip-component section.flip-content div.flip-text h2.heading-text-sec-ca
 article.flip-component section.flip-content div.flip-text p {
   font-family: "Euclid Circular A", sans-serif;
   font-weight: 400;
-  font-size: 1.7em;
+  font-size: 1.3em;
   font-style: normal;
   margin-left: 20px;
   padding: 13px;

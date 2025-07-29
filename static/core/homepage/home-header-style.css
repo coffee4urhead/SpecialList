@@ -1,9 +1,9 @@
 header#head-sect {
   width: 100%;
-  height: 4rem;
   position: relative;
+  min-height: 4rem;
   background: white;
-  margin-bottom: 7rem;
+  margin-bottom: 2rem;
 }
 header#head-sect .header-container {
   display: flex;
@@ -13,7 +13,6 @@ header#head-sect .header-container {
   position: fixed;
   top: 0;
   left: 0;
-  padding: 2rem;
   z-index: 1000;
   background: white;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -21,13 +20,15 @@ header#head-sect .header-container {
 header#head-sect h1.web-title {
   font-family: "Euclid Circular A", sans-serif;
   font-weight: 400;
-  font-size: 3.3rem;
+  font-size: clamp(1rem, 1.5rem, 2em);
   font-style: normal;
   margin-left: 20px;
   padding: 13px;
   position: relative;
   flex-shrink: 0;
   white-space: nowrap;
+  padding: 0;
+  margin-right: 15px;
 }
 header#head-sect h1.web-title span {
   color: #06BAC5;
@@ -46,8 +47,8 @@ header#head-sect .hamburger-btn {
 }
 header#head-sect .hamburger-btn .hamburger-line {
   display: block;
-  width: 40px;
-  height: 6px;
+  width: 30px;
+  height: 3px;
   background-color: black;
   margin: 5px 0;
   transition: all 0.3s ease;
@@ -67,7 +68,7 @@ header#head-sect .side-panel {
   position: fixed;
   top: 0;
   left: -300px;
-  width: 280px;
+  width: 240px;
   height: 100vh;
   background: white;
   z-index: 1000;
@@ -77,7 +78,6 @@ header#head-sect .side-panel {
 }
 header#head-sect .side-panel.active {
   transform: translateX(300px);
-  width: 30rem;
 }
 header#head-sect .side-panel nav.main-nav {
   width: 100%;
@@ -99,7 +99,7 @@ header#head-sect .side-panel nav.main-nav ul.links-holder li {
   gap: 20px;
 }
 header#head-sect .side-panel nav.main-nav ul.links-holder li img.header-icon {
-  width: 60px;
+  width: 35px;
   height: 60px;
   object-fit: contain;
 }
@@ -107,7 +107,7 @@ header#head-sect .side-panel nav.main-nav ul.links-holder li a.link-web {
   color: black;
   font-family: "Euclid Circular A", sans-serif;
   font-weight: 400;
-  font-size: 1.5em;
+  font-size: 1.2em;
   font-style: italic;
   text-decoration: none;
   padding: 0.5rem 1rem;
@@ -124,25 +124,26 @@ header#head-sect .auth-section {
   display: flex;
   align-items: center;
   gap: 1rem;
+  padding: 10px;
   margin-left: auto;
   z-index: 1;
 }
 header#head-sect .auth-section img#profile-photo {
-  width: 100px;
-  height: 100px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   object-fit: cover;
 }
 header#head-sect .auth-section img.logout-img {
-  width: 150px;
-  height: 150px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   object-fit: cover;
 }
 header#head-sect .auth-section .welcome-message {
   font-family: "Euclid Circular A", sans-serif;
   font-weight: 400;
-  font-size: 2em;
+  font-size: 0.6em;
   font-style: normal;
   color: black;
 }
@@ -178,7 +179,7 @@ header#head-sect .auth-section button.emp-web-btn:hover {
   transition: background-color 0.6s ease-in-out;
 }
 header#head-sect .auth-section button.emp-web-btn {
-  width: 120px;
+  width: 80px;
   height: 50px;
   background-color: #ffffff;
   font-family: "Euclid Circular A", sans-serif;
@@ -194,57 +195,45 @@ header#head-sect .auth-section button.emp-web-btn:hover {
   border: 3px solid #ffffff;
 }
 
-@media (min-width: 912px) {
-  header#head-sect {
-    height: 1rem;
-  }
+@media (min-width: 768px) {
   header#head-sect .header-container {
-    padding: 1rem;
-  }
-  header#head-sect .header-container .hamburger-btn .hamburger-line {
-    width: 30px;
-    height: 3px;
-  }
-  header#head-sect .side-panel.active {
-    transform: translateX(300px);
-    width: 20rem;
-  }
-  header#head-sect .side-panel nav.main-nav {
-    width: 100%;
-    padding: 1rem;
-  }
-  header#head-sect .side-panel nav.main-nav ul.links-holder li img.header-icon {
-    width: 30px;
-    height: 30px;
-  }
-  header#head-sect .side-panel nav.main-nav ul.links-holder li a.link-web {
-    font-family: "Euclid Circular A", sans-serif;
-    font-weight: 400;
-    font-size: 1.5em;
-    font-style: italic;
-    padding: 0.5rem 1rem;
-  }
-  header#head-sect .side-panel nav.main-nav ul.links-holder li a.link-web:hover {
-    color: white;
-    background-color: #06BAC5;
+    height: 6rem;
   }
   header#head-sect .auth-section img#profile-photo {
     width: 70px;
     height: 70px;
-    border-radius: 50%;
-    object-fit: cover;
   }
   header#head-sect .auth-section img.logout-img {
     width: 70px;
     height: 70px;
-    border-radius: 50%;
-    object-fit: cover;
   }
   header#head-sect .auth-section .welcome-message {
     font-family: "Euclid Circular A", sans-serif;
     font-weight: 400;
-    font-size: 1.5em;
+    font-size: 1.3em;
     font-style: normal;
+  }
+  header#head-sect .auth-section button.filled-web-btn,
+  header#head-sect .auth-section button.emp-web-btn {
+    width: 10rem;
+    height: 50px;
+    background-color: #008DAA;
+    font-family: "Euclid Circular A", sans-serif;
+    font-weight: 400;
+    font-size: 1.2em;
+    font-style: normal;
+    color: #ffffff;
+  }
+  header#head-sect h1.web-title {
+    font-family: "Euclid Circular A", sans-serif;
+    font-weight: 400;
+    font-size: clamp(2rem, 2.5rem, 3em);
+    font-style: normal;
+    margin-left: 20px;
+    padding: 13px;
+  }
+  header#head-sect h1.web-title span {
+    color: #06BAC5;
   }
 }
 

@@ -6,23 +6,30 @@
   <component name="ChangeListManager">
     <list default="true" id="a6602c8c-3836-4310-91e0-bc55f682d51c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/services/templates/partials/expand-serv-to-comment-modal.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/templates/partials/expand-serv-to-comment-modal.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/core/templates/core/about-page/about.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/core/about-page/about.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/core/templates/core/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/core/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/core/templates/template-components/header-comp.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/template-components/header-comp.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/core/about-page/leave-website-reviews-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/about-page/leave-website-reviews-styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/core/about-page/leave-website-reviews-styles.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/about-page/leave-website-reviews-styles.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/core/about-page/leave-website-reviews-styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/about-page/leave-website-reviews-styles.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/core/homepage/first-caption-comp-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/first-caption-comp-styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/core/homepage/first-caption-comp-styles.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/first-caption-comp-styles.css.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/core/homepage/first-caption-comp-styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/first-caption-comp-styles.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/core/homepage/flip-component-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/flip-component-styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/core/homepage/flip-component-styles.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/flip-component-styles.css.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/core/homepage/flip-component-styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/flip-component-styles.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/core/homepage/footer-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/footer-styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/core/homepage/footer-styles.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/footer-styles.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/core/homepage/footer-styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/footer-styles.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/core/homepage/home-header-style.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/home-header-style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/core/homepage/home-header-style.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/home-header-style.css.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/core/homepage/home-header-style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/home-header-style.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/core/homepage/subscription-card.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/subscription-card.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/core/homepage/subscription-card.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/subscription-card.css.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/core/homepage/subscription-card.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/subscription-card.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js-scripts/services-scripts/filter-services.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js-scripts/services-scripts/filter-services.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/services/services_display_styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/services_display_styles.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/services/user-flags-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/user-flags-styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/services/user-flags-styles.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/user-flags-styles.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/core/homepage/testimonials-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/testimonials-styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/core/homepage/testimonials-styles.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/testimonials-styles.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/core/homepage/testimonials-styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/testimonials-styles.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -188,7 +195,9 @@
       <workItem from="1753435326048" duration="34267000" />
       <workItem from="1753600105389" duration="18756000" />
       <workItem from="1753699017085" duration="15545000" />
-      <workItem from="1753731167634" duration="1065000" />
+      <workItem from="1753731167634" duration="1634000" />
+      <workItem from="1753774044129" duration="6935000" />
+      <workItem from="1753784670644" duration="4853000" />
     </task>
     <servers />
   </component>

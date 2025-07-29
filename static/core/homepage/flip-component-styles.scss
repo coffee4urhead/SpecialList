@@ -16,18 +16,17 @@ article.flip-component {
 
     div.flip-text {
       h2.heading-text-sec-caption {
-        @include web-title-special($pref-font-size: 2.5em, $pref-font-st: normal);
+        @include web-title-special($pref-font-size: 2em, $pref-font-st: normal);
       }
 
       p {
-        @include web-title-special($pref-font-size: clamp(1.5em, 1.7em, 2.4em), $pref-font-st: normal);
+        @include web-title-special($pref-font-size: clamp(1em, 1.3em, 1.7em), $pref-font-st: normal);
         text-align: start;
         line-height: 1.6;
         padding: 1.5rem;
       }
 
-      width: 100%;
-      max-width: 70%;
+      width: 90%;
     }
 
     div.flip-media {

@@ -2,12 +2,10 @@ article#first-caption-comp {
   width: 100%;
   max-width: 1200px;
   height: auto;
-  min-height: 60vh;
   display: flex;
   flex-direction: column;
   gap: 30px;
   padding: 30px;
-  overflow: hidden;
 }
 @keyframes floatBlob {
   0% {

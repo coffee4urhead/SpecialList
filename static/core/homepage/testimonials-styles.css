@@ -1,14 +1,13 @@
 @charset "UTF-8";
 article#website-testimonials {
-  margin-top: 20rem;
-  overflow: hidden;
+  margin-top: 10rem;
 }
 article#website-testimonials h1 {
   text-align: center;
   margin-bottom: 2rem;
   font-family: "Euclid Circular A", sans-serif;
   font-weight: 400;
-  font-size: 3.5em;
+  font-size: 2.2em;
   font-style: bolder;
   margin-left: 20px;
   padding: 13px;

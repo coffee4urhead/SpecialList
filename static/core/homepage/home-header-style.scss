@@ -4,10 +4,10 @@
 
 header#head-sect {
   width: 100%;
-  height: 4rem;
   position: relative;
+  min-height: 4rem;
   background: white;
-  margin-bottom: 7rem;
+  margin-bottom: 2rem;
 
   .header-container {
     display: flex;
@@ -17,17 +17,18 @@ header#head-sect {
     position: fixed;
     top: 0;
     left: 0;
-    padding: 2rem;
     z-index: 1000;
     background: white;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
 
   h1.web-title {
-    @include web-title-special($pref-font-size: clamp(2rem, 3.3rem, 4rem), $pref-font-st: normal);
+    @include web-title-special($pref-font-size: clamp(1rem, 1.5rem, 2em), $pref-font-st: normal);
     position: relative;
     flex-shrink: 0;
     white-space: nowrap;
+    padding: 0;
+    margin-right: 15px;
 
     span {
       color: $secondary-web-color;
@@ -48,8 +49,8 @@ header#head-sect {
 
     .hamburger-line {
       display: block;
-      width: 40px;
-      height: 6px;
+      width: 30px;
+      height: 3px;
       background-color: black;
       margin: 5px 0;
       transition: all 0.3s ease;
@@ -76,7 +77,7 @@ header#head-sect {
     position: fixed;
     top: 0;
     left: -300px;
-    width: 280px;
+    width: 240px;
     height: 100vh;
     background: white;
     z-index: 1000;
@@ -86,7 +87,6 @@ header#head-sect {
 
     &.active {
       transform: translateX(300px);
-      width: 30rem;
     }
 
     nav.main-nav {
@@ -109,14 +109,14 @@ header#head-sect {
           gap: 20px;
 
           img.header-icon {
-            width: 60px;
+            width: 35px;
             height: 60px;
             object-fit: contain;
           }
 
           a.link-web {
             color: black;
-            @include def-web-text($pref-font-size: clamp(1em, 1.5em, 2em), $pref-font-st: italic);
+            @include def-web-text($pref-font-size: clamp(1em, 1.2em, 1.5em), $pref-font-st: italic);
             text-decoration: none;
             padding: 0.5rem 1rem;
             display: block;
@@ -138,25 +138,26 @@ header#head-sect {
     display: flex;
     align-items: center;
     gap: 1rem;
+    padding: 10px;
     margin-left: auto;
     z-index: 1;
 
     img#profile-photo {
-      width: 100px;
-      height: 100px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       object-fit: cover;
     }
 
     img.logout-img {
-      width: 150px;
-      height: 150px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       object-fit: cover;
     }
 
     .welcome-message {
-      @include def-web-text($pref-font-size: clamp(1.5em, 2em, 2.5em), $pref-font-st: normal);
+      @include def-web-text($pref-font-size: clamp(0.5em, 0.6em, 1em), $pref-font-st: normal);
       color: black;
     }
 
@@ -188,7 +189,7 @@ header#head-sect {
     }
 
     button.emp-web-btn {
-      @include main-button($arg-width: 120px, $arg-height: 50px, $arg-bg-color: $main-web-color, $txt-color: black);
+      @include main-button($arg-width: 80px, $arg-height: 50px, $arg-bg-color: $main-web-color, $txt-color: black);
       border: 3px solid $additional_web_color;
 
       &:hover {
@@ -200,69 +201,38 @@ header#head-sect {
   }
 }
 
-@media (min-width: 912px) {
+@media (min-width: 768px) {
   header#head-sect {
-    height: 1rem;
-
     .header-container {
-      padding: 1rem;
-
-      .hamburger-btn {
-        .hamburger-line {
-          width: 30px;
-          height: 3px;
-        }
-      }
-    }
-
-    .side-panel {
-      &.active {
-        transform: translateX(300px);
-        width: 20rem;
-      }
-
-      nav.main-nav {
-        width: 100%;
-        padding: 1rem;
-
-        ul.links-holder {
-          li {
-            img.header-icon {
-              width: 30px;
-              height: 30px;
-            }
-
-            a.link-web {
-              @include def-web-text($pref-font-size: clamp(1em, 1.5em, 2em), $pref-font-st: italic);
-              padding: 0.5rem 1rem;
-
-              &:hover {
-                color: white;
-                background-color: $secondary-web-color;
-              }
-            }
-          }
-        }
-      }
+      height: 6rem;
     }
 
     .auth-section {
       img#profile-photo {
         width: 70px;
         height: 70px;
-        border-radius: 50%;
-        object-fit: cover;
       }
 
       img.logout-img {
         width: 70px;
         height: 70px;
-        border-radius: 50%;
-        object-fit: cover;
       }
 
       .welcome-message {
-        @include def-web-text($pref-font-size: clamp(1em, 1.5em, 2em), $pref-font-st: normal);
+        @include def-web-text($pref-font-size: clamp(1em, 1.3em, 2em), $pref-font-st: normal);
+      }
+
+      button.filled-web-btn,
+      button.emp-web-btn {
+        @include main-button($arg-width: 10rem, $arg-height: 50px, $arg-bg-color: $additional_web_color, $txt-color: $main-web-color);
+      }
+    }
+
+    h1.web-title {
+      @include web-title-special($pref-font-size: clamp(2rem, 2.5rem, 3em), $pref-font-st: normal);
+
+      span {
+        color: $secondary-web-color;
       }
     }
   }

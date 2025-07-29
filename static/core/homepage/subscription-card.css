@@ -4,8 +4,6 @@ section.card {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   background-color: white;
   width: 100%;
-  max-width: 450px;
-  min-height: 450px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -96,18 +94,61 @@ article#cards-container {
   box-sizing: border-box;
 }
 
-@media (max-width: 1000px) {
-  article#cards-container {
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    gap: 50px;
-    padding: 20px 10px;
+@media (min-width: 600px) {
+  section.card {
+    max-width: 70%;
+    min-height: auto;
+    padding: 1.5rem;
+    justify-content: center;
   }
-  article#cards-container section.card {
-    margin: 0;
-    width: 100%;
-    height: auto;
+  section.card .main-info h3 {
+    font-size: 2.5em;
+  }
+  section.card .main-info p {
+    font-size: 2em;
+  }
+  section.card .subscription-stats h4 {
+    font-size: 1.3em;
+  }
+  section.card .subscription-stats li {
+    font-size: 1em;
+  }
+  section.card .subscription-stats li:before {
+    content: none;
+    display: none;
+  }
+  section.card .subscription-stats ul {
+    list-style-type: none;
+  }
+}
+@media (min-width: 1200px) {
+  article#cards-container {
+    gap: 40px;
+    padding: 40px 60px;
+  }
+  section.card {
+    max-width: 27rem;
+    min-height: 3rem;
+    padding: 2.5rem;
+    text-align: start;
+  }
+  section.card .main-info h3 {
+    font-size: 2em;
+  }
+  section.card .subscription-stats h4 {
+    font-size: 1.6em;
+  }
+  section.card .subscription-stats li {
+    font-size: 1.15em;
+  }
+  section.card .subscription-stats li::before {
+    content: "\f00c";
+    display: inline-block;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    position: absolute;
+    left: 0;
+    color: green;
   }
 }
 

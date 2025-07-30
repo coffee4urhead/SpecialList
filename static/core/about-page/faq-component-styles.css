@@ -9,7 +9,7 @@ section#faq-cont {
 section#faq-cont h1 {
   font-family: "Euclid Circular A", sans-serif;
   font-weight: 400;
-  font-size: 2.5em;
+  font-size: 2em;
   font-style: bold;
   margin-left: 20px;
   padding: 13px;
@@ -49,13 +49,12 @@ section#faq-cont ol li details > summary {
   list-style: none;
   font-family: "Euclid Circular A", sans-serif;
   font-weight: 400;
-  font-size: 2.5em;
+  font-size: 2em;
   font-style: normal;
   margin-left: 20px;
   padding: 13px;
   color: white;
-  font-weight: bold;
-  font-size: 2rem;
+  font-weight: 500;
   cursor: pointer;
   position: relative;
   padding-right: 3rem;
@@ -89,9 +88,9 @@ section#faq-cont ol li details[open] p {
 section#faq-cont ol li details p {
   font-family: "Euclid Circular A", sans-serif;
   font-weight: 400;
-  font-size: 2em;
+  font-size: 1.5em;
   font-style: normal;
-  padding: 30px;
+  padding: 20px;
   font-weight: 400;
   color: white;
   margin: 0;
@@ -100,6 +99,25 @@ section#faq-cont ol li details p {
   overflow: hidden;
   transition: opacity 0.5s ease-out, max-height 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.4s ease-out;
   transform: translateY(-10px);
+}
+
+@media (min-width: 600px) {
+  section#faq-cont {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10rem;
+  }
+  section#faq-cont h1 {
+    font-family: "Euclid Circular A", sans-serif;
+    font-weight: 400;
+    font-size: 2.5em;
+    font-style: bold;
+    margin-left: 20px;
+    padding: 13px;
+  }
 }
 
 /*# sourceMappingURL=faq-component-styles.css.map */

@@ -99,8 +99,8 @@ main#extended-service-info-container {
 
       h1 {
         text-align: center;
-        @include web-title-special($pref-font-size: clamp(2em, 2.3em, 3em), $pref-font-st: normal);
-        padding: 30px;
+        @include web-title-special($pref-font-size: clamp(1em, 2em, 2.5em), $pref-font-st: normal);
+        padding: 10px;
         margin: 0;
       }
 
@@ -166,16 +166,17 @@ main#extended-service-info-container {
 
         .text-content {
           text-align: center;
-          width: 50%;
+          width: 100%;
 
           p {
-            @include def-web-text($pref-font-size: clamp(1em, 1.5em, 2em), $pref-font-st: normal);
+            @include def-web-text($pref-font-size: clamp(1em, 1.2em, 2em), $pref-font-st: normal);
+            width: 100%;
             color: black;
           }
         }
 
         img {
-          max-width: 500px;
+          max-width: 300px;
           border-radius: 8px;
           object-fit: cover;
           align-self: center;
@@ -194,7 +195,7 @@ main#extended-service-info-container {
         list-style-type: none;
 
         li {
-          @include def-web-text($pref-font-size: clamp(2em, 2.5em, 3em), $pref-font-st: normal);
+          @include def-web-text($pref-font-size: clamp(1em, 1.5em, 2em), $pref-font-st: normal);
           margin-bottom: 1rem;
           color: $secondary-web-color;
           position: relative;
@@ -218,7 +219,7 @@ main#extended-service-info-container {
 
     &.section-text_only {
       .text-content {
-        width: 100%;
+        width: 70%;
         text-align: center;
 
         p {
@@ -289,7 +290,8 @@ form#leave-comment-form {
 }
 
 article#comments-section {
-        overflow-x: scroll;
+  overflow-x: scroll;
+
   h2 {
     @include web-title-special($pref-font-size: clamp(2em, 2.3em, 3em), $pref-font-st: normal);
     display: flex;
@@ -543,5 +545,47 @@ div.weekly-timestamps {
 
   .availability-table td[data-slot-id]:hover {
     background-color: #f0f0f0;
+  }
+}
+
+@media (min-width: 600px) {
+  main#extended-service-info-container {
+    section.service-header {
+      div.side-item {
+        h1 {
+          @include web-title-special($pref-font-size: clamp(2em, 2.5em, 3em), $pref-font-st: normal);
+        }
+      }
+    }
+
+    div.service-section {
+      &.section-text_image {
+        .text-image-section {
+          .text-content {
+            text-align: center;
+            width: 60%;
+
+            p {
+              @include def-web-text($pref-font-size: clamp(1em, 1.5em, 2em), $pref-font-st: normal);
+              color: black;
+            }
+          }
+
+          img {
+            max-width: 400px;
+          }
+        }
+      }
+
+      &.section-text_only {
+        .text-content {
+          width: 100%;
+
+          p {
+            @include def-web-text($pref-font-size: 1.5em);
+          }
+        }
+      }
+    }
   }
 }

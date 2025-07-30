@@ -2,13 +2,15 @@
 @import "../utils/general-web-mixins/main-web-utls.scss";
 @import "../utils/general-web-mixins/main-button-mixin.scss";
 
-button.filled-web-btn {
+button.filled-web-btn,
+button.emp-web-btn {
   align-self: center;
-  @include main-button($arg-width: 70%, $arg-height: 45px, $arg-bg-color: $additional_web_color, $txt-color: $main-web-color);
+  width: 100%;
+  max-width: 300px;
+  height: 45px;
   border-radius: 8px;
-  font-size: 1.5em;
+  font-size: 1em;
   font-weight: 500;
-  border: 2px solid $main-web-color;
 
   &:hover {
     transform: translateY(-2px);
@@ -16,70 +18,58 @@ button.filled-web-btn {
   }
 }
 
-button.emp-web-btn {
-  align-self: center;
-  @include main-button($arg-width: 70%, $arg-height: 45px, $arg-bg-color: $main-web-color, $txt-color: $main-web-color);
-  border-radius: 8px;
-  color: $eccentric-color;
-  font-size: 1.1em;
-  font-weight: 500;
-  border: 2px solid $eccentric-color;
+button.filled-web-btn {
+  @include main-button($arg-width: 100%, $arg-height: 45px, $arg-bg-color: $additional_web_color, $txt-color: $main-web-color);
+  border: 2px solid $main-web-color;
+}
 
-  &:hover {
-    transform: translateY(-2px);
-    transition: transform 0.2s linear;
-  }
+button.emp-web-btn {
+  @include main-button($arg-width: 100%, $arg-height: 45px, $arg-bg-color: $main-web-color, $txt-color: $main-web-color);
+  border: 2px solid $eccentric-color;
+  color: $eccentric-color;
 }
 
 main#manage-sections-container {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  align-content: center;
+  gap: 2rem;
+  padding: 1rem;
+
+  h2 {
+    @include web-title-special($pref-font-size: 1.5em, $pref-font-st: normal);
+    text-align: center;
+  }
 
   #availability-form {
+    width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
-    align-content: center;
-
-    p {
-      label {
-        color: black
-      }
-    }
+    gap: 1.5rem;
 
     input[type='number'] {
-      padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 6px;
-      @include def-web-text($pref-font-size: 1em);
-      width: 50%;
-      box-sizing: border-box;
-
-      &:focus {
-        outline: none;
-        border-color: $eccentric-color;
-        box-shadow: 0 0 0 2px rgba($main-web-color, 0.2);
-      }
+      width: 100%;
     }
 
     button.emp-web-btn {
-      width: 30%;
+      width: 100%;
+      max-width: 200px;
+      align-self: center;
     }
   }
 
   div.weekly-timestamps {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-content: center;
+    width: 100%;
+    overflow-x: auto;
 
     table.availability-table {
-      padding: 30px;
+      width: 100%;
+      min-width: 600px;
       border-radius: 8px;
       background-color: $secondary-web-color;
+
+      td, th {
+        padding: 10px;
+      }
 
       tbody tr:nth-child(even) {
         background-color: $secondary-web-color;
@@ -90,54 +80,38 @@ main#manage-sections-container {
         background-color: $main-web-color;
       }
 
-      td, th {
-        padding: 10px;
-      }
-
       td {
-        @include def-web-text($pref-font-size: clamp(0.5em, 1em, 1.3em), $pref-font-st: 600);
+        @include def-web-text($pref-font-size: 0.9em, $pref-font-st: 600);
       }
 
       th {
-        @include web-title-special($pref-font-size: clamp(1em, 1.3em, 2em), $pref-font-st: normal);
+        @include web-title-special($pref-font-size: 1em, $pref-font-st: normal);
         color: white;
       }
     }
   }
 
-  h2 {
-    @include web-title-special($pref-font-size: clamp(2em, 2.3em, 3em), $pref-font-st: normal);
-    margin: 30px;
-  }
-
   form[method='POST'] {
     div.section-form {
-      div.form-header {
-        h3 {
-          @include web-title-special($pref-font-size: clamp(2em, 2.3em, 3em), $pref-font-st: normal);
-          margin: 30px;
-        }
+      margin-bottom: 2rem;
+
+      div.form-header h3 {
+        @include web-title-special($pref-font-size: 1.5em, $pref-font-st: normal);
+        text-align: center;
       }
     }
 
     label {
-      @include def-web-text($pref-font-size: clamp(1em, 1.3em, 2em), $pref-font-st: 600);
+      @include def-web-text($pref-font-size: 1em, $pref-font-st: 600);
       color: $secondary-web-color;
     }
 
-    input[type='text'],
-    input[type='email'],
-    input[type='file'],
-    input[type='tel'],
-    input[type='time'],
-    select,
-    textarea {
+    input, select, textarea {
+      width: 100%;
       padding: 10px;
       border: 1px solid #ddd;
       border-radius: 6px;
       @include def-web-text($pref-font-size: 1em);
-      width: 100%;
-      box-sizing: border-box;
 
       &:focus {
         outline: none;
@@ -153,20 +127,19 @@ main#manage-sections-container {
 
     div.buttons-container {
       display: flex;
-      flex-direction: row;
-      justify-content: center;
-      gap: 30px;
-      align-content: center;
+      flex-direction: column;
+      gap: 1rem;
       align-items: center;
     }
   }
 
   .editor-preview-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-direction: column;
     gap: 2rem;
 
     .editor-panel, .preview-panel {
+      width: 100%;
       padding: 1rem;
       border: 1px solid #eee;
       border-radius: 8px;
@@ -174,14 +147,13 @@ main#manage-sections-container {
     }
 
     #live-preview {
-      font-family: "Euclid Circular A", sans-serif;
-
       .service-section {
         margin: 2rem 0;
       }
 
       .text-image-section {
         display: flex;
+        flex-direction: column;
         gap: 1rem;
       }
 
@@ -196,6 +168,39 @@ main#manage-sections-container {
           left: 0;
           color: $secondary-web-color;
         }
+      }
+    }
+  }
+}
+
+@media (min-width: 600px) {
+  main#manage-sections-container {
+    #availability-form {
+      width: 70%;
+    }
+
+    div.weekly-timestamps {
+      table.availability-table {
+        min-width: unset;
+      }
+    }
+
+    .editor-preview-container {
+      flex-direction: row;
+      align-items: flex-start;
+
+      .editor-panel, .preview-panel {
+        width: 48%;
+      }
+    }
+
+    form[method='POST'] {
+      div.buttons-container {
+        flex-direction: row;
+      }
+
+      button {
+        width: auto;
       }
     }
   }

@@ -6,7 +6,7 @@ article#profile-info-section {
   margin-top: 40px;
   display: flex;
   flex-direction: column;
-  width: 90%;
+  width: 100%;
   gap: 30px;
   padding: 30px;
   border-radius: 8px;
@@ -47,13 +47,13 @@ article#profile-info-section {
         padding: 0 20px;
 
         h3 {
-          @include web-title-special($pref-font-size: clamp(2em, 2.3em, 3em), $pref-font-st: normal);
+          @include web-title-special($pref-font-size: clamp(1em, 1.5em, 2em), $pref-font-st: normal);
           margin-left: 0;
           padding: 0;
         }
 
         p {
-          @include def-web-text($pref-font-size: clamp(1em, 1.5em, 2em), $pref-font-st: normal);
+          @include def-web-text($pref-font-size: clamp(1em, 1.4em, 1.7em), $pref-font-st: normal);
           font-weight: 300;
           color: $secondary-web-color;
         }
@@ -71,7 +71,7 @@ article#profile-info-section {
       gap: 25px;
 
       p {
-        @include def-web-text($pref-font-size: clamp(1em, 1.5em, 2em), $pref-font-st: normal);
+        @include def-web-text($pref-font-size: clamp(1em, 1.4em, 1.7em), $pref-font-st: normal);
         line-height: 1.6;
       }
 
@@ -121,6 +121,55 @@ article#profile-info-section {
             object-fit: cover;
             border: 1px solid #eee;
           }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 600px) {
+  article#profile-info-section {
+    width: 90%;
+
+    .profile-column-left {
+      #profile-pics-holder {
+        #profile-namings {
+          padding: 0 20px;
+
+          h3 {
+            @include web-title-special($pref-font-size: clamp(2em, 2.3em, 3em), $pref-font-st: normal);
+          }
+
+          p {
+            @include def-web-text($pref-font-size: clamp(1em, 1.5em, 2em), $pref-font-st: normal);
+          }
+        }
+      }
+    }
+
+    .profile-column-right {
+
+      #side-info {
+        p {
+          @include def-web-text($pref-font-size: clamp(1em, 1.5em, 2em), $pref-font-st: normal);
+          line-height: 1.6;
+        }
+      }
+    }
+  }
+
+  @media (min-width: 900px) {
+    article#profile-info-section {
+      width: 40%;
+      height: 100%;
+
+      .profile-column-right {
+        #side-info {
+          justify-content: flex-start;
+          align-items: stretch;
+          display: flex;
+          flex-direction: column;
+          gap: 25px;
         }
       }
     }

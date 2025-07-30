@@ -1,21 +1,10 @@
-main#main-profile-contents {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  margin: 0 auto;
-  padding: 0 20px;
-  gap: 60px;
-}
-
 article#profile-side-info-tab-cont {
   margin-top: 40px;
   display: flex;
   flex-direction: column;
   gap: 3rem;
   justify-content: space-evenly;
-  width: 90%;
+  width: 100%;
 }
 article#profile-side-info-tab-cont section#socials-container {
   padding: 30px;
@@ -39,7 +28,7 @@ article#profile-side-info-tab-cont section#socials-container div.container h1 {
   text-align: center;
   font-family: "Euclid Circular A", sans-serif;
   font-weight: 400;
-  font-size: 2.3em;
+  font-size: 1.7em;
   font-style: normal;
   margin-left: 20px;
   padding: 13px;
@@ -103,7 +92,7 @@ article#profile-side-info-tab-cont div#social-info-holder {
 article#profile-side-info-tab-cont div#social-info-holder p {
   font-family: "Euclid Circular A", sans-serif;
   font-weight: 400;
-  font-size: 1.5em;
+  font-size: 1.4em;
   font-style: italic;
 }
 article#profile-side-info-tab-cont div#social-info-holder button#outline-btn {
@@ -115,7 +104,7 @@ article#profile-side-info-tab-cont div#social-info-holder button#outline-btn {
   padding: 20px;
   font-family: "Euclid Circular A", sans-serif;
   font-weight: 400;
-  font-size: 1.5em;
+  font-size: 1.4em;
   font-style: italic;
 }
 article#profile-side-info-tab-cont div#social-info-holder button#outline-btn:hover {

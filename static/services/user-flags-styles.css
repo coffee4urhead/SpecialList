@@ -1,7 +1,7 @@
 @charset "UTF-8";
 div.service-mini-cont {
   margin: 20px 0;
-  width: 50%;
+  width: 90%;
   padding: 30px;
   border-radius: 8px;
   height: auto;
@@ -335,11 +335,15 @@ div.pdf-preview-container div.not-found img {
   cursor: pointer;
 }
 
-/* Show popup when active */
 .dropdown.active .location-popup {
   display: block;
 }
 
+@media (min-width: 600px) {
+  div.service-mini-cont {
+    width: 50%;
+  }
+}
 section#flags-for-user {
   display: flex;
   flex-direction: row;

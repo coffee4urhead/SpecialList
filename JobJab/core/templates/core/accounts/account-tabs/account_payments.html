@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     {% load compress static %}
     {% compress css %}
         <link rel="stylesheet" type="text/x-scss" href="{% static 'core/homepage/home-header-style.scss' %}">
@@ -70,7 +71,9 @@
                                 </div>
                                 <div>
                                     <p><strong>Provider:</strong> {{ payment.record.provider.get_full_name }}</p>
-                                    <p><strong>Appointment:</strong> {{ payment.record.appointment_datetime|date:"M d, Y H:i" }}</p>
+                                    <p>
+                                        <strong>Appointment:</strong> {{ payment.record.appointment_datetime|date:"M d, Y H:i" }}
+                                    </p>
                                     <p><strong>Service:</strong> {{ payment.record.service.title }}</p>
                                 </div>
                             </div>
@@ -118,9 +121,12 @@
                                     <p><strong>ID:</strong> {{ payment.record.id }}</p>
                                 </div>
                                 <div>
-                                    <p><strong>Period Start:</strong> {{ payment.record.current_period_start|date:"M d, Y" }}</p>
-                                    <p><strong>Period End:</strong> {{ payment.record.current_period_end|date:"M d, Y" }}</p>
-                                    <p><strong>Auto-renew:</strong> {% if payment.record.cancel_at_period_end %}No{% else %}Yes{% endif %}</p>
+                                    <p><strong>Period
+                                        Start:</strong> {{ payment.record.current_period_start|date:"M d, Y" }}</p>
+                                    <p><strong>Period
+                                        End:</strong> {{ payment.record.current_period_end|date:"M d, Y" }}</p>
+                                    <p><strong>Auto-renew:</strong> {% if payment.record.cancel_at_period_end %}
+                                        No{% else %}Yes{% endif %}</p>
                                 </div>
                             </div>
 

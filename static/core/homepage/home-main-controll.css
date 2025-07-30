@@ -73,13 +73,13 @@ article#gold-part-carousel div#carousels-holder {
   gap: 100px;
 }
 article#gold-part-carousel div#section-text-holder {
-  padding: 30px;
+  padding: 10px;
   text-align: center;
 }
 article#gold-part-carousel div#section-text-holder h1 {
   font-family: "Euclid Circular A", sans-serif;
   font-weight: 400;
-  font-size: 3.5em;
+  font-size: 2.5em;
   font-style: normal;
   margin-left: 20px;
   padding: 13px;
@@ -87,9 +87,26 @@ article#gold-part-carousel div#section-text-holder h1 {
 article#gold-part-carousel div#section-text-holder p {
   font-family: "Euclid Circular A", sans-serif;
   font-weight: 400;
-  font-size: 1.6em;
+  font-size: 1.7em;
   font-style: normal;
   color: black;
+}
+
+@media (min-width: 600px) {
+  article#gold-part-carousel div#section-text-holder h1 {
+    font-family: "Euclid Circular A", sans-serif;
+    font-weight: 400;
+    font-size: 3.5em;
+    font-style: normal;
+    margin-left: 20px;
+    padding: 13px;
+  }
+  article#gold-part-carousel div#section-text-holder p {
+    font-family: "Euclid Circular A", sans-serif;
+    font-weight: 400;
+    font-size: 1.6em;
+    font-style: normal;
+  }
 }
 
 /*# sourceMappingURL=home-main-controll.css.map */

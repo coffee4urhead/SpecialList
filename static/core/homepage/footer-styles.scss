@@ -11,9 +11,10 @@ footer#foot-section {
   background-color: $testimonials-bg-color;
 
   h1#foot-title {
-    @include web-title-special($pref-font-size: 6.5em, $pref-font-st: normal);
+    @include web-title-special($pref-font-size: 3.5em, $pref-font-st: normal);
     color: white;
   }
+
   span {
     color: $additional_web_color;
   }
@@ -52,5 +53,10 @@ footer#foot-section {
     align-items: flex-start;
     align-content: flex-start;
     justify-content: space-evenly;
+
+    h1#foot-title {
+      @include web-title-special($pref-font-size: 6.5em, $pref-font-st: normal);
+      color: white;
+    }
   }
 }

@@ -12,16 +12,18 @@
 body {
   margin: 0;
   padding: 0;
+  font-family: "Euclid Circular A", sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f5f5f5;
 
   p, a {
-    font-family: "Euclid Circular A", sans-serif;
     font-weight: 500;
-    font-size: 1em;
-    font-style: normal;
+    font-size: clamp(0.9rem, 1.2vw, 1rem);
     color: white;
   }
 }
-
 
 .alert {
   position: fixed;
@@ -35,9 +37,10 @@ body {
   align-items: center;
   justify-content: space-between;
   min-width: 250px;
+  max-width: 90%;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   animation: slideIn 0.5s, fadeOut 0.5s 2.5s forwards;
-  @include def-web-text($pref-font-size: 1.3em, $pref-font-st: italic);
+  @include def-web-text($pref-font-size: 1rem, $pref-font-st: italic);
 }
 
 .alert-success {
@@ -63,6 +66,7 @@ body {
   font-weight: bold;
   cursor: pointer;
   margin-left: 15px;
+  font-size: 1.2rem;
 }
 
 @keyframes slideIn {
@@ -85,42 +89,47 @@ body {
   }
 }
 
-
 header#head-cont {
-  text-align: left;
+  padding: 1.5rem;
+  background-color: $main-web-color;
 
   h1.web-title {
-    @include web-title-special($pref-font-size: 2.5em, $pref-font-st: normal);
+    @include web-title-special($pref-font-size: clamp(1.8rem, 5vw, 2.5rem), $pref-font-st: normal);
+    margin: 0;
 
     span.web-title-handle {
-      color: $secondary-web-color;
+      color: $additional_web_color;
     }
   }
 }
 
 main#main-cont {
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
-  min-height: 100vh;
+  padding: 2rem 1rem;
+  position: relative;
+  z-index: 1;
 
   div#form-cont {
-    margin: 20px auto;
-    width: 40%;
-    min-height: 70%;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 500px;
     background-color: $secondary-web-color;
-    padding: 20px;
-    border-radius: 8px;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     display: flex;
-    gap: 30px;
+    gap: 1.5rem;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 
     form {
-      gap: 20px;
+      gap: 1.5rem;
       width: 100%;
       display: flex;
       flex-direction: column;
@@ -130,52 +139,84 @@ main#main-cont {
         width: 100%;
         display: flex;
         flex-direction: column;
-        align-items: center;
-        max-width: 400px;
+        align-items: flex-start;
+        gap: 0.5rem;
 
         div.error {
-          margin-top: 20px;
-          padding: 3px;
-          font-family: "Euclid Circular A", sans-serif;
-          font-weight: 500;
-          font-size: 1em;
-          font-style: normal;
-          color: red;
+          color: #ff6b6b;
+          font-size: 0.9rem;
+          margin-top: 0.25rem;
+          list-style: none;
+          padding: 0;
+
+          ul {
+            padding-left: 0;
+            margin: 0;
+
+            li {
+              margin-bottom: 0.25rem;
+            }
+          }
         }
 
-
         label {
-          font-family: "Euclid Circular A", sans-serif;
           font-weight: 500;
-          font-style: normal;
-          align-self: flex-start;
-          margin-bottom: 10px;
-          color: $main-web-color;
-          width: 100%;
-          text-align: left;
+          color: white;
+          font-size: 1rem;
         }
 
         input, select {
           font-family: "Euclid Circular A", sans-serif;
           font-weight: 400;
-          font-size: 1em;
+          font-size: 1rem;
           width: 100%;
-          height: 40px;
-          padding: 0 10px;
-          border: 6px solid $additional_web_color;
-          border-radius: 4px;
-          margin: 0 auto;
+          height: 48px;
+          padding: 0 1rem;
+          border: 2px solid $additional_web_color;
+          border-radius: 6px;
+          background-color: white;
+          transition: all 0.3s ease;
 
           &:focus {
-            outline: 4px solid $main-web-color;
-            border-color: transparent;
+            outline: none;
+            border-color: $main-web-color;
+            box-shadow: 0 0 0 3px rgba($main-web-color, 0.2);
           }
         }
       }
 
       button[type=submit] {
-        @include main-button($arg-width: 120px, $arg-height: 30px, $arg-bg-color: $additional_web_color, $txt-color: $main-web-color);
-        margin-top: 20px;
+        @include main-button(
+          $arg-width: 100%,
+          $arg-height: 48px,
+          $arg-bg-color: $additional_web_color,
+          $txt-color: $main-web-color
+        );
+        margin-top: 0.5rem;
+        font-size: 1rem;
+        font-weight: 600;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+      }
+    }
+
+    p {
+      text-align: center;
+      margin: 0;
+
+      a {
+        color: $additional_web_color;
+        text-decoration: none;
+        font-weight: 600;
+
+        &:hover {
+          text-decoration: underline;
+        }
       }
     }
   }
@@ -183,11 +224,50 @@ main#main-cont {
 
 img#image-vector {
   width: 100%;
-  height: auto;
-  max-height: 100vh;
+  height: 100vh;
   position: fixed;
-  z-index: -1;
+  z-index: 0;
   top: 0;
   left: 0;
   object-fit: cover;
+  opacity: 0.1;
+}
+
+@media (max-width: 768px) {
+  main#main-cont {
+    padding: 1rem;
+
+    div#form-cont {
+      padding: 1.5rem;
+
+      form {
+        gap: 1rem;
+
+        div.form-field {
+          input, select {
+            height: 44px;
+          }
+        }
+      }
+    }
+  }
+
+  header#head-cont {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  main#main-cont {
+    div#form-cont {
+      padding: 1.25rem;
+      border-radius: 8px;
+
+      form {
+        button[type=submit] {
+          height: 44px;
+        }
+      }
+    }
+  }
 }

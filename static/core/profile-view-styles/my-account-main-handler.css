@@ -1,0 +1,20 @@
+main#main-profile-contents {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: center;
+  gap: 30px;
+}
+
+@media (min-width: 600px) {
+  main#main-profile-contents {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-self: center;
+    gap: 30px;
+  }
+}
+
+/*# sourceMappingURL=my-account-main-handler.css.map */

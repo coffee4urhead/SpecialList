@@ -7,14 +7,15 @@ header#description-comp-header {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 30px;
+  gap: 15px;
   background-color: $secondary-web-color;
   color: $main-web-color;
   padding: 1rem;
   text-align: center;
 
   h1#web-title {
-    @include web-title-special($pref-font-size: 2.5em, $pref-font-st: normal);
+    @include web-title-special($pref-font-size: clamp(1.5em, 5vw, 2.5em), $pref-font-st: normal);
+    margin: 0;
 
     span {
       color: $additional_web_color;
@@ -27,32 +28,65 @@ main#main-privacy-and-policy-container {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 5rem;
+  gap: 2rem;
+  padding: 1rem;
 
   ol#main-content-holder {
-    width: 70%;
+    width: 100%;
+    max-width: 1200px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    padding: 30px;
-    gap: 5rem;
+    align-items: flex-start;
+    padding: 1rem;
+    gap: 3rem;
 
     li {
+      width: 100%;
 
       &::marker {
-      color: $additional_web_color;
-      font-size: 2.4em;
-      font-weight: bold;
-    }
-
-      h2 {
-        @include web-title-special($pref-font-size: 2.5em, $pref-font-st: normal);
+        color: $additional_web_color;
+        font-size: clamp(1.5em, 4vw, 2.4em);
+        font-weight: bold;
       }
-      p {
-        @include def-web-text($pref-font-size: 1.5em, $pref-font-st: normal);
-        padding: 30px;
-        font-weight: 500;
+
+      > div {
+        > h2 {
+          @include web-title-special($pref-font-size: clamp(1.5em, 3vw, 2.5em), $pref-font-st: normal);
+          margin-bottom: 1rem;
+        }
+
+        > p {
+          @include def-web-text($pref-font-size: clamp(1em, 1.2vw, 1.5em), $pref-font-st: normal);
+          padding: 0.5rem 0;
+          font-weight: 500;
+          line-height: 1.6;
+        }
+
+        ol {
+          padding-left: 1.5rem;
+          margin-top: 1rem;
+
+          li {
+            margin-bottom: 2rem;
+
+            &::marker {
+              font-size: clamp(1em, 2vw, 1.5em);
+            }
+
+            div {
+              h2 {
+                @include web-title-special($pref-font-size: clamp(1.2em, 2vw, 1.8em), $pref-font-st: normal);
+                margin-bottom: 0.5rem;
+              }
+
+              p {
+                @include def-web-text($pref-font-size: clamp(0.9em, 1.1vw, 1.3em), $pref-font-st: normal);
+                padding: 0.5rem 0;
+              }
+            }
+          }
+        }
       }
     }
   }
@@ -66,8 +100,40 @@ footer {
   position: relative;
   bottom: 0;
   width: 100%;
+  margin-top: 2rem;
 
   p {
-    @include def-web-text($pref-font-size: 1.3em, $pref-font-st: normal);
+    @include def-web-text($pref-font-size: clamp(0.9em, 1.2vw, 1.3em), $pref-font-st: normal);
+    margin: 0;
+  }
+
+  a {
+    color: lighten($additional_web_color, 10%);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  main#main-privacy-and-policy-container {
+    gap: 3rem;
+    padding: 2rem;
+
+    ol#main-content-holder {
+      padding: 2rem;
+      gap: 4rem;
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  main#main-privacy-and-policy-container {
+    ol#main-content-holder {
+      width: 85%;
+      padding: 3rem;
+    }
   }
 }

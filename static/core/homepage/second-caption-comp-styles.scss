@@ -20,10 +20,8 @@ article#second-caption-comp-container {
     background-color: $complementary-color;
 
     img {
-      width: 100%;
-      height: auto;
-      max-width: 500px;
-      margin: 0 auto;
+      display: none;
+      visibility: hidden;
     }
 
     div.caption-info {
@@ -43,10 +41,10 @@ article#second-caption-comp-container {
 
       button.filled-web-btn {
         @include main-button(
-          $arg-width: clamp(100px, 30vw, 150px),
-          $arg-height: 50px,
-          $arg-bg-color: $additional_web_color,
-          $txt-color: $main-web-color
+                $arg-width: clamp(100px, 30vw, 150px),
+                $arg-height: 50px,
+                $arg-bg-color: $additional_web_color,
+                $txt-color: $main-web-color
         );
         border-radius: 8px;
         border: 3px solid $main-web-color;
@@ -88,7 +86,6 @@ article#second-caption-comp-container {
     }
   }
 
-  // Tablet Breakpoint (≥600px)
   @media (min-width: 600px) {
     article#second-caption-comp-container {
       flex-direction: column;
@@ -106,6 +103,8 @@ article#second-caption-comp-container {
 
       img {
         width: 45%;
+        display: block;
+        visibility: visible;
         max-width: none;
       }
     }
@@ -117,7 +116,6 @@ article#second-caption-comp-container {
     }
   }
 
-  // Desktop Breakpoint (≥900px)
   @media (min-width: 900px) {
     width: 80%;
     flex-direction: row;
@@ -130,6 +128,15 @@ article#second-caption-comp-container {
       flex-direction: row;
       width: 65%;
       padding: 2rem;
+
+      img {
+        display: block;
+        visibility: visible;
+        width: 100%;
+        height: auto;
+        max-width: 500px;
+        margin: 0 auto;
+      }
 
       div.caption-info {
         flex-wrap: wrap;
@@ -144,18 +151,19 @@ article#second-caption-comp-container {
   }
 }
 
- @media (max-width: 1300px) {
-    article#second-caption-comp-container {
+@media (max-width: 1300px) {
+  article#second-caption-comp-container {
 
-      section.image-section {
-        flex-direction: row;
-        width: 100%;
-        padding: 2rem;
-      }
-      div.text-container {
-        width: 100%;
-        padding: 2rem;
-        justify-content: center;
-      }
+    section.image-section {
+      flex-direction: row;
+      width: 100%;
+      padding: 2rem;
     }
- }
+
+    div.text-container {
+      width: 100%;
+      padding: 2rem;
+      justify-content: center;
+    }
+  }
+}

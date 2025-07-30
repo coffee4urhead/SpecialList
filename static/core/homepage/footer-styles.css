@@ -9,7 +9,7 @@ footer#foot-section {
 footer#foot-section h1#foot-title {
   font-family: "Euclid Circular A", sans-serif;
   font-weight: 400;
-  font-size: 6.5em;
+  font-size: 3.5em;
   font-style: normal;
   margin-left: 20px;
   padding: 13px;
@@ -54,6 +54,15 @@ footer#foot-section div.foot-invoices hgroup.links-section h3 a {
     align-items: flex-start;
     align-content: flex-start;
     justify-content: space-evenly;
+  }
+  footer#foot-section h1#foot-title {
+    font-family: "Euclid Circular A", sans-serif;
+    font-weight: 400;
+    font-size: 6.5em;
+    font-style: normal;
+    margin-left: 20px;
+    padding: 13px;
+    color: white;
   }
 }
 

@@ -1,6 +1,7 @@
 @charset "UTF-8";
 article#website-testimonials {
   margin-top: 10rem;
+  padding: 0 1rem;
 }
 article#website-testimonials h1 {
   text-align: center;
@@ -18,13 +19,13 @@ article#website-testimonials div.reviews-flex-wrapper {
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  gap: 10px;
+  gap: 2rem;
 }
 article#website-testimonials div.reviews-flex-wrapper div.reviews-row {
   width: 100%;
   display: flex;
-  gap: 10px;
-  flex-direction: row;
+  gap: 2rem;
+  flex-direction: column;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-around;
@@ -32,19 +33,25 @@ article#website-testimonials div.reviews-flex-wrapper div.reviews-row {
 article#website-testimonials div.reviews-flex-wrapper div.reviews-row-bottom {
   width: 100%;
   display: flex;
-  gap: 10px;
-  flex-direction: row;
+  gap: 2rem;
+  flex-direction: column;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-evenly;
+}
+article#website-testimonials div.reviews-flex-wrapper .center-image {
+  display: none;
+  visibility: hidden;
 }
 article#website-testimonials section.review-card {
   border-radius: 8px;
   padding: 1.5rem;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   background-color: #072C3C;
-  width: 25rem;
-  height: 20rem;
+  width: 100%;
+  max-width: 25rem;
+  height: auto;
+  min-height: 20rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -60,7 +67,7 @@ article#website-testimonials section.review-card div.review-main-cont {
   scrollbar-color: black #0a3d53;
 }
 article#website-testimonials section.review-card div.review-main-cont::-webkit-scrollbar {
-  width: 8px;
+  width: 5px;
 }
 article#website-testimonials section.review-card div.review-main-cont::-webkit-scrollbar-track {
   background: #0a3d53;
@@ -77,7 +84,7 @@ article#website-testimonials section.review-card div.review-main-cont::-webkit-s
 article#website-testimonials section.review-card div.review-main-cont p {
   font-family: "Euclid Circular A", sans-serif;
   font-weight: 400;
-  font-size: 2em;
+  font-size: 1.5em;
   font-style: normal;
 }
 article#website-testimonials section.review-card .user-rev-info {
@@ -89,12 +96,12 @@ article#website-testimonials section.review-card .user-rev-info {
 article#website-testimonials section.review-card .user-rev-info p {
   font-family: "Euclid Circular A", sans-serif;
   font-weight: 400;
-  font-size: 1em;
+  font-size: 0.9em;
   font-style: normal;
 }
 article#website-testimonials section.review-card .user-rev-info img {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   object-fit: cover;
 }
@@ -102,35 +109,75 @@ article#website-testimonials section.review-card .star-rating {
   display: inline-flex;
   gap: 0.25rem;
 }
-article#website-testimonials section.review-card .star-rating .fa-star, article#website-testimonials section.review-card .star-rating .text-muted {
-  width: 20px;
-  height: 20px;
+article#website-testimonials section.review-card .star-rating .fa-star {
+  color: gold;
+  width: 16px;
+  height: 16px;
   position: relative;
   display: inline-block;
 }
-article#website-testimonials section.review-card .star-rating .fa-star::before, article#website-testimonials section.review-card .star-rating .text-muted::before {
+article#website-testimonials section.review-card .star-rating .fa-star::before {
   content: "★";
   position: absolute;
-  font-size: 20px;
+  font-size: 16px;
+  color: inherit;
 }
-article#website-testimonials section.review-card .star-rating .fa-star::before {
-  color: gold;
+article#website-testimonials section.review-card .star-rating .text-muted {
+  color: grey;
+  width: 16px;
+  height: 16px;
+  position: relative;
+  display: inline-block;
 }
 article#website-testimonials section.review-card .star-rating .text-muted::before {
-  color: grey;
+  content: "★";
+  position: absolute;
+  font-size: 16px;
+  color: inherit;
 }
 
+@media (min-width: 600px) {
+  article#website-testimonials h1 {
+    font-family: "Euclid Circular A", sans-serif;
+    font-weight: 400;
+    font-size: 3em;
+    font-style: bolder;
+    margin-left: 20px;
+    padding: 13px;
+  }
+  article#website-testimonials div.reviews-flex-wrapper div.reviews-row,
+  article#website-testimonials div.reviews-flex-wrapper div.reviews-row-bottom {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  article#website-testimonials div.reviews-flex-wrapper div.reviews-row section.review-card,
+  article#website-testimonials div.reviews-flex-wrapper div.reviews-row-bottom section.review-card {
+    width: calc(50% - 1rem);
+  }
+  article#website-testimonials div.reviews-flex-wrapper .center-image {
+    width: 30%;
+    visibility: visible;
+    display: block;
+    margin: 2rem auto;
+  }
+  article#website-testimonials div.reviews-flex-wrapper .center-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+}
 @media (min-width: 900px) {
-  article#website-testimonials {
-    flex-direction: row;
+  article#website-testimonials div.reviews-flex-wrapper {
+    gap: 10px;
   }
-  article#website-testimonials div.reviews-row {
+  article#website-testimonials div.reviews-flex-wrapper div.reviews-row,
+  article#website-testimonials div.reviews-flex-wrapper div.reviews-row-bottom {
     flex-direction: row;
     gap: 10px;
   }
-  article#website-testimonials div.reviews-row-bottom {
-    flex-direction: row;
-    gap: 10px;
+  article#website-testimonials div.reviews-flex-wrapper div.reviews-row section.review-card,
+  article#website-testimonials div.reviews-flex-wrapper div.reviews-row-bottom section.review-card {
+    width: 25rem;
   }
 }
 

@@ -1,7 +1,22 @@
 @charset "UTF-8";
-button.filled-web-btn {
+button.filled-web-btn,
+button.emp-web-btn {
   align-self: center;
-  width: 70%;
+  width: 100%;
+  max-width: 300px;
+  height: 45px;
+  border-radius: 8px;
+  font-size: 1em;
+  font-weight: 500;
+}
+button.filled-web-btn:hover,
+button.emp-web-btn:hover {
+  transform: translateY(-2px);
+  transition: transform 0.2s linear;
+}
+
+button.filled-web-btn {
+  width: 100%;
   height: 45px;
   background-color: #008DAA;
   font-family: "Euclid Circular A", sans-serif;
@@ -9,19 +24,11 @@ button.filled-web-btn {
   font-size: 1.2em;
   font-style: normal;
   color: #ffffff;
-  border-radius: 8px;
-  font-size: 1.5em;
-  font-weight: 500;
   border: 2px solid #ffffff;
-}
-button.filled-web-btn:hover {
-  transform: translateY(-2px);
-  transition: transform 0.2s linear;
 }
 
 button.emp-web-btn {
-  align-self: center;
-  width: 70%;
+  width: 100%;
   height: 45px;
   background-color: #ffffff;
   font-family: "Euclid Circular A", sans-serif;
@@ -29,62 +36,51 @@ button.emp-web-btn {
   font-size: 1.2em;
   font-style: normal;
   color: #ffffff;
-  border-radius: 8px;
-  color: #32AE88;
-  font-size: 1.1em;
-  font-weight: 500;
   border: 2px solid #32AE88;
-}
-button.emp-web-btn:hover {
-  transform: translateY(-2px);
-  transition: transform 0.2s linear;
+  color: #32AE88;
 }
 
 main#manage-sections-container {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  align-content: center;
+  gap: 2rem;
+  padding: 1rem;
 }
-main#manage-sections-container #availability-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-content: center;
-}
-main#manage-sections-container #availability-form p label {
-  color: black;
-}
-main#manage-sections-container #availability-form input[type=number] {
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+main#manage-sections-container h2 {
   font-family: "Euclid Circular A", sans-serif;
   font-weight: 400;
-  font-size: 1em;
+  font-size: 1.5em;
   font-style: normal;
-  width: 50%;
-  box-sizing: border-box;
+  margin-left: 20px;
+  padding: 13px;
+  text-align: center;
 }
-main#manage-sections-container #availability-form input[type=number]:focus {
-  outline: none;
-  border-color: #32AE88;
-  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
-}
-main#manage-sections-container #availability-form button.emp-web-btn {
-  width: 30%;
-}
-main#manage-sections-container div.weekly-timestamps {
+main#manage-sections-container #availability-form {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
-  align-content: center;
+  gap: 1.5rem;
+}
+main#manage-sections-container #availability-form input[type=number] {
+  width: 100%;
+}
+main#manage-sections-container #availability-form button.emp-web-btn {
+  width: 100%;
+  max-width: 200px;
+  align-self: center;
+}
+main#manage-sections-container div.weekly-timestamps {
+  width: 100%;
+  overflow-x: auto;
 }
 main#manage-sections-container div.weekly-timestamps table.availability-table {
-  padding: 30px;
+  width: 100%;
+  min-width: 600px;
   border-radius: 8px;
   background-color: #06BAC5;
+}
+main#manage-sections-container div.weekly-timestamps table.availability-table td, main#manage-sections-container div.weekly-timestamps table.availability-table th {
+  padding: 10px;
 }
 main#manage-sections-container div.weekly-timestamps table.availability-table tbody tr:nth-child(even) {
   background-color: #06BAC5;
@@ -93,56 +89,42 @@ main#manage-sections-container div.weekly-timestamps table.availability-table tb
 main#manage-sections-container div.weekly-timestamps table.availability-table tbody tr:nth-child(odd) {
   background-color: #ffffff;
 }
-main#manage-sections-container div.weekly-timestamps table.availability-table td, main#manage-sections-container div.weekly-timestamps table.availability-table th {
-  padding: 10px;
-}
 main#manage-sections-container div.weekly-timestamps table.availability-table td {
   font-family: "Euclid Circular A", sans-serif;
   font-weight: 400;
-  font-size: 1em;
+  font-size: 0.9em;
   font-style: 600;
 }
 main#manage-sections-container div.weekly-timestamps table.availability-table th {
   font-family: "Euclid Circular A", sans-serif;
   font-weight: 400;
-  font-size: 1.3em;
+  font-size: 1em;
   font-style: normal;
   margin-left: 20px;
   padding: 13px;
   color: white;
 }
-main#manage-sections-container h2 {
-  font-family: "Euclid Circular A", sans-serif;
-  font-weight: 400;
-  font-size: 2.3em;
-  font-style: normal;
-  margin-left: 20px;
-  padding: 13px;
-  margin: 30px;
+main#manage-sections-container form[method=POST] div.section-form {
+  margin-bottom: 2rem;
 }
 main#manage-sections-container form[method=POST] div.section-form div.form-header h3 {
   font-family: "Euclid Circular A", sans-serif;
   font-weight: 400;
-  font-size: 2.3em;
+  font-size: 1.5em;
   font-style: normal;
   margin-left: 20px;
   padding: 13px;
-  margin: 30px;
+  text-align: center;
 }
 main#manage-sections-container form[method=POST] label {
   font-family: "Euclid Circular A", sans-serif;
   font-weight: 400;
-  font-size: 1.3em;
+  font-size: 1em;
   font-style: 600;
   color: #06BAC5;
 }
-main#manage-sections-container form[method=POST] input[type=text],
-main#manage-sections-container form[method=POST] input[type=email],
-main#manage-sections-container form[method=POST] input[type=file],
-main#manage-sections-container form[method=POST] input[type=tel],
-main#manage-sections-container form[method=POST] input[type=time],
-main#manage-sections-container form[method=POST] select,
-main#manage-sections-container form[method=POST] textarea {
+main#manage-sections-container form[method=POST] input, main#manage-sections-container form[method=POST] select, main#manage-sections-container form[method=POST] textarea {
+  width: 100%;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 6px;
@@ -150,16 +132,8 @@ main#manage-sections-container form[method=POST] textarea {
   font-weight: 400;
   font-size: 1em;
   font-style: normal;
-  width: 100%;
-  box-sizing: border-box;
 }
-main#manage-sections-container form[method=POST] input[type=text]:focus,
-main#manage-sections-container form[method=POST] input[type=email]:focus,
-main#manage-sections-container form[method=POST] input[type=file]:focus,
-main#manage-sections-container form[method=POST] input[type=tel]:focus,
-main#manage-sections-container form[method=POST] input[type=time]:focus,
-main#manage-sections-container form[method=POST] select:focus,
-main#manage-sections-container form[method=POST] textarea:focus {
+main#manage-sections-container form[method=POST] input:focus, main#manage-sections-container form[method=POST] select:focus, main#manage-sections-container form[method=POST] textarea:focus {
   outline: none;
   border-color: #32AE88;
   box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
@@ -170,31 +144,28 @@ main#manage-sections-container form[method=POST] input[type=file] {
 }
 main#manage-sections-container form[method=POST] div.buttons-container {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  gap: 30px;
-  align-content: center;
+  flex-direction: column;
+  gap: 1rem;
   align-items: center;
 }
 main#manage-sections-container .editor-preview-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 2rem;
 }
 main#manage-sections-container .editor-preview-container .editor-panel, main#manage-sections-container .editor-preview-container .preview-panel {
+  width: 100%;
   padding: 1rem;
   border: 1px solid #eee;
   border-radius: 8px;
   background: white;
-}
-main#manage-sections-container .editor-preview-container #live-preview {
-  font-family: "Euclid Circular A", sans-serif;
 }
 main#manage-sections-container .editor-preview-container #live-preview .service-section {
   margin: 2rem 0;
 }
 main#manage-sections-container .editor-preview-container #live-preview .text-image-section {
   display: flex;
+  flex-direction: column;
   gap: 1rem;
 }
 main#manage-sections-container .editor-preview-container #live-preview .list-section li {
@@ -207,6 +178,28 @@ main#manage-sections-container .editor-preview-container #live-preview .list-sec
   position: absolute;
   left: 0;
   color: #06BAC5;
+}
+
+@media (min-width: 600px) {
+  main#manage-sections-container #availability-form {
+    width: 70%;
+  }
+  main#manage-sections-container div.weekly-timestamps table.availability-table {
+    min-width: unset;
+  }
+  main#manage-sections-container .editor-preview-container {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  main#manage-sections-container .editor-preview-container .editor-panel, main#manage-sections-container .editor-preview-container .preview-panel {
+    width: 48%;
+  }
+  main#manage-sections-container form[method=POST] div.buttons-container {
+    flex-direction: row;
+  }
+  main#manage-sections-container form[method=POST] button {
+    width: auto;
+  }
 }
 
 /*# sourceMappingURL=manage-sections-styles.css.map */

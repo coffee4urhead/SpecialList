@@ -3,6 +3,114 @@
 @import "../../utils/general-web-mixins/main-button-mixin.scss";
 
 section#faq-cont {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10rem;
+
+  & h1 {
+    @include web-title-special($pref-font-size: 2em, $pref-font-st: bold);
+    border-bottom: 3px solid $eccentric-color;
+    padding: 1rem;
+    margin-bottom: 1em;
+
+    span {
+      color: $additional_web_color;
+    }
+  }
+
+  & ol {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    gap: 20px;
+    list-style-type: none;
+
+    & li {
+      width: 100%;
+      height: auto;
+      background-color: $secondary-web-color;
+      padding: 2rem;
+      border-radius: 20px;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: darken($secondary-web-color, 5%);
+      }
+
+      & details {
+        overflow: hidden;
+        transition: all 0.5s ease;
+
+        & > summary {
+          list-style: none;
+          @include web-title-special($pref-font-size: 2em, $pref-font-st: normal);
+          color: white;
+          font-weight: 500;
+          cursor: pointer;
+          position: relative;
+          padding-right: 3rem;
+          transition: margin-bottom 0.5s ease;
+
+          &::-webkit-details-marker {
+            display: none;
+          }
+
+          &::after {
+            content: "+";
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2.5rem;
+            color: white;
+            transition: all 0.5s ease;
+          }
+        }
+
+        &[open] {
+          & > summary {
+            margin-bottom: 15px;
+
+            &::after {
+              content: "-";
+              transform: translateY(-50%) rotate(180deg);
+            }
+          }
+
+          & p {
+            opacity: 1;
+            max-height: 1000px;
+            transform: translateY(0);
+          }
+        }
+
+        & p {
+          @include def-web-text($pref-font-size: 1.5em, $pref-font-st: normal);
+          padding: 20px;
+          font-weight: 400;
+          color: white;
+          margin: 0;
+          opacity: 0;
+          max-height: 0;
+          overflow: hidden;
+          transition: opacity 0.5s ease-out,
+          max-height 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+          transform 0.4s ease-out;
+          transform: translateY(-10px);
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 600px) {
+  section#faq-cont {
     width: 80%;
     display: flex;
     flex-direction: column;
@@ -11,102 +119,7 @@ section#faq-cont {
     margin-bottom: 10rem;
 
     & h1 {
-        @include web-title-special($pref-font-size: 2.5em, $pref-font-st: bold);
-        border-bottom: 3px solid $eccentric-color;
-        padding: 1rem;
-        margin-bottom: 1em;
-
-        span {
-            color: $additional_web_color;
-        }
+      @include web-title-special($pref-font-size: 2.5em, $pref-font-st: bold);
     }
-
-    & ol {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        margin: 0 auto;
-        gap: 20px;
-        list-style-type: none;
-
-        & li {
-            width: 100%;
-            height: auto;
-            background-color: $secondary-web-color;
-            padding: 2rem;
-            border-radius: 20px;
-            transition: background-color 0.3s ease;
-
-            &:hover {
-                background-color: darken($secondary-web-color, 5%);
-            }
-
-            & details {
-                overflow: hidden;
-                transition: all 0.5s ease;
-
-                & > summary {
-                    list-style: none;
-                    @include web-title-special($pref-font-size: 2.5em, $pref-font-st: normal);
-                    color: white;
-                    font-weight: bold;
-                    font-size: 2rem;
-                    cursor: pointer;
-                    position: relative;
-                    padding-right: 3rem;
-                    transition: margin-bottom 0.5s ease;
-
-                    &::-webkit-details-marker {
-                        display: none;
-                    }
-
-                    &::after {
-                        content: "+";
-                        position: absolute;
-                        right: 1rem;
-                        top: 50%;
-                        transform: translateY(-50%);
-                        font-size: 2.5rem;
-                        color: white;
-                        transition: all 0.5s ease;
-                    }
-                }
-
-                &[open] {
-                    & > summary {
-                        margin-bottom: 15px;
-
-                        &::after {
-                            content: "-";
-                            transform: translateY(-50%) rotate(180deg);
-                        }
-                    }
-
-                    & p {
-                        opacity: 1;
-                        max-height: 1000px;
-                        transform: translateY(0);
-                    }
-                }
-
-                & p {
-                    @include def-web-text($pref-font-size: 2em, $pref-font-st: normal);
-                    padding: 30px;
-                    font-weight: 400;
-                    color: white;
-                    margin: 0;
-                    opacity: 0;
-                    max-height: 0;
-                    overflow: hidden;
-                    transition:
-                        opacity 0.5s ease-out,
-                        max-height 0.6s cubic-bezier(0.22, 1, 0.36, 1),
-                        transform 0.4s ease-out;
-                    transform: translateY(-10px);
-                }
-            }
-        }
-    }
+  }
 }

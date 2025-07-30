@@ -16,10 +16,8 @@ article#second-caption-comp-container section.image-section {
   background-color: #072C3C;
 }
 article#second-caption-comp-container section.image-section img {
-  width: 100%;
-  height: auto;
-  max-width: 500px;
-  margin: 0 auto;
+  display: none;
+  visibility: hidden;
 }
 article#second-caption-comp-container section.image-section div.caption-info h1 {
   font-family: "Euclid Circular A", sans-serif;
@@ -105,6 +103,8 @@ article#second-caption-comp-container div.text-container ul li a {
   }
   article#second-caption-comp-container section.image-section img {
     width: 45%;
+    display: block;
+    visibility: visible;
     max-width: none;
   }
   article#second-caption-comp-container div.text-container {
@@ -126,6 +126,14 @@ article#second-caption-comp-container div.text-container ul li a {
     flex-direction: row;
     width: 65%;
     padding: 2rem;
+  }
+  article#second-caption-comp-container section.image-section img {
+    display: block;
+    visibility: visible;
+    width: 100%;
+    height: auto;
+    max-width: 500px;
+    margin: 0 auto;
   }
   article#second-caption-comp-container section.image-section div.caption-info {
     flex-wrap: wrap;

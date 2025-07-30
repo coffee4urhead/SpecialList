@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
     {% load compress static %}
     {% compress css %}
         <link rel="stylesheet" type="text/x-scss" href="{% static 'core/homepage/home-header-style.scss' %}">
@@ -88,7 +90,7 @@
 
             <form method="post" enctype="multipart/form-data" id="sections-form" name="sections-form">
                 {% csrf_token %}
-             <input type="hidden" name="form-type" value="sections-form">
+                <input type="hidden" name="form-type" value="sections-form">
                 {{ section_formset.management_form }}
 
                 <div id="sections-formset">

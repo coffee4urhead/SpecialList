@@ -13,7 +13,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.http import require_POST
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from JobJab.core.models import CustomUser
+from JobJab.core.models import CustomUser, Notification, NotificationType
 from JobJab.subscriptions.models import (
     Subscription, SubscriptionPlan, SubscriptionStatus, SubscriptionRecord
 )
@@ -121,6 +121,12 @@ class SuccessView(LoginRequiredMixin, View):
                 current_period_end=current_end
             )
 
+            Notification.create_notification(
+                user=request.user,
+                title=f"Successfully subscribed to SpecialList",
+                message="Welcome to our community! You can now start your business journey with your selected plan!",
+                notification_type=NotificationType.INFO
+            )
         except Exception as e:
             print(f"Failed to attach subscription in success_view: {e}")
 

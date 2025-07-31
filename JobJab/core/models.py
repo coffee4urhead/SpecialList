@@ -210,25 +210,14 @@ class Notification(models.Model):
     message = models.TextField()
     notification_type = models.CharField(
         max_length=20,
-        choices=NotificationType.choices,
+        choices=NotificationType,
         default=NotificationType.INFO
     )
     is_read = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
-    related_content_type = models.ForeignKey(
-        'contenttypes.ContentType',
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True
-    )
-    related_object_id = models.PositiveIntegerField(null=True, blank=True)
-    related_object = GenericForeignKey('related_content_type', 'related_object_id')
 
     class Meta:
         ordering = ['-created_at']
-        indexes = [
-            models.Index(fields=['related_content_type', 'related_object_id']),
-        ]
 
     def __str__(self):
         return f"{self.notification_type} notification for {self.user.username}"

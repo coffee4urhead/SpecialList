@@ -19,7 +19,7 @@
                 <p>@{{ viewed_account.get_username }}</p>
 
                 {% with _=viewed_account.subscription_membership.normalized_status %}
-                    <p>{{ viewed_account.subscription_membership }}</p>
+                    <p>{{ viewed_account.subscription_membership|default:"This user isn't subscribed to SpecialList services!" }}</p>
                 {% endwith %}
             </div>
         </section>
@@ -27,11 +27,10 @@
 
     <div class="profile-column-right">
         <section id="side-info">
-            <p>{{ viewed_account.bio|default:"some bio description" }}</p>
-            <p><a href="{% url 'password_reset' %}">Reset Password</a></p>
-            <p><a href="{% url 'offer_plans' %}">Change current plan here</a></p>
-
             {% if viewed_account == request.user %}
+                <p>{{ viewed_account.bio|default:"some bio description" }}</p>
+                <p><a href="{% url 'password_reset' %}">Reset Password</a></p>
+                <p><a href="{% url 'offer_plans' %}">Change current plan here</a></p>
                 <button id="edit-profile-btn" class="filled-web-btn">Edit profile</button>
 
                 <div id="edit-profile-form-container" style="display: none; margin-top: 20px;">

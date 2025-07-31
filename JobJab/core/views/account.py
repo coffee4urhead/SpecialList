@@ -5,7 +5,7 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
 from JobJab.core.forms import UserOrganizationFormSet, ProfileEditForm
-from JobJab.core.models import UserLocation, CustomUser
+from JobJab.core.models import UserLocation, CustomUser, Notification
 from JobJab.reviews.models import UserReview
 
 
@@ -13,6 +13,10 @@ class AccountView(LoginRequiredMixin, View):
     def get(self, request, username):
         viewed_account = get_object_or_404(CustomUser, username=username)
         is_owner = (request.user == viewed_account)
+        unread_count = 0
+
+        if request.user.is_authenticated:
+            unread_count = Notification.objects.filter(user=request.user, is_read=False).count()
 
         form = ProfileEditForm(instance=request.user) if is_owner else None
         formset = UserOrganizationFormSet(instance=request.user) if is_owner else None
@@ -23,6 +27,7 @@ class AccountView(LoginRequiredMixin, View):
             'organization_formset': formset,
             'flagged_services': viewed_account.services_favorites.all(),
             'reviews_given': UserReview.objects.filter(reviewee=viewed_account),
+            'unread_count': unread_count,
         }
         return render(request, 'core/accounts/my_account.html', context)
 

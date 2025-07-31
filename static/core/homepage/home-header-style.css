@@ -98,6 +98,22 @@ header#head-sect .side-panel nav.main-nav ul.links-holder li {
   align-items: center;
   gap: 20px;
 }
+header#head-sect .side-panel nav.main-nav ul.links-holder li .badge-count {
+  background-color: #FF3B30;
+  margin-top: 40px;
+  margin-left: 30px;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 999px;
+  position: absolute;
+  z-index: 100;
+  line-height: 1;
+  display: inline-block;
+  min-width: 20px;
+  text-align: center;
+}
 header#head-sect .side-panel nav.main-nav ul.links-holder li img.header-icon {
   width: 35px;
   height: 60px;

@@ -5,13 +5,17 @@ from django.utils.decorators import method_decorator
 from django.views import View
 
 from JobJab.chats.models import Conversation
-from JobJab.core.models import CustomUser
+from JobJab.core.models import CustomUser, Notification
 
 
 @method_decorator(login_required(login_url='login'), name='dispatch')
 class ExploreConversationsView(View):
     def get(self, request):
         filter_type = request.GET.get('filter', 'Seeker')
+        unread_count = 0
+
+        if request.user.is_authenticated:
+            unread_count = Notification.objects.filter(user=request.user, is_read=False).count()
 
         other_user_prefetch = Prefetch(
             'participants',
@@ -46,7 +50,8 @@ class ExploreConversationsView(View):
             'categories': [
                 {'name': 'Service Seekers', 'value': 'Seeker'},
                 {'name': 'Service Providers', 'value': 'Provider'},
-            ]
+            ],
+            'unread_count': unread_count,
         })
 
 
@@ -54,10 +59,20 @@ class ExploreConversationsView(View):
 class ChatWithUserView(View):
     def get(self, request, user_id):
         other_user = get_object_or_404(CustomUser, id=user_id)
-        conversation_with_user = Conversation.objects.get(participants__in=[other_user])
+        unread_count = 0
+
+        if request.user.is_authenticated:
+            unread_count = Notification.objects.filter(user=request.user, is_read=False).count()
+        conversation_with_user, created = Conversation.objects.get_or_create(
+            participants__in=[request.user, other_user],
+            defaults={}
+        )
+        if created:
+            conversation_with_user.participants.add(request.user, other_user)
 
         context = {
             'conversation_with_user': conversation_with_user,
             'other_user': other_user,
+            'unread_count': unread_count,
         }
         return render(request, 'chat.html', context)

@@ -65,14 +65,10 @@ class NotificationAdmin(admin.ModelAdmin):
     list_display = ('user', 'title', 'notification_type', 'is_read', 'created_at')
     list_filter = ('notification_type', 'is_read', 'created_at')
     search_fields = ('user__username', 'title', 'message')
-    readonly_fields = ('created_at', 'related_object')
+
     fieldsets = (
         (None, {
             'fields': ('user', 'title', 'message', 'notification_type', 'is_read')
-        }),
-        ('Related Content', {
-            'fields': ('related_content_type', 'related_object_id', 'related_object'),
-            'classes': ('collapse',)
         }),
         ('Timestamps', {
             'fields': ('created_at',),

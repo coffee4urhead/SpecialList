@@ -4,7 +4,7 @@ from django.utils import timezone
 from django.views import View
 
 from JobJab.booking.models import Booking
-from JobJab.core.models import CustomUser
+from JobJab.core.models import CustomUser, Notification
 from JobJab.subscriptions.models import SubscriptionRecord
 
 
@@ -77,8 +77,13 @@ class UserPaymentsView(View):
 
         # Sort all payments by date (newest first)
         payment_details.sort(key=lambda x: x['date_paid'] if x['date_paid'] else 0, reverse=True)
+        unread_count = 0
+
+        if request.user.is_authenticated:
+            unread_count = Notification.objects.filter(user=request.user, is_read=False).count()
 
         return render(request, 'core/accounts/account-tabs/account_payments.html', {
             'user': user,
-            'payment_details': payment_details
+            'payment_details': payment_details,
+            'unread_count': unread_count,
         })

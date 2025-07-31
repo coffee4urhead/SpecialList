@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    {% load compress static %}
+    {% compress css %}
+        <link rel="stylesheet" type="text/x-scss" href="{% static 'core/homepage/home-header-style.scss' %}">
+        <link rel="stylesheet" type="text/x-scss" href="{% static 'core/notification-page-styles.scss' %}">
+        <link rel="stylesheet" type="text/x-scss" href="{% static 'alert-styles.scss' %}">
+    {% endcompress %}
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background-color: white;
+
+            p, a {
+                font-family: "Euclid Circular A", sans-serif;
+                font-weight: 500;
+                font-size: 1em;
+                font-style: normal;
+                color: white;
+            }
+        }
+    </style>
+    <title>SpecialList Notifications</title>
+</head>
+<body>
+{% include 'template-components/header-comp.html' %}
+<div id="alert-container" style="position: fixed; top: 20px; right: 20px; z-index: 1000;">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+                <button onclick="this.parentElement.remove()">X</button>
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
+
+<main class="notifications-page">
+    <div class="container mt-4">
+        <h2>Notifications for @{{ account.username }}</h2>
+
+        <div class="mb-3">
+            <span class="badge bg-primary">Total: {{ total_count }}</span>
+            <span class="badge bg-info text-dark">Unread: {{ unread_count }}</span>
+        </div>
+
+        {% if notifications %}
+            <div class="list-group">
+                {% for notification in notifications %}
+                    <div class="list-group-item {% if not notification.is_read %}list-group-item-info{% endif %}">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">{{ notification.title }}</h5>
+                            <small>{{ notification.created_at|timesince }} ago</small>
+                        </div>
+                        <p class="mb-1">{{ notification.message }}</p>
+                        <small class="text-muted">
+                            Type: {{ notification.get_notification_type_display }}
+                            {% if notification.related_object %}
+                                | Related: {{ notification.related_object }}
+                            {% endif %}
+                        </small>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-info">You have no notifications.</div>
+        {% endif %}
+    </div>
+</main>
+
+<script src="{% static 'js-scripts/home-side-panel.js' %}"></script>
+</body>
+</html>

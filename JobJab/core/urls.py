@@ -46,6 +46,7 @@ urlpatterns = [
              location.UserLocationWithConnectionsView.as_view(), name='user_location_with_connections'),
         path('certificates/', certificates.UserCertificatesView.as_view(), name='user_certificates'),
         path('payments/', payments.UserPaymentsView.as_view(), name='user_payments'),
+        path('notifications/', main_views.NotificationView.as_view(), name='notifications'),
     ])),
 
     path('', main_views.HomeView.as_view(), name='home'),

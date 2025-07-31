@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.views import View
 from JobJab.core.forms import CleanUserCreationForm, CleanLoginForm
+from JobJab.core.models import Notification, NotificationType
 
 
 class RegisterView(View):
@@ -15,8 +16,16 @@ class RegisterView(View):
     def post(self, request):
         form = CleanUserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
             username = form.cleaned_data.get('username')
+
+            Notification.create_notification(
+                user=user,
+                title="Welcome to JobJab!",
+                message="Thank you for registering with JobJab. We're excited to have you on board!",
+                notification_type=NotificationType.INFO
+            )
+
             messages.success(request, f'Account created for {username}! You can now login.')
             return redirect('login')
         return render(request, self.template_name, {'form': form})
@@ -38,6 +47,7 @@ class LoginView(View):
 
             if user is not None:
                 auth_login(request, user)
+
                 if user.is_staff:
                     return redirect('custom_admin_home')
                 return redirect('home')

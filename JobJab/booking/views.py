@@ -16,6 +16,7 @@ from django.views.generic import DetailView
 from JobJab import settings
 from JobJab.booking.forms import BookingForm, WeeklyTimeSlotForm
 from JobJab.booking.models import WeeklyTimeSlot, Booking
+from JobJab.core.models import Notification, NotificationType
 from JobJab.services.models import ServiceListing
 
 
@@ -292,9 +293,15 @@ def booking_confirmation(request, booking_id):
             payment_intent = stripe.PaymentIntent.retrieve(payment_intent_id)
             if payment_intent.status == 'succeeded':
                 booking.payment_status = 'paid'
+
+                Notification.create_notification(
+                    user=request.user,
+                    title=f"Successfully made a booking to provider {booking.provider.get_username()} - {booking.provider.get_full_name()}",
+                    message="Enjoy the service and make sure everything is okay. We are ready to always support the customers!",
+                    notification_type=NotificationType.INFO
+                )
                 booking.amount_paid = Decimal(payment_intent.amount) / 100
 
-                # If we have an invoice ID, retrieve the invoice PDF
                 invoice_pdf_url = None
                 if booking.stripe_invoice_id:
                     try:

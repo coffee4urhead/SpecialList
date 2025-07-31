@@ -47,6 +47,16 @@
                         class="link-web" href="{% url 'explore_services' %}">Explore Services</a></li>
                 <li><img class="header-icon" src="{% static 'images/messages-icon.png' %}" alt="chats page icon"/><a
                         class="link-web" href="{% url 'explore_conversations' %}">Chats</a></li>
+                {% if user.is_authenticated and not user.is_staff %}
+                    <li>
+                        <img class="header-icon" src="{% static 'images/notification-icon.png' %}"
+                             alt="chats page icon"/>
+                        {% if unread_count > 0 %}
+                            <span class="badge-count">{{ unread_count }}</span>
+                        {% endif %}
+                        <a class="link-web" href="{% url 'notifications' username=user.username %}">Notifications</a>
+                    </li>
+                {% endif %}
             </ul>
         </nav>
     </div>

@@ -15,7 +15,7 @@ from .. import settings
 from ..booking.forms import ProviderAvailabilityForm
 from ..booking.models import ProviderAvailability, WeeklyTimeSlot
 from ..core.forms import BlacklistItemForm
-from ..core.models import CustomUser, BlacklistReason, BlacklistStatus, BlacklistItem
+from ..core.models import CustomUser, BlacklistReason, BlacklistStatus, BlacklistItem, Notification, NotificationType
 from ..reviews.models import UserReview
 from ..subscriptions.models import SubscriptionPlan, SubscriptionStatus
 
@@ -77,7 +77,7 @@ class ExploreServicesView(LoginRequiredMixin, View):
                 'freelancers': show_freelancers,
                 'price_range': price_range,
                 'location': location_filter,
-            }
+            },
         }
         return render(request, self.template_name, context)
 
@@ -96,6 +96,13 @@ class ExploreServicesView(LoginRequiredMixin, View):
             service = form.save(commit=False)
             service.provider = user
             service.save()
+
+            Notification.create_notification(
+                user=request.user,
+                title=f"Successfully created a service",
+                message="Welcome to our community! You can now start your business journey!",
+                notification_type=NotificationType.INFO
+            )
         return redirect('explore_services')
 
 
@@ -154,6 +161,10 @@ class ExtendedServiceDisplayView(LoginRequiredMixin, View):
     def get(self, request, service_id):
         service = get_object_or_404(ServiceListing.objects.prefetch_related('comments'), id=service_id)
         availability = ProviderAvailability.objects.filter(provider=service.provider).first()
+        unread_count = 0
+
+        if request.user.is_authenticated:
+            unread_count = Notification.objects.filter(user=request.user, is_read=False).count()
 
         time_slots = availability.time_slots.order_by('day_of_week', 'start_time') if availability else []
         time_ranges = sorted(set((slot.start_time, slot.end_time) for slot in time_slots), key=lambda r: r[0])
@@ -167,6 +178,7 @@ class ExtendedServiceDisplayView(LoginRequiredMixin, View):
             'days': WeeklyTimeSlot.DAYS_OF_WEEK,
             'time_ranges': time_ranges,
             'STRIPE_PUBLIC_KEY': settings.STRIPE_PUBLIC_KEY,
+            'unread_count': unread_count,
         }
         return render(request, 'extended-service-display.html', context)
 
@@ -184,6 +196,10 @@ class ManageServiceSectionsView(LoginRequiredMixin, View):
 
         availability_form = ProviderAvailabilityForm(instance=availability)
         section_formset = ServiceDetailSectionFormSet(instance=service)
+        unread_count = 0
+
+        if request.user.is_authenticated:
+            unread_count = Notification.objects.filter(user=request.user, is_read=False).count()
 
         return render(request, 'manage_sections_sep.html', {
             'service': service,
@@ -192,6 +208,7 @@ class ManageServiceSectionsView(LoginRequiredMixin, View):
             'slots_by_key': slots_by_key,
             'days': WeeklyTimeSlot.DAYS_OF_WEEK,
             'time_ranges': time_ranges,
+            'unread_count': unread_count,
         })
 
     def post(self, request, service_id):
@@ -236,6 +253,13 @@ class ManageServiceSectionsView(LoginRequiredMixin, View):
             section_formset = ServiceDetailSectionFormSet(request.POST, request.FILES, instance=service)
             if section_formset.is_valid():
                 section_formset.save()
+
+                Notification.create_notification(
+                    user=request.user,
+                    title=f"Successfully added new sections to your service: {service.title}",
+                    message="You can add new sections to your service as well.",
+                    notification_type=NotificationType.INFO
+                )
                 return redirect('extended_service_display', service_id=service.id)
 
         return redirect('manage_service_sections', service_id=service.id)
@@ -344,6 +368,13 @@ class ReportContent(LoginRequiredMixin, View):
 
             if hasattr(content_object, 'user'):
                 report.check_user_ban()
+
+            Notification.create_notification(
+                user=request.user,
+                title=f"Successfully submitted reported content to our admins",
+                message="Thank you for making the community a safe and thriving - we will do everything we can to keep it this way!",
+                notification_type=NotificationType.REPORT
+            )
 
             return JsonResponse({
                 'status': 'success',

@@ -4,7 +4,8 @@ from django.http import JsonResponse
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
-from JobJab.core.models import CustomUser, UserLocation
+from JobJab.core.models import CustomUser, UserLocation, Notification, NotificationType
+
 
 @method_decorator(csrf_exempt, name='dispatch')
 class UpdateGeolocationView(LoginRequiredMixin, View):
@@ -21,7 +22,8 @@ class UpdateGeolocationView(LoginRequiredMixin, View):
                 'latitude': loc.latitude, 'longitude': loc.longitude, 'username': username
             })
         except UserLocation.DoesNotExist:
-            return JsonResponse({'status': 'success', 'exists': False, 'message': 'Location not found', 'username': username})
+            return JsonResponse(
+                {'status': 'success', 'exists': False, 'message': 'Location not found', 'username': username})
 
     def post(self, request, username):
         try:
@@ -32,6 +34,13 @@ class UpdateGeolocationView(LoginRequiredMixin, View):
 
             location, created = UserLocation.objects.update_or_create(
                 user=request.user, defaults={'latitude': lat, 'longitude': lng})
+
+            Notification.create_notification(
+                user=request.user,
+                title=f"Successfully attached location to user {username}",
+                message="Your location is now visible and your followers can see you as well as those you follow!",
+                notification_type=NotificationType.INFO
+            )
 
             return JsonResponse({
                 'status': 'success', 'action': 'created' if created else 'updated',
@@ -88,7 +97,8 @@ class UserLocationWithConnectionsView(View):
             })
 
         except UserLocation.DoesNotExist:
-            return JsonResponse({'status': 'error', 'message': 'Location not found', 'requires_location': True}, status=404)
+            return JsonResponse({'status': 'error', 'message': 'Location not found', 'requires_location': True},
+                                status=404)
         except CustomUser.DoesNotExist:
             return JsonResponse({'status': 'error', 'message': 'User not found'}, status=404)
         except Exception as e:

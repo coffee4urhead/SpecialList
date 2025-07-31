@@ -1,10 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
-from django.views.generic import TemplateView, DeleteView
+from django.views.generic import DeleteView
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.template.loader import render_to_string
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse_lazy
 from django.utils import timezone
 from django.db.models import Q, Prefetch
 
@@ -14,6 +14,9 @@ from .utils import get_service_limit_for_plan
 from .. import settings
 from ..booking.forms import ProviderAvailabilityForm
 from ..booking.models import ProviderAvailability, WeeklyTimeSlot
+from ..core.forms import BlacklistItemForm
+from ..core.models import CustomUser, BlacklistReason, BlacklistStatus, BlacklistItem
+from ..reviews.models import UserReview
 from ..subscriptions.models import SubscriptionPlan, SubscriptionStatus
 
 DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
@@ -61,7 +64,6 @@ class ExploreServicesView(LoginRequiredMixin, View):
         allowed_services = get_service_limit_for_plan(plan)
         service_count = services.count()
         can_create_more = service_count < allowed_services
-
         context = {
             'form': ServiceListingForm(),
             'services': services,
@@ -292,3 +294,63 @@ class CommentServiceView(LoginRequiredMixin, View):
             'comments_form': form,
             'service': service
         })
+
+
+class ReportContent(LoginRequiredMixin, View):
+    login_url = 'login'
+
+    def get(self, request):
+        report_form = BlacklistItemForm()
+        form_html = render_to_string('template-components/form-modals/report_form.html', {'report_form': report_form},
+                                     request=request)
+        return JsonResponse({'status': 'success', 'form_html': form_html})
+
+    def post(self, request):
+        content_type = request.POST.get('content_type')
+        object_id = request.POST.get('object_id')
+        reason = request.POST.get('reason')
+        description = request.POST.get('description', '')
+
+        try:
+            if content_type == 'service':
+                model = ServiceListing
+            elif content_type == 'comment':
+                model = Comment
+            elif content_type == 'review':
+                model = UserReview
+            elif content_type == 'user':
+                model = CustomUser
+            else:
+                return JsonResponse({'status': 'error', 'message': 'Invalid content type'}, status=400)
+
+            content_object = model.objects.get(pk=object_id)
+
+            # Create the report
+            report = BlacklistItem.objects.create(
+                reporter=request.user,
+                content_object=content_object,
+                reason=reason,
+                description=description,
+                status=BlacklistStatus.PENDING
+            )
+
+            # Auto-hide if needed based on reason
+            if reason in [BlacklistReason.SCAM, BlacklistReason.ABUSE, BlacklistReason.HATE_SPEECH]:
+                report.auto_hidden = True
+                report.save()
+                if hasattr(content_object, 'is_active'):
+                    content_object.is_active = False
+                    content_object.save()
+
+            if hasattr(content_object, 'user'):
+                report.check_user_ban()
+
+            return JsonResponse({
+                'status': 'success',
+                'message': 'Your report has been submitted. Our team will review it shortly.'
+            })
+
+        except model.DoesNotExist:
+            return JsonResponse({'status': 'error', 'message': 'Content not found'}, status=404)
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)}, status=400)

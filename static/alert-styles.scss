@@ -1,0 +1,45 @@
+@import "utils/web_colors.scss";
+@import "utils/general-web-mixins/main-web-utls.scss";
+@import "utils/general-web-mixins/main-button-mixin.scss";
+
+.alert {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 15px 20px;
+  border-radius: 5px;
+  color: white;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 250px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  animation: slideIn 0.5s, fadeOut 0.5s 2.5s forwards;
+  @include def-web-text($pref-font-size: 1.3em, $pref-font-st: italic);
+}
+
+.alert-success {
+  background-color: #4CAF50;
+}
+
+.alert-error {
+  background-color: #f44336;
+}
+
+.alert-info {
+  background-color: #2196F3;
+}
+
+.alert-warning {
+  background-color: #ff9800;
+}
+
+.alert button {
+  background: none;
+  border: none;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: 15px;
+}

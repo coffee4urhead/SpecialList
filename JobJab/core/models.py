@@ -3,9 +3,13 @@ from datetime import time
 
 from PIL import Image
 from django.contrib.auth.models import AbstractUser
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
+from django.core.exceptions import ValidationError
 from django.core.validators import FileExtensionValidator, MinLengthValidator, MaxValueValidator, MinValueValidator
 
 from django.db import models
+from django.utils import timezone
 from pdf2image import convert_from_path
 
 from JobJab import settings
@@ -155,7 +159,8 @@ class CustomUser(AbstractUser):
     preferred_end = models.TimeField(blank=True, null=True, default=time(17, 0))
     is_verified = models.BooleanField(default=False)
     verified_at = models.DateTimeField(blank=True, null=True)
-    subscription_membership = models.OneToOneField(Subscription, on_delete=models.CASCADE, blank=True, null=True, related_name='user_subscription')
+    subscription_membership = models.OneToOneField(Subscription, on_delete=models.CASCADE, blank=True, null=True,
+                                                   related_name='user_subscription')
     timezone = models.CharField(
         max_length=50,
         choices=TIMEZONE_CHOICES,
@@ -185,3 +190,303 @@ class UserLocation(models.Model):
 
     def __str__(self):
         return f"{self.user.username}'s location"
+
+
+class NotificationType(models.TextChoices):
+    WARNING = 'warning', 'Warning'
+    BAN = 'ban', 'Ban Notice'
+    REPORT = 'report', 'Report Update'
+    INFO = 'info', 'Information'
+    SYSTEM = 'system', 'System Message'
+
+
+class Notification(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='notifications'
+    )
+    title = models.CharField(max_length=100)
+    message = models.TextField()
+    notification_type = models.CharField(
+        max_length=20,
+        choices=NotificationType.choices,
+        default=NotificationType.INFO
+    )
+    is_read = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    related_content_type = models.ForeignKey(
+        'contenttypes.ContentType',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True
+    )
+    related_object_id = models.PositiveIntegerField(null=True, blank=True)
+    related_object = GenericForeignKey('related_content_type', 'related_object_id')
+
+    class Meta:
+        ordering = ['-created_at']
+        indexes = [
+            models.Index(fields=['related_content_type', 'related_object_id']),
+        ]
+
+    def __str__(self):
+        return f"{self.notification_type} notification for {self.user.username}"
+
+    def mark_as_read(self):
+        self.is_read = True
+        self.save()
+
+    @classmethod
+    def create_notification(cls, user, title, message, notification_type=NotificationType.INFO, related_object=None):
+        notification = cls(
+            user=user,
+            title=title,
+            message=message,
+            notification_type=notification_type
+        )
+
+        if related_object:
+            notification.related_object = related_object
+
+        notification.save()
+        return notification
+
+
+class BlacklistReason(models.TextChoices):
+    SPAM = 'spam', 'Spam or misleading content'
+    ABUSE = 'abuse', 'Abusive or harmful content'
+    INAPPROPRIATE = 'inappropriate', 'Sexually explicit content'
+    HATE_SPEECH = 'hate_speech', 'Hate speech or discrimination'
+    PRIVACY = 'privacy', 'Privacy violation'
+    SCAM = 'scam', 'Scam or fraud'
+    COPYRIGHT = 'copyright', 'Copyright infringement'
+    OTHER = 'other', 'Other'
+
+
+class BlacklistStatus(models.TextChoices):
+    PENDING = 'pending', 'Pending Review'
+    APPROVED = 'approved', 'Approved (Content Removed)'
+    REJECTED = 'rejected', 'Rejected (False Report)'
+    WARNING = 'warning', 'Warning Issued'
+    BANNED = 'banned', 'User Banned'
+
+
+class BlacklistItem(models.Model):
+    reporter = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='reported_items'
+    )
+
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
+    content_object = GenericForeignKey('content_type', 'object_id')
+
+    reason = models.CharField(
+        max_length=20,
+        choices=BlacklistReason.choices,
+        default=BlacklistReason.OTHER
+    )
+    description = models.TextField(
+        blank=True,
+        null=True,
+        help_text="Additional details about the report"
+    )
+
+    status = models.CharField(
+        max_length=20,
+        choices=BlacklistStatus,
+        default=BlacklistStatus.PENDING
+    )
+    moderator = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='moderated_items'
+    )
+    moderator_notes = models.TextField(blank=True, null=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    resolved_at = models.DateTimeField(null=True, blank=True)
+
+    auto_hidden = models.BooleanField(
+        default=False,
+        help_text="Whether the content was automatically hidden"
+    )
+
+    class Meta:
+        ordering = ['-created_at']
+        indexes = [
+            models.Index(fields=['content_type', 'object_id']),
+        ]
+        verbose_name = "Blacklist Item"
+        verbose_name_plural = "Blacklist Items"
+
+    def __str__(self):
+        return f"Report on {self.content_type} #{self.object_id} - {self.get_reason_display()}"
+
+    def clean(self):
+        if hasattr(self.content_object, 'user'):
+            if self.reporter and self.reporter == self.content_object.user:
+                raise ValidationError("You cannot report your own content.")
+
+        if not self.pk:
+            existing = BlacklistItem.objects.filter(
+                content_type=self.content_type,
+                object_id=self.object_id,
+                status__in=[BlacklistStatus.PENDING, BlacklistStatus.APPROVED, BlacklistStatus.WARNING]
+            ).exists()
+            if existing:
+                raise ValidationError("This content has already been reported and is under review.")
+
+    def save(self, *args, **kwargs):
+        if self.reason in [BlacklistReason.ABUSE, BlacklistReason.HATE_SPEECH, BlacklistReason.INAPPROPRIATE]:
+            self.auto_hidden = True
+
+        super().save(*args, **kwargs)
+
+        if self.auto_hidden:
+            self.hide_content()
+
+    def hide_content(self):
+        """Hide the reported content automatically"""
+        if hasattr(self.content_object, 'is_active'):
+            self.content_object.is_active = False
+            self.content_object.save()
+
+    def approve_report(self, moderator, notes=None):
+        """Approve the report and take appropriate action"""
+        self.status = BlacklistStatus.APPROVED
+        self.moderator = moderator
+        self.moderator_notes = notes
+        self.resolved_at = timezone.now()
+        self.save()
+
+        if hasattr(self.content_object, 'is_active'):
+            self.content_object.is_active = False
+            self.content_object.save()
+
+        self.check_user_ban()
+
+    def reject_report(self, moderator, notes=None):
+        """Reject the report as invalid"""
+        self.status = BlacklistStatus.REJECTED
+        self.moderator = moderator
+        self.moderator_notes = notes
+        self.resolved_at = timezone.now()
+        self.save()
+
+        if self.auto_hidden and hasattr(self.content_object, 'is_active'):
+            self.content_object.is_active = True
+            self.content_object.save()
+
+    def get_warning_message(self):
+        if self.reason == BlacklistReason.SCAM:
+            return f"""
+            Warning: This {self.content_type.model} has been reported for potential scam activity.
+
+            Report details:
+            - Reason: {self.get_reason_display()}
+            - Description: {self.description}
+            - Reported by: {self.reporter.username}
+            - Date: {self.created_at.strftime('%Y-%m-%d %H:%M')}
+
+            Please proceed with caution.
+            """
+        return None
+
+    def check_user_ban(self):
+        """Check if user should be banned based on previous reports"""
+        if not hasattr(self.content_object, 'user'):
+            return
+
+        user = self.content_object.user
+        approved_reports = BlacklistItem.objects.filter(
+            content_type=ContentType.objects.get_for_model(user),
+            object_id=user.id,
+            status=BlacklistStatus.APPROVED
+        ).count()
+
+        if approved_reports >= 3:
+            user.is_active = False
+            user.save()
+            self.status = BlacklistStatus.BANNED
+            self.save()
+
+
+class UserBlacklistProfile(models.Model):
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='blacklist_profile'
+    )
+    is_banned = models.BooleanField(default=False)
+    ban_reason = models.TextField(blank=True, null=True)
+    banned_at = models.DateTimeField(blank=True, null=True)
+    banned_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='banned_users'
+    )
+    warning_count = models.PositiveIntegerField(default=0)
+    last_warning = models.DateTimeField(blank=True, null=True)
+
+    def __str__(self):
+        return f"Blacklist status for {self.user.username}"
+
+    def issue_warning(self, moderator, reason):
+        """Issue a warning to the user"""
+        self.warning_count += 1
+        self.last_warning = timezone.now()
+        self.save()
+
+        Notification.objects.create(
+            user=self.user,
+            title="Content Violation Warning",
+            message=f"Your content has been flagged for violating our policies. Reason: {reason}",
+            notification_type="warning"
+        )
+
+        if self.warning_count >= 3:
+            self.ban_user(moderator, "Automatic ban after 3 warnings")
+
+    def ban_user(self, moderator, reason):
+        """Ban the user from the platform"""
+        self.is_banned = True
+        self.ban_reason = reason
+        self.banned_at = timezone.now()
+        self.banned_by = moderator
+        self.save()
+
+        self.user.is_active = False
+        self.user.save()
+
+        Notification.objects.create(
+            user=self.user,
+            title="Account Banned",
+            message=f"Your account has been banned. Reason: {reason}",
+            notification_type="ban"
+        )
+
+    def unban_user(self, moderator, reason):
+        """Unban the user"""
+        self.is_banned = False
+        self.ban_reason = f"Unbanned: {reason}"
+        self.save()
+
+        self.user.is_active = True
+        self.user.save()
+
+        Notification.objects.create(
+            user=self.user,
+            title="Account Unbanned",
+            message=f"Your account has been unbanned. Reason: {reason}",
+            notification_type="info"
+        )

@@ -2,12 +2,18 @@
 <div class="comment-item" id="comment-{{ comment.id }}">
     <div class="comment-user-info">
         <a href="{% url 'account_view' comment.author.username %}">
-            <img class="author-account-image" src="{{ comment.author|profile_picture_url }}" alt="Comment author's profile photo {{ comment.author.get_username }}"/>
+            <img class="author-account-image" src="{{ comment.author|profile_picture_url }}"
+                 alt="Comment author's profile photo {{ comment.author.get_username }}"/>
         </a>
     </div>
 
     <div class="comment-section">
-        <small>{{ comment.author.get_full_name|default:comment.author.username }} — {{ comment.created_at|timesince }} ago</small>
+        <small>{{ comment.author.get_full_name|default:comment.author.username }} — {{ comment.created_at|timesince }}
+            ago
+            <button class="report-comment" data-comment-id="{{ comment.id }}">
+                <img class="icon-image" src="{% static 'images/report-icon.png' %}" alt="Report"/>
+            </button>
+        </small>
         <p>{{ comment.content }}</p>
 
         {% if comment.parent %}

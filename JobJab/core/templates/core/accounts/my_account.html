@@ -26,6 +26,8 @@
               href="{% static 'services/user-flags-styles.scss' %}">
         <link rel="stylesheet" type="text/x-scss"
               href="{% static 'core/profile-view-styles/my-account-main-handler.scss' %}">
+        <link rel="stylesheet" type="text/x-scss" href="{% static 'form-styles/report-form-styles.scss' %}">
+                <link rel="stylesheet" type="text/x-scss" href="{% static 'alert-styles.scss' %}">
     {% endcompress %}
 
     <style>
@@ -55,6 +57,16 @@
 </head>
 <body>
 {% include 'template-components/header-comp.html' %}
+<div id="alert-container" style="position: fixed; top: 20px; right: 20px; z-index: 1000;">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+                <button onclick="this.parentElement.remove()">X</button>
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
 
 <main id="main-profile-contents">
     {% include 'template-components/profile-main-info-tab.html' %}
@@ -71,6 +83,7 @@
 <script type="module" src="{% static 'js-scripts/profile-scripts/follow-script.js' %}"></script>
 <script type="module" src="{% static 'js-scripts/services-scripts/services-options-handler.js' %}"></script>
 <script src="{% static 'js-scripts/home-side-panel.js' %}"></script>
+<script type="module" src="{% static 'js-scripts/report.js' %}"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         document.querySelector('.connections-link').addEventListener('click', function () {

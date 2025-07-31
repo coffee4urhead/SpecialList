@@ -5,56 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a6602c8c-3836-4310-91e0-bc55f682d51c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/static/core/profile-view-styles/my-account-main-handler.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JobJab/core/templates/template-components/form-modals/report_form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/alert-styles.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/form-styles/report-form-styles.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/report-icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/js-scripts/report.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/chats/templates/explore_conversations.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/chats/templates/explore_conversations.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/core/templates/core/accounts/account-tabs/account_certificates.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/core/accounts/account-tabs/account_certificates.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/core/templates/core/accounts/account-tabs/account_payments.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/core/accounts/account-tabs/account_payments.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/core/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/core/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/core/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JobJab/core/templates/core/accounts/my_account.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/core/accounts/my_account.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/core/templates/core/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/core/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/core/templates/core/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/core/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/dashboard/templates/admin_home.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/dashboard/templates/admin_home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/reviews/templates/user-review.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/reviews/templates/user-review.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JobJab/services/templates/explore_services.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/templates/explore_services.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JobJab/services/templates/extended-service-display.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/templates/extended-service-display.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/services/templates/manage_sections_sep.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/templates/manage_sections_sep.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/chats/explore-conversations-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/chats/explore-conversations-styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/chats/explore-conversations-styles.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/chats/explore-conversations-styles.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/chats/explore-conversations-styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/chats/explore-conversations-styles.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/about-page/faq-component-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/about-page/faq-component-styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/about-page/faq-component-styles.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/about-page/faq-component-styles.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/about-page/faq-component-styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/about-page/faq-component-styles.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/description-component.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/description-component.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/description-component.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/description-component.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/description-component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/description-component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/homepage/footer-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/footer-styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/homepage/footer-styles.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/footer-styles.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/homepage/footer-styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/footer-styles.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/homepage/home-main-controll.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/home-main-controll.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/homepage/home-main-controll.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/home-main-controll.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/homepage/home-main-controll.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/home-main-controll.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/homepage/second-caption-comp-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/second-caption-comp-styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/homepage/second-caption-comp-styles.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/second-caption-comp-styles.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/homepage/second-caption-comp-styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/second-caption-comp-styles.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/homepage/testimonials-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/testimonials-styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/homepage/testimonials-styles.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/testimonials-styles.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/homepage/testimonials-styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/testimonials-styles.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/profile-side-info-tab.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/profile-side-info-tab.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/profile-side-info-tab.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/profile-side-info-tab.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/profile-side-info-tab.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/profile-side-info-tab.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/profile-tabs-views/account-certificates.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/profile-tabs-views/account-certificates.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/profile-tabs-views/account-certificates.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/profile-tabs-views/account-certificates.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/profile-tabs-views/account-certificates.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/profile-tabs-views/account-certificates.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/profile_main_info_tab.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/profile_main_info_tab.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/profile_main_info_tab.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/profile_main_info_tab.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/profile_main_info_tab.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/profile_main_info_tab.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/services/expand-serv-to-comment-modal.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/expand-serv-to-comment-modal.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/services/expand-serv-to-comment-modal.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/expand-serv-to-comment-modal.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/services/extended-service-display-styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/extended-service-display-styles.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/services/manage-sections-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/manage-sections-styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/services/manage-sections-styles.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/manage-sections-styles.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/services/manage-sections-styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/manage-sections-styles.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/services/templates/partials/single-comment.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/templates/partials/single-comment.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/services/templates/services-display.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/templates/services-display.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/services/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/services/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/services/services_display_styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/services_display_styles.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/services/user-flags-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/user-flags-styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/services/user-flags-styles.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/user-flags-styles.css.map" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,9 +37,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
-        <option value="HTML File" />
         <option value="Python Script" />
+        <option value="HTML File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -223,7 +193,8 @@
       <workItem from="1753731167634" duration="1634000" />
       <workItem from="1753774044129" duration="6935000" />
       <workItem from="1753784670644" duration="5121000" />
-      <workItem from="1753862263381" duration="9739000" />
+      <workItem from="1753862263381" duration="10209000" />
+      <workItem from="1753954706118" duration="8511000" />
     </task>
     <servers />
   </component>

@@ -1,0 +1,26 @@
+<form method="post" id="report-form" data-content-type="{{ content_type }}" data-object-id="{{ object_id }}">
+    {% csrf_token %}
+
+    <div class="form-group">
+        {{ report_form.reason.label_tag }}
+        {{ report_form.reason }}
+        <small class="form-text">{{ report_form.reason.help_text }}</small>
+        {% if report_form.reason.errors %}
+            <div class="error">{{ report_form.reason.errors }}</div>
+        {% endif %}
+    </div>
+
+    <div class="form-group">
+        {{ report_form.description.label_tag }}
+        {{ report_form.description }}
+        <small class="form-text">{{ report_form.description.help_text }}</small>
+        {% if report_form.description.errors %}
+            <div class="error">{{ report_form.description.errors }}</div>
+        {% endif %}
+    </div>
+
+    <div class="form-actions">
+        <button type="button" class="cancel-btn">Cancel</button>
+        <button type="submit" class="submit-btn">Submit Report</button>
+    </div>
+</form>

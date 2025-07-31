@@ -7,7 +7,7 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from django.forms import ClearableFileInput, inlineformset_factory
 
-from JobJab.core.models import TIMEZONE_CHOICES, UserOrganization, CustomUser, Certificate
+from JobJab.core.models import TIMEZONE_CHOICES, UserOrganization, CustomUser, Certificate, BlacklistItem, BlacklistReason
 
 User = get_user_model()
 
@@ -151,3 +151,49 @@ class CertificateForm(forms.ModelForm):
         if title and len(title) < 10:
             raise ValidationError("Certificate title must be at least 10 characters long")
         return title
+
+
+class BlacklistItemForm(forms.ModelForm):
+    reason = forms.ChoiceField(
+        choices=BlacklistReason,
+        widget=forms.Select(attrs={
+            'class': 'form-control',
+            'aria-label': 'Select reason for reporting'
+        }),
+        help_text="Please select the most appropriate reason for reporting this content."
+    )
+
+    description = forms.CharField(
+        widget=forms.Textarea(attrs={
+            'class': 'form-control',
+            'rows': 3,
+            'placeholder': 'Please provide specific details about why this content should be reviewed...'
+        }),
+        required=False,
+        help_text="Additional details help us understand and process your report faster."
+    )
+
+    class Meta:
+        model = BlacklistItem
+        fields = ['reason', 'description']
+
+    def __init__(self, *args, **kwargs):
+        self.reported_object = kwargs.pop('reported_object', None)
+        self.reporter = kwargs.pop('reporter', None)
+        super().__init__(*args, **kwargs)
+
+        self.fields['reason'].choices = BlacklistReason
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        if self.reported_object and hasattr(self.reported_object, 'user'):
+            if self.reporter and self.reporter == self.reported_object.user:
+                raise forms.ValidationError("You cannot report your own content.")
+
+        if len(cleaned_data.get('description', '').strip()) < 10:
+            raise forms.ValidationError(
+                "Please provide more details (at least 10 characters) about your report."
+            )
+
+        return cleaned_data

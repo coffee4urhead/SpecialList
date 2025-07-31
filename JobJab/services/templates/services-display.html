@@ -129,6 +129,11 @@
                             {% endif %}
                             <span class="flag-count-number">{{ service.favorite_flagged.count }}</span>
                         </button>
+                        <button class="report-service" data-service-id="{{ service.id }}">
+                            <img class="icon-image" src="{% static 'images/report-icon.png' %}"
+                                 alt="flag reported content icon"/>
+                            <span class="flag-count-number">{{ service.favorite_flagged.count }}</span>
+                        </button>
                     </div>
                 </div>
 

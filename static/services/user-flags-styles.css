@@ -20,15 +20,15 @@ div.service-mini-cont div#top-content {
   align-content: center;
   align-items: center;
 }
-div.service-mini-cont div#top-content div.icon-holder button.add-favorites {
+div.service-mini-cont div#top-content div.icon-holder button.add-favorites, div.service-mini-cont div#top-content div.icon-holder button.report-service {
   border: none;
 }
-div.service-mini-cont div#top-content div.icon-holder button.add-favorites img.icon-image {
+div.service-mini-cont div#top-content div.icon-holder button.add-favorites img.icon-image, div.service-mini-cont div#top-content div.icon-holder button.report-service img.icon-image {
   width: 30px;
   height: 30px;
   object-fit: contain;
 }
-div.service-mini-cont div#top-content div.icon-holder button.add-favorites:hover {
+div.service-mini-cont div#top-content div.icon-holder button.add-favorites:hover, div.service-mini-cont div#top-content div.icon-holder button.report-service:hover {
   transform: translateY(-2px);
   transition: transform 0.2s linear;
 }

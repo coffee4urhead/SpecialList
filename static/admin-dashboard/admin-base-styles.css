@@ -1,0 +1,140 @@
+.dashboard-layout {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: relative;
+  min-height: 100vh;
+  background-color: #f5f7fa;
+}
+
+#main-web-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 1.5rem 2rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.popup-user-registry {
+  width: 30%;
+  max-width: 400px;
+  min-width: 280px;
+  background: #fff;
+  border-left: 1px solid #dcdcdc;
+  height: 100%;
+  overflow-y: auto;
+  padding: 1rem;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease-in-out;
+  transform: translateX(100%);
+  position: relative;
+}
+.popup-user-registry.visible {
+  transform: translateX(0%);
+}
+.popup-user-registry .popup-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.popup-user-registry .popup-content .popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 1rem;
+}
+.popup-user-registry .popup-content .popup-header h3 {
+  font-size: 1.1rem;
+  color: #333;
+}
+.popup-user-registry .popup-content .popup-header button#close-popup {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #888;
+}
+.popup-user-registry .popup-content .popup-header button#close-popup:hover {
+  color: #333;
+}
+.popup-user-registry .popup-content .popup-user-list {
+  flex-grow: 1;
+  overflow-y: auto;
+}
+.popup-user-registry .popup-content .popup-user-list .user-card {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+.popup-user-registry .popup-content .popup-user-list .user-card label {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.popup-user-registry .popup-content .popup-user-list .user-card label input[type=checkbox] {
+  margin-right: 0.5rem;
+}
+.popup-user-registry .popup-content .popup-user-list .user-card:hover {
+  background: #f9f9f9;
+}
+
+.blacklist-section {
+  width: 100%;
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background-color: #f9f9fb;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+}
+.blacklist-section h4 {
+  font-size: 1.3rem;
+  color: darkgray;
+  margin-bottom: 1rem;
+  border-left: 4px solid #32AE88;
+  padding-left: 0.5rem;
+}
+.blacklist-section .user-card {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.blacklist-section .user-card p {
+  font-size: 0.95rem;
+  color: black;
+}
+.blacklist-section .user-card strong {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #06BAC5;
+}
+.blacklist-section .user-card button {
+  align-self: flex-start;
+  margin-top: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+  border: none;
+  border-radius: 6px;
+  background-color: #32AE88;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.blacklist-section .user-card button:hover {
+  background-color: #298e6f;
+}
+.blacklist-section .empty-message {
+  font-style: italic;
+  color: gray;
+  font-size: 0.9rem;
+}
+
+/*# sourceMappingURL=admin-base-styles.css.map */

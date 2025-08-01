@@ -147,3 +147,26 @@ function showAlert(type, message) {
         }
     }, 5000);
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    if (window.location.hash) {
+        const elementId = window.location.hash.substring(1);
+        scrollToContent(elementId);
+    }
+});
+
+function scrollToContent(elementId) {
+    const element = document.getElementById(elementId);
+    if (element) {
+        element.classList.add('reported-content-highlight');
+
+        element.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+        });
+
+        setTimeout(() => {
+            element.classList.remove('reported-content-highlight');
+        }, 3000);
+    }
+}

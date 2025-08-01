@@ -1,6 +1,10 @@
 from datetime import timedelta
 
 import pandas as pd
+from django.contrib.contenttypes.models import ContentType
+from django.core.paginator import Paginator
+from django.http import JsonResponse
+from django.views import View
 from plotly import graph_objects as go
 from django.contrib import messages
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
@@ -12,7 +16,8 @@ from django.db.models import Count
 
 from JobJab.booking.models import Booking
 from JobJab.chats.models import Conversation, Message
-from JobJab.core.models import Organization, CustomUser, Certificate
+from JobJab.core.models import Organization, CustomUser, Certificate, BlacklistItem, UserBlacklistProfile, \
+    BlacklistStatus, Notification, NotificationType
 import plotly.express as px
 from plotly.offline import plot
 
@@ -24,6 +29,7 @@ from JobJab.subscriptions.models import SubscriptionRecord
 class AdminDashboardView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
     template_name = 'admin_home.html'
     login_url = 'login'
+    paginate_by = 5
 
     def test_func(self):
         return self.request.user.is_staff
@@ -32,9 +38,57 @@ class AdminDashboardView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
         if not self.request.user.is_authenticated:
             return redirect(self.get_login_url())
 
-        from django.contrib import messages
         messages.error(self.request, "Staff privileges required")
         return redirect(self.get_login_url())
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        disputes = BlacklistItem.objects.all().select_related(
+            'reporter', 'moderator', 'content_type'
+        )
+
+        paginator = Paginator(disputes, self.paginate_by)
+        page_number = self.request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+
+        banned_profiles = UserBlacklistProfile.objects.filter(is_banned=True).select_related('user')
+        warned_profiles = UserBlacklistProfile.objects.filter(warning_count__gt=0, is_banned=False).select_related(
+            'user')
+
+        user_ct = ContentType.objects.get_for_model(CustomUser)
+        service_ct = ContentType.objects.get_for_model(ServiceListing)
+        review_ct = ContentType.objects.get_for_model(UserReview)
+        comment_ct = ContentType.objects.get_for_model(Comment)
+
+        context.update({
+            'disputes': disputes,
+            'banned_profiles': banned_profiles,
+            'warned_profiles': warned_profiles,
+            'page_obj': page_obj,
+            'reported_users_count': BlacklistItem.objects.filter(
+                content_type=user_ct,
+                status=BlacklistStatus.PENDING
+            ).count(),
+            'reported_services_count': BlacklistItem.objects.filter(
+                content_type=service_ct,
+                status=BlacklistStatus.PENDING
+            ).count(),
+            'reported_reviews_count': BlacklistItem.objects.filter(
+                content_type=review_ct,
+                status=BlacklistStatus.PENDING
+            ).count(),
+            'reported_comments_count': BlacklistItem.objects.filter(
+                content_type=comment_ct,
+                status=BlacklistStatus.PENDING
+            ).count(),
+            'user_ct': user_ct,
+            'service_ct': service_ct,
+            'review_ct': review_ct,
+            'comment_ct': comment_ct,
+        })
+
+        return context
 
 
 class GraphsView:
@@ -180,7 +234,6 @@ class GraphsView:
             availabilities.values('status').annotate(count=Count('id'))
         )
 
-        # Ensure there's at least an empty bar chart
         if df.empty:
             df = pd.DataFrame({'status': [], 'count': []})
 
@@ -382,10 +435,12 @@ class ChatsInfoView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
             'recent_chats': recent_chats,
             'chats': chats,
 
-            'messages_graph': GraphsView.create_service_trend_graph(messages, start_date, end_date, arg_getter='timestamp'),
+            'messages_graph': GraphsView.create_service_trend_graph(messages, start_date, end_date,
+                                                                    arg_getter='timestamp'),
             'chats_graph': GraphsView.create_service_trend_graph(chats, start_date, end_date),
         })
         return context
+
 
 class ReviewsInfoView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
     template_name = 'template-admin-components/admin_reviews_info.html'
@@ -421,6 +476,7 @@ class ReviewsInfoView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
         })
         return context
 
+
 class BookingInfoView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
     template_name = 'template-admin-components/admin_booking_info.html'
     login_url = 'login'
@@ -442,7 +498,6 @@ class BookingInfoView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
 
         bookings = Booking.objects.prefetch_related('seeker', 'provider').all()
 
-
         context.update({
             'total_bookings': bookings.count(),
             'bookings': bookings,
@@ -450,3 +505,53 @@ class BookingInfoView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
             'bookings_graph': GraphsView.create_service_trend_graph(bookings, start_date, end_date),
         })
         return context
+
+
+class ResolveDisputes(LoginRequiredMixin, UserPassesTestMixin, View):
+    def test_func(self):
+        return self.request.user.is_staff
+
+    def post(self, request, dispute_id=None, action=None, reviewee=None):
+        try:
+            dispute_id = dispute_id or request.POST.get('dispute_id') or request.data.get('dispute_id')
+            action = action or request.POST.get('action') or request.data.get('action')
+
+            if not dispute_id or not action:
+                return JsonResponse({'status': 'error', 'message': 'Missing parameters'}, status=400)
+
+            dispute = BlacklistItem.objects.get(id=dispute_id)
+
+            if action == 'approve':
+                dispute.approve_report(moderator=request.user)
+                Notification.create_notification(
+                    user=dispute.reporter,
+                    title=f"Successfully approved you report!",
+                    message="Thank you for your report. Make sure the community remains safe and threat free!",
+                    notification_type=NotificationType.BAN
+                )
+
+                if hasattr(dispute.content_object, 'user') and dispute.content_object.user != dispute.reporter:
+                    Notification.objects.create(
+                        user=dispute.content_object.user,
+                        title="Content Violation",
+                        message=f"Your {dispute.content_type.model} was removed for violating our policies",
+                        notification_type=NotificationType.WARNING
+                    )
+
+            elif action == 'reject':
+                dispute.reject_report(moderator=request.user)
+                Notification.create_notification(
+                    user=dispute.reporter,
+                    title=f"Your report has been rejected!",
+                    message="Keep in mind that any future false reports may result in bans to your account. Be mindful what yiu report and for what reason - everything is reviews by our admins!",
+                    notification_type=NotificationType.WARNING
+                )
+            else:
+                return JsonResponse({'status': 'error', 'message': 'Invalid action'}, status=400)
+
+            return JsonResponse({'status': 'success'})
+
+        except BlacklistItem.DoesNotExist:
+            return JsonResponse({'status': 'error', 'message': 'Dispute not found'}, status=404)
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)}, status=400)

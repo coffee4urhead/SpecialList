@@ -60,7 +60,7 @@ class ProviderReview(BaseReview):
         AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name='provider_reviews',
-        limit_choices_to={'user_type': UserChoices.Provider}
+        limit_choices_to={'user_type': UserChoices.PROVIDER}
     )
     service = models.ForeignKey(
         ServiceListing,

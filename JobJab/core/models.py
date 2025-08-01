@@ -9,11 +9,14 @@ from django.core.exceptions import ValidationError
 from django.core.validators import FileExtensionValidator, MinLengthValidator, MaxValueValidator, MinValueValidator
 
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
 from pdf2image import convert_from_path
 
 from JobJab import settings
+from JobJab.services.models import ServiceListing
 from JobJab.settings import AUTH_USER_MODEL
+from JobJab.core.choices import UserChoices
 import pytz
 
 from JobJab.subscriptions.models import Subscription
@@ -43,11 +46,6 @@ class UserOrganization(models.Model):
 
     class Meta:
         unique_together = ('user', 'organization')
-
-
-class UserChoices(models.TextChoices):
-    Seeker = "Seeker", "Seeker"
-    Provider = "Provider", "Provider"
 
 
 class Certificate(models.Model):
@@ -389,6 +387,26 @@ class BlacklistItem(models.Model):
             """
         return None
 
+    def get_content_url(self):
+        if self.content_type.model == 'servicelisting':
+            return reverse('extended_service_display', kwargs={'service_id': self.object_id})
+
+        elif self.content_type.model == 'comment':
+            comment = self.content_object
+            service = ServiceListing.objects.filter(comments=comment).first()
+            if service:
+                return f"{reverse('extended_service_display', kwargs={'service_id': service.id})}#comment-{self.object_id}"
+            return None
+
+        elif self.content_type.model == 'customuser':
+            return reverse('account_view', kwargs={'username': self.content_object.username})
+
+        elif self.content_type.model == 'userreview':
+            return reverse('account_view',
+                           kwargs={'username': self.content_object.reviewee.username}) + f"#review-{self.object_id}"
+
+        return None
+
     def check_user_ban(self):
         """Check if user should be banned based on previous reports"""
         if not hasattr(self.content_object, 'user'):
@@ -406,6 +424,13 @@ class BlacklistItem(models.Model):
             user.save()
             self.status = BlacklistStatus.BANNED
             self.save()
+
+            profile, _ = UserBlacklistProfile.objects.get_or_create(user=user)
+            profile.is_banned = True
+            profile.ban_reason = "Automatic ban after 3 approved reports"
+            profile.banned_at = timezone.now()
+            profile.banned_by = self.moderator
+            profile.save()
 
 
 class UserBlacklistProfile(models.Model):

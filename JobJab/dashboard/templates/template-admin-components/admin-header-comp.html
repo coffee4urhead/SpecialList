@@ -10,12 +10,16 @@
 
     <div class="side-panel">
         <section id="website-main-info">
-            <img src="{% static 'images/SpecialListLogo.jpg' %}" alt="website logo"/>
-            <h1 class="web-title">Special<span>List</span></h1>
+            <a href="{% url 'home' %}">
+                <img src="{% static 'images/SpecialListLogo.jpg' %}" alt="website logo"/>
+                <h1 class="web-title">Special<span>List</span></h1>
+            </a>
         </section>
 
         <nav class="main-nav">
             <ul class="links-holder">
+                <li><img class="header-icon" src="{% static 'images/home-icon.png' %}" alt="home icon"/><a
+                        class="link-web" href="{% url 'custom_admin_home' %}">Blacklist</a></li>
                 <li><img class="header-icon" src="{% static 'images/home-icon.png' %}" alt="home icon"/><a
                         class="link-web" href="{% url 'admin_bookings_info' %}">Bookings</a></li>
                 <li><img class="header-icon" src="{% static 'images/about-page-icon.png' %}" alt="about page icon"/><a

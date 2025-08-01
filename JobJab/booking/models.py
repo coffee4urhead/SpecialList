@@ -1,5 +1,4 @@
 from datetime import datetime, date, timedelta
-from decimal import Decimal
 
 from django.db import models
 from django.conf import settings
@@ -21,7 +20,7 @@ class ProviderAvailability(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name='availability',
-        limit_choices_to={'user_type': UserChoices.Provider}
+        limit_choices_to={'user_type': UserChoices.PROVIDER}
     )
     slot_duration = models.PositiveIntegerField(
         default=30,
@@ -97,13 +96,13 @@ class Booking(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name='bookings_made',
-        limit_choices_to={'user_type': UserChoices.Seeker}
+        limit_choices_to={'user_type': UserChoices.SEEKER}
     )
     provider = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name='bookings_received',
-        limit_choices_to={'user_type': UserChoices.Provider}
+        limit_choices_to={'user_type': UserChoices.SEEKER}
     )
     service = models.ForeignKey(ServiceListing, on_delete=models.CASCADE, related_name='bookings')
 

@@ -1,224 +1,190 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    {% load compress static %}
+{% extends "admin-base.html" %}
+{% block title %}Admin Dashboard - Home{% endblock %}
 
+{% block content %}
+    <article class="admin-content-container">
+        <h2>Blacklist Reports Overview</h2>
 
-    {% compress css %}
-        <link rel="stylesheet" type="text/x-scss" href="{% static 'admin-dashboard/admin-header-comp.scss' %}">
-        <link rel="stylesheet" type="text/x-scss" href="{% static 'admin-dashboard/admin_core_info_styles.scss' %}">
-        <link rel="stylesheet" type="text/x-scss" href="{% static 'admin-dashboard/admin-home-styles.scss' %}">
-    {% endcompress %}
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-            background-color: #F0F2F5;
-
-            p, a {
-                font-family: "Euclid Circular A", sans-serif;
-                font-weight: 500;
-                font-size: 1em;
-                font-style: normal;
-            }
-        }
-
-        main#main-web-container {
-            margin: 0 auto;
-            border-radius: 8px;
-            width: 70%;
-            height: auto;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-evenly;
-            align-content: center;
-            align-items: center;
-            background-color: white;
-        }
-    </style>
-    <title>SpecialList admin dashboard home</title>
-</head>
-<body>
-{% include 'template-admin-components/admin-header-comp.html' %}
-<div class="dashboard-layout">
-    <main id="main-web-container">
-        {% block content %}
-        {% endblock %}
-    </main>
-
-    <aside id="user-popup-overlay" class="popup-user-registry hidden">
-        <div class="popup-content">
-            <div class="popup-header">
-                <h3 id="popup-title">Popup</h3>
-                <button id="close-popup">&times;</button>
+        <div class="admin-report-stats-grid">
+            <div class="report-card" data-popup-target="reported-users">
+                <h3>Reported Users</h3>
+                <p>{{ reported_users_count }}</p>
             </div>
-            <div class="popup-user-list" id="popup-list">
+            <div class="report-card" data-popup-target="reported-comments">
+                <h3>Reported Comments</h3>
+                <p>{{ reported_comments_count }}</p>
+            </div>
+            <div class="report-card" data-popup-target="reported-reviews">
+                <h3>Reported Reviews</h3>
+                <p>{{ reported_reviews_count }}</p>
+            </div>
+            <div class="report-card" data-popup-target="reported-services">
+                <h3>Reported Services</h3>
+                <p>{{ reported_services_count }}</p>
             </div>
         </div>
-    </aside>
-
-</div>
-
-<div id="user-template" class="popup-template hidden">
-    {% for user in users %}
-        <section class="user-card" data-type="user" data-id="{{ user.id }}">
-            <label>
-                <input type="checkbox" name="delete-user"/>
-                <span>{{ user.get_full_name }} - {{ user.email }}</span>
-            </label>
-        </section>
-    {% endfor %}
-</div>
-
-<div id="org-template" class="popup-template hidden">
-    {% for org in organizations %}
-        <section class="user-card" data-type="organization" data-id="{{ org.id }}">
-            <label>
-                <input type="checkbox" name="delete-org"/>
-                <span>{{ org.name }} - {{ org.member_count }} Members</span>
-            </label>
-        </section>
-    {% endfor %}
-</div>
-
-<div id="cert-template" class="popup-template hidden">
-    {% for cert in unverified_certs %}
-        <section class="user-card" data-type="certificate" data-id="{{ cert.id }}">
-            <label>
-                <input type="checkbox" name="delete-cert"/>
-                <span>{{ cert.user.get_full_name }} - {{ cert.title }}</span>
-            </label>
-        </section>
-    {% endfor %}
-</div>
-
-<div id="services-template" class="popup-template hidden">
-    {% for service in recent_services %}
-        <div class="user-card" data-type="service" data-id="{{ service.id }}">
-            <strong>{{ service.title }}</strong><br>
-            Provider: {{ service.provider.get_full_name }}<br>
-            Created: {{ service.created_at|date:"Y-m-d" }}
-        </div>
-    {% empty %}
-        <p>No recent services found.</p>
-    {% endfor %}
-</div>
-
-<div id="availabilities-template" class="popup-template hidden">
-    {% for availability in availabilities %}
-        <div class="user-card" data-type="availability" data-id="{{ availability.id }}">
-            Status: {{ availability.status }}<br>
-            Service: {{ availability.service.title }}<br>
-            Date: {{ availability.date|date:"Y-m-d" }}
-        </div>
-    {% empty %}
-        <p>No availabilities found.</p>
-    {% endfor %}
-</div>
-
-<div id="comments-template" class="popup-template hidden">
-    {% for comment in comments %}
-        <div class="user-card" data-type="comment" data-id="{{ comment.id }}">
-            "{{ comment.text|truncatechars:50 }}"<br>
-            By: {{ comment.author.get_full_name }}<br>
-            On: {{ comment.created_at|date:"Y-m-d" }}
-        </div>
-    {% empty %}
-        <p>No comments found.</p>
-    {% endfor %}
-</div>
-<div id="subscriptions-template" class="popup-template hidden">
-    {% for sub in subscriptions %}
-        <div class="user-card" data-type="subscription" data-id="{{ sub.id }}">
-            <p>Subscription {{ sub.plan }}({{ sub.price }}) for: {{ sub.user.get_username }}</p>
-            <p>Made on: {{ sub.created_at }}</p>
-            <p>Expiration dates: {{ sub.current_period_start }} - {{ sub.current_period_end }}</p>
-            <p>Status: {{ sub.status }}</p>
-        </div>
-    {% empty %}
-        <p>No subscriptions found.</p>
-    {% endfor %}
-</div>
-<div id="chats-template" class="popup-template hidden">
-    {% for chat in chats %}
-        <div class="user-card" data-type="chat" data-id="{{ chat.id }}">
-            <p>
-                Participants
-                {% for user in chat.participants.all %}
-                    <small>{{ user.get_username }}</small>
-                    <small>{{ user.email }}</small>
+        <section class="disputes-section">
+            <h3>Disputes</h3>
+            <table class="disputes-table">
+                <thead>
+                <tr>
+                    <th>Reported</th>
+                    <th>Reason</th>
+                    <th>Date</th>
+                    <th>Reporter</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for dispute in page_obj %}
+                    <tr>
+                        <td>
+                            {% if dispute.content_type == user_ct %}
+                                User: {{ dispute.content_object.get_full_name|default:dispute.content_object.username }}
+                            {% elif dispute.content_type == service_ct %}
+                                Service: {{ dispute.content_object.title }}
+                            {% elif dispute.content_type == review_ct %}
+                                Review: {{ dispute.content_object.title|truncatechars:20 }}
+                            {% elif dispute.content_type == comment_ct %}
+                                Comment: {{ dispute.content_object.text|truncatechars:20 }}
+                            {% else %}
+                                {{ dispute.content_type.model }} #{{ dispute.object_id }}
+                            {% endif %}
+                        </td>
+                        <td>{{ dispute.get_reason_display }}</td>
+                        <td>{{ dispute.created_at|date:"M jS, Y" }}</td>
+                        <td>{{ dispute.reporter.get_full_name|default:dispute.reporter.username }}</td>
+                        <td>
+                            <span class="status-badge status-{{ dispute.status }}">
+                                {{ dispute.get_status_display }}
+                            </span>
+                        </td>
+                        <td>
+                            <button class="btn-view" onclick="viewDispute({{ dispute.id }})">See admin</button>
+                            <button class="btn-view"
+                                    onclick="window.open('{{ dispute.get_content_url }}', '_blank')">
+                                See in website
+                            </button>
+                            {% if dispute.status == 'pending' %}
+                                <button class="btn-approve" onclick="resolveDispute({{ dispute.id }}, 'approve')">
+                                    Approve
+                                </button>
+                                <button class="btn-reject" onclick="resolveDispute({{ dispute.id }}, 'reject')">Reject
+                                </button>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="6" class="empty-message">No pending disputes found.</td>
+                    </tr>
                 {% endfor %}
-            </p>
-            <p>Conversation created at: {{ chat.created_at }}</p>
-            <p>Last updated: {{ chat.updated_at }}</p>
-        </div>
-    {% empty %}
-        <p>No conversations found.</p>
-    {% endfor %}
-</div>
-<div id="messages-template" class="popup-template hidden">
-    {% for message in messages %}
-        <div class="user-card" data-type="message" data-id="{{ message.id }}">
-            {% if message.content %}
-                "{{ message.content.text|truncatechars:50 }}"<br>
-            {% else %}
-                "{{ message.image }}"<br>
-            {% endif %}
-            By: {{ message.sender.get_full_name }}<br>
-            On: {{ message.timestamp|date:"Y-m-d" }}
-        </div>
-    {% empty %}
-        <p>No messages found.</p>
-    {% endfor %}
-</div>
-<div id="website-review-template" class="popup-template hidden">
-    {% for rev in website_reviews %}
-        <div class="user-card" data-type="web-rev" data-id="{{ rev.id }}">
-            Main caption {{ rev.main_caption }}<br>
-            "{{ rev.comment.text|truncatechars:50 }}"<br>
-            By: {{ rev.reviewer.get_full_name }}<br>
-            On: {{ rev.created_at|date:"Y-m-d" }}
-        </div>
-    {% empty %}
-        <p>No website reviews found.</p>
-    {% endfor %}
-</div>
-<div id="user-review-template" class="popup-template hidden">
-    {% for user_rev in user_reviews %}
-        <div class="user-card" data-type="user-rev" data-id="{{ user_rev.id }}">
-            Main caption {{ user_rev.main_caption }}<br>
-            "{{ user_rev.comment.text|truncatechars:50 }}"<br>
-            By: {{ user_rev.reviewer.get_full_name }}<br>
-            On: {{ user_rev.created_at|date:"Y-m-d" }}
-        </div>
-    {% empty %}
-        <p>No User Reviews found.</p>
-    {% endfor %}
-</div>
+                </tbody>
+            </table>
 
-<div id="bookings-template" class="popup-template hidden">
-    {% for booking in bookings %}
-        <div class="user-card" data-type="booking" data-id="{{ booking.id }}">
-            Booking for Service {{ booking.service.title }} from {{ booking.provider.get_username }} for {{ booking.price }}<br>
-            Status for the booking: {{ booking.status }} made at {{ booking.appointment_datetime|date:"Y-m-d" }}<br>
-             Notes by the user: {{ booking.notes }} <br>
-            Booked By: {{ booking.seeker.get_full_name }}<br>
-            Service created at: {{ booking.service.created_at|date:"Y-m-d" }}
-        </div>
-    {% empty %}
-        <p>No Bookings found.</p>
-    {% endfor %}
-</div>
+            <div class="pagination">
+                <ul class="pagination-list">
+                    {% if page_obj.has_previous %}
+                        <li><a href="?page=1" class="pagination-link">First</a></li>
+                        <li><a href="?page={{ page_obj.previous_page_number }}" class="pagination-link">Previous</a>
+                        </li>
+                    {% endif %}
 
-<script src="{% static 'js-scripts/home-side-panel.js' %}"></script>
-<script src="{% static 'js-scripts/dashboard-scripts/core-models-handler.js' %}"></script>
-</body>
-</html>
+                    {% for num in page_obj.paginator.page_range %}
+                        {% if page_obj.number == num %}
+                            <li><a href="?page={{ num }}" class="pagination-link is-current">{{ num }}</a></li>
+                        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                            <li><a href="?page={{ num }}" class="pagination-link">{{ num }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                        <li><a href="?page={{ page_obj.next_page_number }}" class="pagination-link">Next</a></li>
+                        <li><a href="?page={{ page_obj.paginator.num_pages }}" class="pagination-link">Last</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </section>
+    </article>
+    <div class="dashboard-layout">
+        <main id="main-web-container">
+            <section class="ban-warnings blacklist-section">
+                <h4>Ban Warnings</h4>
+                {% for profile in warned_profiles %}
+                    <div class="user-card">
+                        <p><strong>{{ profile.user.get_full_name }}</strong> ({{ profile.user.email }})</p>
+                        <p>Warnings: {{ profile.warning_count }}</p>
+                        <p>Last Warning: {{ profile.last_warning|date:"Y-m-d H:i" }}</p>
+                        <button onclick="issueWarning({{ profile.user.id }})">Send Warning</button>
+                    </div>
+                {% empty %}
+                    <p class="empty-message">No users with warnings.</p>
+                {% endfor %}
+            </section>
+
+            <section class="banned-accounts blacklist-section">
+                <h4>Banned Accounts</h4>
+                {% for profile in banned_profiles %}
+                    <div class="user-card">
+                        <p><strong>{{ profile.user.get_full_name }}</strong> ({{ profile.user.email }})</p>
+                        <p>Banned on: {{ profile.banned_at|date:"Y-m-d H:i" }}</p>
+                        <p>Reason: {{ profile.ban_reason }}</p>
+                        <button onclick="unbanUser({{ profile.user.id }})">Unban</button>
+                    </div>
+                {% empty %}
+                    <p class="empty-message">No banned accounts found.</p>
+                {% endfor %}
+            </section>
+        </main>
+    </div>
+
+    <script>
+        function issueWarning(userId) {
+            fetch(`/admin/issue-warning/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({user_id: userId})
+            }).then(() => window.location.reload());
+        }
+
+        function unbanUser(userId) {
+            fetch(`/admin/unban-user/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({user_id: userId})
+            }).then(() => window.location.reload());
+        }
+
+        function viewDispute(disputeId) {
+            window.location.href = `/admin/core/blacklistitem/${disputeId}/change/`;
+        }
+
+        function resolveDispute(disputeId, action) {
+            fetch(`/dashboard/resolve-dispute/${disputeId}/${action}/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({})
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    window.location.reload();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error resolving dispute. Please try again.');
+                });
+        }
+    </script>
+{% endblock %}

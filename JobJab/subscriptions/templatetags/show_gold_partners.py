@@ -10,7 +10,7 @@ register = template.Library()
 def show_gold_partners():
     gold_partners = Subscription.objects.filter(
         plan=SubscriptionPlan.ELITE.value,
-        user__user_type=UserChoices.Provider.value,
+        user__user_type=UserChoices.PROVIDER.value,
     ).select_related('user')
 
     return {

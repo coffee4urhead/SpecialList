@@ -3,10 +3,8 @@ import json
 from django.core.validators import MinLengthValidator
 from django.db import models
 from django.conf import settings
-
-from JobJab.core.models import UserChoices
 from JobJab.settings import AUTH_USER_MODEL
-
+from JobJab.core.choices import UserChoices
 
 class AvailabilityType(models.TextChoices):
     AVAILABLE = 'available', 'Available'
@@ -17,7 +15,7 @@ class Availability(models.Model):
     provider = models.ForeignKey(
         AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        limit_choices_to={'user_type': UserChoices.Provider},
+        limit_choices_to={'user_type': UserChoices.PROVIDER},
         related_name='availabilities'
     )
     date = models.DateField()

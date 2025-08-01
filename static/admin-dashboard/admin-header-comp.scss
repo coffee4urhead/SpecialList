@@ -78,6 +78,10 @@ header#admin-header {
     #website-main-info {
       padding: 20px;
       text-align: center;
+      a {
+        text-decoration: none;
+        color: black;
+      }
 
       img {
         width: 150px;

@@ -2,7 +2,7 @@
     <div id="reviews-scroll-container">
         {% if reviews_given %}
             {% for user_review in reviews_given %}
-                <section class="review-card">
+                <section class="review-card" id="review-{{ user_review.id }}">
                     <div class="user-rev-info">
                         {% if user_review.reviewer.profile_picture %}
                             <a href="{% url 'account_view' user_review.reviewer.username %}">

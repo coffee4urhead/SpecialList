@@ -4,34 +4,271 @@
 
 main#main-web-cont {
   width: 100%;
-  height: auto;
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
 
   section.chat-side-panel-options {
     width: 30%;
-    height: auto;
-    background-color: red;
-    align-self: stretch;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: #f8f9fa;
+    border-right: 1px solid #e9ecef;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    overflow-y: auto;
+
+    .chat-style-panel {
+      position: absolute;
+      top: 60px;
+      right: 20px;
+      background: white;
+      border: 1px solid #ccc;
+      padding: 12px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      z-index: 999;
+    }
+
+    .panel-toggle {
+      display: flex;
+      align-items: center;
+      padding: 12px 16px;
+      cursor: pointer;
+      background-color: transparent;
+      border: none;
+      border-bottom: 1px solid #e9ecef;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: #f1f3f5;
+      }
+
+      .toggle-icon {
+        margin-right: 8px;
+        transition: transform 0.3s ease;
+
+        svg {
+          width: 18px;
+          height: 18px;
+          fill: #495057;
+        }
+      }
+
+      .toggle-text {
+        font-size: 14px;
+        font-weight: 500;
+        color: #495057;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      &.active {
+        .toggle-icon {
+          transform: rotate(90deg);
+        }
+      }
+    }
+
+    .media-gallery {
+      flex: 1;
+      padding: 0;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+
+      &.active {
+        display: flex;
+        animation: fadeIn 0.3s ease;
+      }
+
+      .gallery-header {
+        padding: 12px 16px;
+        background-color: white;
+        border-bottom: 1px solid #e9ecef;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        h3 {
+          margin: 0;
+          font-size: 15px;
+          font-weight: 600;
+          color: #212529;
+        }
+
+        .gallery-count {
+          font-size: 13px;
+          color: #6c757d;
+          background-color: #e9ecef;
+          padding: 2px 8px;
+          border-radius: 10px;
+        }
+      }
+
+      .media-grid {
+        flex: 1;
+        padding: 12px;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 12px;
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: #adb5bd #f1f3f5;
+
+        .media-item {
+          position: relative;
+          border-radius: 8px;
+          overflow: hidden;
+          aspect-ratio: 1;
+          transition: transform 0.2s, box-shadow 0.2s;
+          background: #fff;
+
+          img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+          }
+
+          .media-meta {
+            padding: 6px 8px;
+            background-color: black;
+            font-size: 12px;
+            color: #495057;
+
+            span {
+              display: block;
+              font-weight: 500;
+              color: black;
+            }
+
+            small {
+              font-size: 11px;
+              color: black;
+            }
+          }
+        }
+
+        &::-webkit-scrollbar {
+          width: 6px;
+        }
+
+        &::-webkit-scrollbar-track {
+          background: #f1f3f5;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background-color: #adb5bd;
+          border-radius: 3px;
+        }
+
+        .media-item {
+          position: relative;
+          border-radius: 8px;
+          overflow: hidden;
+          aspect-ratio: 1;
+          transition: transform 0.2s, box-shadow 0.2s;
+
+          &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+            .media-overlay {
+              opacity: 1;
+            }
+          }
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+          }
+
+          .media-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+            padding: 8px;
+            color: white;
+            opacity: 0;
+            transition: opacity 0.2s;
+
+            .sender {
+              font-size: 11px;
+              font-weight: 500;
+              margin-bottom: 2px;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+
+            .timestamp {
+              font-size: 10px;
+              opacity: 0.8;
+            }
+          }
+        }
+      }
+
+      .empty-state {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: #6c757d;
+
+        svg {
+          width: 48px;
+          height: 48px;
+          margin-bottom: 12px;
+          fill: #dee2e6;
+        }
+
+        p {
+          margin: 0;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
 
   .chat-container {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: 100%;
     width: 70%;
     max-width: 100%;
     margin: 0 auto;
     background-color: white;
+    position: relative;
 
     .chat-header {
       padding: 15px 20px;
-      background-color: #32AE88;
+      background-color: var(--bubble-color, #32AE88);
       color: white;
       display: flex;
       align-items: flex-start;
       border-bottom: 1px solid #e0e0e0;
+      position: sticky;
+      top: 95px;
+      z-index: 100;
 
       h2 {
         display: flex;
@@ -66,7 +303,7 @@ main#main-web-cont {
         word-wrap: break-word;
 
         &.sent {
-          background-color: #32AE88;
+          background-color: var(--bubble-color, #32AE88);
           color: white;
           margin-left: auto;
           border-bottom-right-radius: 4px;
@@ -122,6 +359,9 @@ main#main-web-cont {
       align-items: center;
       align-content: flex-start;
       gap: 20px;
+      position: sticky;
+      z-index: 100;
+      bottom: 0;
 
       input[type="text"] {
         width: 70%;
@@ -183,7 +423,6 @@ main#main-web-cont {
   }
 }
 
-// Outside main for global reusable components
 .avatar-link {
   display: inline-block;
 }

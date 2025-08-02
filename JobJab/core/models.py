@@ -159,6 +159,10 @@ class CustomUser(AbstractUser):
     verified_at = models.DateTimeField(blank=True, null=True)
     subscription_membership = models.OneToOneField(Subscription, on_delete=models.CASCADE, blank=True, null=True,
                                                    related_name='user_subscription')
+
+    chat_bubble_color = models.CharField(max_length=7, default="#32AE88")
+    chat_bubble_shape = models.CharField(max_length=20, default="rounded")
+
     timezone = models.CharField(
         max_length=50,
         choices=TIMEZONE_CHOICES,

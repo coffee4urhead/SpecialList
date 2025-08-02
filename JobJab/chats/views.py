@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.db.models import Prefetch
+from django.db.models import Prefetch, Count
 from django.utils.decorators import method_decorator
 from django.views import View
 
@@ -11,7 +11,7 @@ from JobJab.core.models import CustomUser, Notification
 @method_decorator(login_required(login_url='login'), name='dispatch')
 class ExploreConversationsView(View):
     def get(self, request):
-        filter_type = request.GET.get('filter', 'Seeker')
+        filter_type = request.GET.get('filter', 'seeker')
         unread_count = 0
 
         if request.user.is_authenticated:
@@ -44,12 +44,13 @@ class ExploreConversationsView(View):
                     'user_type': other_user.user_type
                 })
 
+        print(conversation_data)
         return render(request, 'explore_conversations.html', {
             'conversation_data': conversation_data,
             'current_filter': filter_type,
             'categories': [
-                {'name': 'Service Seekers', 'value': 'Seeker'},
-                {'name': 'Service Providers', 'value': 'Provider'},
+                {'name': 'Service Seekers', 'value': 'seeker'},
+                {'name': 'Service Providers', 'value': 'provider'},
             ],
             'unread_count': unread_count,
         })
@@ -63,13 +64,18 @@ class ChatWithUserView(View):
 
         if request.user.is_authenticated:
             unread_count = Notification.objects.filter(user=request.user, is_read=False).count()
-        conversation_with_user, created = Conversation.objects.get_or_create(
-            participants__in=[request.user, other_user],
-            defaults={}
-        )
-        if created:
+        conversations = Conversation.objects.annotate(num_participants=Count('participants')) \
+            .filter(num_participants=2, participants=request.user) \
+            .filter(participants=other_user)
+        if conversations.exists():
+            conversation_with_user = conversations.first()
+            created = False
+        else:
+            conversation_with_user = Conversation.objects.create()
             conversation_with_user.participants.add(request.user, other_user)
+            created = True
 
+        print(created)
         context = {
             'conversation_with_user': conversation_with_user,
             'other_user': other_user,

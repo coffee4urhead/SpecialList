@@ -5,38 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a6602c8c-3836-4310-91e0-bc55f682d51c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/JobJab/core/choices.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JobJab/dashboard/templates/admin-base.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/admin-dashboard/admin-base-styles.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/admin-dashboard/admin-base-styles.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/booking/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/booking/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/core/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/core/templates/template-components/header-comp.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/template-components/header-comp.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/dashboard/templates/admin_home.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/dashboard/templates/admin_home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/dashboard/templates/template-admin-components/admin-header-comp.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/dashboard/templates/template-admin-components/admin-header-comp.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/dashboard/templates/template-admin-components/admin_booking_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/dashboard/templates/template-admin-components/admin_booking_info.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/dashboard/templates/template-admin-components/admin_chats_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/dashboard/templates/template-admin-components/admin_chats_info.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/dashboard/templates/template-admin-components/admin_core_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/dashboard/templates/template-admin-components/admin_core_info.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/dashboard/templates/template-admin-components/admin_reviews_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/dashboard/templates/template-admin-components/admin_reviews_info.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/dashboard/templates/template-admin-components/admin_services_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/dashboard/templates/template-admin-components/admin_services_info.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/dashboard/templates/template-admin-components/admin_subscriptions_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/dashboard/templates/template-admin-components/admin_subscriptions_info.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/dashboard/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/dashboard/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/dashboard/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/dashboard/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/reviews/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/reviews/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/reviews/templates/user-review.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/reviews/templates/user-review.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/services/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/subscriptions/templatetags/show_gold_partners.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/subscriptions/templatetags/show_gold_partners.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/admin-dashboard/admin-header-comp.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/admin-dashboard/admin-header-comp.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/admin-dashboard/admin-header-comp.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/admin-dashboard/admin-header-comp.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/admin-dashboard/admin-header-comp.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/admin-dashboard/admin-header-comp.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/admin-dashboard/admin-home-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/admin-dashboard/admin-base-styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/admin-dashboard/admin-home-styles.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/admin-dashboard/admin-home-styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/admin-dashboard/admin-home-styles.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/form-styles/report-form-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/form-styles/report-form-styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/form-styles/report-form-styles.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/form-styles/report-form-styles.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/form-styles/report-form-styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/form-styles/report-form-styles.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js-scripts/report.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js-scripts/report.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/chats/templates/explore_conversations.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/chats/templates/explore_conversations.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/chats/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/chats/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/chats/chat-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/chats/chat-styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/chats/chat-styles.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/chats/chat-styles.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/chats/chat-styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/chats/chat-styles.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js-scripts/chats/chats.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js-scripts/chats/chats.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -210,7 +185,8 @@
       <workItem from="1753862263381" duration="10209000" />
       <workItem from="1753954706118" duration="17651000" />
       <workItem from="1754039089435" duration="2721000" />
-      <workItem from="1754045311159" duration="7311000" />
+      <workItem from="1754045311159" duration="8435000" />
+      <workItem from="1754148556977" duration="3209000" />
     </task>
     <servers />
   </component>

@@ -1,3 +1,5 @@
+import {v4 as uuidv4} from 'https://cdn.skypack.dev/uuid';
+
 export default class ChatClient {
     constructor(conversationId, userId) {
         this.conversationId = conversationId;
@@ -75,20 +77,68 @@ export default class ChatClient {
             console.warn('WebSocket not open');
             return;
         }
+
+        const tempId = uuidv4();
+        const timestamp = new Date();
+
+        // Immediately render
+        const messagesContainer = document.querySelector('.messages-container');
+        if (messagesContainer) {
+            const messageElement = document.createElement('div');
+            messageElement.className = `message sent`;
+            messageElement.setAttribute('data-id', tempId);
+            messageElement.innerHTML = `
+            <div class="message-content">${content}</div>
+            <div class="message-time">${timestamp.toLocaleTimeString()}</div>
+        `;
+            messagesContainer.appendChild(messageElement);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
         this.socket.send(JSON.stringify({
             type: 'text_message',
-            message: content
+            message: content,
+            temp_id: tempId
         }));
     }
 
     sendMediaMessage(file) {
+        if (this.socket.readyState !== WebSocket.OPEN) {
+            console.warn('WebSocket not open');
+            return;
+        }
+
+        const tempId = uuidv4();
+        const timestamp = new Date();
+
         const reader = new FileReader();
         reader.onload = (e) => {
+            const base64Image = e.target.result;
+
+            // Immediately render the image message
+            const messagesContainer = document.querySelector('.messages-container');
+            if (messagesContainer) {
+                const messageElement = document.createElement('div');
+                messageElement.className = `message sent`;
+                messageElement.setAttribute('data-id', tempId);
+                messageElement.innerHTML = `
+                <div class="message-media">
+                    <img src="${base64Image}" style="max-width: 200px; max-height: 200px;">
+                </div>
+                <div class="message-time">${timestamp.toLocaleTimeString()}</div>
+            `;
+                messagesContainer.appendChild(messageElement);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }
+
+            // Send image to the server
             this.socket.send(JSON.stringify({
                 type: 'media_message',
-                image: e.target.result
+                image: base64Image,
+                temp_id: tempId
             }));
         };
+
         reader.readAsDataURL(file);
     }
 
@@ -126,24 +176,27 @@ export default class ChatClient {
 
 
     handleTextMessage(data) {
+        if (parseInt(data.sender_id) === parseInt(this.userId)) return;
+
         const messagesContainer = document.querySelector('.messages-container');
         if (messagesContainer) {
             const messageElement = document.createElement('div');
-            messageElement.className = `message ${data.sender_id === this.userId ? 'sent' : 'received'}`;
+            messageElement.className = `message received`;
+            messageElement.setAttribute('data-id', data.message_id);
             messageElement.innerHTML = `
-                <div class="message-content">${data.message}</div>
-                <div class="message-time">${new Date(data.timestamp).toLocaleTimeString()}</div>
-            `;
+            <div class="message-content">${data.message}</div>
+            <div class="message-time">${new Date(data.timestamp).toLocaleTimeString()}</div>
+        `;
             messagesContainer.appendChild(messageElement);
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
 
-            if (data.sender_id !== this.userId) {
-                this.sendReadReceipt([data.message_id]);
-            }
+            this.sendReadReceipt([data.message_id]);
         }
     }
 
+
     handleMediaMessage(data) {
+        if (parseInt(data.sender_id) === parseInt(this.userId)) return;
         const messagesContainer = document.querySelector('.messages-container');
         if (messagesContainer) {
             const messageElement = document.createElement('div');

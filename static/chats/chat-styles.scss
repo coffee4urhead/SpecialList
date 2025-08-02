@@ -57,7 +57,7 @@ main#main-web-cont {
       background-color: #f9f9f9;
 
       .message {
-        max-width: 30%;
+        max-width: 40%;
         text-align: end;
         margin-bottom: 15px;
         padding: 10px 15px;
@@ -76,6 +76,7 @@ main#main-web-cont {
         &.received {
           background-color: #e5e5ea;
           color: black;
+          text-align: start;
           margin-right: auto;
           border-bottom-left-radius: 4px;
           @include def-web-text($pref-font-size: clamp(1em, 1.5em, 2em), $pref-font-st: normal);
@@ -92,10 +93,15 @@ main#main-web-cont {
         }
 
         .message-media {
+          margin: 10px 0;
+          max-width: 100%;
+
           img {
-            max-width: 400px;
-            max-height: 400px;
+            max-width: 100%;
+            height: auto;
             border-radius: 8px;
+            display: block;
+            margin: 0 auto;
           }
         }
       }
@@ -209,12 +215,14 @@ div.user-small-info {
 .hidden {
   display: none;
 }
+
 .read-indicator {
-    font-size: 10px;
-    color: #999;
-    text-align: right;
-    margin-top: 2px;
+  font-size: 10px;
+  color: #999;
+  text-align: right;
+  margin-top: 2px;
 }
+
 .message.received .read-indicator {
-    color: rgba(0, 0, 0, 0.4);
+  color: rgba(0, 0, 0, 0.4);
 }

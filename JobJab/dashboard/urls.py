@@ -1,7 +1,13 @@
 from django.urls import path
-from .views import AdminDashboardView, CoreInfoView, ServicesInfoView, SubscriptionsInfoView, ChatsInfoView, \
-    ReviewsInfoView, BookingInfoView, ResolveDisputes
-from ..booking.admin import BookingAdmin
+
+from JobJab.dashboard.views import AdminDashboardView
+from JobJab.dashboard.views.disputes import ResolveDisputes
+from JobJab.dashboard.views.info_views.booking import BookingInfoView
+from JobJab.dashboard.views.info_views.chats import ChatsInfoView
+from JobJab.dashboard.views.info_views.core import CoreInfoView
+from JobJab.dashboard.views.info_views.reviews import ReviewsInfoView
+from JobJab.dashboard.views.info_views.services import ServicesInfoView
+from JobJab.dashboard.views.info_views.subscriptions import SubscriptionsInfoView
 
 urlpatterns = [
     path('', AdminDashboardView.as_view(), name='custom_admin_home'),

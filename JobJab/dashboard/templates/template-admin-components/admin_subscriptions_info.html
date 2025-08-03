@@ -1,10 +1,12 @@
 {% extends 'admin-base.html' %}
+{% load static %}
 {% block content %}
     <article class="admin-content-container">
         <h2>Subscriptions Dashboard</h2>
 
         <div class="admin-stats-grid">
             <div class="stat-card" data-popup-target="subscriptions-template">
+                <img class="stats-card-logo" src="{% static 'images/admin-images/info-page-icons/subscription-stat.png' %}" alt="users image"/>
                 <h3>Total Subscriptions</h3>
                 <p>{{ total_subscriptions }}</p>
             </div>

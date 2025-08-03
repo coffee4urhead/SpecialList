@@ -6,9 +6,13 @@
                 <img id='profile-background' src="{{ viewed_account.backcover_profile.url }}"
                      alt="{{ viewed_account.get_full_name|default:viewed_account.username }}"/>
             {% endif %}
-            {% if user.profile_picture %}
+
+            {% if viewed_account.profile_picture %}
                 <img id='profile-image' src="{{ viewed_account.profile_picture.url }}"
                      alt="{{ viewed_account.get_full_name|default:viewed_account.username }}">
+            {% else %}
+                <img id='profile-image' src="{% static 'images/avatar-default-photo.png' %}"
+                     alt="Default profile image">
             {% endif %}
             <div id="profile-namings">
                 <h3>{{ viewed_account.get_full_name }}

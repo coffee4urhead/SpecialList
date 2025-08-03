@@ -92,7 +92,7 @@
     {% for comment in comments %}
         <div class="user-card" data-type="comment" data-id="{{ comment.id }}">
             "{{ comment.text|truncatechars:50 }}"<br>
-            By: {{ comment.author.get_full_name }}<br>
+            By: {{ comment.author.get_username }}<br>
             On: {{ comment.created_at|date:"Y-m-d" }}
         </div>
     {% empty %}
@@ -136,7 +136,7 @@
             {% else %}
                 "{{ message.image }}"<br>
             {% endif %}
-            By: {{ message.sender.get_full_name }}<br>
+            By: {{ message.sender.get_username }}<br>
             On: {{ message.timestamp|date:"Y-m-d" }}
         </div>
     {% empty %}
@@ -148,7 +148,7 @@
         <div class="user-card" data-type="web-rev" data-id="{{ rev.id }}">
             Main caption {{ rev.main_caption }}<br>
             "{{ rev.comment.text|truncatechars:50 }}"<br>
-            By: {{ rev.reviewer.get_full_name }}<br>
+            By: {{ rev.reviewer.get_username }}<br>
             On: {{ rev.created_at|date:"Y-m-d" }}
         </div>
     {% empty %}

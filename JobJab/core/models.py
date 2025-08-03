@@ -346,9 +346,16 @@ class BlacklistItem(models.Model):
 
     def hide_content(self):
         """Hide the reported content automatically"""
-        if hasattr(self.content_object, 'is_active'):
-            self.content_object.is_active = False
-            self.content_object.save()
+        content = self.content_object
+
+        if isinstance(content, ServiceListing):
+            content.is_active = False
+            content.deactivation_reason = f"Hidden due to report: {self.get_reason_display()}"
+            content.save()
+
+        elif hasattr(content, 'is_active'):
+            content.is_active = False
+            content.save()
 
     def approve_report(self, moderator, notes=None):
         """Approve the report and take appropriate action"""
@@ -358,9 +365,10 @@ class BlacklistItem(models.Model):
         self.resolved_at = timezone.now()
         self.save()
 
-        if hasattr(self.content_object, 'is_active'):
-            self.content_object.is_active = False
-            self.content_object.save()
+        if self.content_type.model != 'customuser':
+            if hasattr(self.content_object, 'is_active'):
+                self.content_object.is_active = False
+                self.content_object.save()
 
         self.check_user_ban()
 
@@ -413,19 +421,23 @@ class BlacklistItem(models.Model):
 
     def check_user_ban(self):
         """Check if user should be banned based on previous reports"""
-        if not hasattr(self.content_object, 'user'):
+        if isinstance(self.content_object, CustomUser):
+            user = self.content_object
+        elif hasattr(self.content_object, 'user'):
+            user = self.content_object.user
+        else:
             return
 
-        user = self.content_object.user
         approved_reports = BlacklistItem.objects.filter(
             content_type=ContentType.objects.get_for_model(user),
             object_id=user.id,
             status=BlacklistStatus.APPROVED
-        ).count()
+        ).exclude(pk=self.pk).count()
 
-        if approved_reports >= 3:
+        if approved_reports + 1 >= 3:
             user.is_active = False
             user.save()
+
             self.status = BlacklistStatus.BANNED
             self.save()
 

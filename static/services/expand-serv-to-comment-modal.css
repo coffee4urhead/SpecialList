@@ -284,13 +284,13 @@ form#leave-comment-form input[type=text].comment-input::placeholder {
 }
 
 article#comments-section {
-  overflow-x: scroll;
   width: 100%;
   height: auto;
   display: flex;
   background-color: #f5f5f5;
   flex-direction: column;
   border-radius: 8px;
+  overflow-y: scroll;
   justify-content: space-evenly;
   align-items: flex-start;
   align-content: flex-start;
@@ -584,6 +584,21 @@ div.weekly-timestamps .availability-table td[data-slot-id]:hover {
   flex-direction: column;
   overflow-y: auto;
   margin: auto;
+}
+.modal-overlay .modal-container article#comments-section {
+  width: 100%;
+  height: auto;
+  display: flex;
+  background-color: #f5f5f5;
+  flex-direction: column;
+  border-radius: 8px;
+  overflow: clip;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  align-content: flex-start;
+  padding: 30px;
+  margin: 10rem auto;
+  gap: 30px;
 }
 .modal-overlay .modal-container form#leave-comment-form label {
   display: block;

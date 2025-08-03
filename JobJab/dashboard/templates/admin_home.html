@@ -67,10 +67,12 @@
                                 See in website
                             </button>
                             {% if dispute.status == 'pending' %}
-                                <button class="btn-approve" onclick="resolveDispute({{ dispute.id }}, 'approve')">
+                                <button class="btn-approve" data-action="resolve-dispute"
+                                        data-dispute-id="{{ dispute.id }}" data-action-type="approve">
                                     Approve
                                 </button>
-                                <button class="btn-reject" onclick="resolveDispute({{ dispute.id }}, 'reject')">Reject
+                                <button class="btn-reject" data-action="resolve-dispute"
+                                        data-dispute-id="{{ dispute.id }}" data-action-type="reject">Reject
                                 </button>
                             {% endif %}
                         </td>
@@ -130,7 +132,7 @@
                         <p><strong>{{ profile.user.get_full_name }}</strong> ({{ profile.user.email }})</p>
                         <p>Banned on: {{ profile.banned_at|date:"Y-m-d H:i" }}</p>
                         <p>Reason: {{ profile.ban_reason }}</p>
-                        <button onclick="unbanUser({{ profile.user.id }})">Unban</button>
+                        <button data-action="unban-user" data-user-id="{{ profile.user.id }}">Unban</button>
                     </div>
                 {% empty %}
                     <p class="empty-message">No banned accounts found.</p>
@@ -139,27 +141,42 @@
         </main>
     </div>
 
-    <script>
+    <script type="module">
+        import getCookie from "../../../static/js-scripts/utils.js";
+
         function issueWarning(userId) {
             fetch(`/admin/issue-warning/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRFToken': '{{ csrf_token }}'
+                    'X-CSRFToken': getCookie('csrftoken'),
                 },
                 body: JSON.stringify({user_id: userId})
             }).then(() => window.location.reload());
         }
 
         function unbanUser(userId) {
-            fetch(`/admin/unban-user/`, {
+            fetch('/dashboard/unban-user/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRFToken': '{{ csrf_token }}'
+                    'X-CSRFToken': getCookie('csrftoken'),
                 },
                 body: JSON.stringify({user_id: userId})
-            }).then(() => window.location.reload());
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        alert(data.message);
+                        window.location.reload();
+                    } else {
+                        alert(`Error: ${data.message}`);
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    alert('An error occurred while unbanning the user.');
+                });
         }
 
         function viewDispute(disputeId) {
@@ -171,7 +188,7 @@
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRFToken': '{{ csrf_token }}'
+                    'X-CSRFToken': getCookie('csrftoken'),
                 },
                 body: JSON.stringify({})
             })
@@ -186,5 +203,15 @@
                     alert('Error resolving dispute. Please try again.');
                 });
         }
+
+        document.addEventListener('click', function (e) {
+            const resolveBtn = e.target.closest('[data-action="resolve-dispute"]');
+            if (resolveBtn) {
+                const disputeId = resolveBtn.dataset.disputeId;
+                const action = resolveBtn.dataset.actionType;
+                resolveDispute(disputeId, action);
+            }
+        });
+
     </script>
 {% endblock %}

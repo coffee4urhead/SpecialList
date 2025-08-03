@@ -99,7 +99,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     showAlert('success', data.message);
                     closeModal();
                 } else {
-                    formPlaceholder.innerHTML = data.form_html;
+                    showAlert('error', data.message || 'Failed to submit report');
+                    closeModal();
                 }
             })
             .catch(error => {

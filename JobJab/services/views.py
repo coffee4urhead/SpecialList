@@ -1,21 +1,26 @@
+import json
+
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils.decorators import method_decorator
 from django.views import View
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import DeleteView
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.template.loader import render_to_string
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.utils import timezone
 from django.db.models import Q, Prefetch
 
-from JobJab.services.models import ServiceListing, Comment
+from JobJab.services.models import ServiceListing, Comment, DeletedService
 from .forms import ServiceListingForm, ServiceDetailSectionFormSet, CommentForm
 from .utils import get_service_limit_for_plan
 from .. import settings
 from ..booking.forms import ProviderAvailabilityForm
 from ..booking.models import ProviderAvailability, WeeklyTimeSlot
 from ..core.forms import BlacklistItemForm
-from ..core.models import CustomUser, BlacklistReason, BlacklistStatus, BlacklistItem, Notification, NotificationType
+from ..core.models import CustomUser, BlacklistReason, BlacklistStatus, BlacklistItem, Notification, NotificationType, \
+    UserBlacklistProfile
 from ..reviews.models import UserReview
 from ..subscriptions.models import SubscriptionPlan, SubscriptionStatus
 
@@ -149,12 +154,26 @@ class GetServiceLikersView(LoginRequiredMixin, View):
         return JsonResponse(data)
 
 
-class DeleteServiceView(LoginRequiredMixin, DeleteView):
-    model = ServiceListing
-    success_url = reverse_lazy('explore_services')
+class DeleteServiceView(LoginRequiredMixin, View):
+    def post(self, request, pk):
+        service = get_object_or_404(ServiceListing, id=pk, provider=request.user)
 
-    def get_queryset(self):
-        return self.model.objects.filter(provider=self.request.user)
+        service.deactivate_service(
+            user=request.user,
+            reason="Deleted by service provider",
+            is_deleted=True
+        )
+
+        DeletedService.objects.create(
+            service_data=json.dumps({
+                'title': service.title,
+                'description': service.description,
+            }),
+            deleted_by=request.user,
+            deleted_at=timezone.now()
+        )
+
+        return JsonResponse({'status': 'success',  'redirect_url': reverse('explore_services')})
 
 
 class ExtendedServiceDisplayView(LoginRequiredMixin, View):
@@ -304,7 +323,7 @@ class CommentServiceView(LoginRequiredMixin, View):
                     'status': 'success',
                     'comment_html': comment_html,
                     'comment_id': comment.id,
-                    'parent_id': parent_id,  # <- IMPORTANT!
+                    'parent_id': parent_id,
                 })
 
             return redirect('extended_service_display', service_id=service.id)
@@ -325,7 +344,8 @@ class ReportContent(LoginRequiredMixin, View):
 
     def get(self, request):
         report_form = BlacklistItemForm()
-        form_html = render_to_string('template-components/form-modals/report_form.html', {'report_form': report_form},
+        form_html = render_to_string('template-components/form-modals/report_form.html',
+                                     {'report_form': report_form},
                                      request=request)
         return JsonResponse({'status': 'success', 'form_html': form_html})
 
@@ -345,11 +365,31 @@ class ReportContent(LoginRequiredMixin, View):
             elif content_type == 'user':
                 model = CustomUser
             else:
-                return JsonResponse({'status': 'error', 'message': 'Invalid content type'}, status=400)
+                return JsonResponse({
+                    'status': 'error',
+                    'message': 'Invalid content type'
+                }, status=400)
 
             content_object = model.objects.get(pk=object_id)
 
-            # Create the report
+            if content_type == 'user':
+                if content_object == request.user:
+                    return JsonResponse({
+                        'status': 'error',
+                        'message': 'You cannot report yourself'
+                    }, status=400)
+            else:
+                if hasattr(content_object, 'user') and content_object.user == request.user:
+                    return JsonResponse({
+                        'status': 'error',
+                        'message': 'You cannot report your own content'
+                    }, status=400)
+                elif hasattr(content_object, 'author') and content_object.author == request.user:
+                    return JsonResponse({
+                        'status': 'error',
+                        'message': 'You cannot report your own content'
+                    }, status=400)
+
             report = BlacklistItem.objects.create(
                 reporter=request.user,
                 content_object=content_object,
@@ -358,7 +398,6 @@ class ReportContent(LoginRequiredMixin, View):
                 status=BlacklistStatus.PENDING
             )
 
-            # Auto-hide if needed based on reason
             if reason in [BlacklistReason.SCAM, BlacklistReason.ABUSE, BlacklistReason.HATE_SPEECH]:
                 report.auto_hidden = True
                 report.save()
@@ -368,20 +407,46 @@ class ReportContent(LoginRequiredMixin, View):
 
             if hasattr(content_object, 'user'):
                 report.check_user_ban()
+            elif hasattr(content_object, 'author'):
+                report.check_user_ban(content_object.author)
 
             Notification.create_notification(
                 user=request.user,
-                title=f"Successfully submitted reported content to our admins",
-                message="Thank you for making the community a safe and thriving - we will do everything we can to keep it this way!",
+                title="Report submitted successfully",
+                message="Thank you for helping maintain our community standards.",
                 notification_type=NotificationType.REPORT
             )
 
             return JsonResponse({
                 'status': 'success',
-                'message': 'Your report has been submitted. Our team will review it shortly.'
+                'message': 'Your report has been submitted for review.'
             })
 
         except model.DoesNotExist:
-            return JsonResponse({'status': 'error', 'message': 'Content not found'}, status=404)
+            return JsonResponse({
+                'status': 'error',
+                'message': 'Content not found'
+            }, status=404)
+        except Exception as e:
+            return JsonResponse({
+                'status': 'error',
+                'message': str(e)
+            }, status=400)
+
+
+@method_decorator(csrf_exempt, name='dispatch')
+class UnbanUserView(View):
+    def post(self, request):
+        try:
+            data = json.loads(request.body)
+            user_id = data.get('user_id')
+            user = CustomUser.objects.get(pk=user_id)
+
+            profile, _ = UserBlacklistProfile.objects.get_or_create(user=user)
+            profile.unban_user(moderator=request.user, reason="Manual unban from admin")
+
+            return JsonResponse({'status': 'success', 'message': f'{user.username} has been unbanned.'})
+        except CustomUser.DoesNotExist:
+            return JsonResponse({'status': 'error', 'message': 'User not found'}, status=404)
         except Exception as e:
             return JsonResponse({'status': 'error', 'message': str(e)}, status=400)

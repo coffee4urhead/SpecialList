@@ -401,6 +401,56 @@ div.service-mini-cont div#top-content {
   align-content: flex-start;
   align-items: flex-start;
 }
+div.service-mini-cont div#top-content .service-status {
+  margin-top: 2rem;
+  width: 100%;
+}
+div.service-mini-cont div#top-content .service-status .status-box {
+  padding: 1.2rem 1.5rem;
+  border: 1px solid transparent;
+  border-radius: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: background 0.3s ease;
+  width: 100%;
+}
+div.service-mini-cont div#top-content .service-status .status-box h1 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+}
+div.service-mini-cont div#top-content .service-status .status-box h1 span {
+  text-decoration: underline;
+}
+div.service-mini-cont div#top-content .service-status .status-box p {
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  color: inherit;
+}
+div.service-mini-cont div#top-content .service-status .status-box p em {
+  font-style: italic;
+  font-weight: 500;
+}
+div.service-mini-cont div#top-content .service-status .status-box.active {
+  background-color: #e6f7ec;
+  color: #237a45;
+  border-color: #b7eb8f;
+}
+div.service-mini-cont div#top-content .service-status .status-box.active h1, div.service-mini-cont div#top-content .service-status .status-box.active p {
+  color: inherit;
+}
+div.service-mini-cont div#top-content .service-status .status-box.inactive {
+  background-color: #fff2f0;
+  color: #a8071a;
+  border-color: #ffa39e;
+}
+div.service-mini-cont div#top-content .service-status .status-box.inactive h1, div.service-mini-cont div#top-content .service-status .status-box.inactive p {
+  color: inherit;
+}
+div.service-mini-cont div#top-content .service-status .status-box.inactive .deletion-warning {
+  color: #d32f2f;
+  font-weight: bold;
+  margin-top: 0.5rem;
+}
 div.service-mini-cont div#top-content div.service-image-cont {
   display: flex;
   flex-direction: column;

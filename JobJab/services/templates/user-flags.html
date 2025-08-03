@@ -36,50 +36,77 @@
                                      id="service-file-preview">
                             </div>
                         {% endif %}
-                    </div>
 
-                    <div class="text-service-info">
-                        <h2><a href="{% url 'explore_services' %}">{{ service.title }}</a></h2>
-                        <p>Description: {{ service.description }}</p>
-                        <p>Service price (USD): {{ service.price }}$</p>
-                        <p>Required time: {{ service.duration_minutes }} minutes</p>
-
-                        <div class="icon-holder">
-                            <button class="like-button" data-service-id="{{ service.id }}">
-                                {% if user in service.likes.all %}
-                                    <img class="icon-image" src="{% static 'images/like-full.png' %}"
-                                         alt="like full"/>
+                        <div class="service-status">
+                            <div class="status-box {% if service.is_active %}active{% else %}inactive{% endif %}">
+                                {% if service.is_active %}
+                                    <h1>✅ Service is currently <span>active</span>.</h1>
                                 {% else %}
-                                    <img class="icon-image" src="{% static 'images/like-empty.png' %}"
-                                         alt="like empty"/>
+                                    <h1>❌ Service is <span>not active</span>.</h1>
+                                    <p>
+                                        Reason:
+                                        <em>
+                                            {% if service.deactivation_reason %}
+                                                {{ service.deactivation_reason }}
+                                            {% else %}
+                                                No reason provided
+                                            {% endif %}
+                                        </em>
+                                    </p>
+                                    <p>
+                                        Deactivated by:
+                                        <em>
+                                            {% if service.deactivated_by == service.provider %}
+                                                The service provider
+                                            {% elif service.deactivated_by %}
+                                                Administrator
+                                            {% else %}
+                                                System
+                                            {% endif %}
+                                        </em>
+                                    </p>
+                                    {% if service.is_deleted %}
+                                        <p class="deletion-warning">⚠️ This service has been permanently deleted</p>
+                                    {% endif %}
                                 {% endif %}
-                                <span class="like-count-number">{{ service.likes.count }}</span>
-                            </button>
-                            <button class="view-likers-button" data-service-id="{{ service.id }}">
-                                View likes
-                            </button>
+                            </div>
+                        </div>
 
-                            <button class="comment-button" data-service-id="{{ service.id }}">
-                                <img class="icon-image" src="{% static 'images/comment-icon.png' %}"
-                                     alt="comment icon"/>
-                                <span class="comment-count">0</span>
-                            </button>
+                        <div class="text-service-info">
+                            <h2><a href="{% url 'explore_services' %}">{{ service.title }}</a></h2>
+                            <p>Description: {{ service.description }}</p>
+                            <p>Service price (USD): {{ service.price }}$</p>
+                            <p>Required time: {{ service.duration_minutes }} minutes</p>
 
-                            <div id="likers-modal" class="likers-modal">
-                                <div class="modal-content">
-                                    <span class="close-likers-btn">&times;</span>
-                                    <h2>Liked by</h2>
-                                    <div id="liker-list"></div>
+                            <div class="icon-holder">
+                                <button class="like-button" data-service-id="{{ service.id }}">
+                                    {% if user in service.likes.all %}
+                                        <img class="icon-image" src="{% static 'images/like-full.png' %}"
+                                             alt="like full"/>
+                                    {% else %}
+                                        <img class="icon-image" src="{% static 'images/like-empty.png' %}"
+                                             alt="like empty"/>
+                                    {% endif %}
+                                    <span class="like-count-number">{{ service.likes.count }}</span>
+                                </button>
+                                <button class="view-likers-button" data-service-id="{{ service.id }}">
+                                    View likes
+                                </button>
+
+                                <button class="comment-button" data-service-id="{{ service.id }}">
+                                    <img class="icon-image" src="{% static 'images/comment-icon.png' %}"
+                                         alt="comment icon"/>
+                                    <span class="comment-count">0</span>
+                                </button>
+
+                                <div id="likers-modal" class="likers-modal">
+                                    <div class="modal-content">
+                                        <span class="close-likers-btn">&times;</span>
+                                        <h2>Liked by</h2>
+                                        <div id="liker-list"></div>
+                                    </div>
                                 </div>
                             </div>
-
-                            {% if request.user != service.provider %}
-                                <button class="book-btn"
-                                        data-service-id="{{ service.id }}"
-                                        onclick="showBookingModal({{ service.id }})">
-                                    Book This Service
-                                </button>
-                            {% endif %}
                         </div>
                     </div>
                 </div>

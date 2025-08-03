@@ -198,15 +198,15 @@
         <div class="options">
             <div class="delete-service">
                 <h2>Delete Service</h2>
-                {% if request.user == user and services.first %}
-                    <form method="post" action="{% url 'delete_service' services.first.id %}">
-                        {% csrf_token %}
-                        <div id="bottom-cont-holder">
-                            <h2><a>{{ services.first.title }}</a></h2>
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </div>
-                    </form>
-                {% endif %}
+                <select id="service-to-delete">
+                    {% for service in services %}
+                        <option value="{% url 'delete_service' service.id %}">{{ service.title }}</option>
+                    {% endfor %}
+                </select>
+                <form method="post" id="delete-service-form">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
             </div>
 
             <div class="edit-service">

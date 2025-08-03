@@ -3,8 +3,11 @@ import json
 from django.core.validators import MinLengthValidator
 from django.db import models
 from django.conf import settings
+from django.utils import timezone
+
 from JobJab.settings import AUTH_USER_MODEL
 from JobJab.core.choices import UserChoices
+
 
 class AvailabilityType(models.TextChoices):
     AVAILABLE = 'available', 'Available'
@@ -120,12 +123,15 @@ class Comment(models.Model):
     def is_reply(self):
         return self.parent is not None
 
+
 class ServiceListing(models.Model):
     provider = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='services')
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True)
     service_photo = models.ImageField(upload_to='services/photos', blank=True)
-    location = models.CharField(max_length=100, default='Bulgaria/Sofia', help_text='Specify location in the format Country/(city, province, village etc.)', validators=[MinLengthValidator(10)])
+    location = models.CharField(max_length=100, default='Bulgaria/Sofia',
+                                help_text='Specify location in the format Country/(city, province, village etc.)',
+                                validators=[MinLengthValidator(10)])
     category = models.CharField(choices=CategoryChoices, default=CategoryChoices.Other)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     duration_minutes = models.PositiveIntegerField(default=60)
@@ -134,12 +140,39 @@ class ServiceListing(models.Model):
     likes = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='services_likes')
     favorite_flagged = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='services_favorites')
     comments = models.ManyToManyField(Comment, blank=True, related_name='services_comments')
+    deactivated_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='deactivated_services'
+    )
+    deactivation_reason = models.TextField(null=True, blank=True)
+    deactivated_at = models.DateTimeField(null=True, blank=True)
+    is_deleted = models.BooleanField(default=False)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def deactivate_service(self, user, reason=None, is_deleted=False):
+        self.is_active = False
+        self.is_deleted = is_deleted
+        self.deactivated_by = user
+        self.deactivation_reason = reason
+        self.deactivated_at = timezone.now()
+        self.save()
+
     def __str__(self):
         return f"{self.title} by {self.provider.username}"
+
+
+class DeletedService(models.Model):
+    service_data = models.JSONField()
+    deleted_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
+    deleted_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-deleted_at']
 
 
 class ServiceDetailSection(models.Model):

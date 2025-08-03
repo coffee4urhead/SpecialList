@@ -8,6 +8,7 @@ from JobJab.dashboard.views.info_views.core import CoreInfoView
 from JobJab.dashboard.views.info_views.reviews import ReviewsInfoView
 from JobJab.dashboard.views.info_views.services import ServicesInfoView
 from JobJab.dashboard.views.info_views.subscriptions import SubscriptionsInfoView
+from JobJab.services.views import UnbanUserView
 
 urlpatterns = [
     path('', AdminDashboardView.as_view(), name='custom_admin_home'),
@@ -19,4 +20,5 @@ urlpatterns = [
     path('bookings-info/', BookingInfoView.as_view(), name='admin_bookings_info'),
     path('resolve-dispute/', ResolveDisputes.as_view(), name='admin_resolve_dispute'),
     path('resolve-dispute/<int:dispute_id>/<str:action>/', ResolveDisputes.as_view(), name='admin_resolved_dispute'),
+    path('unban-user/', UnbanUserView.as_view(), name='unban_user'),
 ]

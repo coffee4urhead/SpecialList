@@ -16,7 +16,7 @@
             {% endif %}
             <div id="profile-namings">
                 <h3>{{ viewed_account.get_full_name }}
-                    <button class="report-user" data-user-id="{{ user.id }}">
+                    <button class="report-user" data-user-id="{{ viewed_account.id }}">
                         <img class="icon-image" src="{% static 'images/report-icon.png' %}" alt="Report"/>
                     </button>
                 </h3>

@@ -61,7 +61,36 @@ function setupCommentModal(serviceId = null) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    // ... your existing comment button code remains unchanged
+    document.querySelectorAll('.comment-button').forEach(button => {
+        button.addEventListener('click', async () => {
+            const serviceId = button.dataset.serviceId;
+
+            try {
+                const response = await fetch(`/services/${serviceId}/comment/`, {
+                    method: 'GET',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                });
+
+                if (!response.ok) throw new Error('Failed to load comment modal');
+
+                const modalHTML = await response.text();
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = modalHTML;
+
+                const modalOverlay = tempDiv.querySelector('.modal-overlay');
+                if (modalOverlay) {
+                    modalOverlay.style.display = 'block';
+                    document.body.appendChild(modalOverlay);
+                    setupCommentModal(serviceId);  // make form interactive
+                }
+            } catch (err) {
+                console.error('Error loading comment modal:', err);
+            }
+        });
+    });
+
 
     document.querySelectorAll('#comments-section form, #leave-comment-form').forEach(form => {
         form.addEventListener('submit', async e => {
@@ -98,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (replyForm) replyForm.style.display = 'none';
                     }
 
-                    window.location.reload();  // reload instead of redirect_url
+                    window.location.reload();
                 } else {
                     console.error('Submission error:', data.errors);
                     alert('Error submitting comment: ' + (data.message || 'Unknown error'));

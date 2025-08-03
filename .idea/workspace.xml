@@ -5,31 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a6602c8c-3836-4310-91e0-bc55f682d51c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/JobJab/dashboard/views/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JobJab/dashboard/views/disputes.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JobJab/dashboard/views/graphs.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JobJab/dashboard/views/info_views/booking.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JobJab/dashboard/views/info_views/chats.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JobJab/dashboard/views/info_views/core.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JobJab/dashboard/views/info_views/reviews.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JobJab/dashboard/views/info_views/services.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JobJab/dashboard/views/info_views/subscriptions.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/admin-images/blacklist.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/admin-images/booking-icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/admin-images/info-page-icons/availability-stat.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/admin-images/info-page-icons/bookings-stat.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/admin-images/info-page-icons/comment-stat.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/admin-images/info-page-icons/services-stat.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/admin-images/services-icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/admin-images/subscription.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/core/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JobJab/core/templates/template-components/profile-main-info-tab.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/template-components/profile-main-info-tab.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/dashboard/templates/admin-base.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/dashboard/templates/admin-base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/dashboard/templates/template-admin-components/admin-header-comp.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/dashboard/templates/template-admin-components/admin-header-comp.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/dashboard/templates/template-admin-components/admin_booking_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/dashboard/templates/template-admin-components/admin_booking_info.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/dashboard/templates/template-admin-components/admin_services_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/dashboard/templates/template-admin-components/admin_services_info.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/core/views/payments.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/views/payments.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/dashboard/templates/admin_home.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/dashboard/templates/admin_home.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JobJab/dashboard/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/dashboard/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/dashboard/views.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/dashboard/views/disputes.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/dashboard/views/disputes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/services/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/services/templates/services-display.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/templates/services-display.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/services/templates/user-flags.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/templates/user-flags.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/services/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js-scripts/report.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js-scripts/report.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js-scripts/services-scripts/handle-comment-modal.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js-scripts/services-scripts/handle-comment-modal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js-scripts/services-scripts/services-options-handler.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js-scripts/services-scripts/services-options-handler.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/services/expand-serv-to-comment-modal.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/expand-serv-to-comment-modal.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/services/expand-serv-to-comment-modal.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/expand-serv-to-comment-modal.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/services/expand-serv-to-comment-modal.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/expand-serv-to-comment-modal.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/services/extended-service-display-styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/extended-service-display-styles.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/services/user-flags-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/user-flags-styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/services/user-flags-styles.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/user-flags-styles.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/services/user-flags-styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/user-flags-styles.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -205,7 +201,8 @@
       <workItem from="1754039089435" duration="2721000" />
       <workItem from="1754045311159" duration="8435000" />
       <workItem from="1754148556977" duration="7298000" />
-      <workItem from="1754210809001" duration="2373000" />
+      <workItem from="1754210809001" duration="5548000" />
+      <workItem from="1754229137769" duration="11898000" />
     </task>
     <servers />
   </component>

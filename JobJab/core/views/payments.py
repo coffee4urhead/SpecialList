@@ -12,13 +12,11 @@ class UserPaymentsView(View):
     def get(self, request, username):
         user = get_object_or_404(CustomUser, username=username)
 
-        # Get all payment records
         subscription_payments = SubscriptionRecord.objects.filter(user=user).order_by('-created_at')
         booking_payments = Booking.objects.filter(seeker=user, payment_status='paid').order_by('-created_at')
 
         payment_details = []
 
-        # Process subscription payments
         for record in subscription_payments:
             data = {
                 'type': 'subscription',
@@ -44,7 +42,6 @@ class UserPaymentsView(View):
                     print(f"Error retrieving subscription invoice {record.stripe_invoice_id}: {e}")
             payment_details.append(data)
 
-        # Process booking payments
         for record in booking_payments:
             data = {
                 'type': 'booking',
@@ -55,12 +52,10 @@ class UserPaymentsView(View):
                 'date_paid': record.created_at,
                 'status': record.payment_status,
             }
-            print(record.stripe_invoice_id)
             if record.stripe_invoice_id:
                 try:
                     invoice = stripe.Invoice.retrieve(record.stripe_invoice_id)
-                    print(invoice.status)
-                    if invoice.status == 'paid':  # Only show URLs for paid invoices
+                    if invoice.status == 'paid':
                         data.update({
                             'receipt_url': invoice.hosted_invoice_url,
                             'pdf_url': invoice.invoice_pdf,

@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         item.className = 'liker-item';
                         item.innerHTML = `
                             <a href="/user/${user.username}">
-                                <img src="${user.profile_pic || '/static/images/default-user.png'}" alt="${user.full_name}">
+                                <img src="${user.profile_pic || '/static/images/avatar-default-photo.png'}" alt="${user.full_name}">
                             </a>
                             <div class="user-info">
                                 <strong>${user.full_name}</strong>
@@ -188,5 +188,68 @@ document.addEventListener('DOMContentLoaded', function () {
                     this.querySelector('.flag-count-number').textContent = data.flagged_count;
                 });
         });
+    });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const select = document.getElementById('service-to-delete');
+    const form = document.getElementById('delete-service-form');
+
+    if (select && form) {
+        form.action = select.value;
+
+        select.addEventListener('change', () => {
+            form.action = select.value;
+        });
+    }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('delete-service-form');
+    if (!form) {
+        console.warn('Delete service form not found');
+        return;
+    }
+
+    form.addEventListener('submit', function (e) {
+        console.log('Delete form submitted');
+        e.preventDefault();
+
+        const select = document.getElementById('service-to-delete');
+        if (!select) {
+            console.warn('Service select not found');
+            return;
+        }
+
+        const deleteUrl = select.value;
+        const csrftoken = getCookie('csrftoken');
+
+        fetch(deleteUrl, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': csrftoken,
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => {
+                console.log("Raw response status:", response.status);
+                return response.json();
+            })
+            .then(data => {
+                console.log("Got response:", data);
+                if (data.status === 'success') {
+                    if (data.redirect_url) {
+                        window.location.href = data.redirect_url;
+                    } else {
+                        showAlert('Service deleted successfully!', 'success');
+                    }
+                } else {
+                    showAlert('Failed to delete service', 'danger');
+                }
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+                showAlert('An error occurred.', 'danger');
+            });
     });
 });

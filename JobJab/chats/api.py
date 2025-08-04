@@ -1,3 +1,4 @@
+from django.db import models
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.contrib.auth import get_user_model
@@ -57,27 +58,29 @@ def get_conversation_messages(request):
             'sender_id': message.sender.id,
             'sender_username': message.sender.username,
             'timestamp': message.timestamp.isoformat(),
-            'image': message.image.url if message.image else None
+            'image': message.image.url if message.image else None,
+            'video': message.video.url if message.video else None,
+            'thumbnail': None
         }
         serialized_messages.append(serialized)
 
     return Response(serialized_messages)
 
 
+from django.db import models
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from django.contrib.auth import get_user_model
+from .models import Conversation, Message
+
+User = get_user_model()
+
 @api_view(['GET'])
-def get_conversation_images(request):
+def get_conversation_media(request):
     conversation_id = request.GET.get('conversation_id')
 
     if not conversation_id:
         return Response({'error': 'conversation_id parameter is required'}, status=400)
-
-    try:
-        conversation_id = int(str(conversation_id).rstrip('/'))
-    except (ValueError, TypeError):
-        return Response(
-            {'error': 'Invalid conversation_id format. Must be a number.'},
-            status=400
-        )
 
     try:
         conversation = Conversation.objects.get(
@@ -90,26 +93,42 @@ def get_conversation_images(request):
             status=404
         )
 
-    messages_with_images = Message.objects.filter(
-        conversation_id=conversation_id,
-        image__isnull=False
-    ).exclude(image='').order_by('-timestamp')
+    media_messages = Message.objects.filter(
+        conversation_id=conversation_id
+    ).exclude(
+        models.Q(image='') & models.Q(video='')
+    ).filter(
+        models.Q(image__isnull=False) | models.Q(video__isnull=False)
+    ).order_by('-timestamp')
 
-    images = []
-    for message in messages_with_images:
+    media = []
+    for message in media_messages:
         try:
             if message.image:
-                images.append({
+                media.append({
+                    'type': 'image',
                     'id': message.id,
-                    'image_url': message.image.url,
+                    'url': message.image.url,
                     'sender': message.sender.username,
                     'timestamp': message.timestamp.isoformat(),
-                    'caption': message.content
+                    'caption': message.content,
+                    'thumbnail': message.image.url
+                })
+            elif message.video:
+                thumbnail = message.thumbnail.url if hasattr(message, 'thumbnail') and message.thumbnail else None
+                media.append({
+                    'type': 'video',
+                    'id': message.id,
+                    'url': message.video.url,
+                    'sender': message.sender.username,
+                    'timestamp': message.timestamp.isoformat(),
+                    'caption': message.content,
+                    'thumbnail': thumbnail
                 })
         except ValueError:
             continue
 
-    return Response({'images': images})
+    return Response({'media': media})
 
 
 @api_view(['GET'])

@@ -67,7 +67,8 @@ class ExploreServicesView(LoginRequiredMixin, View):
         subscription = user.subscription_membership
         plan = subscription.plan if subscription else 'No plan'
         allowed_services = get_service_limit_for_plan(plan)
-        service_count = services.count()
+        user_services = ServiceListing.objects.filter(provider=user, is_active=True)
+        service_count = user_services.count()
         can_create_more = service_count < allowed_services
         context = {
             'form': ServiceListingForm(),

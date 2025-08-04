@@ -12,7 +12,16 @@ function getServiceIdFromUrl() {
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-    stripe = await loadStripe(STRIPE_PUBLIC_KEY);
+    const stripeKeyElement = document.getElementById('stripe-config');
+    const publishableKey = stripeKeyElement?.dataset?.publishableKey;
+
+    if (!publishableKey) {
+        console.error('Stripe public key not found');
+        return;
+    }
+
+    stripe = await loadStripe(publishableKey);
+
     if (!stripe) {
         console.error('Stripe.js failed to load properly');
         const script = document.createElement('script');

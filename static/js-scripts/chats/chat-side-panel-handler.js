@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/>
             </svg>
         </span>
-        <span class="toggle-text">Images Gallery</span>
+        <span class="toggle-text">Media Gallery</span>  
     `;
 
     const sidePanel = document.querySelector('.chat-side-panel-options');
@@ -38,36 +38,57 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (!response.ok) {
-                throw new Error('Failed to fetch images');
+                throw new Error('Failed to fetch media');
             }
 
             const data = await response.json();
-            renderMediaGallery(data.images);
+            renderMediaGallery(data.media);
         } catch (error) {
             console.error('Error loading media gallery:', error);
+            const galleryContainer = document.querySelector('.media-gallery .media-grid');
+            if (galleryContainer) {
+                galleryContainer.innerHTML = '<p>Error loading shared media. Please try again.</p>';
+            }
         }
     };
 
-    const renderMediaGallery = (images) => {
+    const renderMediaGallery = (mediaItems) => {
         const galleryContainer = document.querySelector('.media-gallery .media-grid');
+        if (!galleryContainer) return;
+
         galleryContainer.innerHTML = '';
 
-        if (images.length === 0) {
-            galleryContainer.innerHTML = '<p>No images shared yet</p>';
+        if (!mediaItems || mediaItems.length === 0) {
+            galleryContainer.innerHTML = '<p>No media shared yet</p>';
             return;
         }
 
-        images.forEach(image => {
-            const imgElement = document.createElement('div');
-            imgElement.className = 'media-item';
-            imgElement.innerHTML = `
-                <img src="${image.image_url}" alt="Shared media" loading="lazy">
-                <div class="media-meta">
-                    <span>From: ${image.sender}</span>
-                    <small>${new Date(image.timestamp).toLocaleString()}</small>
-                </div>
-            `;
-            galleryContainer.appendChild(imgElement);
+        mediaItems.forEach(item => {
+            const mediaElement = document.createElement('div');
+            mediaElement.className = 'media-item';
+
+            if (item.type === 'image') {
+                mediaElement.innerHTML = `
+                    <img src="${item.url}" alt="Shared image" loading="lazy">
+                    <div class="media-meta">
+                        <span>From: ${item.sender}</span>
+                        <small>${new Date(item.timestamp).toLocaleString()}</small>
+                    </div>
+                `;
+            } else if (item.type === 'video') {
+                mediaElement.innerHTML = `
+                    <video controls ${item.thumbnail ? `poster="${item.thumbnail}"` : ''}>
+                        <source src="${item.url}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="media-meta">
+                        <span>From: ${item.sender}</span>
+                        <small>${new Date(item.timestamp).toLocaleString()}</small>
+                    </div>
+                `;
+            }
+
+            galleryContainer.appendChild(mediaElement);
         });
     };
 
@@ -92,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 'Content-Type': 'application/json',
                 'X-CSRFToken': getCookie('csrftoken')
             },
-            body: JSON.stringify({ bubble_color: color, bubble_shape: shape }),
+            body: JSON.stringify({bubble_color: color, bubble_shape: shape}),
         });
 
         applyChatStyle(color, shape);

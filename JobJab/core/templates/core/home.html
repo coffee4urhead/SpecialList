@@ -66,7 +66,7 @@
 
     <article id="cards-container">
         {% load card_tags list_utils %}
-        {% card_component title='1. Basic Plan — “Starter”' subtitle_pricing='price: 9.99$/month' subscription_caption='Features Included in the plan: ' list_of_features="Offer 3 active services, Appear in standard search results, Receive and manage up to 5 bookings/month, Access to basic analytics"|to_list %}
+        {% card_component title='1. Basic Plan — “Starter”' subtitle_pricing='price: 9.99$/month' subscription_caption='Features Included in the plan: ' list_of_features="Offer 3 active services, Appear in standard search results, Access to basic analytics"|to_list %}
         {% card_component title='2. Professional Plan — “Growth”' subtitle_pricing='price: 29.99$/month' subscription_caption='Includes all Basic features, plus: ' list_of_features="Up to 10 active service listings, Priority placement in search results, Unlimited bookings, Full analytics dashboard"|to_list %}
         {% card_component title=' 3. Business Plan — “Elite”' subtitle_pricing='price: 79.99$/month' subscription_caption='Includes all Professional features, plus: ' list_of_features="Unlimited listings, Featured badge and homepage spotlight, Early access to new features, Become eligible for gold partner"|to_list %}
     </article>

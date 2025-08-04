@@ -75,7 +75,7 @@
         </div>
     </section>
 
-    <div class="weekly-timestamps">
+    <div class="weekly-timestamps" id="stripe-config" data-publishable-key="{{ STRIPE_PUBLIC_KEY }}">
         <h2>Service provider timetable & working/busy hours</h2>
         {% include 'partials/_availability_table.html' with slots_by_key=slots_by_key days=days time_ranges=time_ranges %}
     </div>
@@ -152,9 +152,6 @@
 
 {% include 'template-components/footer.html' %}
 
-<script>
-    const STRIPE_PUBLIC_KEY = "{{ STRIPE_PUBLIC_KEY }}";
-</script>
 <script type="module" src="{% static 'js-scripts/bookings/main-booking-functionalilty.js' %}"></script>
 <script src="{% static 'js-scripts/home-side-panel.js' %}"></script>
 <script type="module" src="{% static 'js-scripts/services-scripts/comments-extended-display-func.js' %}"></script>

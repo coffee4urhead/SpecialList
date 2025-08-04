@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Chat with {{ other_user.username }}</title>
     {% load static compress %}
     {% compress css %}
@@ -108,6 +109,14 @@
                     </svg>
                 </svg>
             </div>
+            <button id="emoji-btn" class="emoji-btn" title="Insert Emoji">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <circle cx="8" cy="10" r="1"></circle>
+                    <circle cx="16" cy="10" r="1"></circle>
+                    <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+                </svg>
+            </button>
             <input name='message-typed' type="text" id="message-input" placeholder="Type a message...">
             <button id="send-button">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -116,12 +125,16 @@
                     <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
                 </svg>
             </button>
+            <emoji-picker id="emoji-picker" class="hidden"></emoji-picker>
         </div>
     </div>
 </main>
 <script>
     const CONVERSATION_ID = "{{ conversation_with_user.id }}";
     const CURRENT_USER_ID = "{{ request.user.id }}";
+</script>
+<script type="module">
+    import 'https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js';
 </script>
 <script type="module" src="{% static 'js-scripts/chats/specific-convo-handler.js' %}"></script>
 <script type="module" src="{% static 'js-scripts/chats/chat-side-panel-handler.js' %}"></script>

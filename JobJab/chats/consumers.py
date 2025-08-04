@@ -128,6 +128,27 @@ class ChatConsumer(AsyncWebsocketConsumer):
                         'timestamp': str(message.timestamp)
                     }
                 )
+            elif data.get('video'):
+                video_data = data['video']
+                format, vidstr = video_data.split(';base64,')
+                ext = format.split('/')[-1]
+                video_name = f"{uuid.uuid4()}.{ext}"
+
+                message = await self.create_media_message(
+                    video=ContentFile(base64.b64decode(vidstr), name=video_name)
+                )
+
+                await self.channel_layer.group_send(
+                    self.room_group_name,
+                    {
+                        'type': 'video_message',
+                        'message_id': message.id,
+                        'sender_id': self.user.id,
+                        'video_url': message.video.url,
+                        'timestamp': str(message.timestamp),
+                        'thumbnail_url': data.get('thumbnail_url')
+                    }
+                )
 
     @database_sync_to_async
     def get_other_user(self, conversation, current_user_id):
@@ -150,6 +171,16 @@ class ChatConsumer(AsyncWebsocketConsumer):
             'online': status.online,
             'last_seen': str(status.last_seen) if status.last_seen else None,
         }
+
+    async def video_message(self, event):
+        await self.send(text_data=json.dumps({
+            'type': 'video_message',
+            'message_id': event['message_id'],
+            'sender_id': event['sender_id'],
+            'video_url': event['video_url'],
+            'timestamp': event['timestamp'],
+            'thumbnail_url': event.get('thumbnail_url')
+        }))
 
     async def chat_message(self, event):
         await self.send(text_data=json.dumps({

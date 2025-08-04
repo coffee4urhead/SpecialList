@@ -1,5 +1,4 @@
 from django.db import models
-from django.contrib.auth import get_user_model
 from django.utils import timezone
 
 from JobJab import settings
@@ -22,7 +21,7 @@ class Message(models.Model):
 
     image = models.ImageField(upload_to='chat_images/', null=True, blank=True)
     video = models.FileField(upload_to='chat_videos/', null=True, blank=True)
-
+    thumbnail = models.ImageField(upload_to='chat_thumbnails/', null=True, blank=True)
 
 class UserStatus(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

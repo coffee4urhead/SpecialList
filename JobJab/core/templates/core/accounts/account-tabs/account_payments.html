@@ -77,20 +77,6 @@
                                     <p><strong>Service:</strong> {{ payment.record.service.title }}</p>
                                 </div>
                             </div>
-
-                            <div class="receipt-buttons">
-                                {% if payment.receipt_url %}
-                                    <a href="{{ payment.receipt_url }}" target="_blank" rel="noopener noreferrer"
-                                       class="receipt-btn">
-                                        View Receipt Online
-                                    </a>
-                                {% endif %}
-                                {% if payment.pdf_url %}
-                                    <a href="{{ payment.pdf_url }}" download class="receipt-btn">
-                                        Download PDF Receipt
-                                    </a>
-                                {% endif %}
-                            </div>
                         </div>
                     {% endif %}
                 {% empty %}

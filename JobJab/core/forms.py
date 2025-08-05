@@ -7,7 +7,8 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from django.forms import ClearableFileInput, inlineformset_factory
 
-from JobJab.core.models import TIMEZONE_CHOICES, UserOrganization, CustomUser, Certificate, BlacklistItem, BlacklistReason
+from JobJab.core.models import TIMEZONE_CHOICES, UserOrganization, CustomUser, Certificate, BlacklistItem, \
+    BlacklistReason
 
 User = get_user_model()
 
@@ -184,11 +185,37 @@ class BlacklistItemForm(forms.ModelForm):
 
         self.fields['reason'].choices = BlacklistReason
 
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+
+        if self.reported_object:
+            instance.content_object = self.reported_object
+
+        if self.reporter:
+            instance.reporter = self.reporter
+
+        if commit:
+            instance.save()
+
+        return instance
+
+    def _post_clean(self):
+        if self.reported_object:
+            self.instance.content_object = self.reported_object
+
+        if self.reporter:
+            self.instance.reporter = self.reporter
+
+        super()._post_clean()
+
     def clean(self):
         cleaned_data = super().clean()
 
-        if self.reported_object and hasattr(self.reported_object, 'user'):
-            if self.reporter and self.reporter == self.reported_object.user:
+        if self.reported_object and self.reporter:
+            if self.reported_object == self.reporter:
+                raise forms.ValidationError("You cannot report your own content.")
+
+            if hasattr(self.reported_object, 'user') and self.reported_object.user == self.reporter:
                 raise forms.ValidationError("You cannot report your own content.")
 
         if len(cleaned_data.get('description', '').strip()) < 10:

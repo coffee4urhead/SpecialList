@@ -130,7 +130,7 @@ class Certificate(models.Model):
 
 
 class CustomUser(AbstractUser):
-    user_type = models.CharField(choices=UserChoices)
+    user_type = models.CharField(max_length=20, choices=UserChoices, default=UserChoices.SEEKER)
     email = models.EmailField(unique=True)
     bio = models.TextField(blank=True)
 

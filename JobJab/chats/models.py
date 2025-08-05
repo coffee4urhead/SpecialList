@@ -3,6 +3,7 @@ from django.utils import timezone
 
 from JobJab import settings
 
+
 class Conversation(models.Model):
     participants = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='conversations')
     created_at = models.DateTimeField(auto_now_add=True)
@@ -23,7 +24,11 @@ class Message(models.Model):
     video = models.FileField(upload_to='chat_videos/', null=True, blank=True)
     thumbnail = models.ImageField(upload_to='chat_thumbnails/', null=True, blank=True)
 
+
 class UserStatus(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     online = models.BooleanField(default=False)
     last_seen = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return f"{self.user.username} - {'Online' if self.online else 'Offline'}"

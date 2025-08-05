@@ -1,0 +1,62 @@
+<div class="edit-service-modal">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <h3>Edit Service</h3>
+        <form method="post" enctype="multipart/form-data" id="service-edit-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="{{ form.title.id_for_label }}">Service Title:</label>
+                {{ form.title }}
+                {{ form.title.errors }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.description.id_for_label }}">Description:</label>
+                {{ form.description }}
+                {{ form.description.errors }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.service_photo.id_for_label }}">Service Image:</label>
+                {{ form.service_photo }}
+                {{ form.service_photo.errors }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.category.id_for_label }}">Category:</label>
+                {{ form.category }}
+                {{ form.category.errors }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.price.id_for_label }}">Price:</label>
+                {{ form.price }}
+                {{ form.price.errors }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.duration_minutes.id_for_label }}">Duration (minutes):</label>
+                {{ form.duration_minutes }}
+                {{ form.duration_minutes.errors }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.location.id_for_label }}">Location:</label>
+                {{ form.location }}
+                {{ form.location.errors }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.is_active.id_for_label }}">Active:</label>
+                {{ form.is_active }}
+                {{ form.is_active.errors }}
+            </div>
+
+            {% if form.errors %}
+                <div class="form-errors">
+                    <ul>
+                        {% for error in form.non_field_errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            <button type="submit" name="edit_service" class="filled-web-btn">Update Service</button>
+            <button type="button" class="cancel-edit-btn emp-web-btn">Cancel</button>
+        </form>
+    </div>
+</div>

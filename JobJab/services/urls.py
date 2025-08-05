@@ -2,7 +2,7 @@ from django.urls import path
 from .views import (
     ExploreServicesView, LikeServiceView, FlagFavouriteView,
     GetServiceLikersView, DeleteServiceView, ExtendedServiceDisplayView,
-    ManageServiceSectionsView, CommentServiceView, ReportContent
+    ManageServiceSectionsView, CommentServiceView, ReportContent, EditServiceView
 )
 from ..booking.views import ServiceBookingView
 
@@ -17,5 +17,6 @@ urlpatterns = [
          name='extended_service_display'),
     path('service/<int:service_id>/manage/', ManageServiceSectionsView.as_view(), name='manage_service_sections'),
     path('delete/<int:pk>/', DeleteServiceView.as_view(), name='delete_service'),
+    path('<int:service_id>/edit/', EditServiceView.as_view(), name='edit_service'),
     path('report/', ReportContent.as_view(), name='report_content'),
 ]

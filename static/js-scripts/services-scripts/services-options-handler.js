@@ -205,6 +205,43 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
+    const serviceCreationForm = document.getElementById('service-creation-form');
+
+    if (serviceCreationForm) {
+        serviceCreationForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const csrftoken = getCookie('csrftoken');
+
+            fetch(this.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': csrftoken
+                }
+            })
+                .then(response => {
+                    if (response.redirected) {
+                        window.location.href = response.url;
+                    } else {
+                        return response.json();
+                    }
+                })
+                .then(data => {
+                    if (data && data.success) {
+                        window.location.reload();
+                    } else if (data && data.errors) {
+                        showAlert('Please fix the errors in the form', 'danger');
+                        console.error(data.errors);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showAlert('Failed to create service', 'danger');
+                });
+        });
+    }
+
     const form = document.getElementById('delete-service-form');
     if (!form) {
         console.warn('Delete service form not found');
@@ -252,4 +289,72 @@ document.addEventListener('DOMContentLoaded', () => {
                 showAlert('An error occurred.', 'danger');
             });
     });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const editButton = document.querySelector(".edit-btn");
+    const serviceSelect = document.querySelector("#service-to-edit");
+
+    editButton.addEventListener("click", function () {
+        const selectedServiceId = serviceSelect.value;
+
+        if (!selectedServiceId) {
+            alert("Please select a service to edit.");
+            return;
+        }
+
+        fetch(`/services/${selectedServiceId}/edit/`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.form_html) {
+                    showEditModal(data.form_html, selectedServiceId);
+                }
+            })
+            .catch(error => {
+                console.error("Error fetching edit form:", error);
+            });
+    });
+
+    function showEditModal(html, serviceId) {
+        const existingModal = document.querySelector(".edit-service-modal");
+        if (existingModal) existingModal.remove();
+
+        const wrapper = document.createElement("div");
+        wrapper.innerHTML = html;
+        document.body.appendChild(wrapper);
+
+        wrapper.querySelector(".close-btn")?.addEventListener("click", () => wrapper.remove());
+        wrapper.querySelector(".cancel-edit-btn")?.addEventListener("click", () => wrapper.remove());
+
+        wrapper.addEventListener("click", function (e) {
+            const modalContent = wrapper.querySelector(".edit-service-modal .modal-content");
+            if (modalContent && !modalContent.contains(e.target)) {
+                wrapper.remove();
+            }
+        });
+        const form = wrapper.querySelector("#service-edit-form");
+        if (form) {
+            form.dataset.serviceId = serviceId;
+
+            form.addEventListener("submit", function (e) {
+                e.preventDefault();
+                const formData = new FormData(form);
+                const postUrl = `/services/${serviceId}/edit/`;
+
+                fetch(postUrl, {
+                    method: "POST",
+                    body: formData
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.success) {
+                            window.location.href = data.redirect_url;
+                        } else {
+                            showEditModal(data.form_html, serviceId);
+                        }
+                    })
+                    .catch(err => console.error("Form submit error:", err));
+            });
+        }
+    }
 });

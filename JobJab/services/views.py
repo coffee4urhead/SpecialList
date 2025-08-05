@@ -92,9 +92,14 @@ class ExploreServicesView(LoginRequiredMixin, View):
         subscription = user.subscription_membership
         plan = subscription.plan if subscription else 'No plan'
         allowed_services = get_service_limit_for_plan(plan)
-        service_count = ServiceListing.objects.filter(provider=user).count()
+        service_count = ServiceListing.objects.filter(provider=user, is_active=True).count()
 
         if service_count >= allowed_services:
+            if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                return JsonResponse({
+                    'success': False,
+                    'error': 'Service limit reached'
+                }, status=400)
             return redirect('explore_services')
 
         form = ServiceListingForm(request.POST, request.FILES)
@@ -103,13 +108,69 @@ class ExploreServicesView(LoginRequiredMixin, View):
             service.provider = user
             service.save()
 
+
             Notification.create_notification(
                 user=request.user,
                 title=f"Successfully created a service",
                 message="Welcome to our community! You can now start your business journey!",
                 notification_type=NotificationType.INFO
             )
+
+            if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                return JsonResponse({
+                    'success': True,
+                    'redirect_url': reverse('explore_services')
+                })
+            return redirect('explore_services')
+
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return JsonResponse({
+                'success': False,
+                'errors': form.errors.get_json_data()
+            }, status=400)
+
         return redirect('explore_services')
+
+
+class EditServiceView(LoginRequiredMixin, View):
+    def get(self, request, service_id):
+        service = get_object_or_404(ServiceListing, id=service_id, provider=request.user)
+        form = ServiceListingForm(instance=service)
+
+        form_html = render_to_string('partials/service_edit_form.html', {
+            'form': form,
+            'service_id': service_id
+        }, request=request)
+
+        return JsonResponse({
+            'form_html': form_html
+        })
+
+    def post(self, request, service_id):
+        service = get_object_or_404(ServiceListing, id=service_id, provider=request.user)
+        form = ServiceListingForm(request.POST, request.FILES, instance=service)
+
+        if form.is_valid():
+            try:
+                service = form.save(commit=False)
+                service.is_active = True
+                service.save()
+
+                return JsonResponse({
+                    'success': True,
+                    'redirect_url': reverse('explore_services'),
+                })
+            except Exception as e:
+                print(f"Error saving service {service_id}: {str(e)}")
+                return JsonResponse({
+                    'success': False,
+                    'error': 'Database error occurred'
+                }, status=500)
+        else:
+            return JsonResponse({
+                'success': False,
+                'errors': form.errors.get_json_data()
+            }, status=400)
 
 
 class LikeServiceView(LoginRequiredMixin, View):
@@ -174,7 +235,7 @@ class DeleteServiceView(LoginRequiredMixin, View):
             deleted_at=timezone.now()
         )
 
-        return JsonResponse({'status': 'success',  'redirect_url': reverse('explore_services')})
+        return JsonResponse({'status': 'success', 'redirect_url': reverse('explore_services')})
 
 
 class ExtendedServiceDisplayView(LoginRequiredMixin, View):

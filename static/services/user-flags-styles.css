@@ -335,13 +335,258 @@ div.pdf-preview-container div.not-found img {
   cursor: pointer;
 }
 
+div#service-options div.options div.edit-service select#service-to-edit {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1em;
+  font-style: normal;
+  width: 100%;
+  box-sizing: border-box;
+}
+div#service-options div.options div.edit-service select#service-to-edit:focus {
+  outline: none;
+  border-color: #32AE88;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
+}
+div#service-options div.options div.edit-service button.edit-btn {
+  min-width: auto;
+  min-height: auto;
+  padding: 10px 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 500;
+  font-size: 1.2em;
+  color: white;
+  text-decoration: none;
+  line-height: 1;
+  background-color: lightgreen;
+  border: 2px solid #4ee44e;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+div#service-options div.options div.edit-service button.edit-btn:hover {
+  background-color: #64e764;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+div#service-options div.options div.edit-service button.edit-btn:active {
+  transform: translateY(0);
+}
+div#service-options div.options div.delete-service select#service-to-delete {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1em;
+  font-style: normal;
+  width: 100%;
+  box-sizing: border-box;
+}
+div#service-options div.options div.delete-service select#service-to-delete:focus {
+  outline: none;
+  border-color: #32AE88;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
+}
+div#service-options div.options div.delete-service button.btn-danger {
+  min-width: auto;
+  min-height: auto;
+  padding: 10px 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 500;
+  font-size: 1.2em;
+  color: white;
+  text-decoration: none;
+  line-height: 1;
+  background-color: #ff4444;
+  border: 2px solid #f70000;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+div#service-options div.options div.delete-service button.btn-danger:hover {
+  background-color: #ff1111;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+div#service-options div.options div.delete-service button.btn-danger:active {
+  transform: translateY(0);
+}
+
 .dropdown.active .location-popup {
   display: block;
+}
+
+.edit-service-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+.edit-service-modal.active {
+  display: flex;
+}
+.edit-service-modal .modal-content {
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  margin: 20px auto;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+.edit-service-modal .modal-content h3 {
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1.8em;
+  font-style: normal;
+  margin-left: 20px;
+  padding: 13px;
+  margin-bottom: 20px;
+  color: #06BAC5;
+  text-align: center;
+}
+.edit-service-modal .modal-content .close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+  background: none;
+  border: none;
+}
+.edit-service-modal .modal-content .close-btn:hover {
+  color: #333;
+}
+.edit-service-modal .modal-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.edit-service-modal .modal-content form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.edit-service-modal .modal-content form .form-group label {
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1em;
+  font-style: 500;
+  color: #333;
+}
+.edit-service-modal .modal-content form .form-group input, .edit-service-modal .modal-content form .form-group select, .edit-service-modal .modal-content form .form-group textarea {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1em;
+  font-style: normal;
+}
+.edit-service-modal .modal-content form .form-group input:focus, .edit-service-modal .modal-content form .form-group select:focus, .edit-service-modal .modal-content form .form-group textarea:focus {
+  outline: none;
+  border-color: #32AE88;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
+}
+.edit-service-modal .modal-content form .form-group textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+.edit-service-modal .modal-content form .form-group .errorlist {
+  color: #ff4444;
+  margin-top: 5px;
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 0.9em;
+  font-style: normal;
+}
+.edit-service-modal .modal-content form .form-errors {
+  background-color: #ffeeee;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
+.edit-service-modal .modal-content form .form-errors ul {
+  margin: 0;
+  padding-left: 20px;
+}
+.edit-service-modal .modal-content form .form-errors li {
+  color: #ff4444;
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 0.9em;
+  font-style: normal;
+}
+.edit-service-modal .modal-content form .filled-web-btn, .edit-service-modal .modal-content form .emp-web-btn {
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1em;
+  font-style: 500;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+.edit-service-modal .modal-content form .filled-web-btn {
+  width: auto;
+  height: auto;
+  background-color: #ffffff;
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1.2em;
+  font-style: normal;
+  color: white;
+}
+.edit-service-modal .modal-content form .emp-web-btn {
+  width: auto;
+  height: auto;
+  background-color: white;
+  font-family: "Euclid Circular A", sans-serif;
+  font-weight: 400;
+  font-size: 1.2em;
+  font-style: normal;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+  margin-right: 10px;
+}
+.edit-service-modal .modal-content form .button-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
 }
 
 @media (min-width: 600px) {
   div.service-mini-cont {
     width: 50%;
+  }
+  .upload-service-modal .modal-content {
+    padding: 40px;
+  }
+  .upload-service-modal .modal-content form {
+    gap: 20px;
+  }
+  .upload-service-modal .modal-content form .form-group {
+    gap: 8px;
   }
 }
 section#flags-for-user {

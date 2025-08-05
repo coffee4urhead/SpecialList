@@ -199,7 +199,7 @@
             <div class="delete-service">
                 <h2>Delete Service</h2>
                 <select id="service-to-delete">
-                    {% for service in services %}
+                    {% for service in user_services %}
                         <option value="{% url 'delete_service' service.id %}">{{ service.title }}</option>
                     {% endfor %}
                 </select>
@@ -211,10 +211,12 @@
 
             <div class="edit-service">
                 <h2>Edit Service</h2>
-                <div class="content">
-                    <p>Edit service details and information</p>
-                    <button class="edit-btn">Edit</button>
-                </div>
+                <select id="service-to-edit">
+                    {% for service in user_services %}
+                        <option value="{{ service.id }}">{{ service.title }}</option>
+                    {% endfor %}
+                </select>
+                <button class="edit-btn">Edit</button>
             </div>
 
             <div class="create-another">
@@ -232,8 +234,8 @@
         <div class="modal-content">
             <span class="close-btn">&times;</span>
             <h3>Create New Service</h3>
-            <!-- Service Creation Form -->
-            <form method="post" enctype="multipart/form-data" id="service-creation-form">
+            <form method="post" enctype="multipart/form-data" id="service-creation-form"
+                  action="{% url 'explore_services' %}">
                 {% csrf_token %}
                 <div class="form-group">
                     <label for="{{ form.title.id_for_label }}">Service Title:</label>

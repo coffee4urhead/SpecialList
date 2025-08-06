@@ -191,6 +191,11 @@ main#manage-sections-container .editor-preview-container #live-preview .list-sec
     flex-direction: row;
     align-items: flex-start;
   }
+  main#manage-sections-container .editor-preview-container #live-preview .text-image-section {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+  }
   main#manage-sections-container .editor-preview-container .editor-panel, main#manage-sections-container .editor-preview-container .preview-panel {
     width: 48%;
   }

@@ -3,17 +3,15 @@
         <div id="social-info-holder">
             <div class="button-links">
                 {% if viewed_account == request.user %}
-                    <button class="filled-web-btn"><a href="{% url 'user_certificates' request.user.username %}">Certificates</a>
-                    </button>
-                    <button class="filled-web-btn"><a
-                            href="{% url 'user_payments' request.user.username %}">Payments</a></button>
+                    <a class="filled-web-btn"
+                       href="{% url 'user_certificates' request.user.username %}">Certificates</a>
+                    <a class='filled-web-btn' href="{% url 'user_payments' request.user.username %}">Payments</a>
                 {% else %}
-                    <button class="filled-web-btn"><a href="{% url 'user_certificates' viewed_account.username %}">Certificates</a>
-                    </button>
+                    <a class="filled-web-btn"
+                       href="{% url 'user_certificates' request.user.username %}">Certificates</a>
                 {% endif %}
             </div>
 
-            <p>You can also find me at: Social links icons (To be implemented)</p>
             <p>Personal phone number: {{ viewed_account.phone_number }}</p>
             <p>Email: {{ viewed_account.email }}</p>
 

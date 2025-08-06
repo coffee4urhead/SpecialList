@@ -81,7 +81,7 @@
       button.filled-web-btn {
         padding: 0 20px;
         text-align: center;
-        @include main-button($arg-width: 80%, $arg-height: 45px, $arg-bg-color: $additional_web_color, $txt-color: $main-web-color);
+        @include main-button($arg-width: 100%, $arg-height: 45px, $arg-bg-color: $additional_web_color, $txt-color: $main-web-color);
         border-radius: 8px;
         font-size: 1.1em;
         font-weight: 700;

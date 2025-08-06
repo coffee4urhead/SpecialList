@@ -9,20 +9,20 @@
     {% endif %}
 </div>
 <section id="filter-buttons">
-    <button class="filter-btn {% if current_filters.verified %}filled-web-btn{% else %}emp-web-btn{% endif %}"
+    <button class="filter-btn {% if current_filters.verified %}filled-web-btn-filter{% else %}emp-web-btn-filter{% endif %}"
             data-filter="verified"
             data-value="true">
         Show Verified
     </button>
 
-    <button class="filter-btn {% if current_filters.freelancers %}filled-web-btn{% else %}emp-web-btn{% endif %}"
+    <button class="filter-btn {% if current_filters.freelancers %}filled-web-btn-filter{% else %}emp-web-btn-filter{% endif %}"
             data-filter="freelancers"
             data-value="true">
         Show Freelancers
     </button>
 
     <div class="dropdown">
-        <button class="filter-btn dropdown-toggle {% if current_filters.price_range %}filled-web-btn{% else %}emp-web-btn{% endif %}"
+        <button class="filter-btn dropdown-toggle {% if current_filters.price_range %}filled-web-btn-filter{% else %}emp-web-btn-filter{% endif %}"
                 type="button"
                 id="priceRangeDropdown"
                 data-toggle="dropdown"
@@ -40,7 +40,7 @@
     </div>
 
     <div class="dropdown">
-        <button class="filter-btn popup-toggle {% if current_filters.location %}filled-web-btn{% else %}emp-web-btn{% endif %}"
+        <button class="filter-btn popup-toggle {% if current_filters.location %}filled-web-btn-filter{% else %}emp-web-btn-filter{% endif %}"
                 type="button"
                 id="locationPopup"
                 data-toggle="dropdown"
@@ -69,7 +69,7 @@
                 {% if current_filters.price_range %}
                     <input type="hidden" name="price_range" value="{{ current_filters.price_range }}">
                 {% endif %}
-                <button type="submit" class="filled-web-btn">Search</button>
+                <button type="submit" class="filled-web-btn-filter">Search</button>
             </form>
         </div>
     </div>

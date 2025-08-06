@@ -4,14 +4,14 @@ document.addEventListener('DOMContentLoaded', function () {
             const filterType = this.dataset.filter;
             const currentValue = this.dataset.value;
 
-            this.classList.toggle('filled-web-btn');
-            this.classList.toggle('emp-web-btn');
+            this.classList.toggle('filled-web-btn-filter');
+            this.classList.toggle('emp-web-btn-filter');
 
             this.style.fontFamily = 'inherit';
             this.style.lineHeight = 'normal';
 
             const url = new URL(window.location);
-            if (this.classList.contains('filled-web-btn')) {
+            if (this.classList.contains('filled-web-btn-filter')) {
                 url.searchParams.set(filterType, currentValue);
             } else {
                 url.searchParams.delete(filterType);
@@ -47,8 +47,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const activePriceRange = urlParams.get('price_range');
     if (activePriceRange) {
         const priceRangeBtn = document.querySelector('#priceRangeDropdown');
-        priceRangeBtn.classList.remove('emp-web-btn');
-        priceRangeBtn.classList.add('filled-web-btn');
+        priceRangeBtn.classList.remove('emp-web-btn-filter');
+        priceRangeBtn.classList.add('filled-web-btn-filter');
     }
 
     const locationForm = document.querySelector('.location-popup form');

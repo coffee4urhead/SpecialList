@@ -189,6 +189,14 @@ main#manage-sections-container {
       flex-direction: row;
       align-items: flex-start;
 
+      #live-preview {
+        .text-image-section {
+          display: flex;
+          flex-direction: row;
+          gap: 1rem;
+        }
+      }
+
       .editor-panel, .preview-panel {
         width: 48%;
       }

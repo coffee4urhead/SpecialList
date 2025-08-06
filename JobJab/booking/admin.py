@@ -66,7 +66,7 @@ class BookingAdmin(admin.ModelAdmin):
                 'amount_paid',
                 'stripe_payment_intent_id',
                 'stripe_customer_id',
-                'stripe_subscription_id'
+                'stripe_invoice_id'
             )
         }),
         ('Timestamps', {

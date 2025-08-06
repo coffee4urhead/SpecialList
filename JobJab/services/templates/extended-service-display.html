@@ -57,6 +57,14 @@
             </div>
         {% endfor %}
     {% endif %}
+
+    {% for notification in request.user.notifications.unread|slice:":3" %}
+        <div class="alert alert-info notification-item" data-notification-id="{{ notification.id }}">
+            <strong>{{ notification.title }}</strong>
+            <p>{{ notification.message }}</p>
+            <button onclick="markNotificationAsRead(this)">X</button>
+        </div>
+    {% endfor %}
 </div>
 
 <main id="extended-service-info-container">
@@ -143,7 +151,7 @@
 <article id="comments-section">
     <h2>User Feedback: </h2>
     {% include 'partials/comment-form.html' %}
-    {% for comment in service.comments.all %}
+    {% for comment in service.active_comments %}
         {% if not comment.parent %}
             {% include 'partials/single-comment.html' with comment=comment depth=3 %}
         {% endif %}
@@ -152,6 +160,22 @@
 
 {% include 'template-components/footer.html' %}
 
+<script>
+function markNotificationAsRead(button) {
+    const notificationDiv = button.parentElement;
+    const notificationId = notificationDiv.dataset.notificationId;
+
+    fetch(`/notifications/mark-as-read/${notificationId}/`, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': '{{ csrf_token }}',
+            'Content-Type': 'application/json'
+        }
+    }).then(() => {
+        notificationDiv.remove();
+    });
+}
+</script>
 <script type="module" src="{% static 'js-scripts/bookings/main-booking-functionalilty.js' %}"></script>
 <script src="{% static 'js-scripts/home-side-panel.js' %}"></script>
 <script type="module" src="{% static 'js-scripts/services-scripts/comments-extended-display-func.js' %}"></script>

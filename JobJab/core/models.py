@@ -19,6 +19,7 @@ from JobJab.settings import AUTH_USER_MODEL
 from JobJab.core.choices import UserChoices
 import pytz
 
+from JobJab.core.model_managers import UnreadNotificationManager
 from JobJab.subscriptions.models import Subscription
 
 TIMEZONE_CHOICES = [(tz, tz) for tz in pytz.all_timezones]
@@ -217,6 +218,8 @@ class Notification(models.Model):
     )
     is_read = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
+    objects = models.Manager()
+    unread = UnreadNotificationManager()
 
     class Meta:
         ordering = ['-created_at']
@@ -419,14 +422,15 @@ class BlacklistItem(models.Model):
 
         return None
 
-    def check_user_ban(self):
+    def check_user_ban(self, user=None):
         """Check if user should be banned based on previous reports"""
-        if isinstance(self.content_object, CustomUser):
-            user = self.content_object
-        elif hasattr(self.content_object, 'user'):
-            user = self.content_object.user
-        else:
-            return
+        if user is None:
+            if isinstance(self.content_object, CustomUser):
+                user = self.content_object
+            elif hasattr(self.content_object, 'user'):
+                user = self.content_object.user
+            else:
+                return False  # No user associated with this content
 
         approved_reports = BlacklistItem.objects.filter(
             content_type=ContentType.objects.get_for_model(user),
@@ -447,6 +451,8 @@ class BlacklistItem(models.Model):
             profile.banned_at = timezone.now()
             profile.banned_by = self.moderator
             profile.save()
+            return True
+        return False
 
 
 class UserBlacklistProfile(models.Model):

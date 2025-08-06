@@ -1,5 +1,7 @@
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ValidationError, PermissionDenied
+from django.http import JsonResponse
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views import View
 
@@ -10,7 +12,7 @@ from JobJab.reviews.models import WebsiteReview
 
 class HomeView(View):
     def get(self, request):
-        reviews = WebsiteReview.objects.all().order_by('-created_at')[:4]
+        reviews = WebsiteReview.objects.filter(is_active=True).order_by('-created_at')[:4]
         unread_count = 0
 
         if request.user.is_authenticated:
@@ -71,3 +73,9 @@ class NotificationView(View):
             'total_count': notifications.count(),
         }
         return render(request, self.template_name, context)
+
+class MarkNotificationAsReadView(LoginRequiredMixin, View):
+    def post(self, request, pk):
+        notification = get_object_or_404(Notification, pk=pk, user=request.user)
+        notification.mark_as_read()
+        return JsonResponse({'status': 'success'})

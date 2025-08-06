@@ -16,20 +16,18 @@ User = get_user_model()
 class CoreViewsTests(TestCase):
     def setUp(self):
         self.client = Client()
-        # Create test user
         self.user = User.objects.create_user(
             username='testuser',
             email='test@example.com',
             password='StrongPass123!'
         )
-        # Create some reviews
+
         for i in range(5):
             WebsiteReview.objects.create(
                 reviewer=self.user,
                 rating=4,
                 comment=f'Test review {i}'
             )
-        # Create notifications
         for i in range(3):
             Notification.objects.create(
                 user=self.user,
@@ -49,7 +47,6 @@ class CoreViewsTests(TestCase):
         response = self.client.get(reverse('home'))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['unread_count'], 3)
-        # Should get only latest 4 reviews
         self.assertEqual(len(response.context['reviews_from_user_to_the_website']), 4)
 
     def test_about_view_get_anonymous(self):
@@ -64,14 +61,13 @@ class CoreViewsTests(TestCase):
         response = self.client.get(reverse('about'))
         self.assertEqual(response.status_code, 200)
         self.assertIsInstance(response.context['website_review_form'], WebsiteReviewForm)
-        # The form should have reviewer set to user (if implemented in form)
         self.assertEqual(response.context['unread_count'], 3)
 
     def test_about_view_post_anonymous_redirects_to_login(self):
         response = self.client.post(reverse('about'), data={'rating': 5, 'comment': 'Great site!'})
 
-        login_url = reverse('login')  # '/user/login/'
-        about_url = reverse('about')  # '/about/'
+        login_url = reverse('login')
+        about_url = reverse('about')
 
         expected_redirect = f'{login_url}'
 
@@ -83,24 +79,21 @@ class CoreViewsTests(TestCase):
 
         form_data = {
             'rating': 5,
-            'main_caption': 'Great Site',  # Added this required field
+            'main_caption': 'Great Site',
             'comment': 'Excellent website!'
         }
         response = self.client.post(reverse('about'), data=form_data, follow=True)
         self.assertEqual(response.status_code, 200)
 
-        # Check that the review was created
         self.assertTrue(WebsiteReview.objects.filter(comment='Excellent website!').exists())
 
     def test_about_view_post_authenticated_invalid(self):
         self.client.login(username='testuser', password='StrongPass123!')
-        # missing required rating field (assuming rating is required)
         form_data = {
             'comment': 'No rating provided'
         }
         response = self.client.post(reverse('about'), data=form_data)
         self.assertEqual(response.status_code, 200)
-        # Form should have errors
         self.assertFalse(response.context['website_review_form'].is_valid())
 
     def test_privacy_policy_view(self):
@@ -113,7 +106,7 @@ class CoreViewsTests(TestCase):
         response = self.client.get(reverse('notifications', kwargs={'username': self.user.username}))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['account'], self.user)
-        self.assertEqual(response.context['unread_count'], 0)  # because unread marked as read
+        self.assertEqual(response.context['unread_count'], 0)
         self.assertEqual(response.context['total_count'], 3)
         self.assertTemplateUsed(response, 'core/notification-page.html')
 

@@ -26,7 +26,7 @@ class AccountView(LoginRequiredMixin, View):
             'form': form,
             'organization_formset': formset,
             'flagged_services': viewed_account.services_favorites.all(),
-            'reviews_given': UserReview.objects.filter(reviewee=viewed_account),
+            'reviews_given': UserReview.objects.filter(reviewee=viewed_account, is_active=True),
             'unread_count': unread_count,
         }
         return render(request, 'core/accounts/my_account.html', context)
@@ -52,7 +52,7 @@ class AccountView(LoginRequiredMixin, View):
             'form': form,
             'organization_formset': formset,
             'flagged_services': viewed_account.services_favorites.all(),
-            'reviews_given': UserReview.objects.filter(reviewee=viewed_account),
+            'reviews_given': UserReview.objects.filter(reviewee=viewed_account, is_active=True),
         }
         return render(request, 'core/accounts/my_account.html', context)
 

@@ -61,7 +61,7 @@
                             </span>
                         </td>
                         <td>
-                            <button class="btn-view" onclick="viewDispute({{ dispute.id }})">See admin</button>
+                            <button class="btn-view" data-dispute-id="{{ dispute.id }}">See admin</button>
                             <button class="btn-view"
                                     onclick="window.open('{{ dispute.get_content_url }}', '_blank')">
                                 See in website
@@ -179,9 +179,13 @@
                 });
         }
 
-        function viewDispute(disputeId) {
-            window.location.href = `/admin/core/blacklistitem/${disputeId}/change/`;
-        }
+        document.addEventListener('click', function (e) {
+            const btn = e.target.closest('.btn-view[data-dispute-id]');
+            if (btn) {
+                const disputeId = btn.dataset.disputeId;
+                window.location.href = `/admin/core/blacklistitem/${disputeId}/change/`;
+            }
+        });
 
         function resolveDispute(disputeId, action) {
             fetch(`/dashboard/resolve-dispute/${disputeId}/${action}/`, {

@@ -35,6 +35,11 @@ class ExploreServicesView(LoginRequiredMixin, View):
         user = request.user
         services = ServiceListing.objects.filter(is_active=True)
 
+        unread_count = 0
+
+        if request.user.is_authenticated:
+            unread_count = Notification.objects.filter(user=request.user, is_read=False).count()
+
         show_verified = request.GET.get('verified') == 'true'
         show_freelancers = request.GET.get('freelancers') == 'true'
         price_range = request.GET.get('price_range')
@@ -84,6 +89,7 @@ class ExploreServicesView(LoginRequiredMixin, View):
                 'price_range': price_range,
                 'location': location_filter,
             },
+            'unread_count': unread_count
         }
         return render(request, self.template_name, context)
 
@@ -107,7 +113,6 @@ class ExploreServicesView(LoginRequiredMixin, View):
             service = form.save(commit=False)
             service.provider = user
             service.save()
-
 
             Notification.create_notification(
                 user=request.user,
@@ -184,6 +189,13 @@ class LikeServiceView(LoginRequiredMixin, View):
             service.likes.add(user)
             liked = True
 
+            Notification.create_notification(
+                user=service.provider,
+                title="Your service received a like!",
+                message=f"{user.username} liked your service: {service.title}",
+                notification_type=NotificationType.INFO
+            )
+
         return JsonResponse({'liked': liked, 'like_count': service.likes.count()})
 
 
@@ -197,6 +209,12 @@ class FlagFavouriteView(LoginRequiredMixin, View):
         else:
             service.favorite_flagged.add(user)
             flagged = True
+            Notification.create_notification(
+                user=service.provider,
+                title="Your service was favorited!",
+                message=f"{user.username} added your service to favorites: {service.title}",
+                notification_type=NotificationType.INFO
+            )
 
         return JsonResponse({'flagged': flagged, 'flagged_count': service.favorite_flagged.count()})
 
@@ -240,7 +258,14 @@ class DeleteServiceView(LoginRequiredMixin, View):
 
 class ExtendedServiceDisplayView(LoginRequiredMixin, View):
     def get(self, request, service_id):
-        service = get_object_or_404(ServiceListing.objects.prefetch_related('comments'), id=service_id)
+        service = get_object_or_404(
+            ServiceListing.objects.prefetch_related(
+                Prefetch('comments',
+                         queryset=Comment.objects.filter(is_active=True),
+                         to_attr='active_comments')
+            ),
+            id=service_id
+        )
         availability = ProviderAvailability.objects.filter(provider=service.provider).first()
         unread_count = 0
 
@@ -365,11 +390,19 @@ class CommentServiceView(LoginRequiredMixin, View):
             if parent_id:
                 try:
                     comment.parent = Comment.objects.get(id=parent_id)
+
                 except Comment.DoesNotExist:
                     pass
 
             comment.save()
             service.comments.add(comment)
+
+            Notification.create_notification(
+                user=service.provider,
+                title="New comment on your service",
+                message=f"{request.user.username} commented on your service: {service.title}",
+                notification_type=NotificationType.INFO
+            )
 
             if request.headers.get('x-requested-with') == 'XMLHttpRequest':
                 comment_html = render_to_string(
@@ -467,10 +500,14 @@ class ReportContent(LoginRequiredMixin, View):
                     content_object.is_active = False
                     content_object.save()
 
+            user_to_check = None
             if hasattr(content_object, 'user'):
-                report.check_user_ban()
+                user_to_check = content_object.user
             elif hasattr(content_object, 'author'):
-                report.check_user_ban(content_object.author)
+                user_to_check = content_object.author
+
+            if user_to_check:
+                report.check_user_ban(user_to_check)
 
             Notification.create_notification(
                 user=request.user,

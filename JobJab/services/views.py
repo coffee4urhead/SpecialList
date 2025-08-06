@@ -89,7 +89,7 @@ class ExploreServicesView(LoginRequiredMixin, View):
                 'price_range': price_range,
                 'location': location_filter,
             },
-            'unread_count': unread_count
+            'unread_count': unread_count,
         }
         return render(request, self.template_name, context)
 

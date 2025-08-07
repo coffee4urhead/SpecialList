@@ -5,31 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a6602c8c-3836-4310-91e0-bc55f682d51c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/compiledsass/CACHE/css/output.1ffa77850a8a.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/compiledsass/CACHE/css/output.3ba22154dbe2.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/compiledsass/CACHE/css/output.888c50fcaf22.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/compiledsass/CACHE/css/output.9187a1564510.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/compiledsass/CACHE/css/output.9336378bdf8c.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/compiledsass/CACHE/css/output.a553d8103bc7.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/compiledsass/CACHE/css/output.acd9bd92011a.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/compiledsass/CACHE/css/output.c00e0af32de2.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/compiledsass/CACHE/css/output.db5f8cbf267e.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/compiledsass/CACHE/css/output.e9dd5414d9d0.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/core/templates/template-components/profile-side-info-tab.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/templates/template-components/profile-side-info-tab.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/services/templates/services-display.html" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/services/templates/services-display.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/profile-side-info-tab.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/profile-side-info-tab.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/profile-side-info-tab.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/profile-side-info-tab.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/profile-side-info-tab.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/profile-side-info-tab.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js-scripts/services-scripts/filter-services.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js-scripts/services-scripts/filter-services.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/services/expand-serv-to-comment-modal.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/expand-serv-to-comment-modal.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/services/expand-serv-to-comment-modal.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/expand-serv-to-comment-modal.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/services/expand-serv-to-comment-modal.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/expand-serv-to-comment-modal.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/services/manage-sections-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/manage-sections-styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/services/manage-sections-styles.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/manage-sections-styles.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/services/manage-sections-styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/manage-sections-styles.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/services/services_display_styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/services_display_styles.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/services/user-flags-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/user-flags-styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/core/choices.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/choices.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/core/views/auth.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/views/auth.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,110 +37,110 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "Django Server.JobJab.executor": "Debug",
-    "Django tests.Test: JobJab.booking.tests.test_forms.FormsTestCase.executor": "Run",
-    "Django tests.Test: JobJab.booking.tests.test_forms.FormsTestCase.test_booking_form_initialization_does_not_fail_without_service_field.executor": "Run",
-    "Django tests.Test: JobJab.booking.tests.test_forms.FormsTestCase.test_booking_form_initialization_with_provider_sets_service_queryset.executor": "Run",
-    "Django tests.Test: JobJab.booking.tests.test_models.BookingModelsTest.executor": "Run",
-    "Django tests.Test: JobJab.booking.tests.test_urls.BookingUrlsTests.executor": "Run",
-    "Django tests.Test: JobJab.booking.tests.test_views.ViewsTestCase.executor": "Run",
-    "Django tests.Test: JobJab.booking.tests.test_views.ViewsTestCase.test_booking_confirmation.executor": "Run",
-    "Django tests.Test: JobJab.booking.tests.test_views.ViewsTestCase.test_create_booking_post.executor": "Run",
-    "Django tests.Test: JobJab.booking.tests.test_views.ViewsTestCase.test_create_payment_intent.executor": "Run",
-    "Django tests.Test: JobJab.booking.tests.test_views.ViewsTestCase.test_download_invoice_success.executor": "Run",
-    "Django tests.Test: JobJab.booking.tests.test_views.ViewsTestCase.test_get_time_slots.executor": "Run",
-    "Django tests.Test: JobJab.booking.tests.test_views.ViewsTestCase.test_provider_schedule_api.executor": "Run",
-    "Django tests.Test: JobJab.booking.tests.test_views.ViewsTestCase.test_service_booking_view_context.executor": "Run",
-    "Django tests.Test: JobJab.booking.tests.test_views.ViewsTestCase.test_stripe_webhook_payment_intent_succeeded.executor": "Run",
-    "Django tests.Test: JobJab.booking.tests.test_views.ViewsTestCase.test_verify_payment.executor": "Run",
-    "Django tests.Test: JobJab.chats.tests.test_consumers.ChatConsumerTest.executor": "Run",
-    "Django tests.Test: JobJab.chats.tests.test_models.ConversationModelTest.executor": "Run",
-    "Django tests.Test: JobJab.chats.tests.test_urls.UrlsTest.executor": "Run",
-    "Django tests.Test: JobJab.chats.tests.test_views.ChatWithUserViewTest.executor": "Run",
-    "Django tests.Test: JobJab.chats.tests.test_views.ExploreConversationsViewTest.executor": "Run",
-    "Django tests.Test: JobJab.core.tests.test_forms.BlacklistItemFormTests.executor": "Run",
-    "Django tests.Test: JobJab.core.tests.test_forms.CertificateFormTests.executor": "Run",
-    "Django tests.Test: JobJab.core.tests.test_forms.CleanLoginFormTests.executor": "Run",
-    "Django tests.Test: JobJab.core.tests.test_forms.CleanUserCreationFormTests.executor": "Run",
-    "Django tests.Test: JobJab.core.tests.test_forms.ProfileEditFormTests.executor": "Run",
-    "Django tests.Test: JobJab.core.tests.test_models.BlacklistItemModelTest.executor": "Run",
-    "Django tests.Test: JobJab.core.tests.test_models.CertificateModelTest.executor": "Run",
-    "Django tests.Test: JobJab.core.tests.test_models.CustomUserModelTest.executor": "Run",
-    "Django tests.Test: JobJab.core.tests.test_models.NotificationModelTest.executor": "Run",
-    "Django tests.Test: JobJab.core.tests.test_models.OrganizationModelTest.executor": "Run",
-    "Django tests.Test: JobJab.core.tests.test_models.UserBlacklistProfileModelTest.executor": "Run",
-    "Django tests.Test: JobJab.core.tests.test_models.UserLocationModelTest.executor": "Run",
-    "Django tests.Test: JobJab.core.tests.test_models.UserOrganizationModelTest.executor": "Run",
-    "Django tests.Test: JobJab.core.tests.test_urls.TestCoreUrls.executor": "Run",
-    "Django tests.Test: JobJab.core.tests.views_tests.auth_views_tests.AuthViewTests.executor": "Run",
-    "Django tests.Test: JobJab.core.tests.views_tests.auth_views_tests.AuthViewTests.test_register_post_invalid.executor": "Run",
-    "Django tests.Test: JobJab.core.tests.views_tests.certificates_view_tests.CertificatesViewTests.executor": "Run",
-    "Django tests.Test: JobJab.core.tests.views_tests.certificates_view_tests.CertificatesViewTests.test_edit_certificate_post_invalid.executor": "Run",
-    "Django tests.Test: JobJab.core.tests.views_tests.certificates_view_tests.CertificatesViewTests.test_edit_certificate_post_valid.executor": "Run",
-    "Django tests.Test: JobJab.core.tests.views_tests.main_views_tests.CoreViewsTests.executor": "Run",
-    "Django tests.Test: JobJab.core.tests.views_tests.main_views_tests.CoreViewsTests.test_about_view_post_anonymous_redirects_to_login.executor": "Debug",
-    "Django tests.Test: JobJab.core.tests.views_tests.main_views_tests.CoreViewsTests.test_about_view_post_authenticated_invalid.executor": "Run",
-    "Django tests.Test: JobJab.core.tests.views_tests.main_views_tests.CoreViewsTests.test_about_view_post_authenticated_valid.executor": "Run",
-    "Django tests.Test: JobJab.core.tests.views_tests.test_account_view.AccountViewTests.executor": "Run",
-    "Django tests.Test: JobJab.core.tests.views_tests.test_account_view.AccountViewTests.test_post_account_view_owner_valid_forms.executor": "Run",
-    "Django tests.Test: JobJab.core.tests.views_tests.test_account_view.FollowersFollowingViewTests.executor": "Run",
-    "Django tests.Test: JobJab.core.tests.views_tests.test_account_view.FollowersFollowingViewTests.test_get_followers_following_view_ajax.executor": "Run",
-    "Django tests.Test: JobJab.core.tests.views_tests.test_account_view.FollowersFollowingViewTests.test_get_followers_following_view_html.executor": "Run",
-    "Django tests.Test: JobJab.core.tests.views_tests.test_account_view.UpdateFollowersViewTests.executor": "Run",
-    "Django tests.Test: JobJab.core.tests.views_tests.test_account_view.UpdateFollowersViewTests.test_post_follow_action.executor": "Run",
-    "Django tests.Test: JobJab.core.tests.views_tests.test_account_view.UpdateFollowersViewTests.test_post_invalid_request_type.executor": "Run",
-    "Django tests.Test: JobJab.core.tests.views_tests.test_locations_views.UpdateGeolocationViewTests.executor": "Run",
-    "Django tests.Test: JobJab.core.tests.views_tests.test_payments_views.UserPaymentsViewTests.executor": "Run",
-    "Django tests.Test: JobJab.core.tests.views_tests.test_payments_views.UserPaymentsViewTests.test_get_authenticated_user_viewing_other_user_payments.executor": "Run",
-    "Django tests.Test: JobJab.core.tests.views_tests.test_payments_views.UserPaymentsViewTests.test_get_authenticated_user_viewing_own_payments.executor": "Run",
-    "Django tests.Test: JobJab.core.tests.views_tests.test_payments_views.UserPaymentsViewTests.test_get_unauthenticated_user.executor": "Run",
-    "Django tests.Test: JobJab.reviews.tests.test_forms.ReviewFormTests.executor": "Run",
-    "Django tests.Test: JobJab.reviews.tests.test_forms.ReviewFormTests.test_website_review_form_widget_attributes.executor": "Run",
-    "Django tests.Test: JobJab.reviews.tests.test_models.ReviewModelTests.executor": "Run",
-    "Django tests.Test: JobJab.reviews.tests.test_urls.UserReviewURLTests.executor": "Run",
-    "Django tests.Test: JobJab.reviews.tests.test_urls.UserReviewURLTests.test_delete_review_url_resolves.executor": "Run",
-    "Django tests.Test: JobJab.reviews.tests.test_urls.UserReviewURLTests.test_leave_review_url_resolves.executor": "Run",
-    "Django tests.Test: JobJab.reviews.tests.test_views.UserReviewViewTests.executor": "Run",
-    "Django tests.Test: JobJab.reviews.tests.test_views.UserReviewViewTests.test_delete_review_view_post_wrong_user_redirects.executor": "Run",
-    "Django tests.Test: JobJab.services.tests.test_forms.AvailabilityFormTests.executor": "Run",
-    "Django tests.Test: JobJab.services.tests.test_forms.CommentFormTests.executor": "Run",
-    "Django tests.Test: JobJab.services.tests.test_forms.ServiceDetailSectionFormTests.executor": "Run",
-    "Django tests.Test: JobJab.services.tests.test_forms.ServiceListingFormTests.executor": "Run",
-    "Django tests.Test: JobJab.services.tests.test_models.AvailabilityModelTests.executor": "Run",
-    "Django tests.Test: JobJab.services.tests.test_models.CommentModelTests.executor": "Run",
-    "Django tests.Test: JobJab.services.tests.test_models.DeletedServiceModelTests.executor": "Run",
-    "Django tests.Test: JobJab.services.tests.test_models.ServiceDetailSectionModelTests.executor": "Run",
-    "Django tests.Test: JobJab.services.tests.test_models.ServiceListingModelTests.executor": "Run",
-    "Django tests.Test: JobJab.services.tests.test_urls.ServicesURLTests.executor": "Run",
-    "Django tests.Test: JobJab.services.tests.test_urls.ServicesURLTests.test_delete_service_url.executor": "Run",
-    "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.pycharm.django.structure.promotion.once.per.project": "true",
-    "database.data.extractors.current.export.id": "Comma-separated (CSV)_id",
-    "database.data.extractors.current.id": "Comma-separated (CSV)_id",
-    "git-widget-placeholder": "main",
-    "javascript.nodejs.core.library.configured.version": "20.16.0",
-    "javascript.nodejs.core.library.typings.version": "20.16.15",
-    "last_opened_file_path": "C:/Users/dark1/Desktop/Python/JobJab",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "watcher.settings",
-    "ts.external.directory.path": "D:\\PyCharm 2024.3.2\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;Django Server.JobJab.executor&quot;: &quot;Debug&quot;,
+    &quot;Django tests.Test: JobJab.booking.tests.test_forms.FormsTestCase.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.booking.tests.test_forms.FormsTestCase.test_booking_form_initialization_does_not_fail_without_service_field.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.booking.tests.test_forms.FormsTestCase.test_booking_form_initialization_with_provider_sets_service_queryset.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.booking.tests.test_models.BookingModelsTest.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.booking.tests.test_urls.BookingUrlsTests.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.booking.tests.test_views.ViewsTestCase.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.booking.tests.test_views.ViewsTestCase.test_booking_confirmation.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.booking.tests.test_views.ViewsTestCase.test_create_booking_post.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.booking.tests.test_views.ViewsTestCase.test_create_payment_intent.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.booking.tests.test_views.ViewsTestCase.test_download_invoice_success.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.booking.tests.test_views.ViewsTestCase.test_get_time_slots.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.booking.tests.test_views.ViewsTestCase.test_provider_schedule_api.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.booking.tests.test_views.ViewsTestCase.test_service_booking_view_context.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.booking.tests.test_views.ViewsTestCase.test_stripe_webhook_payment_intent_succeeded.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.booking.tests.test_views.ViewsTestCase.test_verify_payment.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.chats.tests.test_consumers.ChatConsumerTest.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.chats.tests.test_models.ConversationModelTest.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.chats.tests.test_urls.UrlsTest.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.chats.tests.test_views.ChatWithUserViewTest.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.chats.tests.test_views.ExploreConversationsViewTest.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.core.tests.test_forms.BlacklistItemFormTests.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.core.tests.test_forms.CertificateFormTests.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.core.tests.test_forms.CleanLoginFormTests.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.core.tests.test_forms.CleanUserCreationFormTests.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.core.tests.test_forms.ProfileEditFormTests.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.core.tests.test_models.BlacklistItemModelTest.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.core.tests.test_models.CertificateModelTest.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.core.tests.test_models.CustomUserModelTest.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.core.tests.test_models.NotificationModelTest.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.core.tests.test_models.OrganizationModelTest.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.core.tests.test_models.UserBlacklistProfileModelTest.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.core.tests.test_models.UserLocationModelTest.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.core.tests.test_models.UserOrganizationModelTest.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.core.tests.test_urls.TestCoreUrls.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.core.tests.views_tests.auth_views_tests.AuthViewTests.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.core.tests.views_tests.auth_views_tests.AuthViewTests.test_register_post_invalid.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.core.tests.views_tests.certificates_view_tests.CertificatesViewTests.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.core.tests.views_tests.certificates_view_tests.CertificatesViewTests.test_edit_certificate_post_invalid.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.core.tests.views_tests.certificates_view_tests.CertificatesViewTests.test_edit_certificate_post_valid.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.core.tests.views_tests.main_views_tests.CoreViewsTests.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.core.tests.views_tests.main_views_tests.CoreViewsTests.test_about_view_post_anonymous_redirects_to_login.executor&quot;: &quot;Debug&quot;,
+    &quot;Django tests.Test: JobJab.core.tests.views_tests.main_views_tests.CoreViewsTests.test_about_view_post_authenticated_invalid.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.core.tests.views_tests.main_views_tests.CoreViewsTests.test_about_view_post_authenticated_valid.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.core.tests.views_tests.test_account_view.AccountViewTests.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.core.tests.views_tests.test_account_view.AccountViewTests.test_post_account_view_owner_valid_forms.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.core.tests.views_tests.test_account_view.FollowersFollowingViewTests.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.core.tests.views_tests.test_account_view.FollowersFollowingViewTests.test_get_followers_following_view_ajax.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.core.tests.views_tests.test_account_view.FollowersFollowingViewTests.test_get_followers_following_view_html.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.core.tests.views_tests.test_account_view.UpdateFollowersViewTests.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.core.tests.views_tests.test_account_view.UpdateFollowersViewTests.test_post_follow_action.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.core.tests.views_tests.test_account_view.UpdateFollowersViewTests.test_post_invalid_request_type.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.core.tests.views_tests.test_locations_views.UpdateGeolocationViewTests.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.core.tests.views_tests.test_payments_views.UserPaymentsViewTests.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.core.tests.views_tests.test_payments_views.UserPaymentsViewTests.test_get_authenticated_user_viewing_other_user_payments.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.core.tests.views_tests.test_payments_views.UserPaymentsViewTests.test_get_authenticated_user_viewing_own_payments.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.core.tests.views_tests.test_payments_views.UserPaymentsViewTests.test_get_unauthenticated_user.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.reviews.tests.test_forms.ReviewFormTests.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.reviews.tests.test_forms.ReviewFormTests.test_website_review_form_widget_attributes.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.reviews.tests.test_models.ReviewModelTests.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.reviews.tests.test_urls.UserReviewURLTests.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.reviews.tests.test_urls.UserReviewURLTests.test_delete_review_url_resolves.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.reviews.tests.test_urls.UserReviewURLTests.test_leave_review_url_resolves.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.reviews.tests.test_views.UserReviewViewTests.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.reviews.tests.test_views.UserReviewViewTests.test_delete_review_view_post_wrong_user_redirects.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.services.tests.test_forms.AvailabilityFormTests.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.services.tests.test_forms.CommentFormTests.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.services.tests.test_forms.ServiceDetailSectionFormTests.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.services.tests.test_forms.ServiceListingFormTests.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.services.tests.test_models.AvailabilityModelTests.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.services.tests.test_models.CommentModelTests.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.services.tests.test_models.DeletedServiceModelTests.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.services.tests.test_models.ServiceDetailSectionModelTests.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.services.tests.test_models.ServiceListingModelTests.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.services.tests.test_urls.ServicesURLTests.executor&quot;: &quot;Run&quot;,
+    &quot;Django tests.Test: JobJab.services.tests.test_urls.ServicesURLTests.test_delete_service_url.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.pycharm.django.structure.promotion.once.per.project&quot;: &quot;true&quot;,
+    &quot;database.data.extractors.current.export.id&quot;: &quot;Comma-separated (CSV)_id&quot;,
+    &quot;database.data.extractors.current.id&quot;: &quot;Comma-separated (CSV)_id&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;20.16.0&quot;,
+    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;20.16.15&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/dark1/Desktop/Python/JobJab&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;watcher.settings&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\PyCharm 2024.3.2\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "postgresql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\dark1\Desktop\Python\JobJab\JobJab" />
@@ -400,7 +378,8 @@
       <workItem from="1754229137769" duration="12133000" />
       <workItem from="1754314268987" duration="8349000" />
       <workItem from="1754398530790" duration="27094000" />
-      <workItem from="1754470350310" duration="12124000" />
+      <workItem from="1754470350310" duration="12249000" />
+      <workItem from="1754568231961" duration="1155000" />
     </task>
     <servers />
   </component>

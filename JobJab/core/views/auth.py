@@ -21,8 +21,8 @@ class RegisterView(View):
 
             Notification.create_notification(
                 user=user,
-                title="Welcome to JobJab!",
-                message="Thank you for registering with JobJab. We're excited to have you on board!",
+                title="Welcome to SpecialList!",
+                message="Thank you for registering with SpecialList. We're excited to have you on board!",
                 notification_type=NotificationType.INFO
             )
 

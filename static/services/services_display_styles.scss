@@ -553,7 +553,7 @@ div#service-options {
         @include main-button(
                 $arg-width: auto,
                 $arg-height: auto,
-                $arg-bg-color: $main-web-color,
+                $arg-bg-color: $secondary-web-color,
                 $txt-color: white,
         );
       }

@@ -11,7 +11,7 @@ section.logo-cont {
 section.logo-cont img {
   object-fit: contain;
   width: 20rem;
-  height: auto;
+  max-height: 20rem;
 }
 
 .carousel-wrapper {

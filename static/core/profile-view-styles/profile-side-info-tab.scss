@@ -62,6 +62,7 @@ article#profile-side-info-tab-cont {
             text-align: center;
             @include main-button($arg-width: 80%, $arg-height: 2rem, $arg-bg-color: $additional_web_color, $txt-color: $main-web-color);
             padding: 0;
+            line-height: 80%;
             margin: 0;
             border-radius: 8px;
             font-size: 1.3em;

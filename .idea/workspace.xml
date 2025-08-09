@@ -6,8 +6,23 @@
   <component name="ChangeListManager">
     <list default="true" id="a6602c8c-3836-4310-91e0-bc55f682d51c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/core/choices.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/choices.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JobJab/core/views/auth.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/views/auth.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JobJab/core/views/certificates.py" beforeDir="false" afterPath="$PROJECT_DIR$/JobJab/core/views/certificates.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/chats/chat-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/chats/chat-styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/chats/chat-styles.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/chats/chat-styles.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/chats/chat-styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/chats/chat-styles.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/core/homepage/partners-carousel.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/partners-carousel.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/core/homepage/partners-carousel.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/homepage/partners-carousel.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/profile-side-info-tab.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/profile-side-info-tab.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/profile-side-info-tab.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/profile-side-info-tab.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/core/profile-view-styles/profile-side-info-tab.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/core/profile-view-styles/profile-side-info-tab.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js-scripts/services-scripts/preview-service-changes.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js-scripts/services-scripts/preview-service-changes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/services/expand-serv-to-comment-modal.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/expand-serv-to-comment-modal.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/services/expand-serv-to-comment-modal.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/expand-serv-to-comment-modal.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/services/expand-serv-to-comment-modal.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/expand-serv-to-comment-modal.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/services/extended-service-display-styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/extended-service-display-styles.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/services/services_display_styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/services_display_styles.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/services/user-flags-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/user-flags-styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/services/user-flags-styles.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/services/user-flags-styles.css.map" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -379,7 +394,8 @@
       <workItem from="1754314268987" duration="8349000" />
       <workItem from="1754398530790" duration="27094000" />
       <workItem from="1754470350310" duration="12249000" />
-      <workItem from="1754568231961" duration="1155000" />
+      <workItem from="1754568231961" duration="1320000" />
+      <workItem from="1754720383111" duration="8422000" />
     </task>
     <servers />
   </component>

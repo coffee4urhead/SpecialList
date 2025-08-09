@@ -537,8 +537,6 @@ div.weekly-timestamps .availability-table td[data-slot-id]:hover {
   main#extended-service-info-container div.service-section.section-text_image .text-image-section .text-content {
     text-align: center;
     width: 60%;
-  }
-  main#extended-service-info-container div.service-section.section-text_image .text-image-section .text-content p {
     font-family: "Euclid Circular A", sans-serif;
     font-weight: 400;
     font-size: 1.5em;
@@ -550,8 +548,6 @@ div.weekly-timestamps .availability-table td[data-slot-id]:hover {
   }
   main#extended-service-info-container div.service-section.section-text_only .text-content {
     width: 100%;
-  }
-  main#extended-service-info-container div.service-section.section-text_only .text-content p {
     font-family: "Euclid Circular A", sans-serif;
     font-weight: 400;
     font-size: 1.5em;
@@ -592,7 +588,7 @@ div.weekly-timestamps .availability-table td[data-slot-id]:hover {
   background-color: #f5f5f5;
   flex-direction: column;
   border-radius: 8px;
-  overflow: clip;
+  overflow-y: visible;
   justify-content: space-evenly;
   align-items: flex-start;
   align-content: flex-start;

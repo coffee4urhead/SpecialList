@@ -563,11 +563,8 @@ div.weekly-timestamps {
           .text-content {
             text-align: center;
             width: 60%;
-
-            p {
-              @include def-web-text($pref-font-size: clamp(1em, 1.5em, 2em), $pref-font-st: normal);
-              color: black;
-            }
+            @include def-web-text($pref-font-size: clamp(1em, 1.5em, 2em), $pref-font-st: normal);
+            color: black;
           }
 
           img {
@@ -579,10 +576,7 @@ div.weekly-timestamps {
       &.section-text_only {
         .text-content {
           width: 100%;
-
-          p {
-            @include def-web-text($pref-font-size: 1.5em);
-          }
+          @include def-web-text($pref-font-size: 1.5em);
         }
       }
     }

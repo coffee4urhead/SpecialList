@@ -33,6 +33,7 @@ class UserCertificatesView(LoginRequiredMixin, View):
             cert.user = request.user
             cert.save()
 
+            print(cert)
             Notification.create_notification(
                 user=user,
                 title="Successful Certificate Upload",
@@ -41,6 +42,10 @@ class UserCertificatesView(LoginRequiredMixin, View):
             )
 
             return redirect('user_certificates', username=username)
+        else:
+            print(f"There were some errors!")
+            print(form.errors)
+
         certificates = Certificate.objects.filter(user=user)
         return render(request, 'core/accounts/account-tabs/account_certificates.html', {
             'user': user,

@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'JobJab.chats',
     'compressor',
     'pdf2image',
-    'django_cron',
     'channels',
     'django.contrib.postgres',
 ]
@@ -99,11 +98,11 @@ WSGI_APPLICATION = 'JobJab.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'JobJab',
-        'USER': 'postgres',
-        'PASSWORD': 'churchupey2611',
-        'HOST': '127.0.0.1',
-        'PORT': '5432'
+        'NAME': os.environ.get('DATABASE_NAME', 'JobJab'),
+        'USER': os.environ.get('DATABASE_USER', 'postgres'),
+        'PASSWORD': os.environ.get('DATABASE_PASSWORD', 'churchupey2611'),
+        'HOST': 'db' if os.environ.get('DOCKER_CONTAINER') == 'True' else os.environ.get('DATABASE_HOST', 'localhost'),
+        'PORT': os.environ.get('DATABASE_PORT', '5432')
     }
 }
 
